@@ -1,0 +1,34 @@
+<div class="e2e-notification notification-item">
+  <div class="notification-item-header">
+    <div class="notification-item-header-icon">
+
+      <div class="notification-image-container" [ngSwitch]="messageItem.type">
+        <img *ngSwitchCase="notificationType.Warning" class="notification-item-icon" src="/img/svg/alert-icons/warning.svg" />
+        <img *ngSwitchCase="notificationType.Success" class="notification-item-icon" src="/img/svg/alert-icons/success.svg" />
+        <img *ngSwitchCase="notificationType.Error" class="notification-item-icon" src="/img/svg/alert-icons/error.svg" />
+        <img *ngSwitchCase="notificationType.Info" class="notification-item-icon" src="/img/svg/alert-icons/information.svg" />
+        <img *ngSwitchCase="notificationType.Process" class="notification-item-icon" src="/img/svg/browser-loader.svg" />
+      </div>
+
+      <!--<span>{{messageItem.header}}</span>-->
+      <a href="#">{{messageItem.header}}</a>
+    </div>
+    <button *ngIf="showCloseButton" type="button" data-dismiss="modal" aria-label="Close" matTooltip="Remove&nbsp;Notification"
+      matTooltipPosition="left" (click)="onCloseMessage()">
+      <span aria-hidden="true">
+        <img src="img/svg/material/ic_close_black_24px.svg" alt="">
+      </span>
+    </button>
+    <div *ngIf="!showCloseButton">
+      <small *ngIf="messageItem.type != notificationType.Process" class="e2e-notification-time">{{messageItem.actionDate | date:'M/d/yy h:mm a'}}</small>
+      <small *ngIf="messageItem.type == notificationType.Process">running</small>
+    </div>
+  </div>
+  <div class="notification-item-body">
+    <p>
+      <small class="e2e-notification-title">
+        {{messageItem.message}}
+      </small>
+    </p>
+  </div>
+</div>

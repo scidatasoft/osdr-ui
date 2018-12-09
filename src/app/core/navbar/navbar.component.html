@@ -1,0 +1,56 @@
+<nav class="navbar navbar-toggleable-sm navbar-inverse e2e-test-stability">
+  <a class="navbar-brand" routerLink="home">
+    <img src="/img/svg/brand.svg" class="img-brand align-top" alt="OSDR" /> OPEN SCIENCE
+    <span class="data-repo">DATA REPOSITORY</span>
+    <span class="tm-text">Powered by Dataledger &trade;</span>
+  </a>
+  <a class="beta-link" routerLink="about">Beta</a>
+
+  <ul class="navbar-nav ml-auto">
+    <li *ngFor="let route of getRoutes()" routerLinkActive="active" class="nav-item e2e-nav-bar-links">
+      <a class="nav-link" [routerLink]="route.path">{{route.name}}</a>
+    </li>
+    <li *ngIf="!user" class="nav-item e2e-login-item">
+      <a class="nav-link" href="" (click)="login($event)">Login</a>
+    </li>
+
+    <li *ngIf="user && isNotificationVisible()" class="nav-item notification-item">
+      <a class="e2e-notification-panel-icon nav-link notification-icon" href="#" (click)="onShowNotificationsBar($event)">
+        <img src="/img/svg/material/ic_notifications_none_white_24px.svg" class="account-img" />
+        <span *ngIf="notificationService.getNotReadItemsCount() > 0" class="badge badge-default badge-pill notify-badge">{{notificationService.getNotReadItemsCount()}}</span>
+      </a>
+    </li>
+
+    <li *ngIf="user" class="nav-item img-user">
+      <a class="nav-link" (click)="onContextMenu($event)" href="#">
+        <img *ngIf="user?.profile?.picture" [src]="user?.profile?.picture" class="account-img" />
+        <img *ngIf="!user?.profile?.picture" src="img/svg/material/account.svg" class="account-img" />
+      </a>
+    </li>
+    <!--<li *ngIf="user" class="nav-item">-->
+    <!--<a (click)="logout($event)" class="nav-link">{{user?.profile?.name}}</a>-->
+    <!--</li>-->
+
+
+    <li *ngIf="user" class="nav-item dropdown">
+      <a (click)="onContextMenu($event)" class="nav-link dropdown-toggle e2e-profile-dropdown" href="#" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        {{user?.profile?.name}}
+      </a>
+      <!--<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
+      <!--<a class="dropdown-item e2e-profile-item" href="#" >Profile</a>-->
+      <!--<a (click)="logout($event)" class="dropdown-item e2e-logout-item">Logout</a>-->
+      <!--</div>-->
+    </li>
+
+  </ul>
+</nav>
+
+<context-menu #profileMenu>
+  <ng-template contextMenuItem [enabled]="false" class="e2e-profile-item">
+    Profile
+  </ng-template>
+  <ng-template contextMenuItem let-item (execute)="logout($event)" class="e2e-logout-item">
+    Logout
+  </ng-template>
+</context-menu>

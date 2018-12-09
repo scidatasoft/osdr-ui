@@ -1,0 +1,67 @@
+@import "_vars";
+$primary-color: darken($color-accent, 20%);
+$padding: .5rem;
+.close {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+}
+
+.main {
+  height: calc(100vh - 6.7rem);
+}
+
+.main.canClose {
+  padding-top: $nav-height;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  .content {
+    background: radial-gradient(ellipse at center, transparentize($bg-color, .1) 0%, transparentize($bg-color, .3) 100%);
+  }
+}
+
+.content {
+  padding: 0;
+  flex: 1;
+  background: transparent;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $padding;
+  h5 {
+    margin-bottom: 0;
+  }
+}
+
+.viewer-block-office {
+  flex: 1;
+}
+
+.viewer-block-img {
+  img{
+    height: calc(100vh - 6.7rem);
+    margin: auto;
+    display: block;
+    max-width: 100%;
+  }
+}
+
+.img-fluid {
+  max-height: 100%;
+}
+
+.office-viewer {
+  width: 100%;
+  min-height: 100%;
+  border: none;
+}
+
+// TODO change styles for safari

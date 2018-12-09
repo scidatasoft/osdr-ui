@@ -1,0 +1,8 @@
+#jmolApplet0_appletdiv{
+  border: none !important;
+}
+
+#appdiv > div {
+  height: 98vh !important;
+  width: 100% !important;
+}

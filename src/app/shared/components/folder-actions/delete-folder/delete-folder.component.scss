@@ -1,0 +1,28 @@
+:host {
+    position: relative;
+    display: block;
+  }
+  
+  .dialog-close {
+    position: absolute;
+    right: .3em;
+    width: 25px;
+    margin: -5px 0 0 0;
+    padding: 1px;
+    height: 25px;
+    top: 5px;
+    .material-icons {
+      position: absolute;
+      right: 2px;
+      font-size: 21px;
+      top: 1px;
+    }
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  h2 {
+    width: calc(100% - 3rem);
+    display: inline-flex;
+  }

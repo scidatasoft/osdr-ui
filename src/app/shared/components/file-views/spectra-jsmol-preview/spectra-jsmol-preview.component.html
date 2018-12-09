@@ -1,0 +1,3 @@
+<div *ngIf="fileItem && fileItem.status !== 'Failed'" class="viewer-block-spectra">
+  <iframe class="spectra-viewer e2e-spectra-preview" [src]="filePath" type="application/pdf"></iframe>
+</div>

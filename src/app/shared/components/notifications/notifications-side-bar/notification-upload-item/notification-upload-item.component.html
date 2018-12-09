@@ -1,0 +1,47 @@
+<div class="e2e-notification notification-item">
+  <div class="notification-item-header">
+    <div class="notification-item-header">
+
+      <div class="notification-image-container" [ngSwitch]="messageItem.type">
+        <img *ngSwitchCase="notificationType.Warning" class="notification-item-icon" src="/img/svg/alert-icons/warning.svg" />
+        <img *ngSwitchCase="notificationType.Success" class="notification-item-icon" src="/img/svg/alert-icons/success.svg" />
+        <img *ngSwitchCase="notificationType.Error" class="notification-item-icon" src="/img/svg/alert-icons/error.svg" />
+        <img *ngSwitchCase="notificationType.Info" class="notification-item-icon" src="/img/svg/alert-icons/information.svg" />
+        <img *ngSwitchCase="notificationType.Process" class="notification-item-icon" src="/img/svg/browser-loader.svg" />
+      </div>
+
+      <span>{{messageItem.header}}</span>
+    </div>
+    <button *ngIf="showCloseButton" type="button" data-dismiss="modal" aria-label="Close" matTooltip="Remove&nbsp;Notification"
+      matTooltipPosition="left" (click)="onCloseMessage()">
+      <span aria-hidden="true">
+        <img src="img/svg/material/ic_close_black_24px.svg" alt="">
+      </span>
+    </button>
+    <div *ngIf="!showCloseButton">
+      <small class="e2e-notification-time">{{messageItem.actionDate | date:'M/d/yy h:mm a'}}</small>
+    </div>
+  </div>
+
+  <div class="events-box-item">
+    <small class="e2e-upload-file-name" data-placement="top" [matTooltip]="messageItem.message">{{messageItem.message}}</small>
+
+    <div>
+      <!--<img *ngIf="inProgress" class="e2e-upload-progress upload-item-icon" src="img/svg/browser-loader.svg"/>-->
+      <!-- <img *ngIf="messageItem.finished" class="upload-item-icon" src="/img/svg/material/ic_done_black_24px.svg"/> -->
+      <!--<img *ngIf="messageItem.canceled" class="upload-item-icon" data-placement="top" matTooltip="Upload&nbsp;was&nbsp;canceled" src="/img/svg/material/ic_warning_black_24px.svg"/>-->
+      <!--<img *ngIf="messageItem.finishedWithError" class="upload-item-icon" data-placement="top" matTooltip="Error. Something went wrong." container="body" src="/img/svg/material/ic_error_outline_black_24px.svg"/>-->
+
+      <div class="btn-group">
+        <button *ngIf="inProgress" matTooltip="Cancel&nbsp;upload" container="body" (click)="cancelTask()" class="btn btn-secondary btn-fab e2e-upload-cancel">
+          <img class="upload-item-icon" src="/img/svg/material/ic_cancel_black_24px.svg">
+        </button>
+
+        <button *ngIf="messageItem.finishedWithError || messageItem.canceled" matTooltip="Restart&nbsp;upload" container="body" (click)="restartUpload()"
+          class="btn btn-secondary btn-fab e2e-upload-restart">
+          <img class="upload-item-icon" src="/img/svg/material/ic_refresh_black_24px.svg">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

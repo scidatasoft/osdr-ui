@@ -1,0 +1,11 @@
+<div *ngIf="fileItem && fileItem.status !== 'Failed' && viewType; else iframe">
+  <div>
+    <img *ngIf="fileItem.images" class="cif-viewer e2e-cif-preview-image" [src]="getImageURL(fileItem)">
+  </div>
+  <div class="default-thumbnail">
+    <img *ngIf="!fileItem.images"class="cif-viewer e2e-cif-preview-image" [src]="getImageURL(fileItem)">
+  </div>
+</div>
+<ng-template #iframe>
+  <iframe class="cif-viewer e2e-cif-preview-iframe" [src]="filePath" type="application/pdf"></iframe>
+</ng-template>

@@ -1,0 +1,21 @@
+.cif-viewer{
+  height: 300px;
+  width: 100%;
+  border: 0;
+}
+
+iframe.cif-viewer {
+  height: calc(100vh - 6.7rem);
+}
+
+.viewer-block-cif { 
+  height: 100%;
+}
+
+.default-thumbnail {
+  width: 55%;
+  margin: 0 auto;
+  cursor: zoom-in;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}

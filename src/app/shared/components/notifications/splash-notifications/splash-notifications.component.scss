@@ -1,0 +1,10 @@
+@import '_vars';
+
+.toast-notifications-wrapper {
+  position: fixed;
+  top: 6rem;
+  right: 1.2rem;
+  left: auto;
+  width: $left-organize-panel-width;
+  z-index: 1;
+}

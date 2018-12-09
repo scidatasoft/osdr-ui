@@ -1,0 +1,27 @@
+<div class="e2e-notification-toast toast-item">
+  <div class="toast-item-header">
+    <div class="toast-item-header toast-text">
+
+      <div class="toast-image-container" [ngSwitch]="messageItem.type">
+        <img *ngSwitchCase="notificationType.Warning" class="toast-item-icon" src="/img/svg/alert-icons/warning.svg" />
+        <img *ngSwitchCase="notificationType.Success" class="toast-item-icon" src="/img/svg/alert-icons/success.svg" />
+        <img *ngSwitchCase="notificationType.Error" class="toast-item-icon" src="/img/svg/alert-icons/error.svg" />
+        <img *ngSwitchCase="notificationType.Info" class="toast-item-icon" src="/img/svg/alert-icons/information.svg" />
+        <img *ngSwitchCase="notificationType.Process" class="toast-item-icon" src="/img/svg/browser-loader.svg" />
+      </div>
+
+      <div class="header-text toast-text">{{messageItem.header}}</div>
+    </div>
+    <button type="button" class="e2e-close-notification close" data-dismiss="modal" aria-label="Close" matTooltip="Remove&nbsp;Notification"
+      matTooltipPosition="left" (click)="onCloseToast()">
+      <span aria-hidden="true">
+        <img src="img/svg/material/ic_close_black_24px.svg" alt="">
+      </span>
+    </button>
+  </div>
+  <div class="notification-item-body">
+    <div class="toast-text">
+      <small class="e2e-notification-title">{{messageItem.message}}</small>
+    </div>
+  </div>
+</div>

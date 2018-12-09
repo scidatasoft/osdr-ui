@@ -1,0 +1,159 @@
+// Stepper
+@import "_vars";
+
+$primary-color: darken($color-accent, 20%);
+;
+
+$padding: .5rem;
+.main {
+  padding-top: $nav-height;
+  display: flex;
+  min-height: 100vh;
+}
+
+.content {
+  padding: $padding;
+  flex: 1;
+  background: radial-gradient(ellipse at center, transparentize($bg-color, .1) 0%, transparentize($bg-color, .3) 100%);
+  z-index: 0;
+}
+
+.stepper {
+  .nav-tabs {
+    position: relative;
+  }
+  .nav-tabs > li {
+    width: 25%;
+    position: relative;
+    display: flex;
+    &:after {
+      content: '';
+      position: absolute;
+      background: #f1f1f1;
+      display: block;
+      width: 100%;
+      height: 5px;
+      top: 43px;
+      left: 50%;
+      z-index: 1;
+    }
+    &.completed {
+      &::after {
+        background: $primary-color;
+      }
+    }
+    &:last-child {
+      &::after {
+        background: transparent;
+      }
+    }
+    &.active:last-child {
+      .round-tab {
+        background: $primary-color;
+        &::after {
+          content: '✔';
+          color: #fff;
+          position: absolute;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          top: 0;
+          display: block;
+        }
+      }
+    }
+  }
+  .nav-tabs [data-toggle='tab'] {
+    width: 50px;
+    height: 50px;
+    margin: 20px auto;
+    border-radius: 100%;
+    border: none;
+    padding: 0;
+    color: #f1f1f1;
+    z-index: 2;
+  }
+  .nav-tabs [data-toggle='tab']:hover {
+    background: transparent;
+    border: none;
+  }
+  .nav-tabs > .active > [data-toggle='tab'], .nav-tabs > .active > [data-toggle='tab']:hover, .nav-tabs > .active > [data-toggle='tab']:focus {
+    color: $primary-color;
+    cursor: default;
+    border: none;
+  }
+  .tab-pane {
+    position: relative;
+    padding-top: 50px;
+  }
+  .round-tab {
+    width: 50px;
+    height: 50px;
+    line-height: 48px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid $primary-color;
+    color: $primary-color;
+    text-align: center;
+    font-size: 14px;
+
+  }
+  .completed .round-tab {
+    background: $primary-color;
+    &::after {
+      content: '✔';
+      color: #fff;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      top: 20px;
+      display: block;
+    }
+  }
+  .active .round-tab {
+    background: #fff;
+    border: 2px solid $primary-color;
+    &:hover {
+      background: #fff;
+      border: 2px solid $primary-color;
+    }
+    &::after {
+      display: none;
+    }
+  }
+  .disabled .round-tab {
+    background: #fff;
+    color: #f1f1f1;
+    border-color: #f1f1f1;
+    &:hover {
+      color: #4dd3b6;
+      border: 2px solid #a6dfd3;
+    }
+    &::after {
+      display: none;
+    }
+  }
+  .nav > li.disabled > a:focus, .nav > li.disabled > a:hover {
+    color: #777;
+    text-decoration: none;
+    cursor: not-allowed;
+    background-color: transparent;
+  }
+}
+
+input.ng-invalid {
+  border: 1px solid red;
+} 
+
+select.ng-invalid {
+  border: 1px solid red;
+}
+
+.browser-stepper {
+  position: relative;
+  & .browser-loader {
+    margin-left: 0;
+  }
+}

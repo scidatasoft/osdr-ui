@@ -1,0 +1,107 @@
+@import "_vars";
+.move-item {
+  white-space: nowrap;
+  font-size: 1rem;
+  line-height: 2rem;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &.selected {
+    background: darken($bg-color, 10%);
+  }
+  &:hover {
+    cursor: pointer;
+    background: darken($bg-color, 5%);
+  }
+  &.disabled {
+    opacity: .3;
+    pointer-events: none;
+  }
+  .item-img {
+    height: 1.8rem;
+    display: block;
+  }
+  .move-item-text {
+    white-space: nowrap;
+    font-size: 1rem; //line-height: 2rem;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.move-item>div {
+  &:hover .forward-button {
+    opacity: 1;
+  }
+  .forward-button {
+    opacity: 0;
+    height: 1.8rem;
+    margin-top: -0.2rem;
+    background: #e6e5e5;
+    border: none;
+    svg {
+      height: 100%;
+      display: block;
+      stroke-width: .2rem;
+      stroke: black;
+    }
+  }
+}
+
+.modal-body {
+  max-height: 400px;
+  height: 400px;
+  overflow-y: auto;
+}
+
+.move-folder-no-items {
+  font-size: 1.5rem;
+  color: $color-accent-muted;
+  height: calc(100% - 3rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation-name: browser-no-items;
+  animation-duration: .5s;
+}
+
+.move-folder-loader {
+  height: 100px;
+  width: 100px;
+}
+
+:host {
+  position: relative;
+  display: block;
+}
+
+.dialog-close {
+  position: absolute;
+  right: .3em;
+  width: 25px;
+  margin: -5px 0 0 0;
+  padding: 1px;
+  height: 25px;
+  top: 5px;
+  .material-icons {
+    position: absolute;
+    right: 2px;
+    font-size: 21px;
+    top: 1px;
+  }
+}
+
+.create-folder-buttons {
+  margin-left: 10px;
+  display: inline-flex;
+}
+
+mat-form-field {
+  width: 250px;
+}
+
+h5  {
+  width: calc(100% - 3rem);
+  display: inline-flex;
+}

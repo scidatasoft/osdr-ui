@@ -1,0 +1,11 @@
+<div class="main">
+  <div class="content">
+
+    <div class="viewer-block-img">
+      <img #imagePreview (loadPreview)="onImagePreviewLoad()" *ngIf="getImageURL(fileItem) && fileItem.images[0].mimeType.endsWith('svg+xml')" class="e2e-image-full-preview" [src]="getImageURL(fileItem)" inline/>
+      <img #imagePreview *ngIf="getImageURL(fileItem) && fileItem.images && !fileItem.images[0].mimeType.endsWith('svg+xml')" class="e2e-image-full-preview" [src]="getImageURL(fileItem)"/>
+      <img #imagePreview *ngIf="getImageURL(fileItem) && !fileItem.images && !fileItem.images[0].mimeType.endsWith('svg+xml')" class="e2e-image-full-preview default-thumbnail" [src]="getImageURL(fileItem)"/>
+    </div>
+
+  </div>
+</div>

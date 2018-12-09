@@ -1,0 +1,53 @@
+﻿
+.truncate {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), $color-accent, rgba(0, 0, 0, 0));
+}
+
+hr.spear {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), $color-accent, rgba(0, 0, 0, 0));
+}
+
+
+.svg-icon {
+    width: 2rem;
+    height: 2rem;
+}
+
+.custom-scroll {
+    overflow: hidden;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+}
+
+/*description-horizontal*/
+@media (min-width: 768px) {
+    .dl-horizontal dt {
+        float: left;
+        width: 160px;
+        overflow: hidden;
+        clear: left;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@media (min-width: 768px) {
+    .dl-horizontal dd {
+        margin-left: 180px;
+    }
+}

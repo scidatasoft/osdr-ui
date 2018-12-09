@@ -1,0 +1,86 @@
+<div [ngClass]="{'e2e-folder-picker': isFolderPicker(), 'e2e-move-dialog': !isFolderPicker()}">
+  <div class="move-item-header">
+    <h5 mat-dialog-title>
+      <button mat-icon-button *ngIf="pathToRoot.count() > 0" [disabled]="moveFolderLoading" class="move-button e2e-go-up-button"
+        (click)="onMoveBack()">◄
+      </button>
+      <span class="ve">{{getRootItemName()}}</span>
+    </h5>
+    <button mat-icon-button mat-dialog-close class="dialog-close">
+      <i class="material-icons">
+        close
+      </i>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <div class="modal-body">
+
+      <div *ngIf="!data.items.length" class="move-folder-no-items">
+        <img *ngIf="moveFolderLoading" src="img/svg/browser-loader.svg" no-inline height="16" width="16" class="move-folder-loader"
+        />
+        <span *ngIf="!moveFolderLoading && !data.items.length">No items</span>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 move-item" *ngFor="let item of data.items" (click)="onItemClick($event,item)" (dblclick)="onItemDbClick($event, item)"
+          [ngClass]="{'selected': item == selectedFolder, 'disabled': isItemInMovedFolders(item)}">
+          <div class="row align-items-center">
+
+            <div class="col col-sm-auto">
+              <img class="item-img" src="{{getPreviewImg(item)}}" no-inline/>
+            </div>
+            <div *ngIf="item.isFolder()" class="col no-padding align-middle">
+              <div class="move-item-text">
+                <dr-string-trim [blockLength]="300" [trimmedText]="item"></dr-string-trim>
+              </div>
+            </div>
+            <div *ngIf="!item.isFolder()" class="col no-padding align-middle">
+              <div class="move-item-text">
+                <dr-string-trim [blockLength]="300" [trimmedText]="item"></dr-string-trim>
+              </div>
+            </div>
+            <div *ngIf="item.isFolder()" class="col col-sm-auto no-padding">
+              <button mat-icon-button (click)="onItemDbClick($event,item)">
+                <i class="material-icons">
+                  keyboard_arrow_right
+                </i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions *ngIf="!createFolderMode" dir="rtl">
+    <form role="form" [formGroup]="folderMoveFG" (ngSubmit)="onSubmit()">
+      <button mat-button cdkFocusInitial [disabled]="canMoveToFolder()" type="submit" color="primary" class="e2e-submit-form">{{submitButtonText}}
+      </button>
+
+      <button mat-button color="primary" (click)="onToggleCreateMode()" type="button" class="e2e-create-folder">Create new folder
+      </button>
+
+      <button mat-button color="primary" (click)="onHideDialog()" type="button" [hidden]="viewInit" class="e2e-close-dialog">Cancel
+      </button>
+    </form>
+  </mat-dialog-actions>
+  <mat-dialog-actions *ngIf="createFolderMode">
+    <form role="form" [formGroup]="folderCreateFG" (ngSubmit)="onSubmitCreateFolder()">
+      <mat-form-field class="e2e-create-folder">
+        <input matInput cdkFocusInitial name="Folder" placeholder="Enter new folder name" formControlName="folderName" class="e2e-folder-name">
+        <mat-hint align="start">Please enter new folder name</mat-hint>
+        <mat-error *ngFor="let validation of validationMessages">
+          <mat-error *ngIf="folderCreateFG.get('folderName').hasError(validation.type) &&
+                              (folderCreateFG.get('folderName').dirty ||
+                              folderCreateFG.get('folderName').touched)" class="error-message">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+      <div class="create-folder-buttons">
+        <button mat-button color="primary" (click)="onCancelCreateFolder()" type="button" data-dismiss="modal">Cancel</button>
+        <button mat-button color="primary" cdkFocusInitial [disabled]="!folderCreateFG.valid" type="submit" class="e2e-submit">Create</button>
+      </div>
+    </form>
+  </mat-dialog-actions>
+</div>

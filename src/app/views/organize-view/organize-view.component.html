@@ -1,0 +1,24 @@
+<context-menu #defaultContextMenu [disabled]="disabledMenu">
+  <ng-template *ngFor="let action of folderContextMenuManager.getItems(2)" contextMenuItem let-item [visible]="action.visible"
+    [enabled]="action.isEnabled(item)" [divider]="action.divider" (execute)="action.click($event.item)">
+    <img *ngIf="!action.divider && action.img" src="{{ action.img(item) }}"> {{ action.html(item) }}
+  </ng-template>
+</context-menu>
+
+<dr-sidebar-content *ngIf="!display">
+  <sidebar>
+    <dr-entity-counts></dr-entity-counts>
+  </sidebar>
+  <content [drFileDragDrop]="true" (fileDrop)="onFileDrop($event)" hoverClass="browser-drag-hover">
+    <dr-organize-toolbar [contextMenuActionsManager]="folderContextMenuManager" [drContextMenu]="defaultContextMenu" (toolbarExportEvent)="onToolBarExportClick($event)"
+      (toolbarEvent)="onToolBarButtonClick($event)" [activeButtons]="activeToolbarButtons" [currentView]="currentView"></dr-organize-toolbar>
+    <dr-organize-browser #browser (contextmenu)="onContextMenu($event, item)" [contextMenuActionsManager]="folderContextMenuManager"
+      [options]="getOptions()" usingFor="nodes-view"></dr-organize-browser>
+    <!-- </div> -->
+  </content>
+  <br/>
+</dr-sidebar-content>
+<dr-machine-learning-factory [componentData]="componentData" *ngIf="display"></dr-machine-learning-factory>
+<dr-notifications-side-bar></dr-notifications-side-bar>
+<dr-splash-notification></dr-splash-notification>
+<input class="e2e-upload-file" #fileUpload type="file" multiple style="display: none;" (change)="onFileChange($event)" />

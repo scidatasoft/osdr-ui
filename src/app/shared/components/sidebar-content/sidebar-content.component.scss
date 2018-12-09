@@ -1,0 +1,85 @@
+@import "_vars";
+$padding: .5rem;
+.main {
+  position: relative;
+  display: grid;
+  grid-template-columns: $left-organize-panel-width calc(100vw - #{$left-organize-panel-width});
+  grid-template-rows: calc(100vh - #{$nav-height});
+  height: 100%;
+  padding-top: $nav-height;
+  &.collapsed {
+    grid-template-columns: 2.5rem calc(100vw - 2.5rem);
+    .sidebar {
+      overflow-y: inherit;
+    }
+  }
+}
+
+.sidebar {
+  position: relative;
+  grid-column: 1;
+  box-shadow: .3rem 0 .5rem transparentize($bg-color-invert, .8);
+  background: $bg-color;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+sidebar {
+  display: block;
+  position: relative;
+  height: calc(100vh - 111px);
+}
+
+.content {
+  // padding: $padding;
+  grid-column: 2;
+  background: transparentize($bg-color, .2);
+  height: 100%;
+  display: block;
+  position: relative;
+}
+
+content {
+  height: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.collapse-toggle {
+  border-radius: 30px 0 0px 30px;
+  position: fixed;
+  bottom: 0;
+  left: 270px;
+  width: 50px;
+  overflow: hidden;
+  button {
+    transition: all .5s;
+    text-align: right;
+    width: 100%;
+    font-size: 1rem;
+    padding: 0;
+    padding-right: 35px;
+    height: 58px;
+    background: white;
+    margin-left: -10px;
+    &:hover {
+      padding-right: 40px;
+    }
+  }
+  svg {
+    height: 45px;
+    fill: darkgray;
+    margin-top: 5px;
+  }
+}
+
+.collapsed .collapse-toggle {
+  border-radius: 0;
+  background: transparent;
+  left: 0;
+  width: 40px;
+  button:hover {
+    padding-right: 30px;
+  }
+}

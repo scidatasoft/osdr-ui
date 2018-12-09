@@ -1,0 +1,25 @@
+<div class="info-box">
+  <div class="info-box-inner">
+    <div class="info-box-header" mat-ripple data-toggle="collapse" [attr.data-target]="id" (click)="toggleCollapse()" [attr.name]="title">
+      <img src="/img/file-src/{{icon}}" class="file-src-img" />
+      <h5>{{title}}</h5>
+      <button mat-button (click)="onEditClick($event)">Edit</button>
+      <img src="/img/svg/infobox-chevron.svg" class="info-box-chevron" />
+    </div>
+    <div id="{{id}}" class="collapse show collapse-body" #collapseContainer>
+      <ul class="list-group">
+        <li *ngFor="let item of data" class="list-group-item list-group-item-action">
+          <div drTextAutoWidth groupName="info-box" [maxWidth]="maxPropNameElWidth">
+            <span class="prop-name" [matTooltip]="item.Name || item.name" #itemEl [matTooltipDisabled]="disableTooltip(itemEl)">
+              {{ item.Name || item.name }}</span>
+          </div>
+          <div>
+            <span class="prop-value">
+              {{ item.Value || item.value }}
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

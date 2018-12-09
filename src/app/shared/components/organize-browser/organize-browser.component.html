@@ -1,0 +1,184 @@
+<context-menu [disabled]="isFileView" #myContextMenu>
+  <div *ngFor="let action of contextMenuActionsManager.getItems(1)">
+    <ng-template contextMenuItem let-item [subMenu]="action.subItems.length === 0 ? null : contextSubMenu" [visible]="action.visible"
+      [enabled]="action.isEnabled(item)" [divider]="action.divider" (execute)="action.click($event.item)">
+      <img *ngIf="!action.divider && action.img" src="{{ action.img(item) }}"> {{ action.html(item) }}
+    </ng-template>
+    <context-menu #contextSubMenu>
+      <ng-template *ngFor="let subItem of action.subItems" contextMenuItem let-item [visible]="subItem.visible" [enabled]="subItem.isEnabled(item)"
+        [divider]="action.divider" (execute)="subItem.click($event.item)">
+        {{ subItem.html(item) }}
+      </ng-template>
+    </context-menu>
+  </div>
+</context-menu>
+
+<div *ngIf="dataService.browserLoading" class="browser-loader">
+  <img src="img/svg/browser-loader.svg" no-inline height="16" width="16" />
+</div>
+<div *ngIf="!dataService.browserLoading && !dataService.data.items.length" class="browser-no-items">
+  <span>No items</span>
+</div>
+
+<div *ngIf="currentView == 'tile' && !dataService.browserLoading && dataService.data.items.length" class="tile-view animated fadeIn">
+  <div *ngFor="let item of dataService.data.items" [drFileDragDrop]="item.isFolder()" hoverClass="folder-drag-hover" class="tile"
+    [ngClass]="{'checked':dataService.isItemSelected(item), 'loading':item.loading}">
+
+    <div class="tile-inner" (dblclick)="onItemDblClick($event,item)" (click)="onItemClick($event,item)" (contextmenu)="onContextMenu($event, item)">
+
+      <a (click)="false" [href]="item.link" class="tile-img">
+        <!--<img [src]="getPreviewImg(item)" no-inline/>-->
+        <div class="img-block">
+          <div class="thumbnail" [ngClass]="{'no-file-preview':!item.hasPreview}" [ngStyle]="{'background-image': 'url(' + getPreviewImg(item) + ')' }"></div>
+          <img alt="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9ItCh0LvQvtC5XzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTUwIDE1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTUwIDE1MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjwvc3ZnPg=="
+            no-inline>
+        </div>
+        <div class="checked-overlay">
+          <img src="/img/svg/checked-round-3.svg" />
+        </div>
+        <div class="info-overlay text-right">
+          <dl>
+            <dt *ngIf="item.Created()">Created On</dt>
+            <dd *ngIf="item.Created()">{{item.Created() | date:'short'}}</dd>
+            <!--<dt *ngIf="item.ownedBy.displayName">Owner</dt>-->
+            <!--<dd *ngIf="item.ownedBy.displayName">{{item.ownedBy.displayName}}</dd>-->
+            <dt *ngIf="item.userInfo | async">Owner</dt>
+            <!-- matTooltip="Owner: {{userInfo?.displayName}}" matTooltipPosition="left" -->
+            <dd *ngIf="item.userInfo | async as userInfo">{{userInfo?.displayName}}</dd>
+            <dt *ngIf="item.totalRecords">Records</dt>
+            <dd *ngIf="item.totalRecords">{{item.totalRecords}}</dd>
+
+            <dt *ngIf="item.recordName | async as recordName">Records Index</dt>
+            <dd *ngIf="item.recordName | async as recordName">{{item.name}}</dd>
+
+            <dt *ngIf="item.recordName | async as recordName">File</dt>
+            <dd *ngIf="item.recordName | async as recordName">{{recordName}}</dd>
+          </dl>
+        </div>
+        <div class="status-icon error" matTooltip="{{item.errorMessage ? item.errorMessage : 'Error'}}">
+          <span *ngIf="item.status=='Failed'">
+            <img src="/img/svg/material/ic_error_black_18px.svg" markup-inline/>
+          </span>
+        </div>
+      </a>
+      <div class="status-panel">
+        <!-- <span *ngIf="item.status=='Failed'">
+          <img class="error" src="/img/svg/material/ic_error_black_18px.svg" markup-inline/>
+        </span> -->
+        <span *ngIf="item.accessPermissions?.isPublic">
+          <img class="link" src="/img/svg/material/ic_link_black_18px.svg" markup-inline/>
+        </span>
+      </div>
+      <div class="tile-footer">
+        <img *ngIf="item.loading" class="structure-loader" src="/img/svg/loaders/loader-flask.svg" no-inline/>
+        <img *ngIf="item.loading && dataService.isItemSelected(item)" class="structure-loader loader-white" src="/img/svg/loaders/loader-flask-white.svg"
+          no-inline/>
+
+        <span *ngIf="!item.recordName" class="tile-text" [matTooltip]="item.name" container="body">{{item.name}}</span>
+        <div *ngIf="item.recordName | async as recordName" class="tile-text-filter" [matTooltip]="recordName + ' / ' + item.name"
+          container="body">
+          <div class="tile-text-name">{{recordName}}</div>
+          <div class="tile-text-number">/ {{item.name}}</div>
+        </div>
+        <button *ngIf="(item.getNodeType() == nodeType.File || item.getNodeType() == nodeType.Folder || item.getNodeType() == nodeType.Model) && auth.user"
+          (click)="onContextMenu($event, item)" class="more-actions waves">
+          <img src="/img/svg/three-dots-v.svg" class="icon" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="currentView == 'table' && !dataService.browserLoading && dataService.data.items.length" class="table-view animated fadeIn">
+  <ul class="list-group table-title">
+    <li class="list-group-item">
+      <div style="width: 12%"></div>
+      <div style="width: 6%"></div>
+      <div style="width: 44%">Name</div>
+      <div style="width: 20%">Created On</div>
+      <div style="width: 10%">Owner</div>
+      <div style="width: 5%"></div>
+    </li>
+  </ul>
+  <div class="list-group">
+    <a *ngFor="let item of dataService.data.items" (dblclick)="onItemDblClick($event,item)" (click)="onItemClick($event,item)"
+      class="table-item" drFileDragDrop hoverClass="folder-drag-hover" [ngClass]="{'loading':item.loading, 'checked':dataService.isItemSelected(item)}"
+      (click)="false" [href]="item.link" (contextmenu)="onContextMenu($event, item)">
+      <div style="width: 12%">
+        <img class="item-img" [src]="getPreviewImg(item)" no-inline/>
+        <img *ngIf="item.status=='Failed'" class="error" src="/img/svg/material/ic_error_black_18px.svg" markup-inline/>
+        <img *ngIf="item.accessPermissions && item.accessPermissions.isPublic" class="link" src="/img/svg/material/ic_link_black_18px.svg"
+          markup-inline/>
+      </div>
+      <div style="width: 6%">
+        <img *ngIf="item.loading" class="structure-loader" src="/img/svg/loaders/loader-flask.svg" no-inline/>
+        <img *ngIf="item.loading && dataService.isItemSelected(item)" class="structure-loader loader-white" src="/img/svg/loaders/loader-flask-white.svg"
+          no-inline/>
+      </div>
+      <span *ngIf="!item.recordName" class="item-name" [matTooltip]="item.name" style="width: 44%">{{item.name}}</span>
+
+      <span *ngIf="item.recordName | async as recordName" class="item-name" [matTooltip]="recordName + '/' + item.name" style="width: 44%">{{recordName}} / {{item.name}}</span>
+
+      <span style="width: 20%">{{item.Created() | date:'short'}}</span>
+      <span style="width: 10%">{{(item.userInfo | async)?.displayName}}</span>
+      <div style="width: 5%">
+        <button *ngIf="item.getNodeType() == nodeType.File || item.getNodeType() == nodeType.Folder" (click)="onContextMenu($event, item)"
+          class="more-actions waves">
+          <img src="/img/svg/three-dots-v.svg" />
+        </button>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+
+<div *ngIf="!dataService.browserLoading && dataService.data.count > 0" class="pagination-container e2e-pagination">
+
+  <nav *ngIf="paginator.paging.pages.length>1" class="pagination-nav">
+    <ul class="pagination">
+      <div *ngIf="paginator.paging.pages[0]!=1" class="d-flex">
+        <li class="page-item page-number waves">
+          <a (click)="onPaginatorClick(1, paginator.paging.itemsPerPage)" class="page-link">1</a>
+        </li>
+        <span>...</span>
+      </div>
+
+      <li *ngFor="let page of paginator.paging.pages;" [ngClass]="{disabled:paginator.paging.current == page}" class="page-item page-number waves">
+        <a (click)="onPaginatorClick(page, paginator.paging.itemsPerPage)" class="page-link">{{page}}</a>
+      </li>
+
+      <div *ngIf="paginator.paging.pages[paginator.paging.pages.length-1]!=paginator.paging.pagesCount" class="d-flex">
+        <span>...</span>
+        <li class="page-item page-number waves">
+          <a (click)="onPaginatorClick(paginator.paging.pagesCount, paginator.paging.itemsPerPage)" class="page-link">{{paginator.paging.pagesCount}}</a>
+        </li>
+      </div>
+
+    </ul>
+  </nav>
+
+
+  <span class="pagination-text">
+    <!-- <b>{{data.items.length}}</b> items out of <b>{{paging.itemsCount}}</b> -->
+    <b>{{(paginator.paging.current-1)* paginator.paging.itemsPerPage + 1}} - {{(paginator.paging.current-1)* paginator.paging.itemsPerPage
+      + dataService.data.items.length}} </b> items out of
+    <b>{{paginator.paging.itemsCount}}</b>
+  </span>
+
+  <div class="page-size-div">
+    <div class="btn-group" dropdown [dropup]="true">
+      <button dropdownToggle type="button" class="btn btn-secondary dropdown-toggle">
+        {{paginator.paging.itemsPerPage}}
+        <span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li *ngFor="let i of [20,50,100]" role="menuitem">
+          <a (click)="onPaginatorClick(paginator.paging.current, i)" [ngClass]="{active:paginator.paging.itemsPerPage == i}" class="dropdown-item">{{i}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+</div>

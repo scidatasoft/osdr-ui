@@ -1,0 +1,305 @@
+{
+  "fingerprints": {
+    "fingerprintList": [{
+        "key": "ECFP",
+        "value": "Extended-Connectivity Fingerprints binary",
+        "parameters": ["radius", "size"],
+        "description": "Extented Connectivity FingerPrint",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "ECFC",
+        "value": "Extended-Connectivity Fingerprints counts",
+        "parameters": ["radius", "size"],
+        "description": "Extented Connectivity Fingerprint Count vector",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "ECFC_CHIRALITY",
+        "value": "Extended-Connectivity Fingerprints counts with Chirality",
+        "parameters": ["radius", "size"],
+        "description": "Extented Connectivity Fingerprint Count vector with Chirality (can be combined with a chirality flag)",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "FCFP",
+        "value": "Feature-Connectivity Fingerprints binary",
+        "parameters": ["radius", "size"],
+        "description": "Feature Connectivity FingerPrint",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "FCFC",
+        "value": "Feature-Connectivity Fingerprints counts",
+        "parameters": ["radius", "size"],
+        "description": "Feature Connectivity Fingerprint Count vector",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "FCFC_CHIRALITY",
+        "value": "Feature-Connectivity Fingerprints counts with Chirality",
+        "parameters": ["radius", "size"],
+        "description": "Feature Connectivity Fingerprint Count vector with Chirality (can be combined with a chirality flag)",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "ATOM_PAIRS",
+        "value": "Atom-pair Fingerprints",
+        "parameters": ["radius", "size"],
+        "description": "RDKit Hashed Atom Pairs count vector",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "MACCS",
+        "value": "MACCS keys",
+        "parameters": null,
+        "description": "166 public MACCS keys + 1 zero bit",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "PATTERN",
+        "value": "Pattern fingerprints",
+        "parameters": ["size"],
+        "description": "Experimental SMARTS patterns-based fingerprint",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "AVALON",
+        "value": "AVALON fingerprints",
+        "parameters": ["size"],
+        "description": "Avalon count FPs from Avalon cheminformatcis toolkit",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "RDK",
+        "value": "RDKit fingerprints",
+        "parameters": ["size"],
+        "description": "RDKit in-house subgraph-based count vector",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "LAYERED",
+        "value": "Layered fingerprints",
+        "parameters": ["size"],
+        "description": "Layered path-based-FP",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "EGR",
+        "value": "Extended reduced graph approach fingerprints",
+        "parameters": null,
+        "description": "Extended reduced graph approach(ErG) uses pharmacophore-type node descriptions",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "DESC",
+        "value": "RDKit descriptors",
+        "parameters": null,
+        "description": "ALL of the RDKit supported descriptors",
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "ENUM2CAN",
+        "value": "Enum2Can fingerprint",
+        "parameters": null,
+        "description": null,
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "CAN2CAN",
+        "value": "Can2Can fingerprint",
+        "parameters": null,
+        "description": null,
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "CAN2ENUM",
+        "value": "Can2Enum fingerprint",
+        "parameters": null,
+        "description": null,
+        "origin": [
+          "mlTrain", "fvcSDF"
+        ]
+      },
+      {
+        "key": "structural",
+        "value": "Structural descriptors",
+        "parameters": null,
+        "description": "crystal-wide properties (lattice parameters, their ratios, etc.)",
+        "origin": ["fvcCIF"]
+      },
+      {
+        "key": "physicochemical",
+        "value": "Physicochemical descriptors",
+        "parameters": null,
+        "description": "Atomic elemental properties (the Mendeleev group and period numbers, electron affinity, atomic mass, etc.)",
+        "origin": ["fvcCIF"]
+      },
+      {
+        "key": "universal",
+        "value": "Universal fragment descriptors",
+        "parameters": null,
+        "description": "Atomic subgraphs (the atomic chains and the first shells of nearest neighbour atoms) which are attributed to the corresponding structure",
+        "origin": ["fvcCIF"]
+      }
+    ],
+    "fingerprintRadiusList": [2, 3, 4],
+    "fingerprintSizeList": [128, 256, 512, 1024, 2048]
+  },
+  "featureSettings": {
+    "featuresCalculation": {
+      "maxFingerprints": {
+        "fvcSDF": 4,
+        "fvcCIF": 3,
+        "default": 4
+      }
+    },
+    "machineLearning": {
+      "maxFingerprints": {
+        "default": 4
+      },
+      "datasetParameters": {
+        "modelType": ["Classification", "Regression"],
+        "optimizationList": [{
+            "key": "default",
+            "name": "Without optimization"
+          },
+          {
+            "key": "parzen",
+            "name": "With optimization"
+          }
+        ],
+        "scaleList": [{
+          "value": "Standard",
+          "name": "Standard"
+        }, {
+          "value": "MinMax",
+          "name": "MinMax"
+        }, {
+          "value": "Robust",
+          "name": "Robust"
+        }, {
+          "value": null,
+          "name": "None"
+        }],
+        "methodsList": [{
+            "key": "naiveBayes",
+            "value": "Naive Bayes",
+            "enum": 1,
+            "type": "classification"
+          },
+          {
+            "key": "linearRegression",
+            "value": "Logistic Regression",
+            "enum": 2,
+            "type": "classification"
+          },
+          {
+            "key": "decisionTree",
+            "value": "AdaBoost Decision Tree",
+            "enum": 3,
+            "type": "classification"
+          },
+          {
+            "key": "randomForestClassifier",
+            "value": "Random Forest",
+            "enum": 4,
+            "type": "classification"
+          },
+          {
+            "key": "supportVectorMachineClassifier",
+            "value": "Support Vector Machine",
+            "enum": 5,
+            "type": "classification"
+          },
+          {
+            "key": "nearestNeighborsClassifier",
+            "value": "Nearest Neighbors",
+            "enum": 7,
+            "type": "classification"
+          },
+          {
+            "key": "extremeGradientBoostingClassifier",
+            "value": "Extreme Gradient Boosting",
+            "enum": 8,
+            "type": "classification"
+          },
+          {
+            "key": "nearestNeighborsRegressor",
+            "value": "Nearest Neighbors",
+            "enum": 9,
+            "type": "regression"
+          },
+          {
+            "key": "extremeGradientBoostingRegressor",
+            "value": "Extreme Gradient Boosting",
+            "enum": 10,
+            "type": "regression"
+          },
+          {
+            "key": "elasticNet",
+            "value": "Elastic Net",
+            "enum": 11,
+            "type": "regression"
+          },
+          {
+            "key": "deepNeuralNetworks",
+            "value": "Deep Neural Networks",
+            "enum": 12,
+            "type": "regression"
+          },
+          {
+            "key": "deepNeuralNetworks",
+            "value": "Deep Neural Networks",
+            "enum": 12,
+            "type": "classification"
+          },
+          {
+            "key": "supportVectorMachineRegressor",
+            "value": "Support Vector Machine",
+            "enum": 13,
+            "type": "regression"
+          }
+        ],
+        "dnnLayerList": [
+          1, 2, 3, 4
+        ],
+        "dnnNeuronList": [
+          32, 64, 128, 256, 512
+        ]
+      }
+    }
+  }
+}

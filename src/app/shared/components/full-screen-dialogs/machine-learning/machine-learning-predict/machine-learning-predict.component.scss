@@ -1,0 +1,117 @@
+@import 'vars';
+$padding: .5rem;
+.main {
+  position: relative;
+  display: grid; // grid-template-columns: $left-organize-panel-width calc(100vw - #{$left-organize-panel-width});
+  grid-template-rows: calc(100vh - #{$nav-height});
+  height: 100%;
+  padding-top: $nav-height;
+}
+
+.material-icons {
+  cursor: pointer;
+}
+
+.content {
+  background: $bg-color;
+  height: 100%;
+  display: block;
+  position: relative;
+  padding: 0 10px;
+  overflow-y: auto;
+  mat-form-field {
+    display: block;
+    .material-icons:hover {
+      color: #019999;
+    }
+  }
+}
+
+.file-buttons {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: right;
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: rgba(0, 0, 0, 0.5);
+  }
+  .action-buttons svg {
+    fill: $color-sidebar-icon;
+  }
+  .action-buttons.shared svg {
+    fill: #019999;
+  }
+  button,
+  a {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
+}
+
+content {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  max-width: 1000px;
+  overflow: hidden;
+  mat-form-field {
+    display: block;
+  }
+  .content-block {
+    padding-top: 25px;
+    padding-left: 25px;
+    table {
+      width: 100%;
+    }
+  }
+}
+
+h2 {
+  padding: 1rem 0;
+}
+
+.action-buttons {
+  padding: 24px 0;
+}
+
+.fingerprint-actions {
+  float: right;
+  cursor: pointer;
+}
+
+.fingerprints-section {
+  mat-form-field {
+    display: inline-block;
+    width: 250px;
+  }
+}
+
+.hpar-parameters {
+  mat-form-field {
+    display: inline-block;
+    width: 159px;
+  }
+}
+
+.dialog-close {
+  position: absolute;
+  right: .3em;
+  width: 25px;
+  margin: -5px 0 0 0;
+  padding: 1px;
+  height: 25px;
+  top: 5px;
+  .material-icons {
+    position: absolute;
+    right: 2px;
+    font-size: 21px;
+    top: 1px;
+  }
+}
+
+mat-form-field {
+  padding: 0.25rem;
+}

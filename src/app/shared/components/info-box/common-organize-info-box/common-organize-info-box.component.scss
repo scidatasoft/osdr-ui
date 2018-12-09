@@ -1,0 +1,35 @@
+.list-group-item {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; // flex-wrap: nowrap;
+    padding: 0 .5rem;
+    div {
+        &:first-child {
+            padding-right: .5rem;
+            text-align: right;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        &:last-child {
+            flex: 1;
+            overflow-wrap: break-word;
+            width: 0;
+        }
+    }
+}
+
+.info-box-header {
+    border-radius: 0.25rem;
+    position: relative;
+    button{
+      margin: -15px 0;
+      right: 60px;
+      top: 18px;
+      position: absolute;
+    }
+}
+
+.collapse-body{
+  padding: .5rem;
+}

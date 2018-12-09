@@ -1,0 +1,4 @@
+<span id="rulerLength" #rulerLength></span>
+<span *ngIf="!textWasShorted">{{shortenedText}}</span>
+<span container="body" *ngIf="textWasShorted && isBrowserItem" [matTooltip]="trimmedText.name">{{shortenedText}}</span>
+<span container="body" *ngIf="textWasShorted && !isBrowserItem" [matTooltip]="trimmedText">{{shortenedText}}</span>

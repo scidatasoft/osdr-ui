@@ -1,0 +1,86 @@
+@import '_vars';
+@import '_mixins';
+
+.events-box {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  position: fixed;
+  bottom: 4rem;
+  right: 1.5rem;
+  left: auto;
+  display: block;
+  transition: all .3s;
+  border-radius: .25rem;
+  //background: transparentize($bg-color, .1);
+  background: $bg-color;
+  border: solid 0.1rem transparent;
+  z-index: 1001;
+  min-height: 28px;
+  width: 362px;
+  @include card-shadow(1);
+}
+
+.events-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .2rem .5rem;
+  border-bottom: solid 1px transparentize($bg-color-invert, .8);
+  span {
+    font-size: 1rem;
+  }
+}
+
+.events-box-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem .5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  &:hover .info-search-file {
+    opacity: 1;
+    display: inline-block;
+  }
+
+  &:hover .info-done-file {
+    opacity: 1;
+    display: none;
+  }
+}
+
+.btn-fab {
+  padding: 0;
+  line-height: 0;
+  border-color: transparent;
+  background: transparent;
+  font-size: 0.8rem;
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.uu * {
+  outline: 1px solid red;
+}
+
+.events-box-body {
+  overflow-y: auto;
+  max-height: 16rem;
+}
+
+.info-search-file {
+  opacity: 0;
+  display: none;
+
+}
+
+.info-done-file {
+  opacity: 1;
+  display: inline-block;
+}
+
+.groupActionButton {
+  color: darken($color-accent, 20%);
+}

@@ -1,0 +1,28 @@
+@import 'vars';
+content {
+  border: .2rem solid transparent;
+  display: block;
+  height: 100%;
+  &.browser-drag-hover {
+    background: transparentize(darken($color-accent, 20%), .8);
+    border: .2rem dashed darken($color-accent, 20%);
+  }
+}
+
+sidebar {
+  padding: 0;
+}
+
+.folder-drag-hover {
+  &.table-item,
+  .tile-img {
+    transition: .1s all;
+    background-color: transparentize(darken($color-accent, 20%), .8) !important;
+    border: .2rem dashed darken($color-accent, 20%);
+  }
+}
+
+:host {
+  display: block;
+  overflow: hidden;
+}

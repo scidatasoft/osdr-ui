@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>JSmol -- Jmol/OSDR View</title>
+  <script type="text/javascript" src="JSmol.min.js"></script>
+
+  <script type="text/javascript">
+    var fillText = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function(s) {
+      if(s=="JSmol"){
+        return
+      }
+      return fillText.apply(this, arguments);
+    }
+    Jmol._isAsync = false;
+
+    var jmolApplet0; // set up in HTML table, below
+    Jmol._debugCode = false;
+
+    jmol_isReady = function(applet) {
+      document.title = (applet._id + " - Jmol " + Jmol.___JmolVersion);
+      Jmol._getElement(applet, "appletdiv").style.border = "1px solid blue";
+    };
+
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    var Info = {
+      width: 260,
+      height: 280,
+      debug: false,
+      color: "0xFFFFFF",
+      addSelectionOptions: false,
+      use: "HTML5", // JAVA HTML5 WEBGL are all options
+      j2sPath: "./j2s", // this needs to point to where the j2s directory is.
+      isSigned: true,
+      script: "set zoomlarge false;set antialiasDisplay;",
+//      serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
+      serverURL: getParameterByName('env'),
+      readyFunction: jmol_isReady,
+      disableJ2SLoadMonitor: true,
+      disableInitialConsole: true,
+      allowJavaScript: true,
+      appletLoadingImage: "./j2s/img/browser-loader.svg"
+    };
+
+    $(document).ready(function() {
+      // delete tracker
+      delete Jmol._tracker;
+
+      $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info));
+      let urlParam = getParameterByName('url');
+      if (urlParam) {
+        Jmol.loadFile(jmolApplet0, urlParam);
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <div id="appdiv"></div>
+  <link rel="stylesheet" href="../css/jsmol-normalize.css">
+  <script type="text/javascript" src="../js/jsmol-normalize.js"></script>
+</body>
+
+</html>

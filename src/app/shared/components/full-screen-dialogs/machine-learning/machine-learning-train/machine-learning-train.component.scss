@@ -1,0 +1,118 @@
+@import 'vars';
+$padding: .5rem;
+.main {
+  position: relative;
+  display: grid; // grid-template-columns: $left-organize-panel-width calc(100vw - #{$left-organize-panel-width});
+  grid-template-rows: calc(100vh - #{$nav-height});
+  height: 100%;
+  padding-top: $nav-height;
+}
+
+.material-icons {
+  cursor: pointer;
+}
+
+::ng-deep .mat-horizontal-stepper-header-container,
+::ng-deep .mat-horizontal-stepper-content {
+  padding: 0 1rem;
+}
+
+mat-radio-button {
+  display: block;
+  padding: 0.5rem 0;
+}
+
+.content {
+  grid-column: 1 / -1;
+  background: $bg-color;
+  height: 100%;
+  display: block;
+  position: relative;
+  overflow-y: auto;
+  mat-form-field {
+    display: block;
+    .material-icons:hover {
+      color: #019999;
+    }
+  }
+  h2 {
+    padding: 24px;
+  }
+}
+
+content {
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.file-buttons {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: right;
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: rgba(0, 0, 0, 0.5);
+  }
+  button,
+  a {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
+}
+
+.fingerprint-actions {
+  float: right;
+  cursor: pointer;
+}
+
+// @for $i from 1 through 3 {
+//   .content-step-#{$i} {
+//   }
+// }
+.content-step-2 {
+  mat-expansion-panel mat-form-field {
+    display: inline-block;
+  }
+  .advanced-parameters mat-form-field {
+    display: inline-block;
+    width: 225px;
+  }
+}
+
+.action-buttons {
+  padding: 24px 0;
+}
+
+.snack-bar {
+  background-color: $color-accent !important;
+}
+
+.dialog-close {
+  position: absolute;
+  right: .3em;
+  width: 25px;
+  margin: -5px 0 0 0;
+  padding: 1px;
+  height: 25px;
+  top: 5px;
+  .material-icons {
+    position: absolute;
+    right: 2px;
+    font-size: 21px;
+    top: 1px;
+  }
+}
+
+mat-form-field {
+  padding: 0.25rem;
+}
+
+mat-divider {
+  margin: 1rem 0;
+}

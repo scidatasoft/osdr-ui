@@ -1,0 +1,23 @@
+<div class="modal fade" id="chemEditor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true" bsModal #staticModal="bs-modal" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Chem Editor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onHideDialog()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <iframe #ketcher src="/ketcher/ketcher.html" scrolling="no"></iframe>
+        <!--<div>-->
+          <!--<button class="btn btn-secondary" (click)="onGoToChoosePropertiesClick()">Get Data</button>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<textarea id="source" [(ngModel)]='molData'></textarea>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<ul class="list-group">
+  <li class="list-group-item list-group-item-action justify-content-between" mat-ripple [class.selected]="!itemClass || itemClass == 'all'"
+    (click)="getEntityName('all')" matTooltip="All files" matTooltipPosition="right" [matTooltipDisabled]="!sidebarContent.sidebarCollapsed">
+    <div class="d-flex">
+      <img class="svg-icon mr-2" src="/img/svg/entity-counters/all.svg" />
+      <span class="item-text m-auto text-capitalize">All&nbsp;files</span>
+    </div>
+  </li>
+  <li [ngClass]="{'collapsed':sidebarContent.sidebarCollapsed}" class="list-group-item no-link justify-content-between">
+    <div class="d-flex">
+      <span class="item-text text-uppercase">Filters</span>
+    </div>
+  </li>
+  <li *ngFor="let item of counters" class="list-group-item list-group-item-action justify-content-between" mat-ripple [class.selected]="itemClass == item.key"
+    [ngClass]="{ 'disabled': progress }" (click)="getEntityName(item.key)" [matTooltip]="item.name" matTooltipPosition="right"
+    [matTooltipDisabled]="!sidebarContent.sidebarCollapsed">
+    <div class="d-flex">
+      <img class="svg-icon mr-2" src="/img/svg/entity-counters/{{item.key}}.svg" />
+      <span *ngIf="!sidebarContent.sidebarCollapsed" class="item-text m-auto text-capitalize">{{ item.name }}</span>
+    </div>
+    <span [ngClass]="{'collapsed':sidebarContent.sidebarCollapsed}" class="e2e-entity-{{item.key}}-amount badge badge-default badge-pill">{{ data[item.key] ? data[item.key] : 0 }}</span>
+  </li>
+</ul>

@@ -1,0 +1,9 @@
+<ol class="breadcrumbs bread-lvl-2 e2e-toolbar-breadcrumbs">
+  <li *ngFor="let item of getBreadCrumbs(); let i = index;"
+      [matTooltip]="item.text"
+      [style.max-width]="item?.width || '30%'" class="breadcrumb-item item-lvl-{{i}} e2e-toolbar-breadcrum-item">
+    <a *ngIf="items.length==1 || i<items.length-1" [routerLink]="item?.link">{{item.text}}</a>
+    <a *ngIf="items.length!=1 && i==items.length-1">{{item.text}}</a>
+  </li>
+</ol>
+<h5 *ngIf="items.length>1" class="node-name">{{items[items.length-1].text}}</h5>

@@ -1,0 +1,174 @@
+<div class="main">
+  <div class="content">
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+
+        <!-- STEPPER
+          Allows a user to complete steps in a given process.
+              * Required base class: .stepper
+              @param .active
+              @param .completed
+              @param .disabled
+          -->
+
+        <div class="stepper">
+
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" [ngClass]="{'active': currentStep == stepper.step1, 'completed': currentStep > stepper.step1}">
+              <a (click)="onStepClick(stepper.step1)" [ngClass]="{'active': currentStep == stepper.step1}" class="persistant-disabled" data-toggle="tab" aria-controls="stepper-step-1" role="tab" title="Step 1">
+                <span class="round-tab">1</span>
+              </a>
+            </li>
+            <li role="presentation"
+                [ngClass]="{'active': currentStep == stepper.step2,
+                            'completed': currentStep > stepper.step2,
+                            'disabled': currentStep < stepper.step2}"
+            >
+              <a (click)="onStepClick(stepper.step2)" [ngClass]="{'active': currentStep == stepper.step2}"
+                 class="persistant-disabled" data-toggle="tab" aria-controls="stepper-step-2" role="tab" title="Step 2">
+                <span class="round-tab">2</span>
+              </a>
+            </li>
+            <li role="presentation"
+                [ngClass]="{'active': currentStep == stepper.step3,
+                            'completed': currentStep > stepper.step3,
+                            'disabled': currentStep < stepper.step3}"
+            >
+              <a (click)="onStepClick(stepper.step3)" [ngClass]="{'active': currentStep == stepper.step3}"
+                 class="persistant-disabled" data-toggle="tab" aria-controls="stepper-step-3" role="tab" title="Step 3">
+                <span class="round-tab">3</span>
+              </a>
+            </li>
+            <li role="presentation"
+                [ngClass]="{
+                            'completed': currentStep == stepper.step4,
+                            'disabled': currentStep < stepper.step4}">
+              <a (click)="onStepClick(stepper.step4)"
+                 class="persistant-disabled" data-toggle="tab" aria-controls="stepper-step-4" role="tab" title="Complete">
+                <span class="round-tab">4</span>
+              </a>
+            </li>
+          </ul>
+
+          <div *ngIf="errorDataSend" class="alert alert-danger" role="alert">
+            <strong>Error!</strong> Cannot sent data to server
+          </div>
+
+          <div class="tab-content text-center">
+            <div [ngClass]="{'fade':currentStep != stepper.step1,
+                                'active':currentStep == stepper.step1}"
+                 class="tab-pane" role="tabpanel" id="stepper-step-1">
+
+              <form role="form" [formGroup]="propertyChangeNameFG_S1" (ngSubmit)="onSubmitFirstStep()">
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div *ngFor="let property of propertyListOfFile" class="form-group row">
+                      <label class="col-sm-6 col-form-label text-right">{{property.getName()}}</label>
+                      <div class="col-sm-6">
+                        <input
+                          class="form-control"
+                          placeholder="enter property value"
+                          formControlName="{{property.getKey()}}">
+
+                        <p *ngIf="propertyChangeNameFG_S1.get(property.getKey()).hasError('propertyNameDuplicated')"
+                           class="form-text text-muted text-left">This property is duplicated.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button disabled (click)="prevStep()" class="mr-1 btn btn-secondary" type="button">BACK</button>
+                  <button [disabled]="!propertyChangeNameFG_S1.valid" (click)="nextStep()" type="submit" class="btn btn-secondary aligl-selt-end">CONTINUE</button>
+                </div>
+              </form>
+
+              <!--<dr-organize-browser></dr-organize-browser>-->
+
+            </div>
+            <div [ngClass]="{'fade':currentStep != stepper.step2,
+              'active':currentStep == stepper.step2}" class="tab-pane" role="tabpanel" id="stepper-step-2">
+
+              <form role="form" [formGroup]="propertyMapFG_S2" (ngSubmit)="onSubmitSecondStep()">
+                <div class="row justify-content-center">
+                  <div class="col-md-10">
+                    <div *ngFor="let prop of propertyListOfFileChanged" class="form-group row">
+                      <label class="col-sm-4 col-form-label text-right">{{prop.property.getName()}}</label>
+                      <div class="col-sm-5">
+                        <input
+                          disabled
+                          class="form-control"
+                          value={{prop.newName}}>
+                      </div>
+                      <div class="col-sm-3">
+
+                        <select class="form-control"
+                                name="mappingvalues"
+                                formControlName="{{prop.property.getKey()}}">
+                          <option *ngFor="let mval of mapValues" [value]="mval.id">
+                            {{mval.name}}
+                          </option>
+                        </select>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <button (click)="prevStep()" class="mr-1 btn btn-secondary" type="button">BACK</button>
+                  <button [disabled]="!propertyMapFG_S2.valid" (click)="nextStep()" type="submit" class="btn btn-secondary aligl-selt-end">CONTINUE</button>
+                </div>
+
+              </form>
+
+
+            </div>
+            <div [ngClass]="{'fade':currentStep != stepper.step3,
+              'active':currentStep == stepper.step3}" class="tab-pane" role="tabpanel" id="stepper-step-3">
+
+              <form role="form" [formGroup]="propertySaveFG_S3" (ngSubmit)="onSubmitThirdStep()">
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label text-right">Enter .ds file name</label>
+                      <div class="col-sm-8">
+                        <input
+                          class="form-control"
+                          placeholder="Enter file name"
+                          formControlName="fileName">
+                        <p *ngIf="propertySaveFG_S3.get('fileName').hasError('fileExists')"
+                           class="form-text text-muted">File with name {{propertySaveFG_S3.get('fileName').value}}.ds already exists.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <button (click)="prevStep()" class="mr-1 btn btn-secondary" type="button">BACK</button>
+                  <button [disabled]="!propertySaveFG_S3.valid" type="submit" class="btn btn-primary aligl-selt-end">SUBMIT</button>
+                </div>
+              </form>
+            </div>
+
+            <div [ngClass]="{'fade':currentStep != stepper.step4,
+              'active':currentStep == stepper.step4}" class="tab-pane" role="tabpanel" id="stepper-step-4">
+              <h3>All done!</h3>
+              <p>You have successfully completed all steps.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="browser-stepper">
+      <dr-organize-browser [options]="getOptions()"></dr-organize-browser>
+    </div>
+  </div>
+</div>

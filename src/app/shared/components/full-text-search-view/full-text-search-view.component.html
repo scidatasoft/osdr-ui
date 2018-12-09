@@ -1,0 +1,33 @@
+<div class="btn-group" dropdown [isOpen]="status.isopen" (isOpenChange)="changeDropDownState($event)">
+  <button style="display: none" dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+    Button dropdown
+    <span class="caret"></span>
+  </button>
+  <div *dropdownMenu class="dropdown-menu" role="menu">
+
+    <div *ngFor="let searchItem of searchData" (click)="onItemClick(event, searchItem)" class="dropdown-item search-drop-drown-item"
+      role="menuitem">
+      <div *ngIf="searchItem.link" class="row">
+        <div class="col-sm-1 image-search-column">
+
+          <div style="width: 100%">
+            <img class="item-img" [src]="getPreviewImg(searchItem.object)" no-inline/>
+          </div>
+
+        </div>
+        <div class="col-sm-11">
+          <div class="row search-result align-items-center">
+            <div class="col-sm-2 search-item-header">Name:</div>
+            <div *ngIf="searchItem.object.getNodeType() != nodeType.Record" class="col-sm-10 search-item-name">{{searchItem.object.name}} / {{ searchItem.parentItem | async }}</div>
+            <div *ngIf="searchItem.object.getNodeType() == nodeType.Record" class="col-sm-10 search-item-name">{{searchItem.object.name}} / {{ searchItem.object.recordName | async}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!searchItem.link" class="row  align-items-center">
+        <div class="search-item-name">{{searchItem.object.name}}</div>
+      </div>
+    </div>
+
+  </div>
+</div>

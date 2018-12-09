@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title></title>
+  <style>
+    body{   background: rgba(0, 0, 0, 0.85);    }
+    h1 {color:#099;text-align: center; }
+  </style>
+</head>
+<body>
+<h1 id="waiting">Loading site ...</h1>
+<div id="error"></div>
+<script src="lib/oidc-client-1.4.1/oidc-client.min.js"></script>
+<script>
+  if ((Oidc && Oidc.Log && Oidc.Log.logger)) {
+    Oidc.Log.logger = console;
+  }
+  new Oidc.UserManager().signinRedirectCallback().then(function (user) {
+    if (user == null) {
+      document.getElementById("waiting").style.display = "none";
+      document.getElementById("error").innerText = "No sign-in request pending.";
+      window.location = "/";
+    } else {
+      const redirect = window.localStorage.getItem('redirectUrl');
+      window.localStorage.removeItem('redirectUrl');
+
+      if (redirect) {
+        window.location = redirect;
+      } else {
+        window.location = "/";
+      }
+    }
+  }).catch(function (er) {
+    document.getElementById("waiting").style.display = "none";
+    document.getElementById("error").innerText = er.message;
+    window.location = "/";
+  });
+</script>
+</body>
+</html>

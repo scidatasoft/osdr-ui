@@ -1,0 +1,38 @@
+<div class="info-box">
+  <div class="info-box-inner">
+    <div class="info-box-header waves" data-toggle="collapse" (click)="toggleCollapse()" [attr.name]="title">
+      <img src="/img/file-src/intrinsic.ico" class="file-src-img" />
+      <h5>{{ title }}</h5>
+      <img src="/img/svg/infobox-chevron.svg" class="info-box-chevron" />
+    </div>
+    <div id="{{id}}" class="collapse show collapse-body" #collapseContainer>
+      <div *ngIf="!data" class="browser-no-issues">
+        <img src="/img/svg/alert-icons/ok.svg" alt="">
+        <span>No issues found</span>
+      </div>
+      <table *ngIf="data" class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Code</th>
+            <!-- <th>Severity</th> -->
+            <th>Title</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data">
+            <td>
+              <img [src]="'/img/svg/alert-icons/'+item.severity.toLowerCase() + '.svg'" alt="" class="{{item.severity.toLowerCase()}}"
+                no-inline>
+            </td>
+            <td>{{ item.code }}</td>
+            <!-- <td>{{ item.severity }}</td> -->
+            <td>{{ item.title }}</td>
+            <td>{{ item.message }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

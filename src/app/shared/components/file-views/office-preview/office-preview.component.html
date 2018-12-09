@@ -1,0 +1,7 @@
+<div class="main">
+  <div class="content">
+    <div *ngIf="fileItem" class="viewer-block-office">
+      <iframe *ngIf="filePath" class="office-viewer e2e-office-preview" [src]="filePath" type="application/pdf"></iframe>
+    </div>
+  </div>
+</div>

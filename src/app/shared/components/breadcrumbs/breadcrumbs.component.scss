@@ -1,0 +1,46 @@
+.breadcrumbs {
+  transition: .6s;
+  display: inline-block;
+  background: none;
+  padding: .3rem 0;
+  position: absolute;
+  margin-left: 0;
+  margin-top: -5px;
+  width: calc(100% - 12rem);
+  list-style: none;
+  &.bread-lvl-1 {
+    padding-right: 16rem;
+    .item-lvl-1 {
+      max-width: 80%;
+    }
+  }
+  &.bread-lvl-2 {
+    padding-right: 3rem;
+  }
+  li.breadcrumb-item:last-child a {
+    color: black;
+  }
+  li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.node-name {
+  transition: .6s;
+  font-weight: bold;
+  text-align: left;
+  padding: 1rem 0;
+  width: 100%;
+  margin-left: 0;
+  margin-top: 18px;
+  position: absolute;
+  display: block;
+  white-space: nowrap;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 99%;
+}

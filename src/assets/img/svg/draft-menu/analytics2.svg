@@ -1,0 +1,24 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 80.6 80.6" xml:space="preserve">
+    <style type="text/css">
+    .st0 {
+        fill: none;
+        stroke: #231F20;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+    }
+    </style>
+    <line class="st0" x1="9.3" y1="65.1" x2="67.3" y2="65.1" />
+    <rect x="13.3" y="53.1" class="st0" width="8" height="12" />
+    <rect x="27.3" y="39.1" class="st0" width="8" height="26" />
+    <rect x="41.3" y="45.1" class="st0" width="8" height="20" />
+    <rect x="55.3" y="27.1" class="st0" width="8" height="38" />
+    <circle class="st0" cx="61.3" cy="10.1" r="3" />
+    <circle class="st0" cx="46.3" cy="28.1" r="3" />
+    <circle class="st0" cx="31.3" cy="22.1" r="3" />
+    <circle class="st0" cx="16.3" cy="35.1" r="3" />
+    <line class="st0" x1="18.6" y1="33.2" x2="29" y2="24.1" />
+    <line class="st0" x1="34.1" y1="23.3" x2="43.5" y2="27" />
+    <line class="st0" x1="48.2" y1="25.8" x2="59.4" y2="12.4" />
+</svg>

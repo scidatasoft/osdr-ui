@@ -1,0 +1,25 @@
+<div class="e2e-delete-item-dialog">
+  <div class="delete-item-header">
+    <h2 mat-dialog-title>
+      Delete {{getTitle()}}
+    </h2>
+    <button mat-icon-button mat-dialog-close class="dialog-close">
+      <i class="material-icons">
+        close
+      </i>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <p>
+      <dr-string-trim *ngIf="fileName" [blockLength]="460" [trimmedText]="fileName"></dr-string-trim>
+    </p>
+  </mat-dialog-content>
+  <mat-dialog-actions dir="rtl">
+    <button mat-button cdkFocusInitial color="primary" type="submit" (click)="onSubmit()">
+      Delete
+    </button>
+    <button mat-button color="primary" type="button" mat-dialog-close>
+      Cancel
+    </button>
+  </mat-dialog-actions>
+</div>

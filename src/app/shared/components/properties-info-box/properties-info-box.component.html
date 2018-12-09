@@ -1,0 +1,24 @@
+<mat-expansion-panel *ngIf="data" [expanded]="true" [attr.name]="data.name">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <img *ngIf="data.img" src="/img/file-src/{{data.img}}" class="file-src-img" />
+      <span class="text-capitalize">{{data.meta?.title || data.name}}</span>
+    </mat-panel-title>
+    <mat-panel-description *ngIf="data.meta && !data.meta.readOnly && !isPublic">
+      <button mat-button (click)="onEditClick($event)">Edit</button>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ul class="list-group">
+    <li *ngFor="let item of data.properties" class="list-group-item list-group-item-action">
+      <div drTextAutoWidth groupName="info-box" [maxWidth]="maxPropNameElWidth">
+        <span class="prop-name e2e-property-name">
+          {{ item.Name || item.name }}</span>
+      </div>
+      <div>
+        <span class="prop-value e2e-property-value">
+          {{ item.Value || item.value }}
+        </span>
+      </div>
+    </li>
+  </ul>
+</mat-expansion-panel>

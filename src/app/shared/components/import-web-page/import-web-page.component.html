@@ -1,0 +1,35 @@
+<div class="e2e-import-web-page-dialog">
+  <div class="import-web-page-header">
+    <h2 mat-dialog-title>
+      Import Web Page
+    </h2>
+    <button mat-icon-button mat-dialog-close class="dialog-close">
+      <i class="material-icons">
+        close
+      </i>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <form id="importWebPageFG" [formGroup]="importWebPageFG">
+      <mat-form-field>
+        <textarea matInput cdkFocusInitial formControlName="siteUrl" placeholder="Web Page Address"></textarea>
+        <mat-hint align="start">Please enter web page URL</mat-hint>
+        <mat-error *ngFor="let validation of validationMessages">
+          <mat-error *ngIf="importWebPageFG.get('siteUrl').hasError(validation.type) &&
+                    (importWebPageFG.get('siteUrl').dirty ||
+                    importWebPageFG.get('siteUrl').touched)" class="error-message">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions dir="rtl">
+    <button mat-button color="primary" type="submit" (click)="onSubmit()" [disabled]="!importWebPageFG.valid">
+      Create
+    </button>
+    <button mat-button color="primary" type="button" mat-dialog-close>
+      Cancel
+    </button>
+  </mat-dialog-actions>
+</div>

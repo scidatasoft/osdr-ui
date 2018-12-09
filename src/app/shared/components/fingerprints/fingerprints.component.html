@@ -1,0 +1,57 @@
+<form [formGroup]="fingerprintForm">
+  <div formArrayName="fingerprints" class="fingerprints">
+    <h4>Fingerprints</h4>
+    <div [formGroupName]="i" *ngFor="let fingerprint of getFingerprintsControls(); let i = index">
+      <mat-form-field>
+        <mat-select formControlName="type" placeholder="Fingerprint Type" class="e2e-fingerprint-type-{{i}}" required>
+          <mat-option *ngFor="let fp of getFingerprintsByType(fingerprintType)" [value]="fp.key" matTooltip="{{ fp.description }}">
+            {{fp.value}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <div *ngIf="hasDuplicate(i); else defaultMessage">
+            Duplicate fingerprint. Has to be unique
+          </div>
+          <ng-template #defaultMessage>This field is required</ng-template>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="fingerprintList.controls[i].controls.size">
+        <mat-select formControlName="size" placeholder="Fingerprint Size" class="e2e-fingerprint-size-{{i}}" required>
+          <mat-option *ngFor="let fpSize of fingerprintSizeList" [value]="fpSize"> {{fpSize}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <div *ngIf="hasDuplicate(i); else defaultMessage">
+            Duplicate fingerprint. Has to be unique.
+          </div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="fingerprintList.controls[i].controls.radius">
+        <mat-select formControlName="radius" placeholder="Fingerprint Radius" class="e2e-fingerprint-radius-{{i}}"
+          required>
+          <mat-option *ngFor="let radius of fingerprintRadiusList" [value]="radius"> {{radius}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <div *ngIf="hasDuplicate(i); else defaultRadiusMessage">
+            Duplicate fingerprint. Has to be unique.
+          </div>
+          <ng-template #defaultRadiusMessage>Value has to be in range 2 - 4</ng-template>
+        </mat-error>
+      </mat-form-field>
+      <mat-icon>
+        <i *ngIf="getFingerprintsControls().length > 1" matTooltip="Remove Fingerprint'" class="material-icons e2e-remove-fingerprint-{{i}}"
+        (click)="removeFingerprints(i)">delete_forever</i>
+      </mat-icon>
+    </div>
+    <button *ngIf="getFingerprintsControls().length !== maxFingerprints" mat-raised-button type="button" matTooltip="Add Fingerprints"
+      (click)="addFingerprints()" class="e2e-add-fingerprints">Add Fingerprint</button>
+    <p>
+      <small>
+        <i>*You can add up to {{ maxFingerprints }} fingerpritns</i>
+      </small>
+    </p>
+  </div>
+</form>

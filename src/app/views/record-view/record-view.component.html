@@ -1,0 +1,139 @@
+<dr-sidebar-content>
+  <sidebar [ngClass]="{collapsed:sidebarContent.sidebarCollapsed, public:isPublic}">
+    <div class="file-buttons">
+      <div (mouseenter)="showPopover('showSocialsPopover')" (mouseleave)="hidePopover('showSocialsPopover')" 
+        class="socials">
+        <button mat-icon-button matTooltip="Citation" matTooltipPosition="right">
+          <img src="/img/svg/discuss-issue.svg" />
+        </button>
+        <button mat-icon-button matTooltip="Generate QR Code" matTooltipPosition="right">
+          <img src="/img/svg/qr-code.svg" />
+        </button>
+        <button mat-icon-button matTooltip="Get Embed Code" matTooltipPosition="right">
+          <img src="/img/svg/embed.svg" />
+        </button>
+        <button [ngClass]="{shared: isShared}" *ngIf="!isPublic" mat-icon-button matTooltip="Change Sharing Settings" (click)="openSharedLinksDialog()"
+          matTooltipPosition="right">
+          <img src="/img/svg/material/ic_link_black_24px.svg" />
+        </button>
+        <div *ngIf="!isPublic" class="socials-share">
+          <button mat-icon-button matTooltip="Share on Twitter">
+            <img src="/img/svg/file-socials-share/round/twitter.svg" />
+          </button>
+          <button mat-icon-button matTooltip="Share on Facebook">
+            <img src="/img/svg/file-socials-share/round/facebook.svg" />
+          </button>
+          <button mat-icon-button matTooltip="Share on LinkedIn">
+            <img src="/img/svg/file-socials-share/round/linkedin.svg" />
+          </button>
+          <button mat-icon-button matTooltip="Share on Google Plus">
+            <img src="/img/svg/file-socials-share/round/google-plus.svg" />
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="sidebarContent.sidebarCollapsed" (mouseenter)="showPopover('showInfoPopover')" (mouseleave)="hidePopover('showInfoPopover')"
+        [ngClass]="{show:showInfoPopover}" class="info-popover">
+        <dl *ngIf="record">
+          <dt>Created Date</dt>
+          <dd>{{record.Created() | date:'shortDate'}}</dd>
+          <dt>Owner</dt>
+          <!--<dd>{{record.ownedBy.displayName}}</dd>-->
+          <dd>{{(record.userInfo | async)?.displayName}}</dd>
+        </dl>
+        <ul class="list-group">
+          <li *ngFor="let item of listProperties; let i = index" (click)="goToAssignInfoBox(item,i)" class="list-group-item list-group-item-action justify-content-between"
+            [ngClass]="{active:lastSelectedInfoBoxName==item.name && currentTab === 'properties'}" mat-ripple>
+            <img src="/img/file-src/intrinsic.ico" class="file-src-img" no-inline/>
+            <span class="text-truncate text-capitalize"> {{item.meta?.title || item.name}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="sidebarContent.sidebarCollapsed" (mouseenter)="showPopover('showPreviewPopover')" (mouseleave)="hidePopover('showPreviewPopover')"
+        [ngClass]="{show:showPreviewPopover}" class="preview-popover">
+        <div mat-ripple>
+          <img class="e2e-middle-preview preview-img" *ngIf="record" [class.active]="currentTab === 'preview'" (click)="currentTab = 'preview'"
+            [src]="getImageURL(record)" no-inline/>
+          <!-- <dr-cif-preview *ngIf="JSMolPreview" [fileItem]="record"></dr-cif-preview>
+          <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview && record" [fileItem]="record"></dr-spectra-jsmol-preview> -->
+        </div>
+      </div>
+
+      <div *ngIf="sidebarContent.sidebarCollapsed" class="collapsed-buttons">
+        <div (mouseenter)="showPopover('showSocialsPopover')" (mouseleave)="hidePopover('showSocialsPopover')">
+          <button mat-icon-button>
+            <img src="/img/svg/material/ic_share_black_24px.svg" />
+          </button>
+        </div>
+
+        <div (mouseenter)="showPopover('showInfoPopover')" (mouseleave)="hidePopover('showInfoPopover')" [ngClass]="{active:currentTab=='properties'}">
+          <button (click)="changeView('properties')" mat-icon-button>
+            <img src="/img/svg/material/ic_info_outline_black_24px.svg" />
+          </button>
+        </div>
+
+        <div (mouseenter)="showPopover('showPreviewPopover')" (mouseleave)="hidePopover('showPreviewPopover')" [ngClass]="{active:currentTab=='preview'}">
+          <button (click)="changeView('properties')" mat-icon-button>
+            <img src="/img/svg/material/ic_image_black_24px.svg" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!sidebarContent.sidebarCollapsed" class="file-img">
+      <div mat-ripple>
+        <img *ngIf="record && record.images; else thumbnail" class="e2e-middle-preview preview-img" [class.active]="currentTab === 'preview'"
+          (click)="currentTab = 'preview'" [src]="getImageURL(record)" no-inline/>
+        <div class="default-thumbnail">
+          <img #thumbnail *ngIf="record && !record.images" class="e2e-middle-preview preview-img" [class.active]="currentTab === 'preview'"
+            (click)="currentTab = 'preview'" [src]="getImageURL(record)" />
+        </div>
+        <!-- <dr-cif-preview *ngIf="JSMolPreview" [viewType]="currentTab" [fileItem]="fileInfo" (click)="currentTab = 'preview'"></dr-cif-preview>
+        <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview && fileInfo" [fileItem]="fileInfo"></dr-spectra-jsmol-preview> -->
+      </div>
+      <h5 class="text-muted">Record</h5>
+    </div>
+
+    <div *ngIf="!sidebarContent.sidebarCollapsed" class="tab-records">
+      <dl *ngIf="record">
+        <dt>Created Date</dt>
+        <dd>{{record.Created() | date:'shortDate'}}</dd>
+        <dt>Owner</dt>
+        <!--<dd>{{record.ownedBy.displayName}}</dd>-->
+        <dd>{{(record.userInfo | async)?.displayName}}</dd>
+        <dt *ngIf="record.totalRecords">Records</dt>
+        <dd *ngIf="record.totalRecords">{{record.totalRecords}}</dd>
+      </dl>
+    </div>
+
+    <div *ngIf="!sidebarContent.sidebarCollapsed" class="properties-ul">
+      <ul class="list-group">
+        <li *ngFor="let item of listProperties; let i = index" (click)="goToAssignInfoBox(item, i)" class="list-group-item list-group-item-action justify-content-between"
+          [ngClass]="{active:lastSelectedInfoBoxName==item.name && currentTab === 'properties'}" mat-ripple>
+          <img src="/img/file-src/intrinsic.ico" class="file-src-img" no-inline/>
+          <span class="text-truncate text-capitalize"> {{item.meta?.title || item.name}}</span>
+        </li>
+      </ul>
+    </div>
+
+  </sidebar>
+  <content>
+    <dr-organize-toolbar [activeButtons]="toolBarButtons" [breadcrumbs]="breadcrumbs"></dr-organize-toolbar>
+    <div *ngIf="currentTab=='properties'" class="info-box-container d" #infoBoxContainer>
+      <dr-properties-info-box #propertiesInfoBox *ngFor="let item of listProperties" [data]="item" [isPublic]="isPublic" (onEdit)="openPropertiesEditorDialog(item)"></dr-properties-info-box>
+    </div>
+    <div *ngIf="currentTab=='preview'">
+      <dr-cif-preview *ngIf="record.subType === 'Crystal'" [fileItem]="record"></dr-cif-preview>
+      <dr-spectra-jsmol-preview *ngIf="record.subType === 'Spectra'" [fileItem]="record"></dr-spectra-jsmol-preview>
+      <dr-image-file-view *ngIf="record.subType !== 'Spectra' && record.subType !== 'Crystal'" [fileItem]="record"></dr-image-file-view>
+    </div>
+    <!-- <img class="e2e-middle-preview preview-img" *ngIf="record && !JSMolPreview && !JsSpectraPreview && currentTab === 'preview'"
+      [src]="getImageURL(record)" no-inline/> -->
+    <!-- <div #fileViewContainer></div> -->
+    <!-- <dr-cif-preview *ngIf="JSMolPreview && currentTab === 'preview'" [fileItem]="fileInfo"></dr-cif-preview>
+    <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview && currentTab === 'preview'" [fileItem]="fileInfo"></dr-spectra-jsmol-preview> -->
+  </content>
+</dr-sidebar-content>
+<dr-notifications-side-bar *ngIf="!isPublic"></dr-notifications-side-bar>
+<dr-splash-notification></dr-splash-notification>

@@ -1,0 +1,17 @@
+<div [ngSwitch]="screenPartMetaData.responseType" class="clearfix">
+<!--   <div *ngSwitchCase="'table'">
+    <app-table-response [config]="config"></app-table-response>
+  </div> -->
+
+  <div *ngSwitchCase="'text-response'">
+    <dr-text-response [screenPartMetaData]="screenPartMetaData" [screenCollectionData]="screenCollectionData" [autofocus]="index==0"></dr-text-response>
+  </div>
+
+  <div *ngSwitchCase="'multiple-response'">
+    <dr-checkbox-response [screenPartMetaData]="screenPartMetaData" [screenCollectionData]="screenCollectionData"></dr-checkbox-response>
+  </div>
+
+  <div *ngSwitchCase="'single-response'">
+    <dr-radio-group-response [screenPartMetaData]="screenPartMetaData" [screenCollectionData]="screenCollectionData"></dr-radio-group-response>
+  </div>
+</div>

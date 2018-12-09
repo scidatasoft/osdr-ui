@@ -1,0 +1,88 @@
+<div class="container-fluid">
+
+  <div class="view-home">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <span class="title">ONE PLACE TO STORE YOUR DATA</span>
+        <div class="numbers-info">
+          <a href="/organize/drafts?$filter=type eq 'Record' and SubType eq 'Structure'" class="hexagon">
+            <img src="/img/svg/hexagon.svg" />
+            <div class="svg-text">
+              <img src="/img/svg/rationale-symbols/digit-3.svg" />
+              <img src="/img/svg/rationale-symbols/digit-0.svg" />
+              <img src="/img/svg/rationale-symbols/digit-0.svg" />
+              <img src="/img/svg/rationale-symbols/digit-K.svg" />
+            </div>
+            <span>Chemical Structures</span>
+          </a>
+          <a routerLink="/organize/drafts" class="hexagon">
+            <img src="/img/svg/hexagon.svg" />
+            <div class="svg-text">
+              <img src="/img/svg/rationale-symbols/digit-1.svg" />
+              <img src="/img/svg/rationale-symbols/digit-7.svg" />
+            </div>
+            <span>Data Sources</span>
+          </a>
+        </div>
+        <div class="features-info">
+          <div class="capability">
+            <a routerLink="/organize/drafts" class="hexagon">
+              <img src="/img/svg/hexagon-upload.svg" />
+            </a>
+            <h4>UPLOAD AND ORGANIZE</h4>
+            <hr class="spear" />
+            <span>You can upload your files, transfer them from Google Drive, Box.com, DropBox.com etc. And - manage your data
+              your own way!</span>
+          </div>
+          <div class="capability">
+            <a routerLink="/predict" class="hexagon">
+              <img src="/img/svg/hexagon-ml.svg" />
+            </a>
+            <h4>MACHINE LEARNING</h4>
+            <hr class="spear" />
+            <span>Data models, algorithms and pipelines for cheminformatics and drug discovery.</span>
+          </div>
+
+          <div class="capability">
+            <a routerLink="/organize/drafts" class="hexagon">
+              <img src="/img/svg/hexagon-share-annotate.svg" />
+            </a>
+            <h4>SHARE & ANNOTATE</h4>
+            <hr class="spear" />
+            <span>We support widely used vocabularies. Plus, you can add your own. Share your work with others.</span>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <hr class="spear" />
+    <div class="social-icons text-center">
+      <a href="#">
+        <img src="/img/svg/social/facebook.svg" />
+      </a>
+      <a href="#">
+        <img src="/img/svg/social/twitter.svg" />
+      </a>
+      <a href="#">
+        <img src="/img/svg/social/linkedin.svg" />
+      </a>
+    </div>
+    <small class="copyright d-block mx-auto text-center">
+      Powered by Dataledger technology. &copy;{{currentYear}} -
+      <a href="http://www.your-company.com/">Science Data Software</a>, LLC
+      <br /> Build {{ buildNumber }} - {{ buildTime }} {{ environment }}. API version {{ apiVersion }}.
+    </small>
+  </footer>
+
+  <!--<div *ngIf="(!profileExists || error) && userLogin" class="events-box-home">-->
+  <!--<div class="events-box-header-home">-->
+  <!--<span>{{title}}</span>-->
+  <!--<img src="img/svg/browser-loader.svg" no-inline height="50" width="50"/>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <dr-splash-notification></dr-splash-notification>
+</div>

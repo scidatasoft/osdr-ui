@@ -1,0 +1,75 @@
+@import "_vars";
+.notification-item-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.2rem;
+}
+
+.notification-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+        border: 0;
+        line-height: 1;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    button svg {
+        width: .8rem;
+        height: .8rem;
+        transition: all 0.2s;
+        fill: transparentize($text-color, .5);
+        &:hover {
+            fill: transparentize($text-color, .2);
+        }
+    }
+}
+
+.notification-image-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.info-search-file {
+    opacity: 0;
+    display: none;
+}
+
+//.info-done-file {
+//  opacity: 1;
+//  display: inline-block;
+//}
+.btn-fab {
+    padding: 0;
+    line-height: 0;
+    border-color: transparent;
+    background: transparent;
+    font-size: 0.8rem;
+    &:focus {
+        box-shadow: none;
+    }
+}
+
+.events-box-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    small {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
+.upload-item-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.action-events-notifications {
+    display: flex;
+    align-items: center;
+}

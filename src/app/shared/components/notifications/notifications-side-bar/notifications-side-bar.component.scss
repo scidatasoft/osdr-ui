@@ -1,0 +1,53 @@
+@import "_vars";
+.notifications-pane-right {
+  position: absolute;
+  transition: all .2s;
+  bottom: 0;
+  right: -$left-organize-panel-width;
+  height: calc(100vh - 3.3rem);
+  width: $left-organize-panel-width;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0.05rem 0.3rem rgba(0, 0, 0, 0.5);
+  .notifications-pane-block,
+  .notifications-pane-header {
+    padding: 1rem;
+  }
+  &.visible {
+    right: 0;
+  }
+}
+
+.notifications-pane-block {
+  overflow-y: auto;
+  &>div {
+    border-top: solid 1px #bbb;
+    padding-top: 0.5rem;
+  }
+  &>div:first-child {
+    border-top: none;
+  }
+}
+
+.notifications-pane-header {
+  display: block;
+  justify-content: space-between;
+  h5 {
+    display: inline-block;
+  }
+  button {
+    float: right;
+    top: -6px;
+    cursor: pointer;
+  }
+  button svg {
+    width: .8rem;
+    height: .8rem;
+    transition: all 0.2s;
+    fill: transparentize($text-color, .5);
+    &:hover {
+      fill: transparentize($text-color, .2);
+    }
+  }
+}

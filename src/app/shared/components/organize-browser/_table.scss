@@ -1,0 +1,114 @@
+@mixin table-view {
+    .table-view {
+        animation-duration: .3s;
+        padding: 0.5rem;
+        position: relative;
+        .table-title {
+            li {
+                font-weight: bold;
+                border-radius: 0;
+                border-top-left-radius: .25rem;
+                border-top-right-radius: .25rem; //background: linear-gradient(to bottom, transparentize($bg-color, .1) 0%, transparentize($bg-color, .3) 100%);
+                background: darken($bg-color, 7%);
+            }
+        }
+        .more-actions {
+            cursor: pointer;
+            float: right;
+            background: transparent;
+            border: none;
+            height: 1.5rem;
+            width: 1.5rem;
+            padding: .2rem 0;
+            border-radius: 1rem;
+            visibility: hidden;
+            &:hover {
+                background: transparentize($bg-color-invert, .5);
+                svg {
+                    fill: $bg-color;
+                }
+            }
+            img,
+            svg {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .table-item {
+            background: darken($bg-color, 1%);
+            cursor: pointer;
+            padding: .5rem;
+            &:first-child {
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+            }
+            >* {
+                display: inline-block;
+            }
+            .item-img {
+                height: auto;
+                max-width: 2rem;
+                max-height: 2rem;
+            }
+            .item-name {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            .structure-loader {
+                height: 1.5rem;
+                display: none;
+                vertical-align: middle;
+            }
+            span {
+                color: black;
+            }
+        }
+        .table-item:hover {
+            background: darken($bg-color, 3%);
+            .more-actions {
+                visibility: visible;
+            }
+        }
+        .table-item.checked {
+            background: darken($color-accent, 20%);
+            span {
+                color: white;
+            }
+            img.item-img {
+                background: transparentize($bg-color, .1);
+            }
+            .more-actions {
+                svg {
+                    fill: $bg-color;
+                }
+            }
+        }
+        .table-item.loading .structure-loader {
+            display: inline-block !important;
+        }
+        .table-item.loading .structure-loader.loader-white {
+            display: none !important;
+        } //
+        .table-item.checked.loading .structure-loader {
+         display: none !important;
+        }
+
+        .table-item.checked.loading .structure-loader.loader-white {
+         display: inline-block !important;
+        }
+        .table-item.checked.loading .structure-loader.loader-white {
+         display: inline-block !important;
+        }
+        .item-img{
+            margin-right: .5rem;
+        }
+        .error{
+            vertical-align: middle;
+            fill: red;
+        }
+        .link{
+            vertical-align: middle;
+        }
+    }
+}

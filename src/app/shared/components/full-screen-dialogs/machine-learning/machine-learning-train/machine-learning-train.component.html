@@ -1,0 +1,206 @@
+<div class="main">
+  <div class="content">
+    <div class="file-buttons">
+      <button mat-icon-button class="dialog-close" (click)="onClose()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <content>
+      <h2> Train Model </h2>
+      <form id="MLTrainDialog" [formGroup]="MLCreateModel" (keydown.enter)="$event.preventDefault()">
+        <mat-horizontal-stepper formArrayName="modelTrainForm" linear>
+
+          <mat-step formGroupName="0" [stepControl]="modelTrainForm.get([0])">
+
+            <div class="content-step-1">
+
+              <ng-template matStepLabel>Select Folder and Model Type</ng-template>
+
+              <mat-form-field>
+                <mat-select placeholder="Model Type" formControlName="modelType" class="e2e-model-type" required>
+                  <mat-option *ngFor="let type of modelType" class="e2e-model-type-option" [value]="type.value">{{type.value}}</mat-option>
+                </mat-select>
+                <mat-error>This field is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput name="Folder" placeholder="Selected Folder" formControlName="folderName" class="e2e-model-name"
+                  readonly (click)="openMoveItemDialog()" required>
+                <i matSuffix (click)="openMoveItemDialog()" class="material-icons e2e-select-folder">folder_open</i>
+                <mat-hint align="start">Please, click to select folder</mat-hint>
+                <mat-error>Please, click on the icon to select folder</mat-error>
+              </mat-form-field>
+
+            </div>
+
+            <div dir="rtl" class="action-buttons">
+              <button mat-button matStepperNext cdkFocusInitial color="primary" type="button" class="e2e-move-to-second-step"
+                [disabled]="!modelTrainForm.get([0]).valid" (click)="modelTrainForm.updateValueAndValidity({ emitEvent: false })">Next</button>
+            </div>
+          </mat-step>
+
+          <mat-step formGroupName="1" [stepControl]="modelTrainForm.get([1])">
+            <div class="content-step-2">
+
+              <ng-template matStepLabel>Set Dataset Parameters</ng-template>
+
+              <mat-form-field>
+                <mat-select placeholder="Training Parameter" formControlName="trainingParameter" class="e2e-select-training-parameter"
+                  required>
+                  <mat-option *ngFor="let parameter of trainingParameterList" class="e2e-model-train-parameter" [value]="parameter.name">{{parameter.name}}</mat-option>
+                </mat-select>
+                <mat-error>
+                  Please Select Training Parameter
+                </mat-error>
+                <mat-hint>
+                  Please Select Training Parameter
+                </mat-hint>
+              </mat-form-field>
+
+              <mat-radio-group formControlName="optimize">
+                <mat-radio-button *ngFor="let mode of trainingModeList" class="e2e-optimize" [value]="mode.optimize">
+                  {{mode.name}}
+                </mat-radio-button>
+              </mat-radio-group>
+
+              <div class="e2e-system-optimized-parameters advanced-parameters" [hidden]="secondStep.controls.optimize.value">
+                <mat-form-field>
+                  <mat-select placeholder="Scaling" formControlName="scaler" class="e2e-select-scale">
+                    <mat-option *ngFor="let scale of scaleList" class="e2e-select-scale" [value]="scale.value">{{scale.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput type="number" name="Sub Sample Size" min="0.2" max="1" step="0.1" placeholder="Sub Sample Size"
+                    formControlName="subSampleSize" class="e2e-sub-sample-size" required>
+                  <mat-error>
+                    Value has to be in range 0.2 - 1
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput type="number" name="Test Data Size" min="0" max="0.5" step="0.1" placeholder="Test Data Size"
+                    formControlName="testDataSize" class="e2e-test-data-size" required>
+                  <mat-error>
+                    Value has to be in range 0 - 0.5
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput type="number" name="K-Fold Cross-Validation" min="2" max="10" step="1" placeholder="K-Fold Cross-Validation"
+                    formControlName="kFold" class="e2e-k-fold" required>
+                  <mat-error>
+                    Value has to be in range 2 - 10
+                  </mat-error>
+                </mat-form-field>
+                <div formGroupName='hyperParameters'>
+                  <mat-form-field>
+                    <mat-select placeholder="Optimizations Method" formControlName="optimizationMethod" class="e2e-optimization-method">
+                      <mat-option *ngFor="let item of optimizationList" class="e2e-select-optimization-method" [value]="item.key">{{item.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="number" name="Number of Iterations" min="10" max="1000" step="1" placeholder="Iterations"
+                      formControlName="numberOfIterations" class="e2e-iterations" required>
+                    <mat-error>
+                      Value has to be in range 10 - 1000
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <dr-fingerprints fingerprintType="mlTrain"></dr-fingerprints>
+                <!-- <div formArrayName="fingerprints">
+                  <h4>Fingerprints</h4>
+                  <div [formGroupName]="i" *ngFor="let fingerprint of getFingerprintsControls(); let i = index">
+                    <mat-form-field>
+                      <mat-select formControlName="type" placeholder="Fingerprint Type" class="e2e-fingerprint-type-{{i}}" required>
+                        <mat-option *ngFor="let itemType of classificationTrainingData" [value]="itemType.value"> {{itemType.value}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>
+                        <div *ngIf="hasDuplicate(i); else defaultMessage">
+                          Duplicate fingerprint. Has to be unique
+                        </div>
+                        <ng-template #defaultMessage>This field is required</ng-template>
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="fingerprintsArray.controls[i].controls.size">
+                      <mat-select formControlName="size" placeholder="Fingerprint Size" class="e2e-fingerprint-size-{{i}}" required>
+                        <mat-option *ngFor="let itemType of fingerprintSizeArray" [value]="itemType.value"> {{itemType.value}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>
+                        <div *ngIf="hasDuplicate(i); else defaultMessage">
+                          Duplicate fingerprint. Has to be unique.
+                        </div>
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="fingerprintsArray.controls[i].controls.radius">
+                      <mat-select formControlName="radius" placeholder="Fingerprint Size" class="e2e-fingerprint-radius-{{i}}" required>
+                        <mat-option *ngFor="let radius of fingreprintRadiusArray" [value]="radius"> {{radius}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>
+                        <div *ngIf="hasDuplicate(i); else defaultRadiusMessage">
+                          Duplicate fingerprint. Has to be unique.
+                        </div>
+                        <ng-template #defaultRadiusMessage>Value has to be in range 2 - 4</ng-template>
+                      </mat-error>
+                    </mat-form-field>
+                    <i *ngIf="getFingerprintsControls().length > 1" matTooltip="Remove Fingeprints" class="material-icons fingerprint-actions e2e-remove-fingerprint-{{i}}"
+                      (click)="removeFingerprints(i)">clear</i>
+                  </div>
+                  <button *ngIf="getFingerprintsControls().length !== 4" mat-button type="button" matTooltip="Add Fingerprints" (click)="addFingerprints()"
+                    class="e2e-add-fingerprints">Add Fingerprint</button>
+                </div> -->
+              </div>
+            </div>
+            <div dir="rtl" class="action-buttons">
+              <button mat-button matStepperNext cdkFocusInitial type="button" color="primary" class="e2e-move-to-thrid-step"
+                [disabled]="!modelTrainForm.controls[1].valid">Next</button>
+              <button mat-button matStepperPrevious type="button" color="primary" class="e2e-back-to-first-step">Back</button>
+            </div>
+          </mat-step>
+
+          <mat-step formGroupName="2" [stepControl]="modelTrainForm.get([2])">
+
+            <div class="content-step-3">
+
+              <ng-template matStepLabel>Choose Training Methods</ng-template>
+
+              <div class="checkbox-list">
+                <div *ngFor="let item of this.methodsList" formGroupName="methods">
+                  <mat-checkbox *ngIf="item.type === selectedModelType" [checked]='isStored(item.key)' (change)="onMethodChange(item.key, $event.checked)"
+                    class="e2e-method-checkbox">{{ item.value }}</mat-checkbox>
+                </div>
+                <div *ngIf="enableExtraOptions" class="ext-parameters">
+                  <mat-divider></mat-divider>
+                  <mat-form-field>
+                    <mat-select placeholder="Number of Layers" formControlName="dnnLayers" class="e2e-dnn-layers" required>
+                      <mat-option *ngFor="let value of dnnLayerList" class="e2e-dnn-layers-option" [value]="value">{{value}}</mat-option>
+                    </mat-select>
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-select placeholder="Number of Neurons" formControlName="dnnNeurons" class="e2e-dnn-neurons" required>
+                      <mat-option *ngFor="let value of dnnNeuronList" class="e2e-dnn-neurons-option" [value]="value">{{value}}</mat-option>
+                    </mat-select>
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <!-- <mat-checkbox>Deep Neural Networks</mat-checkbox> -->
+              </div>
+
+            </div>
+            <div dir="rtl" class="action-buttons">
+              <button mat-button type="submit" color="primary" class="e2e-submit-ml-training" (click)="onSubmit()"
+                [disabled]="methodsFormArray.length === 0">Train Model</button>
+              <button mat-button matStepperPrevious color="primary" type="button" class="e2e-back-to-second-step">Back</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </form>
+    </content>
+  </div>
+</div>

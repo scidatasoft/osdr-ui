@@ -1,0 +1,50 @@
+mat-expansion-panel {
+    margin: .5rem;
+    ::ng-deep .mat-expansion-panel-body {
+        overflow-y: auto;
+        max-height: calc(100vh - 14rem);
+    }
+}
+
+mat-panel-title {
+    line-height: 2.4;
+}
+
+mat-panel-description button {
+    margin-left: auto;
+}
+
+mat-panel-title img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: .6rem;
+    padding: 6px;
+    display: inline-block;
+}
+
+.list-group-item {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; // flex-wrap: nowrap;
+    padding: 0;
+    border: none;
+    margin-top: 1rem;
+    &:first-child {
+        margin-top: 0;
+    }
+    div {
+        &:first-child {
+            padding-right: .5rem;
+            text-align: right;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-weight: bold;
+        }
+        &:last-child {
+            flex: 1;
+            overflow-wrap: break-word;
+            width: 0;
+        }
+    }
+}

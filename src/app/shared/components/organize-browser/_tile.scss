@@ -1,0 +1,331 @@
+@import '_vars';
+$tile-footer-height: 2rem;
+@mixin tile-flexibility {
+  $width-min: 480px;
+  $width-offset: 200;
+  .tile {
+    float: left;
+    position: relative;
+    width: 20%;
+    * {
+      user-select: none;
+    }
+  }
+  @media only screen and (max-width: $width-min) {
+    .tile {
+      width: 100%;
+      /*padding-bottom: 100%;*/
+    }
+  }
+  $lastI: 0;
+  @for $i from 1 through 4096/$width-offset {
+    @media only screen and (max-width: #{$width-min + $i * $width-offset}) and (min-width: #{$width-min + ($i - 1) * $width-offset + 1}) {
+      .tile {
+        width: #{100% / ($i + 1)};
+        /*padding-bottom: #{100% / ($i + 1)};*/
+      }
+    }
+    $lastI: $i;
+  }
+  @media only screen and (min-width: #{$width-min + $lastI * $width-offset + 1}) {
+    .tile {
+      width: #{100% / ($lastI + 2)};
+      /*padding-bottom: #{100% / ($lastI + 2)};*/
+    }
+  }
+}
+
+@mixin tile-view {
+  .tile-view {
+    width: 100%;
+    animation-duration: .3s;
+    position: relative;
+    display: inline-block;
+    .tile {
+      padding: .5rem;
+      .loader-overlay {
+        display: none;
+      }
+      .img-block {
+        background-size: calc(100% - 2rem);
+        background-repeat: no-repeat;
+        background-position: center top;
+        .thumbnail {
+          width: 100%;
+          height: calc(100% - 2rem);
+          position: absolute;
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center;
+          &.no-file-preview {
+            background-size: 50%;
+          }
+        }
+      }
+      svg {
+        g,
+        path,
+        polygon {
+          @for $i from 1 through 5 {
+            &.bg-accent-dark-#{$i*10} {
+              fill: darken($color-accent, $i*10%);
+            }
+            &.bg-accent-dark-#{$i*10+5} {
+              fill: darken($color-accent, $i*10%+5);
+            }
+          }
+        }
+      }
+      .tile-img {
+        overflow: hidden;
+        position: relative;
+        display: block;
+        height: auto;
+        border-radius: 0.25rem;
+        img,
+        svg {
+          margin: auto;
+          display: block;
+          max-height: 100%;
+          max-width: 100%;
+        }
+      }
+      .checked-overlay {
+        transition: all .2s;
+        display: none;
+      }
+      .tile-inner {
+        //padding: .2rem;
+        transition: all .3s;
+        border-radius: .25rem;
+        /*box-shadow: inset 0 0 .5rem transparentize($bg-color-invert, .8);*/
+        background: $bg-color;
+        position: relative;
+        @include card-shadow(1);
+        &:hover .img-block {
+          filter: blur(3px);
+        }
+        &:hover {
+          @include card-shadow(4);
+        }
+        .info-overlay {
+          display: none;
+        }
+        &:hover .info-overlay {
+          position: absolute;
+          display: block;
+          color: $bg-color-invert;
+          line-height: 1.1rem;
+          padding: .5rem;
+          background: transparentize($bg-color, .5);
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          border-radius: 0.25rem;
+          dt {
+            color: lighten($bg-color-invert, 30%);
+            font-weight: normal;
+            margin-bottom: -4px;
+            font-size: 14px;
+            text-align: left;
+          }
+          dd {
+            color: $bg-color-invert;
+            font-weight: bold;
+            margin-bottom: 0;
+            font-size: 14px;
+            text-align: left;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+          dl {
+            animation-duration: .3s;
+            animation-name: overlay-dl-animate;
+            @keyframes overlay-dl-animate {
+              from {
+                opacity: 0;
+                transform: translate3d(3%, 0, 0);
+              }
+              to {
+                opacity: 1;
+                transform: none;
+              }
+            }
+          }
+        }
+        &:hover .tile-footer button {
+          display: block;
+        }
+        &:hover .tile-footer .tile-text {
+          width: calc(100% - 1.5rem);
+        }
+        &:hover .tile-footer {
+          //box-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+          transition: none;
+        }
+        .tile-footer {
+          transition: 1s all;
+          height: $tile-footer-height;
+          animation: all .2s;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          padding: 0.2rem .4rem .4rem .4rem;
+          ;
+          background: $bg-color;
+          border-radius: 0 0 .25rem .25rem;
+          .structure-loader {
+            width: 1.7rem;
+            left: .2rem;
+            position: absolute;
+            display: none; // on .tile.loading diplay-block
+          }
+          .tile-text {
+            width: 100%;
+            display: inline-block;
+            white-space: initial;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            color: $bg-color-invert;
+            padding-left: .3rem;
+          }
+          .more-actions {
+            transition: all .2s;
+            z-index: 1;
+            cursor: pointer;
+            float: right;
+            background: transparent;
+            border: none;
+            height: 1.5rem;
+            width: 1.5rem;
+            padding: .15rem;
+            margin-top: 1px;
+            border-radius: 1rem;
+            display: none;
+            &:hover {
+              background: transparentize($bg-color-invert, .5);
+              svg {
+                fill: $bg-color;
+              }
+            }
+            .icon {
+              height: 1rem;
+            }
+          }
+        }
+      }
+    }
+    .tile.checked {
+      .tile-img {
+        background: $bg-color; //background:desaturate(lighten($color-accent, 40%),80%);
+      }
+      .tile-inner {
+        background: darken($bg-color, 80%);
+        color: $bg-color;
+      }
+      .tile-footer {
+        border-top: none;
+        background: darken($color-accent, 20%) !important;
+        .tile-text {
+          color: $bg-color !important;
+        }
+        button {
+          svg {
+            fill: $bg-color;
+          }
+          &:hover {
+            background: transparentize($bg-color, .5);
+            svg {
+              fill: $bg-color-invert;
+            }
+          }
+        }
+      }
+      .checked-overlay {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: calc(100% - #{$tile-footer-height});
+        left: 0;
+        top: 0;
+        padding: 0.2rem;
+        z-index: 1;
+        ::ng-deep svg {
+          width: 1rem;
+          height: auto;
+          fill: darken($color-accent, 20%);
+          margin-left: 0;
+          float: right;
+        }
+      }
+    }
+    .tile.loading .tile-footer {
+      padding-left: 2rem !important;
+    }
+    .tile.loading .structure-loader {
+      display: inline-block !important;
+    }
+    .tile.loading .structure-loader.loader-white {
+      display: none !important;
+    }
+    .tile.checked.loading .structure-loader {
+      display: none !important;
+    }
+    .tile.checked.loading .structure-loader.loader-white {
+      display: inline-block !important;
+    }
+    .status-panel {
+      position: absolute;
+      bottom: 2rem;
+      opacity: 1;
+      padding-left: .3rem;
+      svg {
+        max-width: 18px;
+        max-height: 18px;
+        border: 1px solid #ddd;
+        border-radius: 1rem;
+        margin-left: .5rem;
+        transform: scale(1.5, 1.5);
+        color: rgb(41, 43, 44);
+        background-color: rgba(255, 255, 255, 1) !important;
+      }
+      .error {
+        fill: red;
+        padding: 0;
+        transform: scale(1.6, 1.6);
+        border: 0;
+      }
+    }
+    .status-icon {
+      display: block;
+      position: absolute;
+      &.error {
+        right: 0.2rem;
+        bottom: 2rem;
+        svg {
+          fill: red;
+        }
+      }
+    }
+    .tile-inner:hover {
+      .status-panel {
+        display: none;
+      }
+      .status-icon {
+        display: block;
+        position: absolute;
+        &.error {
+          right: 0.2rem;
+          bottom: 2rem;
+          svg {
+            fill: red;
+          }
+        }
+      }
+    }
+    @include tile-flexibility;
+  }
+}

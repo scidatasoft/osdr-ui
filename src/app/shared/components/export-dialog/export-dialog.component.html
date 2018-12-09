@@ -1,0 +1,35 @@
+<div class="e2e-export-dialog">
+  <span mat-dialog-title>
+    <h2 mat-dialog-title>Export to {{ data.fileType | uppercase }}</h2>
+    <button mat-icon-button mat-dialog-close class="dialog-close">
+      <i class="material-icons">
+        close
+      </i>
+    </button>
+  </span>
+  <mat-dialog-content>
+    <mat-accordion multi="true" displayMode="flat">
+      <mat-expansion-panel expanded="true" *ngFor="let key of fileRecordsKeys;">
+        <mat-expansion-panel-header hideToggle="false">
+          <mat-panel-title>
+            <span>{{key}}</span>
+            <span class="badge badge-default badge-pill">{{ recordsKeys[key].length }}</span>
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-slide-toggle #selectAllToggle class="e2e-export-select-all" (change)="selectAllToggle.checked ? properties.selectAll() : properties.deselectAll()">Select All</mat-slide-toggle>
+        <mat-slide-toggle class="e2e-export-reverse-all" (change)="reverseSelection(properties); selectAllToggle.checked = properties.options.length == properties.selectedOptions.selected.length">Reverse Selection</mat-slide-toggle>
+        <mat-selection-list #properties class="e2e-export-selection-list" style="overflow-y: auto">
+          <mat-list-option *ngFor="let item of recordsKeys[key]" [value]="item" (click)="selectAllToggle.checked = properties.options.length == properties.selectedOptions.selected.length">
+            {{ item }}
+          </mat-list-option>
+        </mat-selection-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-dialog-content>
+  <mat-dialog-actions dir="rtl">
+    <button mat-button cdkFocusInitial class="e2e-export-confirm" color="primary" (click)="sendToExport()">Export</button>
+    <button mat-button mat-dialog-close class="e2e-export-cancel" color="primary">Cancel</button>
+  </mat-dialog-actions>
+</div>

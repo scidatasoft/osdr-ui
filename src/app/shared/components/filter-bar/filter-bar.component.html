@@ -1,0 +1,63 @@
+<div class="filter-bar">
+  <div class="btn-group">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+    Filter
+  </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <h6 class="dropdown-header">Choose filter field</h6>
+      <div class="dropdown-divider"></div>
+      <div class="card-block">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchField" />
+      </div>
+      <button class="dropdown-item" type="button"
+      *ngFor="let filterField of filterFieldsList | filterBarPipe:searchField"
+      (click)="onAddFilter(filterField)"
+      [disabled]="appliedFilterList.indexOf(filterField) !== -1">
+      {{ filterField.name }}
+      </button>
+    </div>
+  </div>
+
+
+  <div *ngFor="let field of appliedFilterList" class="btn-group" role="group">
+
+    <div class="btn-group">
+      <button (click)="onAppliedFildMenuClick(field, f)" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+        aria-haspopup="true" [ngClass]="{'aria-expanded': field.openDropDown}">
+        {{field.name}}:{{field.getFilter()}}
+      </button>
+
+      <div class="dropdown-menu filtered-filed-menu" aria-labelledby="dropdownMenuButton">
+
+        <div class="card-block">
+          <form (ngSubmit)="onSubmitFilter(field, f)" #f="ngForm">
+            <div class="form-group">
+              <label for="valueInput">Value</label>
+              <input
+                id="valueInput"
+                type="text"
+                class="form-control"
+                placeholder="Input filter value"
+                ngModel
+                name="filterValue"
+                required
+              >
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+                Apply
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="removeFilterField(field)" type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+      <span class="close">×</span>
+    </button>
+
+  </div>
+</div>

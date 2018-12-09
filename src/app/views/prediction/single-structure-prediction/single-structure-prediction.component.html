@@ -1,0 +1,261 @@
+<div class="main">
+  <div class="content">
+    <content>
+      <div class="pl-4 pr-4 pt-4 fx-w">
+        <h1 class="mb-0"> Single Structure Prediction
+          <sup class="text-primary-color" [popover]="betaVersion" placement="right" triggers="mouseenter:mouseleave">Beta</sup>
+        </h1>
+      </div>
+      <ng-template #betaVersion>
+        We're currently in Beta. You may see some things misbehaving or slow.
+      </ng-template>
+      <mat-horizontal-stepper [linear]="true" #stepper class="fx-w">
+
+        <mat-step #stepDrawStructure>
+          <ng-template matStepLabel>Draw Structure</ng-template>
+          <div class="fx-w">
+            <mat-error *ngIf="drawStepError" class="prediction-error">
+              Please draw a structure
+            </mat-error>
+            <iframe (load)="frameLoaded()" #ketcher src="/ketcher/ketcher.html" scrolling="no"></iframe>
+            <div class="text-right">
+              <button mat-raised-button color="primary" matStepperNext (click)="onGoToChoosePropertiesClick()">Select
+                Properties
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <mat-step #stepChooseProperty>
+          <ng-template matStepLabel>Select Properties</ng-template>
+          <div class="fx-w">
+            <mat-error *ngIf="predictionStepError" class="prediction-error">
+              Please select properties you want to predict
+            </mat-error>
+            <div class="prediction step-box-container">
+              <div *ngFor="let group of getKeys(modelsData.propsTree)" class="prediction-group pl-3">
+                <h5>
+                  <mat-checkbox class="e2e-property-group" [checked]="group.checked" (change)="onGroupClick($event, group)">
+                    <span>{{group.name}}</span>
+                    <!--<span class="badge badge-pill badge-primary">{{propsCount(group)}}</span>-->
+                  </mat-checkbox>
+                </h5>
+
+                <div *ngFor="let property of getKeys(modelsData.propsTree.get(group))" class="prediction-property pl-4">
+
+                  <ng-template #dataSetTemplate>
+
+                    <h4 class="m-0">{{property.propertyName}}</h4>
+                    <div class="mb-2">{{getPropDescription(property)}}</div>
+
+                    <div *ngFor="let propRow of getPropertyInfo(property)">
+                      <h5 class="m-0">{{propRow.dataset.title}}</h5>
+                      <div class="pl-4 mb-2">
+                        <div>
+                          <strong>Unit: </strong>{{propRow.property.propertyUnits}}</div>
+                        <div>
+                          <strong>Property: </strong>{{propRow.property.propertyName}}</div>
+
+                        <div *ngFor="let mod of propRow.models">
+                          <div>
+                            <strong>Model: </strong>{{mod.name}} ({{mod.getFingerPrints()}})</div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </ng-template>
+
+                  <mat-checkbox class="e2e-property" [checked]="property.checked" (change)="onPropsClick($event, group, property)">
+
+                    <span>{{property.propertyName}}</span>
+                  </mat-checkbox>
+                  <span class="badge badge-pill badge-primary pointer" (click)="onDetailsPreview(dataSetTemplate)">{{modelsCount(group, property)}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="space-between-btns text-right">
+              <button mat-raised-button color="primary" (click)="onGoDrawStrucureStep()">Back</button>
+              <button (click)="onGoToPredictionPage()" mat-raised-button color="primary">Predict</button>
+            </div>
+          </div>
+        </mat-step>
+
+        <mat-step #stepResult>
+          <ng-template matStepLabel>Results</ng-template>
+          <div class="step-box-container">
+
+            <div>
+              <p>
+                <i>
+                  * Please note: the prediction may take some time (usually a few seconds, sometimes minutes)
+                </i>
+              </p>
+
+              <div *ngFor="let groupOfProperty of getGroups()">
+                <h5>{{groupOfProperty}}</h5>
+
+                <mat-table *ngIf="report" #table [dataSource]="report.getRows(groupOfProperty)" class="mb-5">
+
+                  <ng-container matColumnDef="property">
+                    <mat-header-cell *matHeaderCellDef>Property</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <ng-template #resultPropertyHoverTemplate>
+                        <div class="pl-2">
+                          <h4>
+                            {{element.property.propertyName}}
+                          </h4>
+                          <div>
+                            {{element.property.propertyDescription}}
+                          </div>
+                          <div>
+                            {{element.property.propertyUnits}}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <div class="prop-name-align">
+                        <span class="mr-2" *ngIf="(element.referTask.task.stream$ | async).status != predictionStatus.error && (element.referTask.task.stream$ | async).status != predictionStatus.finishOk && (element.referTask.task.stream$ | async).status != predictionStatus.timeout">
+                          <img class="i-14" src="/img/svg/loaders/loader-flask.svg" no-inline>
+                        </span>
+                        <span class="mat-column-property highlight pointer details-preview" (click)="onDetailsPreview(resultPropertyHoverTemplate)">{{element.property.propertyName}}</span>
+                      </div>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="dataset">
+                    <mat-header-cell *matHeaderCellDef> Dataset</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <ng-template #resultDatasetHoverTemplate>
+                        <div class="pl-2">
+                          <h4>
+                            {{element.dataset.title}}
+                          </h4>
+                          <div>
+                            {{element.dataset.description}}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <span class="mat-column-dataset highlight pointer details-preview" (click)="onDetailsPreview(resultDatasetHoverTemplate)">
+                        {{element.dataset.title}}
+                      </span>
+
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="consensus">
+                    <mat-header-cell *matHeaderCellDef> Consensus</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+
+                      <div *ngIf="(element.referTask.task.stream$ | async).status == predictionStatus.finishOk" class="predict-list highlight">
+                        <span *ngIf="(element.referTask.task.stream$ | async) as reqResult">
+                          <span *ngIf="reqResult && reqResult.data.response.consensus && convertToExp(reqResult.data.response.consensus.value).exp">
+                            {{convertToExp(reqResult.data.response.consensus.value).value}}*10
+                            <sup>{{convertToExp(reqResult.data.response.consensus.value).exp}}</sup>
+                          </span>
+                          <span *ngIf="reqResult && reqResult.data.response.consensus && !convertToExp(reqResult.data.response.consensus.value).exp">
+                            {{reqResult.data.response.consensus.value | number : '1.2-2'}}
+                          </span>
+                          <span *ngIf="reqResult && reqResult.data.response.consensus">
+                            {{reqResult.data.response.consensus.units}}
+                          </span>
+                        </span>
+                      </div>
+
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container *ngFor="let propColumn of report.getPropertyColumns()" [matColumnDef]="propColumn">
+                    <mat-header-cell *matHeaderCellDef> {{report.getColumnByCode(propColumn)}}</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+
+                      <ul *ngIf="(element.referTask.task.stream$ | async).status == predictionStatus.finishOk" class="predict-list">
+                        <div *ngFor="let model of (element.referTask.task.stream$ | async).data.response.models">
+                          <li *ngIf="modelInclude(model, element, propColumn)">
+                            <ng-template #resultDsTemplate>
+                              <h4>{{targetModel(model, element, propColumn).name}}</h4>
+                              <h5 class="mt-3">Fingerprints/Descriptors</h5>
+                              <div>{{targetModel(model, element, propColumn).getFingerPrints()}}</div>
+                              <h5 class="mt-3">Applicability Domain</h5>
+                              <div>
+                                <strong>Distance:</strong> {{model.applicabilityDomain.distance}}
+                              </div>
+                              <div>
+                                <strong>Density:</strong> {{model.applicabilityDomain.density}}
+                              </div>
+                            </ng-template>
+
+                            <ng-template #resultErrorDsTemplate>
+                              <div>
+                                {{model.error.error}}
+                              </div>
+                              <div>
+                                <strong>Model:</strong> {{targetModel(model, element, propColumn).name}}</div>
+                            </ng-template>
+
+                            <span *ngIf="!model.error" class="pointer details-preview" [ngClass]="{domainRed: outsideDomain(model.applicabilityDomain), domainGreen: insideDomain(model.applicabilityDomain), domainYellow: fiftyFifty(model.applicabilityDomain)}"
+                              (click)="onDetailsPreview(resultDsTemplate)">
+
+                              <span *ngIf="convertToExp(model.result.value).exp">
+                                {{convertToExp(model.result.value).value}}*10
+                                <sup>{{convertToExp(model.result.value).exp}}</sup>
+                              </span>
+                              <span *ngIf="!convertToExp(model.result.value).exp">
+                                {{model.result.value | number : '1.2-2'}}
+                              </span>
+                              {{element.property.propertyUnits}}
+                            </span>
+                            <span *ngIf="model.error" (click)="onDetailsPreview(resultErrorDsTemplate)" class="i-24 pointer">
+                              <img src="/img/svg/alert-icons/warning.svg" />
+                            </span>
+                          </li>
+                        </div>
+                      </ul>
+
+                    </mat-cell>
+                  </ng-container>
+
+                  <!--<ng-container matColumnDef="state">-->
+                  <!--<mat-header-cell *matHeaderCellDef></mat-header-cell>-->
+                  <!--<mat-cell *matCellDef="let element">-->
+
+                  <!--<span class="i-24"-->
+                  <!--*ngIf="(element.referTask.task.stream$ | async).status != predictionStatus.error && (element.referTask.task.stream$ | async).status != predictionStatus.finishOk && (element.referTask.task.stream$ | async).status != predictionStatus.timeout">-->
+                  <!--<img src="/img/svg/loaders/loader-flask.svg" no-inline>-->
+                  <!--</span>-->
+
+                  <!--&lt;!&ndash;<span class="i-24" *ngIf="(element.referTask.task.stream$ | async).status == predictionStatus.error">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<img src="/img/svg/material/ic_error_outline_black_24px.svg" />&ndash;&gt;-->
+                  <!--&lt;!&ndash;</span>&ndash;&gt;-->
+
+                  <!--&lt;!&ndash;<span class="i-24" *ngIf="(element.referTask.task.stream$ | async).status == predictionStatus.finishOk">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<img src="/img/svg/material/ic_done_black_24px.svg" />&ndash;&gt;-->
+                  <!--&lt;!&ndash;</span>&ndash;&gt;-->
+
+                  <!--</mat-cell>-->
+                  <!--</ng-container>-->
+
+                  <mat-header-row *matHeaderRowDef="report.getColumns()"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: report.getColumns();"></mat-row>
+                </mat-table>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div *ngIf="(predictions$ | async) as predictionValue; else processing" class="text-right pt-4">
+            <button [disabled]="predictionValue.state != 'finish'" mat-raised-button color="primary" (click)="onResetStepper()">New
+              Prediction
+            </button>
+          </div>
+          <ng-template #processing>
+            <div class="text-right pt-4">
+              <button [disabled]="true" mat-raised-button color="primary">New Prediction</button>
+            </div>
+          </ng-template>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+    </content>
+  </div>
+</div>

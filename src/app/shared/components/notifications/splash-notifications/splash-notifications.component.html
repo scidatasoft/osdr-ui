@@ -1,0 +1,5 @@
+<div class="toast-notifications-wrapper">
+  <div *ngFor="let item of messagesList">
+    <dr-toast-message [messageItem]="item" (closeEvent)="onCloseToast($event, item)"></dr-toast-message>
+  </div>
+</div>

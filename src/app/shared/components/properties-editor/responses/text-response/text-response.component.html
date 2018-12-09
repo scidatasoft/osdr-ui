@@ -1,0 +1,7 @@
+<mat-form-field *ngIf="screenPartMetaData.dataType!='text'" class="md-container">
+  <input matInput [placeholder]="screenPartMetaData.instructions || screenPartMetaData.title" [(ngModel)]="screenCollectionData[screenPartMetaData.responseKey]">
+</mat-form-field>
+
+<mat-form-field *ngIf="screenPartMetaData.dataType=='text'" class="md-container">
+  <textarea matInput [placeholder]="screenPartMetaData.instructions || screenPartMetaData.title" [(ngModel)]="screenCollectionData[screenPartMetaData.responseKey]"></textarea>
+</mat-form-field>

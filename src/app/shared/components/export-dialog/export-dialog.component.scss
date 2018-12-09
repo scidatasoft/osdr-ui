@@ -1,0 +1,53 @@
+@import "_vars";
+button {
+  margin-top: 10px;
+}
+
+.mat-dialog-title {
+  flex: 1;
+}
+
+span {
+  color: transparentize($text-color, .2);
+}
+
+.badge-default {
+  background-color: darken($bg-color, 7%);
+  color: transparentize($text-color, .5);
+  flex: 0;
+}
+
+.text-truncate {
+  width: 85%;
+}
+
+.badge {
+  line-height: inherit;
+  margin-left: 1em;
+}
+
+.mat-dialog-content {
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  width: calc(100% - 3rem);
+  display: inline-flex;
+}
+
+.dialog-close {
+  position: absolute;
+  right: .3em;
+  width: 25px;
+  margin: -5px 0 0 0;
+  padding: 1px;
+  height: 25px;
+  top: 5px;
+  .material-icons {
+    position: absolute;
+    right: 2px;
+    font-size: 21px;
+    top: 1px;
+  }
+}

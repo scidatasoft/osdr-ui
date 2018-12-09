@@ -1,0 +1,65 @@
+<div class="events-box" [ngStyle]="{'opacity': getOpacity(), 'visibility': getVisibility() }">
+  <div class="events-box-header">
+    <span>{{title}}</span>
+    <div>
+      <button matTooltip="Collapse" *ngIf="collapsed" (click)="collapseItems()" class="btn btn-secondary btn-fab e2e-uncollapse-button">
+        <img src="/img/svg/material/ic_arrow_drop_up_black_24px.svg">
+      </button>
+
+      <button matTooltip="Collapse" *ngIf="!collapsed" (click)="collapseItems()" class="btn btn-secondary btn-fab e2e-collapse-button">
+        <img src="/img/svg/material/ic_arrow_drop_down_black_24px.svg">
+      </button>
+
+      <button matTooltip="Close" (click)="closeInfoBox()" class="btn btn-secondary btn-fab e2e-close">
+        <img src="/img/svg/material/ic_close_black_24px.svg">
+      </button>
+    </div>
+
+  </div>
+
+  <div *ngIf="!collapsed" class="events-box-body">
+
+    <div *ngIf="!allUploadFinishedOk" class="events-box-item">
+      <div class="e2e-upload-group-operation" data-placement="top">Uploading files</div>
+      <div>
+        <div class="btn-group">
+          <button *ngIf="isProgress" matTooltip="Cancel&nbsp;upload" container="body" (click)="onCancelAll()" class="btn btn-secondary btn-fab e2e-upload-cancel groupActionButton">
+            Cancel
+          </button>
+
+          <button *ngIf="!isProgress" matTooltip="Restart&nbsp;upload" container="body" (click)="restartAllUpload()" class="btn btn-secondary btn-fab e2e-upload-restart groupActionButton">
+            Restart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let element of actions" class="events-box-item">
+      <div class="e2e-upload-file-name" (click)="viewFile(element)" data-placement="top" matTooltip="{{element.name}}">{{element.getShortName()}}</div>
+      <div>
+        <img *ngIf="element.inProgress" class="e2e-upload-progress" src="img/svg/browser-loader.svg" no-inline height="24" width="24"
+        />
+        <img (click)="goToFile(element)" matTooltip="Go&nbsp;to&nbsp;file&nbsp;location" class="info-search-file" *ngIf="element.finished"
+          src="/img/svg/search.svg" no-inline height="24" width="24" />
+        <img class="info-done-file" *ngIf="element.finished" src="/img/svg/material/ic_done_black_24px.svg" no-inline height="24"
+          width="24" />
+        <img *ngIf="element.canceled" data-placement="top" matTooltip="Upload&nbsp;was&nbsp;canceled" src="/img/svg/material/ic_warning_black_24px.svg"
+          no-inline height="24" width="24" />
+        <img *ngIf="element.finishedWithError" data-placement="top" matTooltip="Error. Something went wrong." container="body" src="/img/svg/material/ic_error_outline_black_24px.svg"
+          no-inline height="24" width="24" />
+
+        <div class="btn-group">
+          <button *ngIf="element.inProgress" matTooltip="Cancel&nbsp;upload" container="body" (click)="onCancel(element)" class="btn btn-secondary btn-fab e2e-upload-cancel">
+            <img src="/img/svg/material/ic_cancel_black_24px.svg" no-inline>
+          </button>
+
+          <button *ngIf="element.finishedWithError || element.canceled" matTooltip="Restart&nbsp;upload" container="body" (click)="onRestart(element)"
+            class="btn btn-secondary btn-fab e2e-upload-restart">
+            <img src="/img/svg/material/ic_refresh_black_24px.svg" no-inline>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

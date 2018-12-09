@@ -1,0 +1,133 @@
+@import '_vars';
+@import '_mixins';
+@import '_tile';
+@import '_table';
+
+/*tile view*/
+
+@include tile-view;
+
+/*table view*/
+
+@include table-view;
+.tile-view,
+.table-view {
+    overflow-y: auto;
+    height: 100%; // width: calc(100% + .5rem);
+}
+
+
+/*context-menu*/
+
+.pagination {
+    margin: 0;
+    svg,
+    img {
+        margin-top: -.3rem;
+        height: .8rem;
+    }
+    .page-item {
+        .page-link {
+            cursor: pointer;
+            min-width: 2.5rem;
+            text-align: center;
+            color: darken($color-accent, 20%);
+        }
+        &.disabled.page-number .page-link {
+            color: white;
+            background: #bbb;
+        }
+    }
+}
+
+.pagination-nav {
+    display: inline-block;
+}
+
+.browser-loader {
+    top: calc(50% - 5rem);
+    left: 50%;
+    position: absolute;
+    img {
+        height: 100px;
+        width: 100px;
+        margin-left: -50px;
+        left: -50%;
+        top: -50%;
+    }
+}
+
+.browser-no-items {
+    font-size: 1.5rem;
+    color: $color-accent-muted;
+    height: calc(100% - 3rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: browser-no-items;
+    animation-duration: .5s;
+}
+
+.pagination-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%; // margin-left: -.7rem;
+    padding: .5rem;
+    padding-left: 1rem;
+    background: rgb(224, 225, 226);
+    white-space: nowrap;
+    box-shadow: 0 -5px 6px -5px #aaa;
+    .d-flex span {
+        padding: 0 1rem;
+        font-size: 1.2rem;
+    }
+    .page-size-div {
+        display: inline-block;
+        margin-left: 5rem;
+    }
+}
+
+.pagination-text b {
+    color: darken($color-accent, 30%);
+}
+
+:host {
+    display: block;
+    position: relative;
+    height: calc(100vh - 6.7rem);
+    padding-bottom: 3.5rem;
+}
+
+@keyframes browser-no-items {
+  from {
+      opacity: 0;
+      transform: translate3d(0, 10%, 0);
+  }
+  to {
+      opacity: 1;
+      transform: none;
+  }
+}
+
+.tile-text-filter{
+  display: flex;
+  .tile-text-name,
+  .tile-text-number{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tile-text-name{
+    flex: 1;
+  }
+  .tile-text-number{
+    width: auto;
+    text-align: right;
+  }
+
+}
+
+.dropdown-menu{
+  transform: inherit !important;
+}
+

@@ -1,0 +1,35 @@
+<div class="e2e-rename-item-dialog">
+  <div class="rename-item-header">
+    <h2 mat-dialog-title>
+      Rename {{getTitle()}}?
+    </h2>
+    <button mat-icon-button mat-dialog-close class="dialog-close">
+      <i class="material-icons">
+        close
+      </i>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <form id="folderRenameFG" [formGroup]="folderRenameFG">
+      <mat-form-field>
+        <input matInput cdkFocusInitial name="Folder" placeholder="Enter new {{getTitle()}} name" formControlName="folderName" class="e2e-folder-name">
+        <mat-hint align="start">Please enter new {{getTitle()}} name</mat-hint>
+        <mat-error *ngFor="let validation of validationMessages">
+          <mat-error *ngIf="folderRenameFG.get('folderName').hasError(validation.type) &&
+                      (folderRenameFG.get('folderName').dirty ||
+                      folderRenameFG.get('folderName').touched)" class="error-message">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions dir="rtl">
+    <button mat-button color="primary" type="submit" (click)="onSubmit()" [disabled]="!folderRenameFG.valid">
+      Rename
+    </button>
+    <button mat-button color="primary" type="button" mat-dialog-close>
+      Cancel
+    </button>
+  </mat-dialog-actions>
+</div>

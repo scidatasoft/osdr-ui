@@ -1,0 +1,158 @@
+@import 'vars';
+@import 'mixins';
+.tools-header {
+  padding: .5rem;
+  height: 4rem;
+  position: relative;
+  .search-div {
+    position: relative;
+    width: calc(100% - 14rem);
+    padding-left: 1.5rem;
+    display: none;
+    .search-input {
+      transition: all .2s;
+      display: block;
+      border: none;
+      border-bottom: solid 1px transparentize($text-color, .9);
+      background: none;
+      font-size: 1.1rem;
+      color: transparentize($text-color, .5);
+      @include placeholder(transparentize($text-color, .3));
+      width: 100%;
+      &:focus {
+        width: 100%;
+        color: $text-color;
+        border-bottom: solid 1px transparentize($text-color, .2);
+      }
+    }
+    .search-icon {
+      float: right;
+      right: 1rem;
+      position: absolute;
+      height: 1rem;
+      margin-top: .4rem;
+      fill: transparentize($text-color, .5);
+    }
+  }
+  .additional-menu {
+    display: inline-block;
+    .toggle-buttons-div {
+      button {
+        position: relative;
+        padding: 0px;
+        width: 1.2rem;
+        height: 1.4rem;
+        padding-bottom: 2px;
+      }
+    }
+    /deep/ .tooltip {
+      margin-top: 4px;
+      padding: 0;
+      .tooltip-inner {
+        padding: 0px 5px;
+        border-radius: 0.15rem;
+        white-space: nowrap;
+      }
+    }
+    .menu-pipe {
+      display: inline-block;
+      height: 1.2rem;
+      width: 1px;
+      margin-right: .5rem;
+      margin-left: .3rem;
+      background: darken($bg-color, 30%);
+    }
+    button {
+      transition: $transition;
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: .4rem;
+      border-bottom: solid 2px transparent;
+      svg {
+        width: 100%;
+        height: 100%;
+        fill: darken($bg-color, 70%);
+        &:hover {
+          fill: $bg-color-invert;
+        }
+      }
+      &.selected {
+        border-bottom: solid 2px #04a4a4;
+        margin-top: -5px;
+      }
+    }
+    .search-default {
+      display: block;
+    }
+    .search-cancel {
+      display: none;
+    }
+  }
+  .right-menu {
+    float: right;
+  }
+}
+
+.tools-header.search-state {
+  .additional-menu {
+    .search-default {
+      display: none;
+    }
+    .search-cancel {
+      display: block;
+    }
+  }
+  /deep/ {
+    .breadcrumbs,
+    .node-name {
+      text-align: left;
+      padding: 1rem 0;
+    }
+  }
+  .search-btn {
+    position: absolute;
+    top: .4rem;
+    left: 0;
+    z-index: 1;
+    animation-name: search-btn-anim;
+    animation-duration: 1s;
+    @keyframes search-btn-anim {
+      from {
+        opacity: 0;
+        transform: translate3d(200%, 0, 0);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+  .search-div {
+    display: block;
+    .search-input {
+      animation-name: search-input-anim;
+      animation-duration: .5s;
+    }
+    @keyframes search-input-anim {
+      from {
+        opacity: 0;
+        width: 0;
+        transform: translate3d(100%, 0, 0);
+      }
+      to {
+        width: 100%;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}
+
+:host {
+  height: 4rem;
+  display: block;
+  position: relative;
+}

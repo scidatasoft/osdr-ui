@@ -1,0 +1,11 @@
+<mat-dialog-title>Properties editor</mat-dialog-title>
+<mat-dialog-content *ngIf="screen">
+  <div *ngFor="let screenPart of screen.screenParts; let i = index;">
+    <dr-switch-response [screenPartMetaData]="screenPart" [screenCollectionData]="collectionData" [index]="i"></dr-switch-response>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <img *ngIf="saving" class="properties-saving-loader" src="/img/svg/loaders/loader-flask.svg" no-inline/>
+  <button *ngIf="!saving" mat-button (click)="onSave()">Save</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>

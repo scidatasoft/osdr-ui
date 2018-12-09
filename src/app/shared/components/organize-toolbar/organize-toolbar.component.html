@@ -1,0 +1,81 @@
+<context-menu #fileContextMenu>
+  <div *ngFor="let action of contextMenuActionsManager.getItems(0)">
+    <ng-template contextMenuItem let-item [subMenu]="action.subItems.length === 0 ? null : contextSubMenu" [visible]="action.visible"
+      [enabled]="action.isEnabled(item)" [divider]="action.divider" (execute)="action.click($event.item)">
+      <img *ngIf="!action.divider && action.img" src="{{ action.img(item) }}"> {{ action.html(item) }}
+    </ng-template>
+    <context-menu #contextSubMenu>
+      <ng-template *ngFor="let subItem of action.subItems" contextMenuItem let-item [visible]="subItem.visible" [enabled]="subItem.isEnabled(item)"
+        [divider]="action.divider" (execute)="subItem.click($event.item)">
+        {{ subItem.html(item) }}
+      </ng-template>
+    </context-menu>
+  </div>
+</context-menu>
+
+<div class="tools-header e2e-toolbar-header" [ngClass]="{'search-state': showSearchInput}">
+  <dr-breadcrumbs [items]="breadcrumbs"></dr-breadcrumbs>
+  <!--<h5 >{{breadcrumbs[breadcrumbs.length-1].text}}</h5>-->
+  <div class="right-menu">
+    <!--<div class="additional-menu<%=!browser?' hide-pipe':''%>">-->
+    <div class="additional-menu">
+      <div *ngIf="!isPublic" class="d-inline-block">
+        <button container="body" *ngIf="isButtonActive(buttonType.search)" (click)="onSearchClick()" class="waves waves-circle search-btn e2e-search-button"
+          [matTooltip]="getSearchTooltip()">
+          <img src="/img/svg/search.svg" class="search-default" />
+          <img src="/img/svg/search-cancel.svg" class="e2e-search-close search-cancel" />
+        </button>
+
+        <button *ngIf="isButtonActive(buttonType.addAction)" (click)="onToolbarButtonClick(buttonType.addAction)" class="waves waves-circle more-actions e2e-add-button"
+          matTooltip="Create Folder">
+          <img src="/img/svg/imp/add-folder.svg" />
+        </button>
+
+        <button *ngIf="isButtonActive(buttonType.upload)" (click)="onToolbarButtonClick(buttonType.upload)" class="waves waves-circle view-toggle e2e-upload-button"
+          matTooltip="Upload Files">
+          <img src="/img/svg/material/ic_file_upload_black_24px.svg" />
+        </button>
+
+        <button *ngIf="isButtonActive(buttonType.delete)" matTooltip="Delete File" class="waves waves-circle e2e-delete-button">
+          <img src="/img/svg/draft-menu/delete.svg" />
+        </button>
+
+        <button *ngIf="isButtonActive(buttonType.MLModelWizard)" matTooltip="ML Model Wizard" (click)="onToolbarButtonClick(buttonType.MLModelWizard)"
+          class="waves waves-circle view-toggle e2e-upload-button">
+          <img src="/img/svg/ml.svg" />
+        </button>
+
+        <button *ngIf="isButtonActive(buttonType.filter)" matTooltip="Filter" (click)="onToolbarButtonClick(buttonType.filter)" class="waves waves-circle view-toggle e2e-filter-button">
+          <img src="/img/svg/draft-menu/filter.svg" />
+        </button>
+        <button *ngIf="isButtonActive(buttonType.wizard)" matTooltip="ML" (click)="onToolbarButtonClick(buttonType.wizard)" class="waves waves-circle view-toggle e2e-wizard-button">
+          <img src="/img/svg/draft-menu/square-points.svg" />
+        </button>
+
+        <button *ngIf="isButtonActive(buttonType.subMenu)" matTooltip="More" (click)="onFileFolderContextMenu($event, item)" class="waves waves-circle more-actions e2e-submenu-button">
+          <img src="/img/svg/three-dots-v.svg" />
+        </button>
+
+        <div *ngIf="activeButtons.length > 2" class="menu-pipe"></div>
+      </div>
+      <div class="d-inline-block toggle-buttons-div">
+        <button *ngIf="isButtonActive(buttonType.table)" matTooltip="Table View" (click)="onToolbarButtonClick(buttonType.table)"
+          class="waves view-toggle e2e-table-button" [ngClass]="{selected:currentView == 'table'}">
+          <img src="/img/svg/table-view.svg" />
+        </button>
+        <button *ngIf="isButtonActive(buttonType.tile)" matTooltip="Tile View" (click)="onToolbarButtonClick(buttonType.tile)" class="waves view-toggle e2e-tile-button"
+          [ngClass]="{selected:currentView == 'tile'}">
+          <img src="/img/svg/tile-view.svg" />
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="search-div">
+    <input #searchBox class="search-input" type="text" value="" placeholder="Search..." (keyup)="onKeyUpSearchBox($event, searchBox.value)"
+    />
+  </div>
+
+  <dr-full-text-search-view (itemClickEvent)="onItemClick($event)"></dr-full-text-search-view>
+</div>

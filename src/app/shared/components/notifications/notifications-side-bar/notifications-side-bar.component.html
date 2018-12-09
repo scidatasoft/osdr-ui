@@ -1,0 +1,27 @@
+<div class="e2e-notification-panel notifications-pane-right" [ngClass]="{visible:display}">
+  <div class="notifications-pane-header">
+    <h5>Notifications</h5>
+    <button mat-icon-button class="e2e-close-notification-panel" (click)="onSideBarClose()" matTooltip="Close&nbsp;Notification&nbsp;Panel"
+      matTooltipPosition="left">
+      <img src="img/svg/material/ic_close_black_24px.svg" alt="">
+    </button>
+    <button mat-icon-button class="e2e-close-all-notifications" (click)="onSideBarClear()" matTooltip="Clear&nbsp;All&nbsp;Notifications"
+      matTooltipPosition="left">
+      <img src="img/svg/material/ic_clear_all_black_24px.svg" alt="">
+    </button>
+  </div>
+  <div class="notifications-pane-block">
+
+    <div *ngFor="let item of notificationItemList">
+      <dr-notification-items-factory [componentData]="item"></dr-notification-items-factory>
+    </div>
+    <ng-container *ngIf="notificationItemList.length !== notificationsTotalCount
+    && notificationItemList.length !== 0
+    && notificationsTotalCount > 20">
+      <button id='moreButton' mat-button color="primary" (click)="showMoreNotifications()">
+        More...
+      </button>
+    </ng-container>
+
+  </div>
+</div>

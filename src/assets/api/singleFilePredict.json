@@ -1,0 +1,273 @@
+[
+  {
+    "id": "000b0000-ac12-0242-e451-08d5b2b07591",
+    "ownedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdDateTime": "2018-05-05T17:48:49.966Z",
+    "kFold": 2,
+    "testDatasetSize": 0.10000000149011612,
+    "subSampleSize": 1,
+    "className": "Soluble",
+    "fingerprints": [
+      {
+        "type": "ECFP",
+        "size": 512,
+        "radius": 2
+      }
+    ],
+    "propertyCategory": "Toxicity",
+    "propertyName": "Bioaccumulation factor",
+    "propertyUnits": "a unit",
+    "propertyDescription": "Bioaccumulation factor description there",
+    "datasetTitle": "Short but laconic dataset description",
+    "datasetDescription": "Long dataset description",
+    "availableForSPP": true,
+    "modi": "0.75",
+    "updatedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "updatedDateTime": "2018-05-05T17:49:04.388Z",
+    "parentId": "5bc36212-608f-4dae-9f42-3cf38d191180",
+    "status": "Processed",
+    "method": "naiveBayes",
+    "scaler": "Standard",
+    "blob": {
+      "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9843",
+      "bucket": "osdr_ml_modeler"
+    },
+    "version": 11,
+    "name": "Naive Bayes",
+    "images": []
+  },
+
+  {
+    "id": "000b0000-ac12-0242-e451-08d5b2b07592",
+    "ownedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdDateTime": "2018-05-05T17:48:49.966Z",
+    "kFold": 2,
+    "testDatasetSize": 0.10000000149011612,
+    "subSampleSize": 1,
+    "className": "Soluble",
+    "fingerprints": [
+      {
+        "type": "ECFP",
+        "size": 512,
+        "radius": 2
+      }
+    ],
+    "propertyCategory": "Physical Properties",
+    "propertyName": "Water Solubility",
+    "propertyUnits": "kg",
+    "propertyDescription": "Property (Soluble) description there",
+    "datasetTitle": "Short but laconic dataset description",
+    "datasetDescription": "Long dataset description",
+    "availableForSPP": true,
+    "modi": "0.75",
+    "updatedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "updatedDateTime": "2018-05-05T17:49:04.388Z",
+    "parentId": "5bc36212-608f-4dae-9f42-3cf38d191180",
+    "status": "Processed",
+    "method": "naiveBayes",
+    "scaler": "Standard",
+    "blob": {
+      "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9844",
+      "bucket": "osdr_ml_modeler"
+    },
+    "version": 11,
+    "name": "Naive Bayes",
+    "images": []
+  },
+
+  {
+    "id": "000b0000-ac12-0242-e451-08d5b2b07596",
+    "ownedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdDateTime": "2018-05-05T17:48:49.966Z",
+    "kFold": 3,
+    "testDatasetSize": 0.10000000149011612,
+    "subSampleSize": 1,
+    "className": "Solubility",
+    "fingerprints": [
+      {
+        "type": "FCFP",
+        "size": 512,
+        "radius": 2
+      }
+    ],
+    "propertyCategory": "Physical Properties",
+    "propertyName": "Water Solubility",
+    "propertyUnits": "kg",
+    "propertyDescription": "Property (Solubility) description there",
+    "datasetTitle": "Short but laconic dataset description",
+    "datasetDescription": "Long dataset description",
+    "availableForSPP": true,
+    "modi": "0.75",
+    "updatedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "updatedDateTime": "2018-05-05T17:49:04.388Z",
+    "parentId": "5bc36212-608f-4dae-9f42-3cf38d191180",
+    "status": "Processed",
+    "method": "naiveBayes",
+    "scaler": "Standard",
+    "blob": {
+      "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9848",
+      "bucket": "osdr_ml_modeler"
+    },
+    "version": 11,
+    "name": "Naive Bayes",
+    "images": []
+  },
+
+  {
+    "id": "000b0000-ac12-0242-e451-08d5b2b07593",
+    "ownedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdDateTime": "2018-05-05T17:48:49.966Z",
+    "kFold": 2,
+    "testDatasetSize": 0.10000000149011612,
+    "subSampleSize": 1,
+    "className": "BoilingPoint",
+    "fingerprints": [
+      {
+        "type": "ECFP",
+        "size": 512,
+        "radius": 2
+      }
+    ],
+    "propertyCategory": "Physical Properties",
+    "propertyName": "Normal boiling point",
+    "propertyUnits": "C",
+    "propertyDescription": "Normal boiling point description there",
+    "datasetTitle": "Short but laconic dataset description",
+    "datasetDescription": "Long dataset description",
+    "availableForSPP": true,
+    "modi": "0.75",
+    "updatedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "updatedDateTime": "2018-05-05T17:49:04.388Z",
+    "parentId": "5bc36212-608f-4dae-9f42-3cf38d191180",
+    "status": "Processed",
+    "method": "naiveBayes",
+    "scaler": "Standard",
+    "blob": {
+      "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9845",
+      "bucket": "osdr_ml_modeler"
+    },
+    "version": 11,
+    "name": "Naive Bayes",
+    "images": []
+  },
+  {
+    "id": "000b0000-ac12-0242-e451-08d5b2b07594",
+    "ownedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdDateTime": "2018-05-05T17:48:49.966Z",
+    "kFold": 2,
+    "testDatasetSize": 0.10000000149011612,
+    "subSampleSize": 1,
+    "className": "Density",
+    "fingerprints": [
+      {
+        "type": "ECFP",
+        "size": 512,
+        "radius": 2
+      }
+    ],
+    "propertyCategory": "Physical Properties",
+    "propertyName": "Density",
+    "propertyUnits": "kg/m3",
+    "propertyDescription": "Property (Density) description there",
+    "datasetTitle": "Short but laconic dataset description",
+    "datasetDescription": "Long dataset description",
+    "availableForSPP": true,
+    "modi": "0.75",
+    "updatedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "updatedDateTime": "2018-05-05T17:49:04.388Z",
+    "parentId": "5bc36212-608f-4dae-9f42-3cf38d191180",
+    "status": "Processed",
+    "method": "naiveBayes",
+    "scaler": "Standard",
+    "blob": {
+      "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9846",
+      "bucket": "osdr_ml_modeler"
+    },
+    "version": 11,
+    "name": "Naive Bayes",
+    "images": []
+  },
+
+  {
+    "id": "000b0000-ac12-0242-e451-08d5b2b07597",
+    "ownedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdDateTime": "2018-05-05T17:48:49.966Z",
+    "kFold": 2,
+    "testDatasetSize": 0.10000000149011612,
+    "subSampleSize": 1,
+    "className": "Density",
+    "fingerprints": [
+      {
+        "type": "FCFP",
+        "size": 1024,
+        "radius": 1
+      }
+    ],
+    "propertyCategory": "Physical Properties",
+    "propertyName": "Density",
+    "propertyUnits": "kg/m3",
+    "propertyDescription": "Property (Density) description there",
+    "datasetTitle": "Short but laconic dataset description",
+    "datasetDescription": "Long dataset description",
+    "availableForSPP": true,
+    "modi": "0.75",
+    "updatedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "updatedDateTime": "2018-05-05T17:49:04.388Z",
+    "parentId": "5bc36212-608f-4dae-9f42-3cf38d191180",
+    "status": "Processed",
+    "method": "KNN",
+    "scaler": "Standard",
+    "blob": {
+      "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9849",
+      "bucket": "osdr_ml_modeler"
+    },
+    "version": 11,
+    "name": "K-Nearest Neighbors",
+    "images": []
+  },
+
+  {
+    "id": "000b0000-ac12-0242-e451-08d5b2b07595",
+    "ownedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "createdDateTime": "2018-05-05T17:48:49.966Z",
+    "kFold": 3,
+    "testDatasetSize": 0.10000000149011612,
+    "subSampleSize": 1,
+    "className": "Viscosity",
+    "fingerprints": [
+      {
+        "type": "ECFP",
+        "size": 512,
+        "radius": 2
+      }
+    ],
+    "propertyCategory": "Physical Properties",
+    "propertyName": "Viscosity",
+    "propertyUnits": "kg",
+    "propertyDescription": "Property (Viscosity) description there",
+    "datasetTitle": "Short but laconic dataset description",
+    "datasetDescription": "Long dataset description",
+    "availableForSPP": true,
+    "modi": "0.75",
+    "updatedBy": "af3644a1-5c63-4f5a-a462-588a322441ba",
+    "updatedDateTime": "2018-05-05T17:49:04.388Z",
+    "parentId": "5bc36212-608f-4dae-9f42-3cf38d191180",
+    "status": "Processed",
+    "method": "naiveBayes",
+    "scaler": "Standard",
+    "blob": {
+      "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9847",
+      "bucket": "osdr_ml_modeler"
+    },
+    "version": 11,
+    "name": "Naive Bayes",
+    "images": []
+  }
+]

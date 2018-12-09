@@ -1,0 +1,32 @@
+@import '_vars';
+@import '_mixins';
+.browser-no-issues {
+    padding: 1rem;
+    color: $color-accent-muted;
+    height: calc(100% - 3rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: browser-no-items;
+    animation-duration: .5s;
+    img {
+        height: 2rem;
+    }
+}
+
+td:first-child {
+    img,
+    svg {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+}
+
+
+.info-box-header {
+  border-radius: 0.25rem;
+}
+
+::ng-deep .tooltip.tooltip-top{
+  margin-top: -25px;
+}

@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>
+  <div>
+    Sharing Settings
+  </div>
+  <button mat-icon-button mat-dialog-close class="dialog-close">
+      <i class="material-icons">close</i>
+  </button>
+</h2>
+<mat-dialog-content>
+  <small>You can email the link or share it on your favorite social network. Anyone will be able to view this {{ data.fileInfo.type
+    | lowercase }}, even without OSDR login.</small>
+  <div class="e2e-shared-links shared-links">
+    <mat-form-field>
+      <input #currentFileLink matInput value="{{this.publicLink}}" class="is-shared">
+      <mat-icon matSuffix (click)="copyToClipboard(currentFileLink)" matTooltip="Copy Public URL to Clipboard" class="is-shared">
+        <img src="/img/svg/material/ic_content_copy_black_24px.svg" class="shared-links-icon-sm" />
+      </mat-icon>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions dir="rtl">
+  <button mat-button color="primary" (click)="togglePublicLink()">{{ !isShared ? 'Generate Public Link' : 'Stop Sharing' }}</button>
+  <button mat-button mat-dialog-close color="primary">Close</button>
+</mat-dialog-actions>

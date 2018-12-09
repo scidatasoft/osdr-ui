@@ -1,0 +1,55 @@
+{
+    "id": "d6eeb421-a8f5-4756-98ea-3257d7f8e4fc",
+    "propertiesCalculationResult": {
+        "properties": [
+            {
+                "name": "InChI",
+                "value": "InChI=1S/C23H26N6O2/c1-16-22(29-13-5-4-6-21(29)25-16)20-11-12-24-23(27-20)26-17-7-9-19(10-8-17)31-15-18(30)14-28(2)3/h4-13,18,30H,14-15H2,1-3H3,(H,24,26,27)/t18-/m0/s1",
+                "error": null
+            },
+            {
+                "name": "InChIKey",
+                "value": "VCPXSBULBDYRLT-SFHVURJKSA-N",
+                "error": null
+            },
+            {
+                "name": "NonStdInChI",
+                "value": "InChI=1/C23H26N6O2/c1-16-22(29-13-5-4-6-21(29)25-16)20-11-12-24-23(27-20)26-17-7-9-19(10-8-17)31-15-18(30)14-28(2)3/h4-13,18,30H,14-15H2,1-3H3,(H,24,26,27)/t18-/s2/f/h26H",
+                "error": null
+            },
+            {
+                "name": "NonStdInChIKey",
+                "value": "VCPXSBULBDYRLT-AXYPDEHPNA-N",
+                "error": null
+            },
+            {
+                "name": "SMILES",
+                "value": "CN(C)C[C@H](O)COC1C=CC(=CC=1)NC1N=C(C=CN=1)C1=C(C)N=C2C=CC=CN21",
+                "error": null
+            },
+            {
+                "name": "MOLECULAR_FORMULA",
+                "value": "C23 H26 N6 O2",
+                "error": null
+            },
+            {
+                "name": "MOLECULAR_WEIGHT",
+                "value": 418.491547,
+                "error": null
+            },
+            {
+                "name": "MONOISOTOPIC_MASS",
+                "value": 418.211731,
+                "error": null
+            },
+            {
+                "name": "MOST_ABUNDANT_MASS",
+                "value": 418.211731,
+                "error": null
+            }
+        ],
+        "issues": []
+    },
+    "exception": null,
+    "calculationDate": "2017-05-21T09:42:18.546Z"
+}

@@ -1,0 +1,106 @@
+<div class="main">
+  <div class="content">
+    <div class="header">
+      <h1>Features Computation
+        <sup class="text-primary-color" [popover]="betaVersion" placement="right" triggers="mouseenter:mouseleave">Beta</sup>
+      </h1>
+      <ng-template #betaVersion>
+        We're currently in Beta. You may see some things misbehaving or slow.
+      </ng-template>
+    </div>
+    <mat-horizontal-stepper linear="true" #stepper>
+      <mat-step [stepControl]="firstStepFG">
+        <div class="file-drop-area" [drFileDragDrop]="true" (fileDrop)="onFileDrop($event)" hoverClass="browser-drag-hover">
+          <ng-template matStepLabel>Select Fingerprints</ng-template>
+          <i class="material-icons upload-file-icon">
+            cloud_upload
+          </i>
+          <div *ngIf="!fileItem" class="file-selection">
+            <input #fileInput type="file" name="fileSelection" id="fileSelection" accept=".sdf, .cif" (change)="onFileChange($event)">
+            <label for="fileSelection">
+              <strong>Choose a file</strong>
+              <span> or drag it here</span>.</label>
+          </div>
+          <div *ngIf="fileItem != null" class="file-upload-finished">
+            <strong>Uploaded File:</strong>
+            <br>
+            <span>
+              <i>{{ fileItem.name }}</i>
+            </span>
+          </div>
+        </div>
+        <dr-fingerprints [fingerprintType]="getFingerprintsByFileType()" [hidden]="!fileExtension || fileIsToBig"></dr-fingerprints>
+        <div class="errors">
+          <mat-error *ngIf="!fileItem">
+            Please, choose a file or drag it here <br>
+          </mat-error>
+          <mat-error *ngIf="isWrongExtension">
+            File extension should be *.cif or *.sdf <br>
+          </mat-error>
+          <mat-error *ngIf="fileIsToBig">
+            File size must be less than 10 MB
+            <span *ngIf="fileItem"><br>Current file size: {{ fileSize }}</span>
+          </mat-error>
+          <mat-error *ngIf="fingerprints && fileExtension && !fingerprints.fingerprintForm.valid && !fileIsToBig">
+            Please, select valid fingerprints
+          </mat-error>
+        </div>
+        <div class="action-buttons">
+          <button mat-raised-button matStepperNext color="primary" (click)="uploadFile(fileItem)"
+          [disabled]="!fileItem || (fingerprints && !fingerprints.fingerprintForm.valid)"
+            matTooltip="Start Computation">Compute Features</button>
+          <button mat-raised-button color="primary" (click)="resetForm()">Reset</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="secondStepFG">
+        <ng-template matStepLabel>Results</ng-template>
+        <div class="csv-preview">
+          <div *ngIf="status === 'PROCESSING'" class="file-progress">
+            <img class="structure-loader" src="/img/svg/loaders/loader-flask.svg" no-inline />
+            <i>Please wait, your data is currently being computed</i>
+          </div>
+          <div *ngIf="status === 'RENDERING'" class="file-progress">
+            <img class="structure-loader" src="/img/svg/loaders/loader-flask.svg" no-inline />
+            <i>Please wait, we are rendering results.
+              <br> You can download CSV file by clicking the button below</i>
+          </div>
+          <mat-error *ngIf="status === 'FAILED'">
+            File processing failed. Please try again later.
+            <br>
+            <i>
+              <strong>Error:</strong> {{ errorMessage.message }}</i>
+          </mat-error>
+          <p>
+            <i>
+              <div *ngIf="status !== 'FAILED' && status !== 'PROCESSING'">
+                Showing {{ fileData ? numColumns : '0' }} columns out of {{ fileData ? fileData.columns : '0' }}, {{
+                fileData ? numRows :
+                '0' }} rows out of {{ fileData ? fileData.structures : '0' }}. Please download the file to see all
+                data.
+              </div>
+              <div *ngIf="fileData && fileData.failed">
+                Failed Structures: {{ fileData.failed }}
+              </div>
+            </i>
+          </p>
+          <table *ngIf="status === 'RENDERED' && dataArrayFromFile" class="table table-striped table-sm table-responsive">
+            <thead class="gray-header">
+              <tr>
+                <th *ngFor="let header of getTableHeader()">{{header}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of getTableBody()">
+                <td *ngFor="let r of row">{{r}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="action-buttons">
+          <button mat-raised-button matStepperPrevious color="primary">Back to Parameters</button>
+          <button (click)="downloadResults()" mat-raised-button color="primary" [disabled]="status === 'FAILED' || status === 'PROCESSING'">Download</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>
