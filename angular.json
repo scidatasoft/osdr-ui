@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "osdr.ui": {
+    "leanda.ui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -119,31 +119,31 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "osdr.ui:build",
+            "browserTarget": "leanda.ui:build",
             "port": 5555
           },
           "configurations": {
             "local": {
-              "browserTarget": "osdr.ui:build:local"
+              "browserTarget": "leanda.ui:build:local"
             },
             "production": {
-              "browserTarget": "osdr.ui:build:production"
+              "browserTarget": "leanda.ui:build:production"
             },
             "dev": {
-              "browserTarget": "osdr.ui:build:dev"
+              "browserTarget": "leanda.ui:build:dev"
             },
             "uat": {
-              "browserTarget": "osdr.ui:build:uat"
+              "browserTarget": "leanda.ui:build:uat"
             },
             "test": {
-              "browserTarget": "osdr.ui:build:test"
+              "browserTarget": "leanda.ui:build:test"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "osdr.ui:build"
+            "browserTarget": "leanda.ui:build"
           }
         },
         "test": {
@@ -201,7 +201,7 @@
         }
       }
     },
-    "osdr.ui-e2e": {
+    "leanda.ui-e2e": {
       "root": "",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -210,7 +210,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "osdr.ui:serve"
+            "devServerTarget": "leanda.ui:serve"
           }
         },
         "lint": {
@@ -225,7 +225,7 @@
       }
     }
   },
-  "defaultProject": "osdr.ui",
+  "defaultProject": "leanda.ui",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "dr",

@@ -1,4 +1,4 @@
-# OSDR Front-End
+# Leanda Front-End
 
 ## Requirements
 
@@ -6,9 +6,9 @@
 
 ## Commands
 
-*Current directory must be the `osdr.ui` repository*
+*Current directory must be the `leanda.ui` repository*
 
-```bash
+```terminal
 npm install -g @angular/cli
 npm i
 npm run start-local
@@ -26,8 +26,6 @@ And open <http://localhost:5555> via browser
 ## Links (back-end)
 
 [Node.js](https://nodejs.org)
-
-[MongoDB](https://www.mongodb.com/)
 
 [Angular CLI](https://github.com/angular/angular-cli)
 
@@ -51,19 +49,18 @@ And open <http://localhost:5555> via browser
 
 Build (replace `dev` with `test`, `uat` etc)
 
-```bash
-docker build --build-arg APP_ENV=dev -t docker.your-company.com/osdr-ui:latest .
+```terminal
+docker build --build-arg APP_ENV=dev -t docker.your-company.com/leanda-ui:latest .
 ```
 
 Run
 
-```bash
-docker run -d -p 5555:80 docker.your-company.com/osdr-ui:latest
+```terminal
+docker run -d -p 5555:80 docker.your-company.com/leanda-ui:latest
 ```
 
-Use OSDR docker-compose
+Use Leanda docker-compose
 
-```bash
-cd ./../../osdr/Source/Services/.docker
-docker-compose -f docker-compose.osdr.services.local.yml up
+```terminal
+docker-compose -f docker-compose.leanda.services.local.yml up
 ```
