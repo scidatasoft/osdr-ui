@@ -1,7 +1,7 @@
 {
   "_id": "da6c1f61-cc73-4703-93d4-190a87fcdcc5",
   "title": "Chemical Properties",
-  "fileType": "MOL | application/osdr-chemical-file+mol",
+  "fileType": "MOL | application/leanda-chemical-file+mol",
   "infoBoxType": "chemical-properties",
   "sections": [{
     "title": "",

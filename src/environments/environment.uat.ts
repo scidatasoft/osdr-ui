@@ -1,14 +1,14 @@
 export const environment = {
   name: 'UAT',
   production: false,
-  identityServerUrl: 'https://id.uat.dataledger.io/auth/realms/OSDR',
-  apiUrl: 'https://api.uat.dataledger.io/osdr/v1/api',
-  blobStorageApiUrl: 'https://api.uat.dataledger.io/blob/v1/api',
-  imagingUrl: 'https://api.uat.dataledger.io/imaging/v1/api',
-  signalrUrl: 'https://api.uat.dataledger.io/osdr/v1/signalr',
-  metadataUrl: 'https://api.uat.dataledger.io/metadata/v1/api',
+  identityServerUrl: 'https://id.uat.your-company.com/auth/realms/leanda',
+  apiUrl: 'https://api.uat.your-company.com/core/v1/api',
+  blobStorageApiUrl: 'https://api.uat.your-company.com/blob/v1/api',
+  imagingUrl: 'https://api.uat.your-company.com/imaging/v1/api',
+  signalrUrl: 'https://api.uat.your-company.com/core/v1/signalr',
+  metadataUrl: 'https://api.uat.your-company.com/metadata/v1/api',
   notificationTimeOut: 60 * 60 * 24 * 1000,
-  proxyJSMOL: 'https://api.uat.dataledger.io/osdr/v1/api/proxy/jsmol',
-  ketcher: 'https://osdr.uat.dataledger.io/ketcher/indigo/layout',
+  proxyJSMOL: 'https://api.uat.your-company.com/core/v1/api/proxy/jsmol',
+  ketcher: 'https://core.uat.your-company.com/ketcher/indigo/layout',
 };
 

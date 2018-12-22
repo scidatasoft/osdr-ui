@@ -6,15 +6,15 @@
 export const environment = {
   name: 'LOCAL',
   production: false,
-  identityServerUrl: 'https://id-dev.your-company.com/auth/realms/OSDR',
+  identityServerUrl: 'https://id-dev.your-company.com/auth/realms/leanda',
   // apiUrl: 'http://localhost:28610/api',
   apiUrl: 'http://localhost:28611/api',
-  // apiUrl: 'https://api.dev.dataledger.io/osdr/v1/api',
+  // apiUrl: 'https://api.dev.your-company.com/core/v1/api',
   blobStorageApiUrl: 'http://localhost:18006/api',
   imagingUrl: 'http://localhost:7972/api',
   signalrUrl: 'http://localhost:28611/signalr',
   metadataUrl: 'http://localhost:63790/api',
   notificationTimeOut: 60 * 60 * 24 * 1000,
   proxyJSMOL: 'http://localhost:28611/api/proxy/jsmol',
-  ketcher: 'https://osdr.dev.dataledger.io/ketcher/indigo/layout',
+  ketcher: 'https://core.dev.your-company.com/ketcher/indigo/layout',
 };

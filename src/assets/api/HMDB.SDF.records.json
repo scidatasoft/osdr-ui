@@ -6,9 +6,9 @@
         "Ordinal": 0,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -127,9 +127,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -207,9 +207,9 @@
         "Ordinal": 1,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -328,9 +328,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -408,9 +408,9 @@
         "Ordinal": 2,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -529,9 +529,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -609,9 +609,9 @@
         "Ordinal": 3,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -730,9 +730,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -810,9 +810,9 @@
         "Ordinal": 4,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -931,9 +931,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -1011,9 +1011,9 @@
         "Ordinal": 5,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -1132,9 +1132,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -1212,9 +1212,9 @@
         "Ordinal": 6,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -1333,9 +1333,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -1413,9 +1413,9 @@
         "Ordinal": 7,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -1534,9 +1534,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -1614,9 +1614,9 @@
         "Ordinal": 8,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -1735,9 +1735,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -1815,9 +1815,9 @@
         "Ordinal": 9,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -1936,9 +1936,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -2016,9 +2016,9 @@
         "Ordinal": 10,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -2137,9 +2137,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -2217,9 +2217,9 @@
         "Ordinal": 11,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -2338,9 +2338,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -2418,9 +2418,9 @@
         "Ordinal": 12,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -2539,9 +2539,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -2619,9 +2619,9 @@
         "Ordinal": 13,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -2740,9 +2740,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -2820,9 +2820,9 @@
         "Ordinal": 14,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -2941,9 +2941,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -3021,9 +3021,9 @@
         "Ordinal": 15,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -3142,9 +3142,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -3222,9 +3222,9 @@
         "Ordinal": 16,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -3343,9 +3343,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -3423,9 +3423,9 @@
         "Ordinal": 17,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -3537,9 +3537,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -3617,9 +3617,9 @@
         "Ordinal": 18,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -3738,9 +3738,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -3818,9 +3818,9 @@
         "Ordinal": 19,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -3939,9 +3939,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -4019,9 +4019,9 @@
         "Ordinal": 20,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -4140,9 +4140,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -4220,9 +4220,9 @@
         "Ordinal": 21,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -4341,9 +4341,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -4421,9 +4421,9 @@
         "Ordinal": 22,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -4535,9 +4535,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -4615,9 +4615,9 @@
         "Ordinal": 23,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -4736,9 +4736,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -4816,9 +4816,9 @@
         "Ordinal": 24,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -4937,9 +4937,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -5017,9 +5017,9 @@
         "Ordinal": 25,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -5138,9 +5138,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -5218,9 +5218,9 @@
         "Ordinal": 26,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -5339,9 +5339,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -5419,9 +5419,9 @@
         "Ordinal": 27,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -5540,9 +5540,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -5620,9 +5620,9 @@
         "Ordinal": 28,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -5741,9 +5741,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -5821,9 +5821,9 @@
         "Ordinal": 29,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -5942,9 +5942,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -6022,9 +6022,9 @@
         "Ordinal": 30,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -6143,9 +6143,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -6223,9 +6223,9 @@
         "Ordinal": 31,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -6344,9 +6344,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -6424,9 +6424,9 @@
         "Ordinal": 32,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -6545,9 +6545,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -6625,9 +6625,9 @@
         "Ordinal": 33,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -6746,9 +6746,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -6826,9 +6826,9 @@
         "Ordinal": 34,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -6947,9 +6947,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
@@ -7027,9 +7027,9 @@
         "Ordinal": 35,
         "Categories": [
             {
-                "URI": "https://osdr.your-company.com/record/imported/file",
+                "URI": "https://leanda.your-company.com/record/imported/file",
                 "Title": "Imported from file",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": true,
                 "Extendable": false,
                 "Properties": [
@@ -7148,9 +7148,9 @@
                 ]
             },
             {
-                "URI": "https://osdr.your-company.com/record/intrinsic",
+                "URI": "https://leanda.your-company.com/record/intrinsic",
                 "Title": "Intrinsic properties",
-                "Source": "https://osdr.your-company.com/",
+                "Source": "https://leanda.your-company.com/",
                 "Editable": false,
                 "Extendable": false,
                 "Properties": [
