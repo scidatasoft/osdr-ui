@@ -31,7 +31,7 @@
     "scaler": "Standard",
     "blob": {
       "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9843",
-      "bucket": "osdr_ml_modeler"
+      "bucket": "ml_modeler"
     },
     "version": 11,
     "name": "Naive Bayes",
@@ -70,7 +70,7 @@
     "scaler": "Standard",
     "blob": {
       "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9844",
-      "bucket": "osdr_ml_modeler"
+      "bucket": "ml_modeler"
     },
     "version": 11,
     "name": "Naive Bayes",
@@ -109,7 +109,7 @@
     "scaler": "Standard",
     "blob": {
       "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9848",
-      "bucket": "osdr_ml_modeler"
+      "bucket": "ml_modeler"
     },
     "version": 11,
     "name": "Naive Bayes",
@@ -148,7 +148,7 @@
     "scaler": "Standard",
     "blob": {
       "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9845",
-      "bucket": "osdr_ml_modeler"
+      "bucket": "ml_modeler"
     },
     "version": 11,
     "name": "Naive Bayes",
@@ -186,7 +186,7 @@
     "scaler": "Standard",
     "blob": {
       "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9846",
-      "bucket": "osdr_ml_modeler"
+      "bucket": "ml_modeler"
     },
     "version": 11,
     "name": "Naive Bayes",
@@ -225,7 +225,7 @@
     "scaler": "Standard",
     "blob": {
       "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9849",
-      "bucket": "osdr_ml_modeler"
+      "bucket": "ml_modeler"
     },
     "version": 11,
     "name": "K-Nearest Neighbors",
@@ -264,7 +264,7 @@
     "scaler": "Standard",
     "blob": {
       "id": "fcf55bfa-dbd5-4b89-93b2-9138ae0b9847",
-      "bucket": "osdr_ml_modeler"
+      "bucket": "ml_modeler"
     },
     "version": 11,
     "name": "Naive Bayes",

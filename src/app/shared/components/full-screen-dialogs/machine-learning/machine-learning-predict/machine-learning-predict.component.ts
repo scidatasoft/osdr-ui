@@ -189,7 +189,7 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
       DatasetBlobId: this.currentItem.blob.id,
       DatasetBucket: this.currentItem.blob.bucket,
       ModelBlobId: this.currentModelBlob.id,
-      ModelBucket: 'osdr_ml_modeler',
+      ModelBucket: 'ml_modeler',
       UserId: this.auth.user.profile.sub,
     };
     this.mlApi.predictProperties(data);

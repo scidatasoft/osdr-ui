@@ -19,7 +19,7 @@ export class AuthService {
 
   settings: any = {
     authority: environment.identityServerUrl,
-    client_id: 'osdr_angular',
+    client_id: 'leanda_angular',
     redirect_uri: this.appServer + '/auth.html',
     silent_redirect_uri: this.appServer + '/silent-renew.html',
     post_logout_redirect_uri: this.appServer,

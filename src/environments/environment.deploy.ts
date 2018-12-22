@@ -7,7 +7,7 @@ export const environment = {
   name: 'TEST',
   production: false,
   identityServerUrl: 'I___IDENTITY_SERVER_URL___I',
-  apiUrl: 'I___OSDR_API_URL___I',
+  apiUrl: 'I___CORE_API_URL___I',
   blobStorageApiUrl: 'I___BLOB_STORAGE_API_URL___I',
   imagingUrl: 'I___IMAGING_URL___I',
   signalrUrl: 'I___SIGNALR_URL___I',
