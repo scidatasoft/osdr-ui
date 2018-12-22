@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- [Node](https://nodejs.org) v6 or later
+- [Node](https://nodejs.org) v10 or later
 
 ## Commands
 
@@ -33,7 +33,7 @@ And open <http://localhost:5555> via browser
 
 [Angular](http://angular.io/)
 
-[Bootstrap](https://v4-alpha.getbootstrap.com/)
+[Bootstrap](https://getbootstrap.com/)
 
 [TypeSript](https://www.typescriptlang.org/)
 
