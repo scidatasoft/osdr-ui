@@ -47,16 +47,16 @@ And open <http://localhost:5555> via browser
 
 ## Dockerization
 
-Build (replace `dev` with `test`, `uat` etc)
+Build (replace `deploy` with `test`, `uat`, `dev` etc)
 
 ```terminal
-docker build --build-arg APP_ENV=dev -t docker.your-company.com/leanda-ui:latest .
+docker build --build-arg APP_ENV=deploy -t leanda/ui:latest .
 ```
 
 Run
 
 ```terminal
-docker run -d -p 5555:80 docker.your-company.com/leanda-ui:latest
+docker run -d -p 5555:80 leanda/ui:latest
 ```
 
 Use Leanda docker-compose

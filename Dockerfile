@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 
 # We label our stage as 'builder'
-FROM node:8-alpine as builder
+FROM node:10-alpine as builder
 
 ARG APP_ENV=local
 
@@ -26,7 +26,7 @@ RUN npm run build-${APP_ENV}
 ### STAGE 2: Setup ###
 
 # Multiple FROM commands are totally valid; the last one will create the resulting image
-FROM nginx:1.13.6-alpine
+FROM nginx:1.14.2-alpine
 
 ## Copy our default nginx config
 COPY nginx/default.conf /etc/nginx/conf.d/
