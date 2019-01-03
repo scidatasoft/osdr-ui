@@ -14,14 +14,16 @@ export class AppComponent {
     // document.title += ' - ' + environment.name;
 
     // Capture router events and forward them to Google Analytics
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        (<any>window).gtag('config', 'UA-124017517-2', {
-          'page_title' : document.title,
-          'page_path': event.url
-        });
-      }
-    });
+    // ** Replace "UA-*********-*" with your personal GA tag after adding GA to application
+
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     (<any>window).gtag('config', 'UA-*********-*', {
+    //       'page_title' : document.title,
+    //       'page_path': event.url
+    //     });
+    //   }
+    // });
   }
 
   routeChanges(val: any) {
