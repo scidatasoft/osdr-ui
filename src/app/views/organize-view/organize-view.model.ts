@@ -39,7 +39,7 @@ export class ContextMenu {
   // static MACHINE_LEARNING = 'Machine Learning';
   static EXPORT_TO_CSV = 'Export to CSV';
   static EXPORT_TO_SDF = 'Export to SDF';
-  static EXPORT_TO_SPL = 'Export to SPL';
+  // static ƒ = 'Export to SPL';
   static ENTITY_LOCATION = 'Go to the file location';
 }
 
@@ -143,7 +143,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   for (const subItem of menuItem.subItems) {
                     if (subItem.name === ContextMenu.EXPORT_TO_CSV
                       || subItem.name === ContextMenu.EXPORT_TO_SDF
-                      || subItem.name === ContextMenu.EXPORT_TO_SPL) {
+                      // || subItem.name === ContextMenu.EXPORT_TO_SPL
+                      ) {
                       subItem.visible = false;
                       subItem.enabled = false;
                     }
@@ -166,7 +167,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   for (const subItem of menuItem.subItems) {
                     if ((subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv')
                       || (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
-                      || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')) {
+                      // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
+                      ) {
                       subItem.visible = true;
                       subItem.enabled = this.hasSupportedExportExtension();
                     }
@@ -260,7 +262,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   for (const subItem of menuItem.subItems) {
                     if ((subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv')
                       || (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
-                      || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')) {
+                      // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
+                      ) {
                       subItem.visible = this.hasSupportedExportExtension();
                       subItem.enabled = this.hasSupportedExportExtension();
                     }
@@ -350,7 +353,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   for (const subItem of menuItem.subItems) {
                     if (subItem.name === ContextMenu.EXPORT_TO_CSV
                       || subItem.name === ContextMenu.EXPORT_TO_SDF
-                      || subItem.name === ContextMenu.EXPORT_TO_SPL) {
+                      // || subItem.name === ContextMenu.EXPORT_TO_SPL
+                      ) {
                       subItem.visible = false;
                       subItem.enabled = false;
                     }
@@ -373,7 +377,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   for (const subItem of menuItem.subItems) {
                     if ((subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv')
                       || (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
-                      || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')) {
+                      // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
+                      ) {
                       subItem.visible = true;
                       subItem.enabled = this.hasSupportedExportExtension();
                     }
@@ -445,7 +450,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   for (const subItem of menuItem.subItems) {
                     if ((subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv')
                       || (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
-                      || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')) {
+                      // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
+                      ) {
                       subItem.visible = this.hasSupportedExportExtension();
                       subItem.enabled = this.hasSupportedExportExtension();
                     }
@@ -479,7 +485,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   for (const subItem of menuItem.subItems) {
                     if (subItem.name === ContextMenu.EXPORT_TO_CSV
                       || subItem.name === ContextMenu.EXPORT_TO_SDF
-                      || subItem.name === ContextMenu.EXPORT_TO_SPL) {
+                      // || subItem.name === ContextMenu.EXPORT_TO_SPL
+                      ) {
                       subItem.visible = true;
                       subItem.enabled = false;
                     }
@@ -516,7 +523,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 for (const subItem of menuItem.subItems) {
                   if (subItem.name === ContextMenu.EXPORT_TO_CSV
                     || subItem.name === ContextMenu.EXPORT_TO_SDF
-                    || subItem.name === ContextMenu.EXPORT_TO_SPL) {
+                    // || subItem.name === ContextMenu.EXPORT_TO_SPL
+                    ) {
                     subItem.visible = true;
                     subItem.enabled = false;
                   }
@@ -547,7 +555,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 for (const subItem of menuItem.subItems) {
                   if ((subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv')
                     || (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
-                    || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')) {
+                    // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
+                    ) {
                     subItem.visible = true;
                     subItem.enabled = this.hasSupportedExportExtension();
                   }
@@ -590,7 +599,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 for (const subItem of menuItem.subItems) {
                   if (subItem.name === ContextMenu.EXPORT_TO_CSV
                     || subItem.name === ContextMenu.EXPORT_TO_SDF
-                    || subItem.name === ContextMenu.EXPORT_TO_SPL) {
+                    // || subItem.name === ContextMenu.EXPORT_TO_SPL
+                    ) {
                     subItem.visible = true;
                     subItem.enabled = false;
                   }
@@ -640,7 +650,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 for (const subItem of menuItem.subItems) {
                   if ((subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv')
                     || (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
-                    || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')) {
+                    // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
+                    ) {
                     subItem.visible = true;
                     subItem.enabled = this.hasSupportedExportExtension();
                   }
@@ -674,7 +685,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 for (const subItem of menuItem.subItems) {
                   if (subItem.name === ContextMenu.EXPORT_TO_CSV
                     || subItem.name === ContextMenu.EXPORT_TO_SDF
-                    || subItem.name === ContextMenu.EXPORT_TO_SPL) {
+                    // || subItem.name === ContextMenu.EXPORT_TO_SPL
+                    ) {
                     subItem.visible = true;
                     subItem.enabled = false;
                   }
