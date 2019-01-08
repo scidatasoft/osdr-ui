@@ -36,7 +36,7 @@ export class ContextMenu {
   static SHARING_SETTINGS = 'Sharing Settings';
   static CREATE_PUBLIC_LINK = 'Create Public Link';
   static CHANGE_SHARING_SETTINGS = 'Change Sharing Settings';
-  static MACHINE_LEARNING = 'Machine Learning';
+  // static MACHINE_LEARNING = 'Machine Learning';
   static EXPORT_TO_CSV = 'Export to CSV';
   static EXPORT_TO_SDF = 'Export to SDF';
   static EXPORT_TO_SPL = 'Export to SPL';
@@ -244,17 +244,17 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 } else if (menuItem.name === ContextMenu.DOWNLOAD) {
                   menuItem.visible = this.isDownloadable();
                   menuItem.enabled = this.isDownloadable();
-                } else if (menuItem.name === ContextMenu.MACHINE_LEARNING) {
-                  menuItem.visible = this.isSelectedSDF();
-                  menuItem.enabled = this.isSelectedSDF();
-                  for (const subItem of menuItem.subItems) {
-                    if (subItem.name === ContextMenu.TRAIN_ML_MODEL
-                      || subItem.name === ContextMenu.RUN_ML_PREDICTION) {
-                      subItem.visible = this.isSelectedSDF();
-                      subItem.enabled = this.isSelectedSDF();
-                    }
-                  }
-                } else if (menuItem.name === ContextMenu.EXPORT) {
+                // } else if (menuItem.name === ContextMenu.MACHINE_LEARNING) {
+                //   menuItem.visible = this.isSelectedSDF();
+                //   menuItem.enabled = this.isSelectedSDF();
+                //   for (const subItem of menuItem.subItems) {
+                //     if (subItem.name === ContextMenu.TRAIN_ML_MODEL
+                //       || subItem.name === ContextMenu.RUN_ML_PREDICTION) {
+                //       subItem.visible = this.isSelectedSDF();
+                //       subItem.enabled = this.isSelectedSDF();
+                //     }
+                //   }
+              } else if (menuItem.name === ContextMenu.EXPORT) {
                   menuItem.visible = this.hasSupportedExportExtension();
                   menuItem.enabled = this.hasSupportedExportExtension();
                   for (const subItem of menuItem.subItems) {
@@ -429,16 +429,16 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 } else if (menuItem.name === ContextMenu.DOWNLOAD) {
                   menuItem.visible = this.isDownloadable();
                   menuItem.enabled = this.isDownloadable();
-                } else if (menuItem.name === ContextMenu.MACHINE_LEARNING) {
-                  menuItem.visible = this.isSelectedSDF();
-                  menuItem.enabled = this.isSelectedSDF();
-                  for (const subItem of menuItem.subItems) {
-                    if (subItem.name === ContextMenu.TRAIN_ML_MODEL
-                      || subItem.name === ContextMenu.RUN_ML_PREDICTION) {
-                      subItem.visible = this.isSelectedSDF();
-                      subItem.enabled = this.isSelectedSDF();
-                    }
-                  }
+                // } else if (menuItem.name === ContextMenu.MACHINE_LEARNING) {
+                //   menuItem.visible = this.isSelectedSDF();
+                //   menuItem.enabled = this.isSelectedSDF();
+                //   for (const subItem of menuItem.subItems) {
+                //     if (subItem.name === ContextMenu.TRAIN_ML_MODEL
+                //       || subItem.name === ContextMenu.RUN_ML_PREDICTION) {
+                //       subItem.visible = this.isSelectedSDF();
+                //       subItem.enabled = this.isSelectedSDF();
+                //     }
+                //   }
                 } else if (menuItem.name === ContextMenu.EXPORT) {
                   menuItem.visible = this.hasSupportedExportExtension();
                   menuItem.enabled = this.hasSupportedExportExtension();
@@ -564,16 +564,16 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                     subItem.enabled = !this.selectedItem[0].isFolder();
                   }
                 }
-              } else if (menuItem.name === ContextMenu.MACHINE_LEARNING) {
-                menuItem.visible = this.isSelectedSDF();
-                menuItem.enabled = this.isSelectedSDF();
-                for (const subItem of menuItem.subItems) {
-                  if (subItem.name === ContextMenu.TRAIN_ML_MODEL
-                    || subItem.name === ContextMenu.RUN_ML_PREDICTION) {
-                    subItem.visible = this.isSelectedSDF();
-                    subItem.enabled = this.isSelectedSDF();
-                  }
-                }
+              // } else if (menuItem.name === ContextMenu.MACHINE_LEARNING) {
+              //   menuItem.visible = this.isSelectedSDF();
+              //   menuItem.enabled = this.isSelectedSDF();
+              //   for (const subItem of menuItem.subItems) {
+              //     if (subItem.name === ContextMenu.TRAIN_ML_MODEL
+              //       || subItem.name === ContextMenu.RUN_ML_PREDICTION) {
+              //       subItem.visible = this.isSelectedSDF();
+              //       subItem.enabled = this.isSelectedSDF();
+              //     }
+              //   }
               } else {
                 menuItem.visible = false;
                 menuItem.enabled = false;
@@ -624,16 +624,16 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
               } else if (menuItem.name === ContextMenu.DOWNLOAD) {
                 menuItem.visible = this.isDownloadable();
                 menuItem.enabled = this.isDownloadable();
-              } else if (menuItem.name === ContextMenu.MACHINE_LEARNING) {
-                menuItem.visible = this.isSelectedSDF();
-                menuItem.enabled = this.isSelectedSDF();
-                for (const subItem of menuItem.subItems) {
-                  if (subItem.name === ContextMenu.TRAIN_ML_MODEL
-                    || subItem.name === ContextMenu.RUN_ML_PREDICTION) {
-                    subItem.visible = this.isSelectedSDF();
-                    subItem.enabled = this.isSelectedSDF();
-                  }
-                }
+              // } else if (menuItem.name === ContextMenu.MACHINE_LEARNING) {
+              //   menuItem.visible = this.isSelectedSDF();
+              //   menuItem.enabled = this.isSelectedSDF();
+              //   for (const subItem of menuItem.subItems) {
+              //     if (subItem.name === ContextMenu.TRAIN_ML_MODEL
+              //       || subItem.name === ContextMenu.RUN_ML_PREDICTION) {
+              //       subItem.visible = this.isSelectedSDF();
+              //       subItem.enabled = this.isSelectedSDF();
+              //     }
+              //   }
               } else if (menuItem.name === ContextMenu.EXPORT) {
                 menuItem.visible = true;
                 menuItem.enabled = this.hasSupportedExportExtension();

@@ -16,9 +16,9 @@ import { SidebarContentModule } from 'app/shared/components/sidebar-content/side
 import { OrganizeToolbarModule } from 'app/shared/components/organize-toolbar/organize-toolbar.module';
 import { OrganizeBrowserModule } from 'app/shared/components/organize-browser/organize-browser.module';
 import { ExportDialogModule } from 'app/shared/components/export-dialog/export-dialog.module';
-import { MachineLearningService } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.service';
+// import { MachineLearningService } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.service';
 import { ActionViewService } from '../../shared/components/full-screen-dialogs/action-view.service';
-import { MachineLearningModule } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.module';
+// import { MachineLearningModule } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.module';
 
 const modules = [
   NotificationsModule,
@@ -29,7 +29,7 @@ const modules = [
   OrganizeToolbarModule,
   OrganizeBrowserModule,
   ExportDialogModule,
-  MachineLearningModule
+  // MachineLearningModule
 ];
 
 @NgModule({
@@ -39,7 +39,10 @@ const modules = [
     OrganizeViewRoutingModule],
   exports: [],
   declarations: [OrganizeViewComponent],
-  providers: [ActionViewService, MachineLearningService],
+  providers: [
+    ActionViewService,
+    // MachineLearningService
+  ],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class OrganizeViewModule { }

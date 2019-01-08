@@ -34,7 +34,7 @@ import { IQuickFilter, QuickFilterService } from 'app/core/services/browser-serv
 import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
 import { PageTitleService } from 'app/core/services/page-title/page-title.service';
 import { NotificationsApiService } from 'app/core/services/api/notifications-api.service';
-import { MachineLearningService } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.service';
+// import { MachineLearningService } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.service';
 import { ActionViewService } from 'app/shared/components/full-screen-dialogs/action-view.service';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { CreateFolderComponent } from 'app/shared/components/folder-actions/create-folder/create-folder.component';
@@ -93,7 +93,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
 
   constructor(public foldersApi: FoldersApiService,
     public entitiesApi: EntitiesApiService,
-    public mlFactoryService: MachineLearningService,
+    // public mlFactoryService: MachineLearningService,
     public actionViewService: ActionViewService,
     private nodesApi: NodesApiService,
     private blobsApi: BlobsApiService,
@@ -143,23 +143,23 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       ),
     );
 
-    const machineLearning = new ActionMenuItemData(ContextMenu.MACHINE_LEARNING, '/img/svg/ml.svg',
-      true,
-      true,
-      (item) => { });
-    machineLearning.subItems = [
-      new ActionMenuItemData(ContextMenu.TRAIN_ML_MODEL, '/img/svg/ml.svg', true, true,
-        (item) => {
-          if (this.dataService.getSelectedItems().length > 0) {
-            this.openTrainModelView();
-          }
-        }),
-      new ActionMenuItemData(ContextMenu.RUN_ML_PREDICTION, '/img/svg/ml.svg', true, true,
-        (item) => {
-          this.openPredictModelView();
-        }),
-    ];
-    this.folderContextMenuManager.add(machineLearning);
+    // const machineLearning = new ActionMenuItemData(ContextMenu.MACHINE_LEARNING, '/img/svg/ml.svg',
+    //   true,
+    //   true,
+    //   (item) => { });
+    // machineLearning.subItems = [
+    //   new ActionMenuItemData(ContextMenu.TRAIN_ML_MODEL, '/img/svg/ml.svg', true, true,
+    //     (item) => {
+    //       if (this.dataService.getSelectedItems().length > 0) {
+    //         this.openTrainModelView();
+    //       }
+    //     }),
+    //   new ActionMenuItemData(ContextMenu.RUN_ML_PREDICTION, '/img/svg/ml.svg', true, true,
+    //     (item) => {
+    //       this.openPredictModelView();
+    //     }),
+    // ];
+    // this.folderContextMenuManager.add(machineLearning);
     this.folderContextMenuManager.add(
       new ActionMenuItemData(ContextMenu.DOWNLOAD, '/img/svg/material/ic_file_download_black_24px.svg', false, false,
         (item) => {
@@ -430,21 +430,21 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
     });
   }
 
-  openTrainModelView(): void {
-    this.display = true;
-    this.disabledMenu = true;
-    this.componentData = this.mlFactoryService.setMachineLearningTrainComponent(
-      { selectedItems: this.dataService.selectedItems[0], parentItem: this.dataService.parentItem }
-    );
-  }
+  // openTrainModelView(): void {
+  //   this.display = true;
+  //   this.disabledMenu = true;
+  //   this.componentData = this.mlFactoryService.setMachineLearningTrainComponent(
+  //     { selectedItems: this.dataService.selectedItems[0], parentItem: this.dataService.parentItem }
+  //   );
+  // }
 
-  openPredictModelView(): void {
-    this.display = true;
-    this.disabledMenu = true;
-    this.componentData = this.mlFactoryService.setMachineLearningPredictComponent(
-      { selectedItems: this.dataService.selectedItems[0], parentItem: this.dataService.parentItem }
-    );
-  }
+  // openPredictModelView(): void {
+  //   this.display = true;
+  //   this.disabledMenu = true;
+  //   this.componentData = this.mlFactoryService.setMachineLearningPredictComponent(
+  //     { selectedItems: this.dataService.selectedItems[0], parentItem: this.dataService.parentItem }
+  //   );
+  // }
 
   openExportDialog(fileType: string): void {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
