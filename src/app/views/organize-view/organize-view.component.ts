@@ -211,12 +211,12 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
         (item) => {
           this.openExportDialog('sdf');
         }),
-      new ActionMenuItemData(ContextMenu.EXPORT_TO_SPL, '/img/svg/material/ic_file_download_black_24px.svg',
-        true,
-        true,
-        (item) => {
-          this.openExportDialog('spl');
-        }),
+      // new ActionMenuItemData(ContextMenu.EXPORT_TO_SPL, '/img/svg/material/ic_file_download_black_24px.svg',
+      //   true,
+      //   true,
+      //   (item) => {
+      //     this.openExportDialog('spl');
+      //   }),
     ];
     this.folderContextMenuManager.add(exportFile);
     const sharingSettings = new ActionMenuItemData(ContextMenu.SHARING_SETTINGS, '/img/svg/material/ic_link_black_24px.svg',
