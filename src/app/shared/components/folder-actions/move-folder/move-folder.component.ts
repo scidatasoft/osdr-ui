@@ -10,9 +10,9 @@ import { FoldersApiService } from 'app/core/services/api/folders-api.service';
 import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { map } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import {
-  MachineLearningTrainComponent
-} from '../../full-screen-dialogs/machine-learning/machine-learning-train/machine-learning-train.component';
+// import {
+//   MachineLearningTrainComponent
+// } from '../../full-screen-dialogs/machine-learning/machine-learning-train/machine-learning-train.component';
 import { SignalrService } from '../../../../core/services/signalr/signalr.service';
 import { SignalREvent } from '../../notifications/events.model';
 
