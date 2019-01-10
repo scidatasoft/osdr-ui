@@ -16,8 +16,7 @@ env:
 
 before_script:
   - echo "{\"buildInfo\":{\"buildId\":\""$TRAVIS_BUILD_NUMBER"\",\"buildDate\":\""$DATE_TM"\",\"environment\":\"DEV\"}}" > src/jenkinsBuildData.json
-  - cat ./src/jenkinsBuildData.json
-  - echo 
+  # - cat ./src/jenkinsBuildData.json
 
 script:
   - docker build --build-arg APP_ENV=deploy -t $DOCKER_IMAGE:$DATE -t $DOCKER_IMAGE:latest .
