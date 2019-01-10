@@ -1,5 +1,7 @@
 # Leanda Front-End
 
+[![Build Status](https://travis-ci.org/ArqiSoft/leanda-ui.svg?branch=master)](https://travis-ci.org/ArqiSoft/leanda-ui)
+
 ## Requirements
 
 - [Node](https://nodejs.org) v10 or later
@@ -49,18 +51,18 @@ And open <http://localhost:5555> via browser
 
 Build (replace `deploy` with `test`, `uat`, `dev` etc)
 
-```Terminal
+```terminal
 docker build --build-arg APP_ENV=deploy -t leanda/ui:latest .
 ```
 
 Run
 
-```Terminal
+```terminal
 docker run -d -p 5555:80 leanda/ui:latest
 ```
 
 Use Leanda docker-compose
 
-```Terminal
+```terminal
 docker-compose -f docker-compose.leanda.services.local.yml up
 ```
