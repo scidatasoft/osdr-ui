@@ -10,8 +10,8 @@ os:
 
 env:
   global:
-    - DATE=`TZ=America/New_York date "+%m-%d-%y-%H%M"`
-    - DATE_TM=`TZ=America/New_York date "+%m-%d-%y %H:%M"`
+    - DATE=`TZ=America/New_York date ""+%Y-%m-%d-%H%M"`
+    - DATE_TM=`TZ=America/New_York date "+%Y-%m-%d %H:%M"`
     - DOCKER_IMAGE="leanda/ui"
 
 before_script:
