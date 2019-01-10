@@ -1,0 +1,28 @@
+language: node_js
+node_js: "10"
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+os:
+  - linux
+
+before_install:
+  - export DATE=`TZ=America/New_York date "+%m-%d-%y-%H%M"`
+  - export DATE_TM=`TZ=America/New_York date "+%m-%d-%y %H:%M"`
+  - export DOCKER_IMAGE="leanda/ui"
+  - echo "{\"buildNumber\":\""$TRAVIS_BUILD_NUMBER"\", \"buildTime\":\""$DATE_TM"\", \"buildId\":\""$TRAVIS_BUILD_ID"\", \"docker\":\""$DOCKER_IMAGE:$DATE"\"}" > src/jenkinsBuildData.json
+  - echo "{\"buildInfo\":{\"buildId\":\""$TRAVIS_BUILD_NUMBER"\",\"buildDate\":\""$DATE_TM"\",\"environment\":\"DEV\"}}" > src/jenkinsBuildData.json
+  - cat ./src/jenkinsBuildData.json
+
+script:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker build -f .docker/Httpd.Dockerfile --build-arg NEW_RELIC_KEY=$NEW_RELIC_KEY --build-arg BUNDLE_GITHUB__COM=$BUNDLE_GITHUB__COM -t $DOCKER_IMAGE:$DATE -t $DOCKER_IMAGE:latest .
+  - docker build --build-arg APP_ENV=deploy -t $DOCKER_IMAGE:$DATE -t $DOCKER_IMAGE:latest .
+
+after_success:
+  - docker push $DOCKER_IMAGE # Pushes both date and latest
