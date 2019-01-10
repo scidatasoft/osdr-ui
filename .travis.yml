@@ -26,4 +26,3 @@ script:
 
 after_success:
   - docker push $DOCKER_IMAGE # Pushes both date and latest
-
