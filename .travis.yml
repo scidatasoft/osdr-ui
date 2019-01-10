@@ -15,7 +15,6 @@ before_install:
   - export DATE=`TZ=America/New_York date "+%m-%d-%y-%H%M"`
   - export DATE_TM=`TZ=America/New_York date "+%m-%d-%y %H:%M"`
   - export DOCKER_IMAGE="leanda/ui"
-  - echo "{\"buildNumber\":\""$TRAVIS_BUILD_NUMBER"\", \"buildTime\":\""$DATE_TM"\", \"buildId\":\""$TRAVIS_BUILD_ID"\", \"docker\":\""$DOCKER_IMAGE:$DATE"\"}" > src/jenkinsBuildData.json
   - echo "{\"buildInfo\":{\"buildId\":\""$TRAVIS_BUILD_NUMBER"\",\"buildDate\":\""$DATE_TM"\",\"environment\":\"DEV\"}}" > src/jenkinsBuildData.json
   - cat ./src/jenkinsBuildData.json
 
