@@ -49,18 +49,18 @@ And open <http://localhost:5555> via browser
 
 Build (replace `deploy` with `test`, `uat`, `dev` etc)
 
-```terminal
+```Terminal
 docker build --build-arg APP_ENV=deploy -t leanda/ui:latest .
 ```
 
 Run
 
-```terminal
+```Terminal
 docker run -d -p 5555:80 leanda/ui:latest
 ```
 
 Use Leanda docker-compose
 
-```terminal
+```Terminal
 docker-compose -f docker-compose.leanda.services.local.yml up
 ```
