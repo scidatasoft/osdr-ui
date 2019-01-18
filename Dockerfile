@@ -28,6 +28,10 @@ RUN npm run build-${APP_ENV}
 # Multiple FROM commands are totally valid; the last one will create the resulting image
 FROM nginx:1.13.6-alpine
 
+# Add script to wait the container starting while other dependent services ready
+RUN apt-get update && apt-get install -y curl
+RUN curl https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > /usr/share/wait-for-it.sh && chmod 777 /usr/share/wait-for-it.sh
+
 ## Copy our default nginx config
 COPY nginx/default.conf /etc/nginx/conf.d/
 
