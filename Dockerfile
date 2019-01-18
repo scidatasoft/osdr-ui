@@ -40,10 +40,6 @@ COPY --from=builder /ng-app/dist /usr/share/nginx/html
 COPY setenv.sh /usr/share
 RUN chmod +x /usr/share/setenv.sh
 
-# Add script to wait the container starting while other dependent services ready
-COPY wait-for.sh /usr/share
-RUN chmod +x /usr/share/wait-for.sh
-
 # RUN ls /usr/share/nginx/html
 
 CMD /usr/share/setenv.sh && sleep 3 && nginx -g 'daemon off;'
