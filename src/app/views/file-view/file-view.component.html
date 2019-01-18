@@ -16,9 +16,9 @@
         <button *ngIf="fileExtension !== 'sdf'" mat-icon-button matTooltip="Export to SDF" matTooltipPosition="right" (click)="openExportDialog('sdf')">
           <img src="/img/svg/export-to-sdf.svg" />
         </button>
-        <button *ngIf="fileExtension !== 'spl'" mat-icon-button matTooltip="Export to SPL" matTooltipPosition="right" (click)="openExportDialog('spl')">
+        <!-- <button *ngIf="fileExtension !== 'spl'" mat-icon-button matTooltip="Export to SPL" matTooltipPosition="right" (click)="openExportDialog('spl')">
           <img src="/img/svg/export-to-spl.svg" />
-        </button>
+        </button> -->
       </div>
 
       <div *ngIf="sidebarContent.sidebarCollapsed &&!isPublic" (mouseenter)="showPopover('showDownloadPopover')" (mouseleave)="hidePopover('showDownloadPopover')"
@@ -37,9 +37,9 @@
           <button *ngIf="fileExtension !== 'sdf'" mat-icon-button matTooltip="Export to SDF" matTooltipPosition="right" (click)="openExportDialog('sdf')">
             <img src="/img/svg/export-to-sdf.svg" />
           </button>
-          <button *ngIf="fileExtension !== 'spl'" mat-icon-button matTooltip="Export to SPL" matTooltipPosition="right" (click)="openExportDialog('spl')">
+          <!-- <button *ngIf="fileExtension !== 'spl'" mat-icon-button matTooltip="Export to SPL" matTooltipPosition="right" (click)="openExportDialog('spl')">
             <img src="/img/svg/export-to-spl.svg" />
-          </button>
+          </button> -->
         </div>
       </div>
 

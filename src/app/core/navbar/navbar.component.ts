@@ -18,16 +18,16 @@ export class NavbarComponent implements OnInit {
       path: 'home',
       visible: () => true
     },
-    {
-      name: 'Predict',
-      path: '/predict',
-      visible: () => true
-    },
-    {
-      name: 'Compute Features',
-      path: '/features',
-      visible: () => true
-    },
+    // {
+    //   name: 'Predict',
+    //   path: '/predict',
+    //   visible: () => true
+    // },
+    // {
+    //   name: 'Compute Features',
+    //   path: '/features',
+    //   visible: () => true
+    // },
     {
       name: 'Organize',
       path: 'organize/drafts',
