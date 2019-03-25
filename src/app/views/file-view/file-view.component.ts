@@ -404,11 +404,9 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     }
   }
 
-  getFileUrl(): string {
+  downloadEntity(): void {
     if (this.fileInfo) {
-      return this.blobsApi.getBlobUrl(this.fileInfo);
-    } else {
-      return '';
+      window.open(this.blobsApi.getBlobUrl(this.fileInfo, true));
     }
   }
 

@@ -1,8 +1,8 @@
 <dr-sidebar-content>
   <sidebar [ngClass]="{collapsed:sidebarContent.sidebarCollapsed, public:isPublic}">
     <div class="file-buttons">
-      <a *ngIf="!sidebarContent.sidebarCollapsed &&!isPublic" href="{{getFileUrl()}}" download="" mat-icon-button matTooltip="Download"
-        matTooltipPosition="right" class="e2e-download-file action-buttons">
+      <a *ngIf="!sidebarContent.sidebarCollapsed &&!isPublic" (click)="downloadEntity()" mat-icon-button matTooltip="Download"
+        matTooltipPosition="right" class="e2e-download-file action-buttons" download="{{fileInfo?.name}}">
         <img src="/img/svg/material/ic_file_download_black_24px.svg" />
       </a>
       <button [ngClass]="{shared: isShared}" *ngIf="!sidebarContent.sidebarCollapsed &&!isPublic" mat-icon-button matTooltip="{{ sharedToolTip }}"
@@ -23,7 +23,7 @@
 
       <div *ngIf="sidebarContent.sidebarCollapsed &&!isPublic" (mouseenter)="showPopover('showDownloadPopover')" (mouseleave)="hidePopover('showDownloadPopover')"
         [ngClass]="{show:showDownloadPopover}" class="download-popover">
-        <a mat-icon-button matTooltip="Download" matTooltipPosition="right" href="{{getFileUrl()}}" download="">
+        <a mat-icon-button matTooltip="Download" matTooltipPosition="right" (click)="downloadEntity()" download="{{fileInfo?.name}}">
           <img src="/img/svg/material/ic_file_download_black_24px.svg" />
         </a>
         <button [ngClass]="{shared: isShared}" mat-icon-button matTooltip="{{ sharedToolTip }}" matTooltipPosition="right" class="e2e-public-link action-buttons"
