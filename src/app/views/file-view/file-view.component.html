@@ -1,19 +1,24 @@
 <dr-sidebar-content>
   <sidebar [ngClass]="{collapsed:sidebarContent.sidebarCollapsed, public:isPublic}">
     <div class="file-buttons">
-      <a *ngIf="!sidebarContent.sidebarCollapsed &&!isPublic" (click)="downloadEntity()" mat-icon-button matTooltip="Download"
-        matTooltipPosition="right" class="e2e-download-file action-buttons" download="{{fileInfo?.name}}">
+      <a *ngIf="!sidebarContent.sidebarCollapsed &&!isPublic" (click)="downloadEntity()" mat-icon-button
+        matTooltip="Download" matTooltipPosition="right" class="e2e-download-file action-buttons"
+        download="{{fileInfo?.name}}">
         <img src="/img/svg/material/ic_file_download_black_24px.svg" />
       </a>
-      <button [ngClass]="{shared: isShared}" *ngIf="!sidebarContent.sidebarCollapsed &&!isPublic" mat-icon-button matTooltip="{{ sharedToolTip }}"
-        matTooltipPosition="right" class="e2e-public-link action-buttons" (click)="openSharedLinksDialog()">
+      <button [ngClass]="{shared: isShared}" *ngIf="!sidebarContent.sidebarCollapsed &&!isPublic" mat-icon-button
+        matTooltip="{{ sharedToolTip }}" matTooltipPosition="right" class="e2e-public-link action-buttons"
+        (click)="openSharedLinksDialog()">
         <img src="/img/svg/material/ic_link_black_24px.svg" />
       </button>
-      <div *ngIf="!sidebarContent.sidebarCollapsed &&!isPublic && ['mol', 'sdf', 'cdx'].indexOf(fileExtension)>=0" class="d-inline-block">
-        <button *ngIf="fileExtension !== 'csv'" mat-icon-button matTooltip="Export to CSV" matTooltipPosition="right" (click)="openExportDialog('csv')">
+      <div *ngIf="!sidebarContent.sidebarCollapsed &&!isPublic && ['mol', 'sdf', 'cdx'].indexOf(fileExtension)>=0"
+        class="d-inline-block">
+        <button *ngIf="fileExtension !== 'csv'" mat-icon-button matTooltip="Export to CSV" matTooltipPosition="right"
+          (click)="openExportDialog('csv')">
           <img src="/img/svg/export-to-csv.svg" />
         </button>
-        <button *ngIf="fileExtension !== 'sdf'" mat-icon-button matTooltip="Export to SDF" matTooltipPosition="right" (click)="openExportDialog('sdf')">
+        <button *ngIf="fileExtension !== 'sdf'" mat-icon-button matTooltip="Export to SDF" matTooltipPosition="right"
+          (click)="openExportDialog('sdf')">
           <img src="/img/svg/export-to-sdf.svg" />
         </button>
         <!-- <button *ngIf="fileExtension !== 'spl'" mat-icon-button matTooltip="Export to SPL" matTooltipPosition="right" (click)="openExportDialog('spl')">
@@ -21,20 +26,24 @@
         </button> -->
       </div>
 
-      <div *ngIf="sidebarContent.sidebarCollapsed &&!isPublic" (mouseenter)="showPopover('showDownloadPopover')" (mouseleave)="hidePopover('showDownloadPopover')"
-        [ngClass]="{show:showDownloadPopover}" class="download-popover">
-        <a mat-icon-button matTooltip="Download" matTooltipPosition="right" (click)="downloadEntity()" download="{{fileInfo?.name}}">
+      <div *ngIf="sidebarContent.sidebarCollapsed &&!isPublic" (mouseenter)="showPopover('showDownloadPopover')"
+        (mouseleave)="hidePopover('showDownloadPopover')" [ngClass]="{show:showDownloadPopover}"
+        class="download-popover">
+        <a mat-icon-button matTooltip="Download" matTooltipPosition="right" (click)="downloadEntity()"
+          download="{{fileInfo?.name}}">
           <img src="/img/svg/material/ic_file_download_black_24px.svg" />
         </a>
-        <button [ngClass]="{shared: isShared}" mat-icon-button matTooltip="{{ sharedToolTip }}" matTooltipPosition="right" class="e2e-public-link action-buttons"
-          (click)="openSharedLinksDialog()">
+        <button [ngClass]="{ shared: isShared}" mat-icon-button matTooltip="{{ sharedToolTip }}"
+          matTooltipPosition="right" class="e2e-public-link action-buttons" (click)="openSharedLinksDialog()">
           <img src="/img/svg/material/ic_link_black_24px.svg" />
         </button>
         <div *ngIf="['mol', 'sdf', 'cdx'].indexOf(fileExtension)>=0" class="d-flex">
-          <button *ngIf="fileExtension !== 'csv'" mat-icon-button matTooltip="Export to CSV" matTooltipPosition="right" (click)="openExportDialog('csv')">
+          <button *ngIf="fileExtension !== 'csv'" mat-icon-button matTooltip="Export to CSV" matTooltipPosition="right"
+            (click)="openExportDialog('csv')">
             <img src="/img/svg/export-to-csv.svg" />
           </button>
-          <button *ngIf="fileExtension !== 'sdf'" mat-icon-button matTooltip="Export to SDF" matTooltipPosition="right" (click)="openExportDialog('sdf')">
+          <button *ngIf="fileExtension !== 'sdf'" mat-icon-button matTooltip="Export to SDF" matTooltipPosition="right"
+            (click)="openExportDialog('sdf')">
             <img src="/img/svg/export-to-sdf.svg" />
           </button>
           <!-- <button *ngIf="fileExtension !== 'spl'" mat-icon-button matTooltip="Export to SPL" matTooltipPosition="right" (click)="openExportDialog('spl')">
@@ -43,8 +52,8 @@
         </div>
       </div>
 
-      <div *ngIf="!isPublic" (mouseenter)="showPopover('showSocialsPopover')" (mouseleave)="hidePopover('showSocialsPopover')"
-        [ngClass]="{show:showSocialsPopover}" class="socials">
+      <div *ngIf="!isPublic" (mouseenter)="showPopover('showSocialsPopover')"
+        (mouseleave)="hidePopover('showSocialsPopover')" [ngClass]="{show:showSocialsPopover}" class="socials">
         <button mat-icon-button matTooltip="Share on Twitter">
           <img src="/img/svg/file-socials-share/round/twitter.svg" />
         </button>
@@ -59,8 +68,8 @@
         </button>
       </div>
 
-      <div *ngIf="sidebarContent.sidebarCollapsed" (mouseenter)="showPopover('showInfoPopover')" (mouseleave)="hidePopover('showInfoPopover')"
-        [ngClass]="{show:showInfoPopover}" class="info-popover">
+      <div *ngIf="sidebarContent.sidebarCollapsed" (mouseenter)="showPopover('showInfoPopover')"
+        (mouseleave)="hidePopover('showInfoPopover')" [ngClass]="{show:showInfoPopover}" class="info-popover">
         <dl *ngIf="fileInfo">
           <dt>Created Date</dt>
           <dd *ngIf="fileInfo">{{fileInfo.Created() | date:'shortDate'}}</dd>
@@ -76,22 +85,25 @@
             <span class="text-truncate"> {{item.name}}</span>
           </li>
         </ul> -->
-        <button *ngFor="let item of listProperties" mat-button class="e2e-show-{{item.viewType}} show-records-btn" (click)="changeView(item.viewType)" [ngClass]="{active:currentTab==item.viewType}">
+        <button *ngFor="let item of listProperties" mat-button class="e2e-show-{{item.viewType}} show-records-btn"
+          (click)="changeView(item.viewType)" [ngClass]="{active:currentTab==item.viewType}">
           <span class="text-truncate"> {{item.name}}</span>
         </button>
       </div>
 
-      <div *ngIf="sidebarContent.sidebarCollapsed" (mouseenter)="showPopover('showPreviewPopover')" (mouseleave)="hidePopover('showPreviewPopover')"
-        [ngClass]="{show:showPreviewPopover}" class="preview-popover">
+      <div *ngIf="sidebarContent.sidebarCollapsed" (mouseenter)="showPopover('showPreviewPopover')"
+        (mouseleave)="hidePopover('showPreviewPopover')" [ngClass]="{show:showPreviewPopover}" class="preview-popover">
         <div mat-ripple>
-          <img class="e2e-middle-preview preview-img" *ngIf="getImageURL(fileInfo)" [class.active]="currentTab === 'preview'" (click)="changeView('preview')"
-            [src]="getImageURL(fileInfo)" no-inline/>
+          <img class="e2e-middle-preview preview-img" *ngIf="getImageURL(fileInfo)"
+            [class.active]="currentTab === 'preview'" (click)="changeView('preview')" [src]="getImageURL(fileInfo)"
+            no-inline />
           <!-- <dr-cif-preview *ngIf="JSMolPreview" [viewType]="currentTab === 'preview' ? true : false" [fileItem]="fileInfo"></dr-cif-preview>
           <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview" [fileItem]="fileInfo"></dr-spectra-jsmol-preview> -->
         </div>
       </div>
 
-      <div *ngIf="sidebarContent.sidebarCollapsed && fileInfo?.totalRecords" (mouseenter)="showPopover('showRecordsPopover')" (mouseleave)="hidePopover('showRecordsPopover')"
+      <div *ngIf="sidebarContent.sidebarCollapsed && fileInfo?.totalRecords"
+        (mouseenter)="showPopover('showRecordsPopover')" (mouseleave)="hidePopover('showRecordsPopover')"
         [ngClass]="{show:showRecordsPopover}" class="records-popover">
         <button mat-button (click)="changeView('records')">
           <span>{{recordsType}}&nbsp;records</span>
@@ -100,32 +112,36 @@
       </div>
 
       <div *ngIf="sidebarContent.sidebarCollapsed" class="collapsed-buttons">
-        <div *ngIf="!isPublic" (mouseenter)="showPopover('showDownloadPopover')" (mouseleave)="hidePopover('showDownloadPopover')">
+        <div *ngIf="!isPublic" (mouseenter)="showPopover('showDownloadPopover')"
+          (mouseleave)="hidePopover('showDownloadPopover')">
           <a mat-icon-button>
             <img src="/img/svg/export-file.svg" />
           </a>
         </div>
 
-        <div *ngIf="!isPublic" (mouseenter)="showPopover('showSocialsPopover')" (mouseleave)="hidePopover('showSocialsPopover')">
+        <div *ngIf="!isPublic" (mouseenter)="showPopover('showSocialsPopover')"
+          (mouseleave)="hidePopover('showSocialsPopover')">
           <button mat-icon-button>
             <img src="/img/svg/material/ic_share_black_24px.svg" />
           </button>
         </div>
 
-        <div (mouseenter)="showPopover('showInfoPopover')" (mouseleave)="hidePopover('showInfoPopover')" [ngClass]="{active:currentTab=='properties'}">
+        <div (mouseenter)="showPopover('showInfoPopover')" (mouseleave)="hidePopover('showInfoPopover')"
+          [ngClass]="{active:currentTab=='properties'}">
           <button (click)="changeView('properties')" mat-icon-button>
             <img src="/img/svg/material/ic_info_outline_black_24px.svg" />
           </button>
         </div>
 
-        <div (mouseenter)="showPopover('showPreviewPopover')" (mouseleave)="hidePopover('showPreviewPopover')" [ngClass]="{active:currentTab=='preview'}">
+        <div (mouseenter)="showPopover('showPreviewPopover')" (mouseleave)="hidePopover('showPreviewPopover')"
+          [ngClass]="{active:currentTab=='preview'}">
           <button (click)="changeView('preview')" mat-icon-button>
             <img src="/img/svg/material/ic_image_black_24px.svg" />
           </button>
         </div>
 
-        <div *ngIf="showRecords" (mouseenter)="showPopover('showRecordsPopover')" (mouseleave)="hidePopover('showRecordsPopover')"
-          [ngClass]="{active:currentTab=='records'}">
+        <div *ngIf="showRecords" (mouseenter)="showPopover('showRecordsPopover')"
+          (mouseleave)="hidePopover('showRecordsPopover')" [ngClass]="{active:currentTab=='records'}">
           <button (click)="changeView('records')" mat-icon-button>
             <img src="/img/svg/record.svg" />
           </button>
@@ -137,15 +153,20 @@
     <div class="file-img">
       <div mat-ripple>
         <div [class.active]="currentTab === 'preview'">
-          <div *ngIf="getImageURL(fileInfo) && !JSMolPreview && !JsSpectraPreview" [class.default-thumbnail]="fileInfo && (!fileInfo.images || !fileInfo.images.length)">
-            <img class="e2e-middle-preview preview-img" (click)="changeView('preview')" [src]="getImageURL(fileInfo)" no-inline/>
+          <div *ngIf="getImageURL(fileInfo) && !JSMolPreview && !JsSpectraPreview"
+            [class.default-thumbnail]="fileInfo && (!fileInfo.images || !fileInfo.images.length)">
+            <img class="e2e-middle-preview preview-img" (click)="changeView('preview')" [src]="getImageURL(fileInfo)"
+              no-inline />
           </div>
-          <dr-cif-preview *ngIf="JSMolPreview" [fileItem]="fileInfo" [viewType]="currentTab" (click)="changeView('preview')"></dr-cif-preview>
-          <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview" [fileItem]="fileInfo" (click)="changeView('preview')"></dr-spectra-jsmol-preview>
+          <dr-cif-preview *ngIf="JSMolPreview" [fileItem]="fileInfo" [viewType]="currentTab"
+            (click)="changeView('preview')"></dr-cif-preview>
+          <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview" [fileItem]="fileInfo" (click)="changeView('preview')">
+          </dr-spectra-jsmol-preview>
         </div>
       </div>
       <h5 class="text-muted d-inline-block">File</h5>
-      <img *ngIf="fileInfo?.loading && !fileProcessed" class="structure-loader" src="/img/svg/loaders/loader-flask.svg" no-inline/>
+      <img *ngIf="fileInfo?.loading && !fileProcessed" class="structure-loader" src="/img/svg/loaders/loader-flask.svg"
+        no-inline />
     </div>
 
     <div *ngIf="!sidebarContent.sidebarCollapsed" class="tab-records">
@@ -167,23 +188,27 @@
           <span class="text-truncate"> {{item.name}}</span>
         </li>
       </ul> -->
-      <button *ngFor="let item of listProperties" mat-button class="e2e-show-{{item.viewType}} show-records-btn" (click)="changeView(item.viewType)" [ngClass]="{active:currentTab==item.viewType}">
+      <button *ngFor="let item of listProperties" mat-button class="e2e-show-{{item.viewType}} show-records-btn"
+        (click)="changeView(item.viewType)" [ngClass]="{active:currentTab==item.viewType}">
         <span class="text-truncate"> {{item.name}}</span>
       </button>
     </div>
 
-    <button *ngIf="!sidebarContent.sidebarCollapsed && fileInfo?.totalRecords" mat-button class="e2e-show-records show-records-btn"
-      (click)="changeView('records')" [ngClass]="{active:currentTab=='records'}">
+    <button *ngIf="!sidebarContent.sidebarCollapsed && fileInfo?.totalRecords" mat-button
+      class="e2e-show-records show-records-btn" (click)="changeView('records')"
+      [ngClass]="{active:currentTab=='records'}">
       <span>{{recordsType}}&nbsp;records</span>
       <b>{{fileInfo.totalRecords}}</b>
     </button>
 
   </sidebar>
   <content class="file-content">
-    <dr-organize-toolbar *ngIf="initied" [activeButtons]="toolBarButtons" (toolbarEvent)="onToolbarButtonClick($event)" [breadcrumbs]="breadcrumbs"
-      [isPublic]="isPublic" [fileInfo]="fileInfo" [currentView]="currentView"></dr-organize-toolbar>
+    <dr-organize-toolbar *ngIf="initied" [activeButtons]="toolBarButtons" (toolbarEvent)="onToolbarButtonClick($event)"
+      [breadcrumbs]="breadcrumbs" [isPublic]="isPublic" [fileInfo]="fileInfo" [currentView]="currentView">
+    </dr-organize-toolbar>
 
-    <dr-filter-bar [filterFieldsList]="filterListFields" (filterChanged)="onApplyFilter($event)" *ngIf="showFilter"></dr-filter-bar>
+    <dr-filter-bar [filterFieldsList]="filterListFields" (filterChanged)="onApplyFilter($event)" *ngIf="showFilter">
+    </dr-filter-bar>
 
     <div #fileViewContainer></div>
 

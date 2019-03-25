@@ -272,15 +272,8 @@ export class BrowserDataService extends BrowserDataBaseService {
     } else if (inputEvent.EventName === 'PermissionsChanged') {
       const permissionEvent = inputEvent.EventData as SignalREventPermissionChanged;
       const { updatedItem } = this.getLocalItemByID(inputEvent.Id);
-      if (updatedItem.accessPermissions) {
+      if (updatedItem && updatedItem.accessPermissions !== null) {
         updatedItem.accessPermissions.isPublic = permissionEvent.permissionPublic;
-      } else {
-        updatedItem.accessPermissions = {
-          isPublic: permissionEvent.permissionPublic,
-          id: '',
-          users: [],
-          groups: []
-        };
       }
     } else {
       const { updatedItem } = this.getLocalItemByID(inputEvent.Id);
