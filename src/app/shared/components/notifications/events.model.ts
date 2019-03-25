@@ -262,7 +262,7 @@ export class SignalREventDataFileCreated extends SignalREventDataBasic {
   }
 
   getLink(): string {
-    return `/${NodeType[this.nodeType]}/${this.id}`;
+    return `/${NodeType[this.nodeType].toLowerCase()}/${this.id}`;
   }
 
   getEventHeader() {
@@ -295,7 +295,7 @@ export class SignalREventDataRename extends SignalREventDataBasic {
   }
 
   getLink(): string {
-    return NodeType[this.nodeType] === NodeType[NodeType.Folder] ? `/organize/${this.id}` : `/${NodeType[this.nodeType]}/${this.id}`;
+    return NodeType[this.nodeType] === NodeType[NodeType.Folder] ? `/organize/${this.id}` : `/${NodeType[this.nodeType].toLowerCase()}/${this.id}`;
   }
 
   getEventHeader() {
@@ -363,7 +363,7 @@ export class SignalREventPermissionChanged extends SignalREventDataBasic {
   }
 
   getLink(): string {
-    return NodeType[this.nodeType] === NodeType[NodeType.Folder] ? `/organize/${this.id}` : `/${NodeType[this.nodeType]}/${this.id}`;
+    return NodeType[this.nodeType] === NodeType[NodeType.Folder] ? `/organize/${this.id}` : `/${NodeType[this.nodeType].toLowerCase()}/${this.id}`;
   }
 
   getEventHeader() {
@@ -462,7 +462,7 @@ export class SignalREventProcessingFinished extends SignalREventDataBasic {
   }
 
   getLink(): string {
-    return `/${NodeType[this.nodeType]}/${this.id}`;
+    return `/${NodeType[this.nodeType].toLowerCase()}/${this.id}`;
   }
 
   getEventHeader() {
@@ -499,7 +499,7 @@ export class SignalREventModelTraining extends SignalREventDataBasic {
   }
 
   getLink(): string {
-    return `/${NodeType[this.nodeType]}/${this.id}`;
+    return `/${NodeType[this.nodeType].toLowerCase()}/${this.id}`;
   }
 
   getEventHeader() {
