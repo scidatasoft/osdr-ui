@@ -28,10 +28,10 @@ const routes: Routes = [
   //   path: 'predict',
   //   loadChildren: './views/prediction/prediction.module#PredictionModule'
   // },
-  // {
-  //   path: 'features',
-  //   loadChildren: './views/features/features.module#FeaturesModule'
-  // },
+  {
+    path: 'features',
+    loadChildren: './views/features/features.module#FeaturesModule'
+  },
   {
     path: '404',
     loadChildren: './views/errors/404/error-404.module#Error404Module'
