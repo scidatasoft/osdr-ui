@@ -22,5 +22,6 @@ export const environment = {
     spectrum: true,
     tabular: true,
     webPage: true,
+    login: true,
   }
 };
