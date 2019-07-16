@@ -4,11 +4,12 @@ import { AuthService } from 'app/core/services/auth/auth.service';
 import { User } from 'oidc-client';
 import { NotificationsService } from 'app/core/services/notifications/notifications.service';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'dr-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   url: string;
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit {
     {
       name: 'Home',
       path: 'home',
-      visible: () => true
+      visible: () => true,
     },
     // {
     //   name: 'Predict',
@@ -31,38 +32,39 @@ export class NavbarComponent implements OnInit {
     {
       name: 'Organize',
       path: 'organize/drafts',
-      visible: () => this.user
+      visible: () => this.user,
     },
     {
       name: 'About',
       path: 'about',
-      visible: () => true
-    }
+      visible: () => true,
+    },
   ];
   @ViewChild('profileMenu') public profileMenu: ContextMenuComponent;
   user: User;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private auth: AuthService,
     private contextMenuService: ContextMenuService,
-    public notificationService: NotificationsService) {
-    this.auth.getUser().subscribe(user => this.user = user);
+    public notificationService: NotificationsService,
+  ) {
+    this.auth.getUser().subscribe(user => (this.user = user));
     this.url = router.url;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getRoutes() {
     return this.routes.filter(x => x.visible());
   }
 
-  login(e) {
+  login(e: { preventDefault: () => void; }) {
     e.preventDefault();
     this.auth.login();
   }
 
-  logout(e) {
+  logout(e: { event: { preventDefault: () => void; }; }) {
     e.event.preventDefault();
     this.auth.logout();
   }
@@ -78,13 +80,21 @@ export class NavbarComponent implements OnInit {
     $event.stopPropagation();
   }
 
-  onShowNotificationsBar($event) {
+  onShowNotificationsBar($event: { preventDefault: () => void; stopPropagation: () => void; }) {
     this.notificationService.showNotificationBar();
     $event.preventDefault();
     $event.stopPropagation();
   }
 
-  isNotificationVisible() {
-    return this.router.url.indexOf('/home') && this.router.url.indexOf('/about') < 0;
+  isNotificationVisible(): boolean {
+    return (
+      this.user &&
+      this.router.url.indexOf('/home') &&
+      this.router.url.indexOf('/about') < 0
+    );
+  }
+
+  isLoginVisible(): boolean {
+    return !this.user && environment.capabilities.login;
   }
 }

@@ -6,7 +6,7 @@
 export const environment = {
   name: 'LOCAL',
   production: false,
-  identityServerUrl: 'https://id-dev.your-company.com/auth/realms/leanda',
+  identityServerUrl: 'http://keycloak:8080/auth/realms/OSDR',
   // apiUrl: 'http://localhost:28610/api',
   apiUrl: 'http://localhost:28611/api',
   // apiUrl: 'https://api.dev.your-company.com/core/v1/api',
@@ -17,4 +17,18 @@ export const environment = {
   notificationTimeOut: 60 * 60 * 24 * 1000,
   proxyJSMOL: 'http://localhost:28611/api/proxy/jsmol',
   ketcher: 'https://core.dev.your-company.com/ketcher/indigo/layout',
+  capabilities: {
+    chemical: true,
+    crystal: true,
+    image: true,
+    machineLearning: true,
+    microscopy: true,
+    office: true,
+    pdf: true,
+    reaction: true,
+    spectrum: true,
+    tabular: true,
+    webPage: true,
+    login: true,
+  },
 };

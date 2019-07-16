@@ -11,11 +11,11 @@
     <li *ngFor="let route of getRoutes()" routerLinkActive="active" class="nav-item e2e-nav-bar-links">
       <a class="nav-link" [routerLink]="route.path">{{route.name}}</a>
     </li>
-    <li *ngIf="!user" class="nav-item e2e-login-item">
+    <li *ngIf="isLoginVisible()" class="nav-item e2e-login-item">
       <a class="nav-link" href="" (click)="login($event)">Login</a>
     </li>
 
-    <li *ngIf="user && isNotificationVisible()" class="nav-item notification-item">
+    <li *ngIf="isNotificationVisible()" class="nav-item notification-item">
       <a class="e2e-notification-panel-icon nav-link notification-icon" href="#" (click)="onShowNotificationsBar($event)">
         <img src="/img/svg/material/ic_notifications_none_white_24px.svg" class="account-img" />
         <span *ngIf="notificationService.getNotReadItemsCount() > 0" class="badge badge-default badge-pill notify-badge">{{notificationService.getNotReadItemsCount()}}</span>

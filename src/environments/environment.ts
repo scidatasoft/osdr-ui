@@ -5,7 +5,7 @@
 
 export const environment = {
   name: 'DUMMY',
-  production: false,
+  production: true,
   identityServerUrl: 'https://id.your-company.com/auth/realms/leanda',
   apiUrl: 'https://api.dev.your-company.com/core/v1/api',
   blobStorageApiUrl: 'https://api.dev.your-company.com/blob/v1/api',
@@ -15,4 +15,18 @@ export const environment = {
   notificationTimeOut: 60 * 60 * 24 * 1000,
   proxyJSMOL: 'https://api.dev.your-company.com/core/v1/api/proxy/jsmol',
   ketcher: 'https://core.dev.your-company.com/ketcher/indigo/layout',
+  capabilities: {
+    chemical: true,
+    crystal: true,
+    image: true,
+    machineLearning: true,
+    microscopy: true,
+    office: true,
+    pdf: true,
+    reaction: true,
+    spectrum: true,
+    tabular: true,
+    webPage: true,
+    login: true,
+  },
 };
