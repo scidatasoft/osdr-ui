@@ -14,5 +14,19 @@ export const environment = {
   metadataUrl: 'I___METADATA_URL___I',
   notificationTimeOut: 60 * 60 * 1 * 1000,
   proxyJSMOL: 'I___PROXY_JSMOL_URL___I',
-  ketcher: 'I___KETCHER_URL___I'
+  ketcher: 'I___KETCHER_URL___I',
+  capabilities: {
+    chemical: true,
+    crystal: true,
+    image: true,
+    machineLearning: true,
+    microscopy: true,
+    office: true,
+    pdf: true,
+    reaction: true,
+    spectrum: true,
+    tabular: true,
+    webPage: true,
+    login: true,
+  },
 };
