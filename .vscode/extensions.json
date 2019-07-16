@@ -4,7 +4,7 @@
 	"recommendations": [
     // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
     "eg2.tslint",
-    "HookyQR.beautify",
+    "esbenp.prettier-vscode",
     "CoenraadS.bracket-pair-colorizer",
     "infinity1207.angular2-switcher",
     "wmaurer.change-case",
