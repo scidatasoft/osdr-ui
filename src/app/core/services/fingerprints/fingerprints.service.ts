@@ -20,8 +20,8 @@ export class FingerprintsService {
     this._fingerprints = fp;
   }
 
-  public getJSON(pathToFile: string): Observable<any> {
-    return this.http.get(pathToFile);
+  public getFingerprints(): Observable<any> {
+    return this.http.get('api/fingerprints.json');
   }
 
 }

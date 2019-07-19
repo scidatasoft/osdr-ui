@@ -17,14 +17,14 @@ export class FingerprintsComponent implements OnInit {
 
   fingerprintForm: FormGroup = null;
   maxFingerprints: number;
-  settings: MLSettings;
+  settings: MlSettings;
 
   get fingerprintList(): FormArray { return this.fingerprintForm.controls.fingerprints as FormArray; }
 
   set fingerprintList(fingerprint) { this.fingerprintForm.controls.fingerprints.setValue(fingerprint); }
 
-  constructor(fpService: FingerprintsService) {
-    fpService.getJSON('/src/app/shared/components/fingerprints/fingerprints.json').subscribe((data: MLSettings) => {
+  constructor(api: FingerprintsService) {
+    api.getFingerprints().subscribe((data: MlSettings) => {
       this.settings = data;
     });
   }
@@ -163,7 +163,7 @@ export class FingerprintsComponent implements OnInit {
  ** Move file 'fingerprints.json' to ML directory
  */
 
-export class MLSettings {
+export class MlSettings {
   fingerprints: Fingerprints;
   featureSettings: FeatureSettings;
 }
