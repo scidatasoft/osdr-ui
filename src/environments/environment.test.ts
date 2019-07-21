@@ -15,4 +15,18 @@ export const environment = {
   notificationTimeOut: 60 * 60 * 1 * 1000,
   proxyJSMOL: 'https://api.test.your-company.com/core/v1/api/proxy/jsmol',
   ketcher: 'https://core.test.your-company.com/ketcher/indigo/layout',
+  capabilities: {
+    chemical: true,
+    crystal: true,
+    image: true,
+    machineLearning: true,
+    microscopy: true,
+    office: true,
+    pdf: true,
+    reaction: true,
+    spectrum: true,
+    tabular: true,
+    webPage: true,
+    login: true,
+  },
 };
