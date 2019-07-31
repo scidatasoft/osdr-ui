@@ -55,6 +55,14 @@ Build (replace `deploy` with `test`, `uat`, `dev` etc)
 docker build --build-arg APP_ENV=deploy -t leanda/ui:latest .
 ```
 
+Build FVC
+
+Replace API URLS in `src/environments/environment.deploy-fvc.ts`
+
+```terminal
+npm run build-deploy-fvc
+```
+
 Run
 
 ```terminal

@@ -16,6 +16,7 @@
     "build-test": "ng build --configuration=test",
     "start-test": "ng serve --configuration=test",
     "build-deploy": "ng build --configuration=deploy",
+    "build-deploy-fvc": "ng build --configuration=deploy-fvc",
     "build": "ng build --dev --configuration=dev",
     "start": "ng serve --configuration=local",
     "test": "karma start ./karma.conf.js",
