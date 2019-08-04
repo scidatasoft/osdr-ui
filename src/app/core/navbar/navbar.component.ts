@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'app/core/services/auth/auth.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth/auth.service';
 import { User } from 'oidc-client';
-import { NotificationsService } from 'app/core/services/notifications/notifications.service';
+import { NotificationsService } from '../../core/services/notifications/notifications.service';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { environment } from 'environments/environment';
 
@@ -19,16 +19,16 @@ export class NavbarComponent implements OnInit {
       path: 'home',
       visible: () => true,
     },
-    // {
-    //   name: 'Predict',
-    //   path: '/predict',
-    //   visible: () => true
-    // },
-    // {
-    //   name: 'Compute Features',
-    //   path: '/features',
-    //   visible: () => true
-    // },
+    {
+      name: 'Predict',
+      path: '/predict',
+      visible: () => environment.capabilities.ssp,
+    },
+    {
+      name: 'Compute Features',
+      path: '/features',
+      visible: () => environment.capabilities.fvc,
+    },
     {
       name: 'Organize',
       path: 'organize/drafts',
@@ -59,12 +59,12 @@ export class NavbarComponent implements OnInit {
     return this.routes.filter(x => x.visible());
   }
 
-  login(e: { preventDefault: () => void; }) {
+  login(e: { preventDefault: () => void }) {
     e.preventDefault();
     this.auth.login();
   }
 
-  logout(e: { event: { preventDefault: () => void; }; }) {
+  logout(e: { event: { preventDefault: () => void } }) {
     e.event.preventDefault();
     this.auth.logout();
   }
@@ -80,18 +80,14 @@ export class NavbarComponent implements OnInit {
     $event.stopPropagation();
   }
 
-  onShowNotificationsBar($event: { preventDefault: () => void; stopPropagation: () => void; }) {
+  onShowNotificationsBar($event: { preventDefault: () => void; stopPropagation: () => void }) {
     this.notificationService.showNotificationBar();
     $event.preventDefault();
     $event.stopPropagation();
   }
 
   isNotificationVisible(): boolean {
-    return (
-      this.user &&
-      this.router.url.indexOf('/home') &&
-      this.router.url.indexOf('/about') < 0
-    );
+    return this.user && this.router.url.indexOf('/home') && this.router.url.indexOf('/about') < 0;
   }
 
   isLoginVisible(): boolean {
