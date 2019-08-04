@@ -1,15 +1,15 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { AuthProfileGuardGuard } from './auth-profile-guard.guard';
+import { AuthProfileGuard } from './auth-profile-guard.guard';
 
 describe('AuthProfileGuardGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthProfileGuardGuard]
+      providers: [AuthProfileGuard]
     });
   });
 
-  it('should ...', inject([AuthProfileGuardGuard], (guard: AuthProfileGuardGuard) => {
+  it('should ...', inject([AuthProfileGuard], (guard: AuthProfileGuard) => {
     expect(guard).toBeTruthy();
   }));
 });

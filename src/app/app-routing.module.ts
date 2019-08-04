@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from 'app/core/services/auth/auth-guard.service';
-import { AuthProfileGuardGuard } from 'app/core/services/auth/auth-profile-guard.guard';
+import { AuthProfileGuard } from 'app/core/services/auth/auth-profile-guard.guard';
+import { CapabilitiesGuard } from './core/services/guards/capabilities.guard';
+import { environment } from 'environments/environment';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -10,7 +12,8 @@ const routes: Routes = [
   {
     path: 'organize/:id',
     loadChildren: './views/organize-view/organize-view.module#OrganizeViewModule',
-    canActivate: [AuthGuardService, AuthProfileGuardGuard]
+    canActivate: [AuthGuardService, AuthProfileGuard, CapabilitiesGuard],
+    data: { active: environment.capabilities.login }
   },
   {
     path: 'model',
@@ -24,13 +27,17 @@ const routes: Routes = [
     path: 'record',
     loadChildren: './views/record-view/record-view.module#RecordViewModule'
   },
-  // {
-  //   path: 'predict',
-  //   loadChildren: './views/prediction/prediction.module#PredictionModule'
-  // },
+  {
+    path: 'predict',
+    loadChildren: './views/prediction/prediction.module#PredictionModule',
+    canActivate: [CapabilitiesGuard],
+    data: { active: environment.capabilities.ssp }
+  },
   {
     path: 'features',
-    loadChildren: './views/features/features.module#FeaturesModule'
+    loadChildren: './views/features/features.module#FeaturesModule',
+    canActivate: [CapabilitiesGuard],
+    data: { active: environment.capabilities.fvc }
   },
   {
     path: '404',

@@ -1,6 +1,6 @@
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuardService } from './services/auth/auth-guard.service';
-import { AuthProfileGuardGuard } from './services/auth/auth-profile-guard.guard';
+import { AuthProfileGuard } from './services/auth/auth-profile-guard.guard';
 import { ExportChemFilesService } from './services/export-files/export-chem-files.service';
 import { NotificationsService } from './services/notifications/notifications.service';
 import { PageTitleService } from './services/page-title/page-title.service';
@@ -31,7 +31,7 @@ export const ServicesList = [
   // BsModalService, ComponentLoaderFactory, PositioningService,
   AuthService,
   AuthGuardService,
-  AuthProfileGuardGuard,
+  AuthProfileGuard,
   NotificationsService,
   PageTitleService,
   BlobsApiService,

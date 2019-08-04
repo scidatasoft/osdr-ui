@@ -12,7 +12,7 @@ import { map, catchError, flatMap } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 
 @Injectable()
-export class AuthProfileGuardGuard implements CanActivate {
+export class AuthProfileGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(
