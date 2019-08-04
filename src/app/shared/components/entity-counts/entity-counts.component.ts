@@ -1,24 +1,11 @@
-import {
-  Component,
-  NgZone,
-  OnInit,
-  OnDestroy,
-  Optional,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, NgZone, OnInit, OnDestroy, Optional, AfterViewInit } from '@angular/core';
 import { UsersApiService } from '../../../core/services/api/users-api.service';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { SignalrService } from '../../../core/services/signalr/signalr.service';
-import {
-  NodeEvent,
-  SignalREvent,
-} from '../../../shared/components/notifications/events.model';
+import { NodeEvent, SignalREvent } from '../../../shared/components/notifications/events.model';
 import { Subscription } from 'rxjs';
 import { SidebarContentService } from '../../../shared/components/sidebar-content/sidebar-content.service';
-import {
-  IQuickFilter,
-  QuickFilterService,
-} from '../../../core/services/browser-services/quick-filter.service';
+import { IQuickFilter, QuickFilterService } from '../../../core/services/browser-services/quick-filter.service';
 import { NodesApiService } from '../../../core/services/api/nodes-api.service';
 import { BrowserDataBaseService } from '../../../core/services/browser-services/browser-data-base.service';
 import { environment } from '../../../../environments/environment';
@@ -120,24 +107,20 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const debounceCounters = this.debounce(() => this.getCounters(), 1 * 1000);
 
-    this.signalRSubscription = this.signalr.organizeUpdate.subscribe(
-      (x: SignalREvent) => {
-        if (
-          x.getNodeEvent() === NodeEvent.FileCreated ||
-          x.getNodeEvent() === NodeEvent.FileDeleted ||
-          x.getNodeEvent() === NodeEvent.PermissionsChanged
-        ) {
-          debounceCounters();
-        }
-      },
-    );
+    this.signalRSubscription = this.signalr.organizeUpdate.subscribe((x: SignalREvent) => {
+      if (
+        x.getNodeEvent() === NodeEvent.FileCreated ||
+        x.getNodeEvent() === NodeEvent.FileDeleted ||
+        x.getNodeEvent() === NodeEvent.PermissionsChanged
+      ) {
+        debounceCounters();
+      }
+    });
 
     if (this.quickFilter) {
-      this.filterSubscription = this.quickFilter.initFilterEvents.subscribe(
-        (filterEvent: IQuickFilter) => {
-          this.filterChange(filterEvent);
-        },
-      );
+      this.filterSubscription = this.quickFilter.initFilterEvents.subscribe((filterEvent: IQuickFilter) => {
+        this.filterChange(filterEvent);
+      });
     }
 
     if (this.quickFilter) {
@@ -199,57 +182,33 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getCounters(): void {
-    const forbiddenCapabilities: string[] = Object.keys(
-      environment.capabilities,
-    ).filter(k => !environment.capabilities[k]);
+    const forbiddenCapabilities: string[] = Object.keys(environment.capabilities).filter(k => !environment.capabilities[k]);
 
     forbiddenCapabilities.forEach((capability: Capabilities) => {
       if (capability === Capabilities.LOGIN) {
-        this.counters = this.counters.filter(
-          counter =>
-            counter.key !== Counter.SHARED_BY_ME &&
-            counter.key !== Counter.SHARED_WITH_ME,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.SHARED_BY_ME && counter.key !== Counter.SHARED_WITH_ME);
       } else if (capability === Capabilities.CRYSTAL) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.CRYSTALS,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.CRYSTALS);
       } else if (capability === Capabilities.IMAGE) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.IMAGES,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.IMAGES);
       } else if (capability === Capabilities.MACHINELEARNING) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.MODELS,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.MODELS);
       } else if (capability === Capabilities.MICROSCOPY) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.MICROSCOPY,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.MICROSCOPY);
       } else if (capability === Capabilities.OFFICE) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.DOCUMENTS,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.DOCUMENTS);
       } else if (capability === Capabilities.PDF) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.DOCUMENTS,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.DOCUMENTS);
       } else if (capability === Capabilities.REACTION) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.REACTIONS,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.REACTIONS);
       } else if (capability === Capabilities.SPECTRUM) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.SPECTRA,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.SPECTRA);
       } else if (capability === Capabilities.TABULAR) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.DATASETS,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.DATASETS);
       } else if (capability === Capabilities.WEBPAGE) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== Counter.WEBPAGES,
-        );
+        this.counters = this.counters.filter(counter => counter.key !== Counter.WEBPAGES);
+      } else if (capability === Capabilities.CHEMICAL) {
+        this.counters = this.counters.filter(counter => counter.key !== Counter.STRUCTURES);
       }
     });
 
@@ -257,17 +216,13 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
       // console.log(x.key);
       const paramsUrl = this.quickFilter.getFilterByKey(x.key);
       if (x.key === 'sharedWithMe') {
-        this.nodesApi
-          .getPublicNodesHead(paramsUrl)
-          .subscribe((y: { totalCount: number }) => {
-            this.data[x.key] = y.totalCount || 0;
-          });
+        this.nodesApi.getPublicNodesHead(paramsUrl).subscribe((y: { totalCount: number }) => {
+          this.data[x.key] = y.totalCount || 0;
+        });
       } else {
-        this.usersApi
-          .getEntityCounts(paramsUrl)
-          .subscribe((y: { totalCount: number }) => {
-            this.data[x.key] = y.totalCount || 0;
-          });
+        this.usersApi.getEntityCounts(paramsUrl).subscribe((y: { totalCount: number }) => {
+          this.data[x.key] = y.totalCount || 0;
+        });
       }
     });
   }
