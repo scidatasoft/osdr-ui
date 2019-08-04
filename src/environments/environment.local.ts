@@ -30,5 +30,7 @@ export const environment = {
     tabular: true,
     webPage: true,
     login: true,
+    fvc: true,
+    ssp: true,
   },
 };
