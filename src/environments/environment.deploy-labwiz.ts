@@ -18,7 +18,7 @@ export const environment = {
   capabilities: {
     chemical: false,
     crystal: false,
-    image: true,
+    image: false,
     machineLearning: false,
     microscopy: false,
     office: false,
@@ -30,6 +30,6 @@ export const environment = {
     login: false,
     fvc: false,
     ssp: false,
-    labwiz: false,
+    labwiz: true,
   },
 };

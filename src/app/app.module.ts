@@ -19,7 +19,6 @@ import { CreateFolderComponent } from './shared/components/folder-actions/create
 import { MoveFolderComponent } from './shared/components/folder-actions/move-folder/move-folder.component';
 import { DeleteFolderComponent } from './shared/components/folder-actions/delete-folder/delete-folder.component';
 import { RenameFolderComponent } from './shared/components/folder-actions/rename-folder/rename-folder.component';
-import { ImportWebPageComponent } from 'app/shared/components/import-web-page/import-web-page.component';
 import { ImportWebPageModule } from './shared/components/import-web-page/import-web-page.module';
 
 const dialogs = [
@@ -30,7 +29,6 @@ const dialogs = [
   CreateFolderComponent,
   MoveFolderComponent,
   RenameFolderComponent,
-  ImportWebPageComponent
 ];
 @NgModule({
   declarations: [
