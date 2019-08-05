@@ -31,6 +31,7 @@ export const environment = {
     webPage: true,
     login: true,
     fvc: true,
-    ssp: true,
+    ssp: false,
+    labwiz: false,
   },
 };

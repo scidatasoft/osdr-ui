@@ -30,5 +30,6 @@ export const environment = {
     login: false,
     fvc: false,
     ssp: false,
+    labwiz: false,
   },
 };
