@@ -69,11 +69,9 @@ export class EntitiesApiService {
   }
 
   patchRecordProperties(recordId: string, version: number, path: string, value: any[]) {
-    const data = [{
-      op: 'replace', path, value
-    }];
+    const data = [{ op: 'replace', path, value }];
     return this.http.patch(environment.apiUrl + `/entities/records/${recordId}?version=${version}`, data).pipe(
       catchError(() => EMPTY)
-    )
+    );
   }
 }

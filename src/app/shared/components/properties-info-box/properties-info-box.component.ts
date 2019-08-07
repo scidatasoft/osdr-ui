@@ -4,30 +4,28 @@ import { MatExpansionPanel } from '@angular/material';
 @Component({
   selector: 'dr-properties-info-box',
   templateUrl: './properties-info-box.component.html',
-  styleUrls: ['./properties-info-box.component.scss']
+  styleUrls: ['./properties-info-box.component.scss'],
 })
 export class PropertiesInfoBoxComponent implements OnInit {
+  @ViewChild(MatExpansionPanel) panel: { expanded: boolean };
 
-  @ViewChild(MatExpansionPanel) panel;
-
-  @Input() meta;
-  @Input() data;
+  @Input() meta: any;
+  @Input() data: any;
   @Input() isPublic = false;
   /*   @Input() icon;
     @Input() title;
     @Input() properties; */
-  @Output() onEdit = new EventEmitter<any>();
+  @Output() edit = new EventEmitter<any>();
   maxPropNameElWidth = 300; // px
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  onEditClick(e) {
+  onEditClick(e: { preventDefault: () => void; stopPropagation: () => void }) {
     e.preventDefault();
     e.stopPropagation();
-    this.onEdit.emit(null);
+    this.edit.emit(null);
   }
 
   expand() {

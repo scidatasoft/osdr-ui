@@ -10,7 +10,7 @@ import { BasicOrganizeInfoBoxComponent } from '../basic-organize-info-box/basic-
 })
 export class CvspOrganizeInfoBoxComponent extends BasicOrganizeInfoBoxComponent {
 
-  @ViewChild('collapseContainer') collapseContainer;
+  @ViewChild('collapseContainer') collapseContainer: { nativeElement: any; };
 
   constructor(injector: Injector) {
     super(injector);

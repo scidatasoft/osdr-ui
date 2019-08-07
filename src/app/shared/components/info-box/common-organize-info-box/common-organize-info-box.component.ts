@@ -6,15 +6,14 @@ import { BasicOrganizeInfoBoxComponent } from '../basic-organize-info-box/basic-
 @Component({
   selector: 'dr-common-organize-info-box',
   templateUrl: './common-organize-info-box.component.html',
-  styleUrls: ['./common-organize-info-box.component.scss']
+  styleUrls: ['./common-organize-info-box.component.scss'],
 })
 export class CommonOrganizeInfoBoxComponent extends BasicOrganizeInfoBoxComponent {
-
-  @ViewChild('collapseContainer') collapseContainer;
+  @ViewChild('collapseContainer') collapseContainer: { nativeElement: any };
 
   maxPropNameElWidth = 300;
 
-  @Output() onEdit = new EventEmitter<any>();
+  @Output() edit = new EventEmitter<any>();
   constructor(injector: Injector) {
     super(injector);
   }
@@ -23,17 +22,16 @@ export class CommonOrganizeInfoBoxComponent extends BasicOrganizeInfoBoxComponen
     try {
       // I know, it is bad idea to use $
       (window as any).$(this.collapseContainer.nativeElement).collapse('toggle');
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
-  disableTooltip(el) {
+  disableTooltip(el: { offsetWidth: number }) {
     return el.offsetWidth < this.maxPropNameElWidth;
   }
 
-  onEditClick(e){
+  onEditClick(e: { preventDefault: () => void; stopPropagation: () => void }) {
     e.preventDefault();
     e.stopPropagation();
-    this.onEdit.emit(null);
+    this.edit.emit(null);
   }
 }

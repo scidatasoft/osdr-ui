@@ -1,7 +1,5 @@
 import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
-import {
-  Component, ElementRef, OnInit, ViewChild, ViewChildren, QueryList, ViewContainerRef
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewChildren, QueryList, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
 import { isArray } from 'util';
@@ -22,12 +20,9 @@ import { map } from 'rxjs/operators';
   selector: 'dr-record-view',
   templateUrl: './record-view.component.html',
   styleUrls: ['./record-view.component.scss'],
-  providers: [
-    PaginatorManagerService,
-  ],
+  providers: [PaginatorManagerService],
 })
 export class RecordViewComponent implements OnInit {
-
   breadcrumbs = [{ text: 'DRAFTS', link: '/organize/drafts' }, { text: 'File sdfsf sdf sd' }];
   listProperties = [];
 
@@ -58,7 +53,8 @@ export class RecordViewComponent implements OnInit {
   currentFileViewComponent = null;
   currentFileViewContainerInstance;
 
-  constructor(private nodesApi: NodesApiService,
+  constructor(
+    private nodesApi: NodesApiService,
     private entitiesApi: EntitiesApiService,
     private imagesApi: ImagesApiService,
     private medatadataApi: MetadataApiService,
@@ -67,40 +63,40 @@ export class RecordViewComponent implements OnInit {
     public dialog: MatDialog,
     public sidebarContent: SidebarContentService,
     private pageTitle: PageTitleService,
-    private signalr: SignalrService
+    private signalr: SignalrService,
   ) {
     this.breadcrumbs = [{ text: 'DRAFTS' }];
   }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(
-      (data: { share: boolean, shareParent: boolean }) => {
-        this.isPublic = data.share;
-        this.isPublicParent = data.shareParent;
-        this.updateRecord();
-      }
-    );
+    this.activatedRoute.data.subscribe((data: { share: boolean; shareParent: boolean }) => {
+      this.isPublic = data.share;
+      this.isPublicParent = data.shareParent;
+      this.updateRecord();
+    });
     this.subscribeToSignalr();
   }
 
   updateRecord() {
     const recordId = this.activatedRoute.snapshot.params['id'];
 
-    this.nodesApi.getNode(recordId).pipe(map(
-      (x) => {
-        const breadcrumbs = JSON.parse(x.headers.get('x-breadcrumbs')) as { Id: string, Name: string }[];
-        breadcrumbs.forEach(element => {
-          if (element.Name) {
-            element.Name = decodeURIComponent(element.Name);
-          }
-        });
-        return {
-          breadcrumbs: breadcrumbs,
-          item: new BrowserDataItem(x.body as BrowserDataItem)
-        };
-      },
-    )).subscribe(
-      (breadCrumbsResponse: { breadcrumbs: { Id: string, Name: string }[], item: BrowserDataItem }) => {
+    this.nodesApi
+      .getNode(recordId)
+      .pipe(
+        map(x => {
+          const breadcrumbs = JSON.parse(x.headers.get('x-breadcrumbs')) as { Id: string; Name: string }[];
+          breadcrumbs.forEach(element => {
+            if (element.Name) {
+              element.Name = decodeURIComponent(element.Name);
+            }
+          });
+          return {
+            breadcrumbs: breadcrumbs,
+            item: new BrowserDataItem(x.body as BrowserDataItem),
+          };
+        }),
+      )
+      .subscribe((breadCrumbsResponse: { breadcrumbs: { Id: string; Name: string }[]; item: BrowserDataItem }) => {
         this.record = breadCrumbsResponse.item;
         const fileName = breadCrumbsResponse.breadcrumbs.slice(-2)[0].Name;
         this.pageTitle.title = `${fileName} / ${this.record.name}`;
@@ -116,9 +112,9 @@ export class RecordViewComponent implements OnInit {
 
   getSharedStatus() {
     if (this.record && this.record.accessPermissions) {
-      return this.isShared = this.record.accessPermissions.isPublic;
+      return (this.isShared = this.record.accessPermissions.isPublic);
     } else {
-      return this.isShared = false;
+      return (this.isShared = false);
     }
   }
 
@@ -132,36 +128,37 @@ export class RecordViewComponent implements OnInit {
   }
 
   updateProperties(recordId) {
-    this.entitiesApi.getEntitiesProperties(recordId, 'records').subscribe(
-      (data) => {
-        let issues;
-        if (data.properties) {
-          issues = { name: 'issues', img: 'intrinsic.ico', properties: data.properties['issues'] };
-          delete data.properties['issues'];
-        }
+    this.entitiesApi.getEntitiesProperties(recordId, 'records').subscribe(data => {
+      let issues;
+      if (data.properties) {
+        issues = { name: 'issues', img: 'intrinsic.ico', properties: data.properties['issues'] };
+        delete data.properties['issues'];
+      }
 
-        this.listProperties = [];
-        if (data.properties) {
-          for (const i in data.properties) {
-            if (data.properties[i] && isArray(data.properties[i]) && data.properties[i].length > 0) {
-              this.infoBoxes.push(data.properties[i]);
-              this.listProperties.push({ name: i, img: 'intrinsic.ico', properties: data.properties[i] });
-            }
+      this.listProperties = [];
+      if (data.properties) {
+        for (const i in data.properties) {
+          if (data.properties[i] && isArray(data.properties[i]) && data.properties[i].length > 0) {
+            this.infoBoxes.push(data.properties[i]);
+            this.listProperties.push({ name: i, img: 'intrinsic.ico', properties: data.properties[i] });
           }
         }
-        if (issues && this.record && this.record.subType === 'Structure') {
-          this.infoBoxes.push(issues.properties);
-          this.listProperties.push(issues);
-        }
-        this.getPropertiesMeta(this.listProperties);
-      });
+      }
+      if (issues && this.record && this.record.subType === 'Structure') {
+        this.infoBoxes.push(issues.properties);
+        this.listProperties.push(issues);
+      }
+      this.getPropertiesMeta(this.listProperties);
+    });
   }
 
   getPropertiesMeta(properties) {
     if (this.isPublicParent) {
       for (const item of properties) {
         const name = item.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-        if (name === 'issues' || name === 'fields') { continue; }
+        if (name === 'issues' || name === 'fields') {
+          continue;
+        }
         this.medatadataApi.getPropertiesMeta(name, (this.record as any).parentId).subscribe(x => {
           for (const screenPart of x.screens[0].screenParts) {
             screenPart.responseKey = screenPart.responseTarget.match(/@Name='(.*)'/)[1];
@@ -169,22 +166,20 @@ export class RecordViewComponent implements OnInit {
           item.meta = x;
         });
       }
-     }
+    }
   }
 
-  setBreadCrumbs(fileInfoData: { breadcrumbs: { Id: string, Name: string }[], item: BrowserDataItem }) {
-    this.activatedRoute.params.subscribe(
-      (params: Params) => {
-        const id = params['id'];
+  setBreadCrumbs(fileInfoData: { breadcrumbs: { Id: string; Name: string }[]; item: BrowserDataItem }) {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      const id = params['id'];
 
-        if (fileInfoData.item.id === id) {
-          this.generateBreadCrumbs(fileInfoData);
-        }
-      },
-    );
+      if (fileInfoData.item.id === id) {
+        this.generateBreadCrumbs(fileInfoData);
+      }
+    });
   }
 
-  generateBreadCrumbs(fileInfoData: { breadcrumbs: { Id: string, Name: string }[], item: BrowserDataItem }) {
+  generateBreadCrumbs(fileInfoData: { breadcrumbs: { Id: string; Name: string }[]; item: BrowserDataItem }) {
     let breadcrumbs = [{ text: 'DRAFTS', link: '/organize/drafts' }];
     for (let i = fileInfoData.breadcrumbs.length - 1; i >= 0; i--) {
       if (fileInfoData.breadcrumbs[i].Name && i !== 0) {
@@ -228,7 +223,7 @@ export class RecordViewComponent implements OnInit {
     }
   }
 
-  goToAssignInfoBox(item, index) {
+  goToAssignInfoBox(item: { name: string }, index: string | number) {
     this.lastSelectedInfoBoxName = item.name;
     this.currentTab = 'properties';
     setTimeout(() => {
@@ -247,8 +242,7 @@ export class RecordViewComponent implements OnInit {
         this.copyFilenameText = 'Copied!';
         (this.copyFilenameTooltip as any).show();
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   }
 
   openPropertiesEditorDialog(data) {
@@ -265,7 +259,7 @@ export class RecordViewComponent implements OnInit {
   openSharedLinksDialog(): void {
     const dialogRef = this.dialog.open(SharedLinksComponent, {
       width: '650px',
-      data: { fileInfo: this.record }
+      data: { fileInfo: this.record },
     });
   }
 
