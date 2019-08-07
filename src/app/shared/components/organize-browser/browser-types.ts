@@ -1,4 +1,4 @@
-import { Observable ,  Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { FoldersApiService } from 'app/core/services/api/folders-api.service';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 
@@ -8,14 +8,14 @@ export enum NodeType {
   File, // SubType
   Record, // RecordType
   Report,
-  Model
+  Model,
 }
 
 export enum RecordType {
   Structure,
   Spectrum,
   Reaction,
-  Crystal
+  Crystal,
 }
 
 // file type
@@ -28,7 +28,8 @@ export enum SubType {
   Pdf,
   WebPage,
   RecordsWebPage,
-  Image
+  Image,
+  Microscopy,
 }
 
 export enum FileType {
@@ -40,17 +41,17 @@ export enum FileType {
   spectra,
   crystal,
   model,
-  webpage
+  webpage,
+  microscopy,
 }
 
 export abstract class BrowserOptions {
   data: BrowserData;
-  breadcrumbs: { text: string, link?: string }[];
+  breadcrumbs: { text: string; link?: string }[];
   updateSubject: Subject<any> = new Subject();
   update: Observable<any> = this.updateSubject.asObservable();
   preventInitRefresh = false;
-  constructor(public foldersApi: FoldersApiService, public entitiesApi: EntitiesApiService) {
-  }
+  constructor(public foldersApi: FoldersApiService, public entitiesApi: EntitiesApiService) {}
 
   abstract itemDbClick(event: MouseEvent, item: any): void;
 
@@ -115,13 +116,13 @@ export class BrowserDataItem {
   images: ImageInfo[];
   totalRecords: number;
   subType: string;
-  blob: { id: string, bucket: string };
-  pdf: { blobId: string, bucket: string };
+  blob: { id: string; bucket: string };
+  pdf: { blobId: string; bucket: string };
   ownedBy: string;
   parentId: string;
   userInfo: Observable<UserPublicInformation> = null;
   recordName: Observable<string> = null;
-  accessPermissions: { groups: any[], id: string, isPublic: boolean, users: any[] };
+  accessPermissions: { groups: any[]; id: string; isPublic: boolean; users: any[] };
   authorizedOwner: boolean;
 
   get loading(): boolean {
@@ -207,6 +208,8 @@ export class BrowserDataItem {
       return SubType.WebPage;
     } else if (this.subType === SubType[SubType.Image]) {
       return SubType.Image;
+    } else if (this.subType === SubType[SubType.Microscopy]) {
+      return SubType.Microscopy;
     }
   }
 
@@ -231,6 +234,8 @@ export class BrowserDataItem {
       } else {
         return FileType.other;
       }
+    } else if (this.getSubType() === SubType.Microscopy) {
+      return FileType.microscopy;
     }
     // if (this.getFileExtension() === 'pdf') {
     //   return FileType.pdf;
@@ -264,7 +269,7 @@ export class ImageInfo {
   mimeType: string;
   scale: string;
 
-  constructor(imageObj?: { id: string, height: number, width: number, mimeType: string, scale: string }) {
+  constructor(imageObj?: { id: string; height: number; width: number; mimeType: string; scale: string }) {
     if (imageObj) {
       this.id = imageObj.id;
       this.height = imageObj.height;
@@ -273,7 +278,6 @@ export class ImageInfo {
       this.scale = imageObj.scale;
     }
   }
-
 }
 
 export interface MultiItemSelection<T> {

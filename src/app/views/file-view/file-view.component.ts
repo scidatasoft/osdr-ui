@@ -1,12 +1,6 @@
 import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
 import { MatDialog } from '@angular/material';
-import {
-  BrowserDataItem,
-  BrowserOptions,
-  FileType,
-  NodeType,
-  SubType,
-} from 'app/shared/components/organize-browser/browser-types';
+import { BrowserDataItem, BrowserOptions, FileType, NodeType, SubType } from 'app/shared/components/organize-browser/browser-types';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import {
   AfterContentInit,
@@ -35,7 +29,6 @@ import { ImagesApiService } from 'app/core/services/api/images-api.service';
 import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
 import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
 import { BrowserDataBaseService } from 'app/core/services/browser-services/browser-data-base.service';
-import { BrowserDataFileService } from 'app/core/services/browser-services/browser-data-file.service';
 import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
 import { IBrowserEvent } from 'app/core/services/browser-services/browser-data.service';
 import { OrganizeBrowserComponent } from 'app/shared/components/organize-browser/organize-browser.component';
@@ -51,6 +44,7 @@ import { PageTitleService } from 'app/core/services/page-title/page-title.servic
 import { SavFileViewComponent } from '../../shared/components/file-views/sav-file-view/sav-file-view.component';
 import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-info-box/properties-info-box.component';
 import { environment } from 'environments/environment';
+import { MicroscopyViewComponent } from 'app/shared/components/file-views/microscopy-view/microscopy-view.component';
 
 @Component({
   selector: 'dr-file-view',
@@ -65,10 +59,10 @@ import { environment } from 'environments/environment';
     CifPreviewComponent,
     SpectraJsmolPreviewComponent,
     SavFileViewComponent,
+    MicroscopyViewComponent,
   ],
 })
-export class FileViewComponent extends BrowserOptions
-  implements OnInit, AfterContentInit, OnDestroy {
+export class FileViewComponent extends BrowserOptions implements OnInit, AfterContentInit, OnDestroy {
   @Input() isPublic: boolean;
   @Input() isPublicParent: boolean;
   toolBarButtons = [ToolbarButtonType.tile, ToolbarButtonType.table];
@@ -92,6 +86,7 @@ export class FileViewComponent extends BrowserOptions
   showFullImagePreview = false;
   JSMolPreview = false;
   JsSpectraPreview = false;
+  microscopyView = false;
 
   isShared = false;
   sharedToolTip: string;
@@ -107,10 +102,8 @@ export class FileViewComponent extends BrowserOptions
   @ViewChild('fileViewContainer', { read: ViewContainerRef })
   fileViewContainer: ViewContainerRef;
 
-  @ViewChildren('propertiesInfoBox') propertiesInfoBoxComponents: QueryList<
-    PropertiesInfoBoxComponent
-  >;
-  @ViewChild('infoBoxContainer') infoBoxContainer;
+  @ViewChildren('propertiesInfoBox') propertiesInfoBoxComponents: QueryList<PropertiesInfoBoxComponent>;
+  @ViewChild('infoBoxContainer') infoBoxContainer: any;
 
   private signalRSubscription: Subscription = null;
   private routeEventsSubscription: Subscription;
@@ -133,11 +126,7 @@ export class FileViewComponent extends BrowserOptions
   }
 
   get recordsType() {
-    if (
-      !this.dataService.data ||
-      !this.dataService.data.items ||
-      !this.dataService.data.items.length
-    ) {
+    if (!this.dataService.data || !this.dataService.data.items || !this.dataService.data.items.length) {
       return null;
     }
     return this.dataService.data.items[0].subType;
@@ -186,12 +175,10 @@ export class FileViewComponent extends BrowserOptions
     // added this beacause cannot provide activate route to service
     this.dataService.myActivateRouter = this.activatedRoute;
 
-    this.activatedRoute.data.subscribe(
-      (data: { share: boolean; shareParent: boolean }) => {
-        this.isPublic = data.share;
-        this.isPublicParent = data.shareParent;
-      },
-    );
+    this.activatedRoute.data.subscribe((data: { share: boolean; shareParent: boolean }) => {
+      this.isPublic = data.share;
+      this.isPublicParent = data.shareParent;
+    });
 
     const file_id = this.activatedRoute.snapshot.params['id'];
 
@@ -216,20 +203,15 @@ export class FileViewComponent extends BrowserOptions
 
     this.subscribeToSignalr();
 
-    this.dataService.setActiveNode(file_id).subscribe(x => {
+    this.dataService.setActiveNode(file_id).subscribe((x: any) => {
       this.dataService.initBreadCrumbs(file_id).subscribe(() => {
         this.dataService.refreshData();
 
         this.fileInfo = this.dataService.currentItem;
-        this.isShared = this.fileInfo.accessPermissions
-          ? this.fileInfo.accessPermissions.isPublic
-          : false;
+        this.isShared = this.fileInfo.accessPermissions ? this.fileInfo.accessPermissions.isPublic : false;
         this.pageTitle.title = this.fileInfo.name;
         this.initView();
-        this.changeFileView(
-          this.getFileViewComponent(this.fileInfo),
-          this.fileInfo,
-        );
+        this.changeFileView(this.getFileViewComponent(this.fileInfo), this.fileInfo);
 
         if (this.isShared) {
           this.sharedToolTip = 'Change Sharing Settings';
@@ -239,7 +221,11 @@ export class FileViewComponent extends BrowserOptions
         // TODO change to this
         if (this.fileInfo.getNodeType() === NodeType.Model) {
           this.listProperties.push(
-            { name: 'Model Files', img: 'intrinsic.ico', viewType: 'records' },
+            {
+              name: 'Model Files',
+              img: 'intrinsic.ico',
+              viewType: 'records',
+            },
             {
               name: 'Model Properties',
               img: 'intrinsic.ico',
@@ -247,51 +233,47 @@ export class FileViewComponent extends BrowserOptions
             },
           );
         } else {
-          this.entitiesApi
-            .getEntitiesProperties(this.fileInfo.id, 'files')
-            .subscribe((data: any) => {
-              this.listProperties = [];
-              this.infoBoxes = [];
-              if (data.properties) {
-                for (const i in data.properties) {
-                  if (data.properties.hasOwnProperty(i)) {
-                    continue;
-                  }
-                  let propArray = [];
-                  propArray = data.properties[i];
+          this.entitiesApi.getEntitiesProperties(this.fileInfo.id, 'files').subscribe((data: any) => {
+            this.listProperties = [];
+            this.infoBoxes = [];
+            if (data.properties) {
+              for (const i in data.properties) {
+                // if (data.properties.hasOwnProperty(i)) {
+                //   continue;
+                // }
+                let propArray = [];
+                propArray = data.properties[i];
 
-                  // TODO remove it after bug will fix
-                  if (!isArray(propArray)) {
-                    propArray = Object.keys(propArray).map(function(key) {
-                      return { name: key, value: propArray[key] };
-                    });
-                  }
-
-                  this.infoBoxes.push(
-                    this.ffService.setCommonInfoBoxComponent(
-                      i,
-                      'intrinsic.ico',
-                      propArray,
-                    ),
-                  );
-                  this.listProperties.push({ name: i, img: 'intrinsic.ico' });
+                // TODO remove it after bug will fix
+                if (!isArray(propArray)) {
+                  propArray = Object.keys(propArray).map(function(key) {
+                    return {
+                      name: key,
+                      value: propArray[key],
+                    };
+                  });
                 }
+
+                this.infoBoxes.push(this.ffService.setCommonInfoBoxComponent(i, 'intrinsic.ico', propArray));
+                this.listProperties.push({
+                  name: i,
+                  img: 'intrinsic.ico',
+                });
               }
-            });
+            }
+          });
         }
       });
     });
 
     if (!this.browserEventSubscription) {
-      this.browserEventSubscription = this.dataService.browserEvents.subscribe(
-        (eventData: IBrowserEvent) => {
-          if (eventData.event.type === 'dblclick') {
-            this.itemDbClick(eventData.event, eventData.item);
-          } else if (eventData.event.type === 'click') {
-            this.itemClick(eventData.event, eventData.item);
-          }
-        },
-      );
+      this.browserEventSubscription = this.dataService.browserEvents.subscribe((eventData: IBrowserEvent) => {
+        if (eventData.event.type === 'dblclick') {
+          this.itemDbClick(eventData.event, eventData.item);
+        } else if (eventData.event.type === 'click') {
+          this.itemClick(eventData.event, eventData.item);
+        }
+      });
     }
   }
 
@@ -340,6 +322,7 @@ export class FileViewComponent extends BrowserOptions
     if (!this.fileInfo) {
       return;
     }
+
     if (this.fileInfo.totalRecords && this.fileInfo.totalRecords > 0) {
       this.showRecords = true;
     }
@@ -349,10 +332,11 @@ export class FileViewComponent extends BrowserOptions
       this.currentTab = 'preview';
     }
 
-    if (
-      this.fileInfo.fileType() === this.fileType.other ||
-      this.fileInfo.fileType() === this.fileType.image
-    ) {
+    if (this.fileInfo.fileType() === this.fileType.microscopy) {
+      this.currentTab = 'properties';
+    }
+
+    if (this.fileInfo.fileType() === this.fileType.other || this.fileInfo.fileType() === this.fileType.image) {
       this.showImagePreview = true;
     }
 
@@ -391,7 +375,7 @@ export class FileViewComponent extends BrowserOptions
     } catch (err) {}
   }
 
-  getImageURL(item): string {
+  getImageURL(item: BrowserDataItem): string {
     if (item && (!item.images || !item.images.length)) {
       const fileType = item.name
         .split('.')
@@ -405,9 +389,7 @@ export class FileViewComponent extends BrowserOptions
         ' .mpg .mpeg .mp4 .txt .rtf .csv .tsv .xml .html .htm' +
         ' .mol .sdf .cdx .rxn .rdf .jdx .dx .cif';
       if (knownTypes.indexOf(' .' + fileType) < 0) {
-        return item.type === 'Record'
-          ? '/img/svg/file-types/record.svg'
-          : '/img/svg/tile/file.svg';
+        return item.type === 'Record' ? '/img/svg/file-types/record.svg' : '/img/svg/tile/file.svg';
       } else {
         return `/img/svg/file-types/${fileType}.svg`;
       }
@@ -415,17 +397,15 @@ export class FileViewComponent extends BrowserOptions
       return null;
     }
 
-    const image = item.images.filter(
-      x => x.scale === 'Vector' || x.scale === 'Medium',
-    )[0];
+    const image = item.images.filter((x: { scale: string }) => x.scale === 'Vector' || x.scale === 'Medium')[0];
     return this.imagesApi.getImageUrlNew(image, item);
   }
 
-  getItems(pageNumber, pageSize) {
+  getItems(pageNumber: any, pageSize: any) {
     return null;
   }
 
-  itemDbClick(event: MouseEvent, item) {
+  itemDbClick(event: MouseEvent, item: BrowserDataItem) {
     if (!item.isFolder() && item.type === 'Record') {
       this.router.navigateByUrl('/record/' + item.id);
     } else {
@@ -433,17 +413,14 @@ export class FileViewComponent extends BrowserOptions
     }
   }
 
-  itemClick(event: MouseEvent, item) {}
+  itemClick(event: MouseEvent, item: BrowserDataItem) {}
 
   onApplyFilter(appliedFilterList: FilterField[]) {
     this.appliedFilterList = appliedFilterList;
   }
 
   onToolbarButtonClick(buttonTypeClick: ToolbarButtonType) {
-    if (
-      buttonTypeClick === ToolbarButtonType.tile ||
-      buttonTypeClick === ToolbarButtonType.table
-    ) {
+    if (buttonTypeClick === ToolbarButtonType.tile || buttonTypeClick === ToolbarButtonType.table) {
       if (this.currentFileViewContainerInstance.toolBarEvent) {
         this.currentFileViewContainerInstance.toolBarEvent(buttonTypeClick);
       }
@@ -471,22 +448,24 @@ export class FileViewComponent extends BrowserOptions
   openExportDialog(fileType: string): void {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       width: '800px',
-      data: { fileType, selectedItems: [this.fileInfo] },
+      data: {
+        fileType,
+        selectedItems: [this.fileInfo],
+      },
     });
   }
 
   openSharedLinksDialog(): void {
     const dialogRef = this.dialog.open(SharedLinksComponent, {
       width: '650px',
-      data: { fileInfo: this.dataService.currentItem },
+      data: {
+        fileInfo: this.dataService.currentItem,
+      },
     });
   }
 
-  showPopover(popoverName) {
-    if (
-      this.lastShownPopoverName === popoverName &&
-      this.lastShownPopoverTimeoutId
-    ) {
+  showPopover(popoverName: string) {
+    if (this.lastShownPopoverName === popoverName && this.lastShownPopoverTimeoutId) {
       clearTimeout(this.lastShownPopoverTimeoutId);
       this.lastShownPopoverTimeoutId = null;
     }
@@ -495,7 +474,7 @@ export class FileViewComponent extends BrowserOptions
     this[popoverName] = true;
   }
 
-  hidePopover(popoverName) {
+  hidePopover(popoverName: string | number) {
     if (this.lastShownPopoverTimeoutId) {
       clearTimeout(this.lastShownPopoverTimeoutId);
       this.lastShownPopoverTimeoutId = null;
@@ -509,20 +488,13 @@ export class FileViewComponent extends BrowserOptions
   getFileViewComponent(dataItem: BrowserDataItem): Type<any> {
     if (this.currentTab === 'preview') {
       if (dataItem.getNodeType() === NodeType.File) {
-        if (
-          dataItem.getSubType() === SubType.Image ||
-          dataItem.getSubType() === SubType.Records
-        ) {
+        if (dataItem.getSubType() === SubType.Image || dataItem.getSubType() === SubType.Records) {
           if (
-            (this.fileInfo.getFileExtension() === 'jdx' ||
-              this.fileInfo.getFileExtension() === 'dx') &&
+            (this.fileInfo.getFileExtension() === 'jdx' || this.fileInfo.getFileExtension() === 'dx') &&
             environment.capabilities.spectrum
           ) {
             return SpectraJsmolPreviewComponent;
-          } else if (
-            this.fileInfo.getFileExtension() === 'cif' &&
-            environment.capabilities.crystal
-          ) {
+          } else if (this.fileInfo.getFileExtension() === 'cif' && environment.capabilities.crystal) {
             return CifPreviewComponent;
           } else {
             if (environment.capabilities.image) {
@@ -532,21 +504,16 @@ export class FileViewComponent extends BrowserOptions
             }
           }
         } else if (
-          (dataItem.getSubType() === SubType.Pdf ||
-            dataItem.getSubType() === SubType.WebPage) &&
+          (dataItem.getSubType() === SubType.Pdf || dataItem.getSubType() === SubType.WebPage) &&
           (environment.capabilities.webPage || environment.capabilities.pdf)
         ) {
           return PdfFileViewComponent;
-        } else if (
-          dataItem.getSubType() === SubType.Tabular &&
-          environment.capabilities.tabular
-        ) {
+        } else if (dataItem.getSubType() === SubType.Tabular && environment.capabilities.tabular) {
           return CSVPreviewComponent;
-        } else if (
-          dataItem.getSubType() === SubType.Office &&
-          environment.capabilities.office
-        ) {
+        } else if (dataItem.getSubType() === SubType.Office && environment.capabilities.office) {
           return OfficePreviewComponent;
+        } else if (dataItem.getSubType() === SubType.Microscopy && environment.capabilities.microscopy) {
+          return MicroscopyViewComponent;
         }
       } else if (dataItem.getNodeType() === NodeType.Model) {
         return ImageFileViewComponent;
@@ -560,20 +527,13 @@ export class FileViewComponent extends BrowserOptions
     }
   }
 
-  changeFileView(
-    viewComponent: Type<any>,
-    fileForVisualisation: BrowserDataItem,
-  ) {
+  changeFileView(viewComponent: Type<any>, fileForVisualisation: BrowserDataItem) {
     if (viewComponent === null) {
       return;
     }
 
-    const cmpFactory = this.componentResolver.resolveComponentFactory(
-      viewComponent,
-    );
-    const component: ComponentRef<
-      IFilePreviewComponent
-    > = this.fileViewContainer.createComponent(cmpFactory) as ComponentRef<
+    const cmpFactory = this.componentResolver.resolveComponentFactory(viewComponent);
+    const component: ComponentRef<IFilePreviewComponent> = this.fileViewContainer.createComponent(cmpFactory) as ComponentRef<
       IFilePreviewComponent
     >;
 
@@ -589,13 +549,10 @@ export class FileViewComponent extends BrowserOptions
 
   changeView(tab: string) {
     this.currentTab = tab;
-    this.changeFileView(
-      this.getFileViewComponent(this.fileInfo),
-      this.fileInfo,
-    );
+    this.changeFileView(this.getFileViewComponent(this.fileInfo), this.fileInfo);
   }
 
-  goToAssignInfoBox(item, index) {
+  goToAssignInfoBox(item: any, index: any) {
     // this.lastSelectedInfoBoxName = item.name;
     // this.currentTab = 'properties';
     // setTimeout(() => {

@@ -11,6 +11,7 @@ import { OfficePreviewComponent } from './office-preview/office-preview.componen
 import { PdfFileViewComponent } from './pdf-file-view/pdf-file-view.component';
 import { SpectraJsmolPreviewComponent } from './spectra-jsmol-preview/spectra-jsmol-preview.component';
 import { SavFileViewComponent } from './sav-file-view/sav-file-view.component';
+import { MicroscopyViewComponent } from './microscopy-view/microscopy-view.component';
 
 const components = [
   CifPreviewComponent,
@@ -19,7 +20,8 @@ const components = [
   OfficePreviewComponent,
   PdfFileViewComponent,
   SpectraJsmolPreviewComponent,
-  SavFileViewComponent
+  SavFileViewComponent,
+  MicroscopyViewComponent
 ];
 
 @NgModule({
