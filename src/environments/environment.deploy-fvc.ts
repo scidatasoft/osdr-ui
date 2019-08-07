@@ -28,7 +28,7 @@ export const environment = {
     tabular: false,
     webPage: false,
     login: false,
-    fvc: false,
+    fvc: true,
     ssp: false,
     labwiz: false,
   },
