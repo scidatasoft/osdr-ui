@@ -75,6 +75,7 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
     { name: 'Shared With Me', key: Counter.SHARED_WITH_ME, hidden: false },
     { name: 'Documents', key: Counter.DOCUMENTS, hidden: false },
     { name: 'Images', key: Counter.IMAGES, hidden: false },
+    { name: 'Microscopy', key: Counter.MICROSCOPY, hidden: false },
     { name: 'Models', key: Counter.MODELS, hidden: false },
     { name: 'Structures', key: Counter.STRUCTURES, hidden: false },
     { name: 'Crystals', key: Counter.CRYSTALS, hidden: false },
@@ -94,13 +95,12 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private dataService: BrowserDataBaseService,
     private usersApi: UsersApiService,
-    private auth: AuthService,
     private signalr: SignalrService,
     private ngZone: NgZone,
     private nodesApi: NodesApiService,
     public sidebarContent: SidebarContentService,
     @Optional() private quickFilter: QuickFilterService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getCounters();
@@ -135,7 +135,7 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.signalRSubscription.unsubscribe();
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   filterChange(filterEvent: IQuickFilter) {
     if (filterEvent.isFilterSet === true) {
@@ -155,7 +155,7 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
       state = true;
 
       this.ngZone.runOutsideAngular(() => {
-        setTimeout(function() {
+        setTimeout(function () {
           state = null;
         }, ms);
       });
@@ -213,8 +213,9 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.counters.forEach(x => {
-      // console.log(x.key);
+
       const paramsUrl = this.quickFilter.getFilterByKey(x.key);
+
       if (x.key === 'sharedWithMe') {
         this.nodesApi.getPublicNodesHead(paramsUrl).subscribe((y: { totalCount: number }) => {
           this.data[x.key] = y.totalCount || 0;

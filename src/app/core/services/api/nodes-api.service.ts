@@ -158,7 +158,7 @@ export class NodesApiService {
     ));
   }
 
-  getPublicNodesHead(params): Observable<any> {
+  getPublicNodesHead(params: string): Observable<any> {
     return this.http.head(environment.apiUrl + `/nodes/${params}`, { observe: 'response', responseType: 'text' }).pipe(map(
       (x) => {
         return JSON.parse(decodeURIComponent(x.headers.get('x-pagination')));

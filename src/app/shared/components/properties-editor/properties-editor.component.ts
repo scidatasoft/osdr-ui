@@ -15,10 +15,10 @@ import { Subscription } from 'rxjs';
 export class PropertiesEditorComponent implements OnInit, OnDestroy {
 
   screen: any;
-  collectionData: any;
+  collectionData: any = {};
   saving = false;
   organizeUpdateSub: Subscription;
-  @Output() onSaved = new EventEmitter<any>();
+  @Output() save = new EventEmitter<any>();
 
   constructor(
     private medatadataApi: MetadataApiService,
@@ -37,7 +37,7 @@ export class PropertiesEditorComponent implements OnInit, OnDestroy {
       if (x.EventName === 'FieldsUpdated') {
         this.saving = false;
         this.dialogRef.close();
-        this.onSaved.emit(this.data);
+        this.save.emit(this.data);
       }
     });
   }

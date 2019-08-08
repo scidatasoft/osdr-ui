@@ -1,74 +1,61 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
 import { BrowserDataItem } from '../../organize-browser/browser-types';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
+import { InfoBoxFactoryService } from '../../info-box/info-box-factory.service';
+import { PropertiesInfoBoxComponent } from '../../properties-info-box/properties-info-box.component';
+import { PropertiesEditorComponent } from '../../properties-editor/properties-editor.component';
+import { MatDialog } from '@angular/material';
+class MicroscopyInfoBox {
+  name: string;
+  img: string;
+  properties: MetadataProperties[];
+}
+
+interface MetadataProperties {
+  name: string;
+  value: string;
+}
 
 @Component({
   selector: 'dr-microscopy-view',
   templateUrl: './microscopy-view.component.html',
   styleUrls: ['./microscopy-view.component.scss']
 })
+
 export class MicroscopyViewComponent implements OnInit {
   @Input() fileItem: BrowserDataItem = null;
-  modelInfoArr = [];
-  data: any;
+  @ViewChildren('propertiesInfoBox') propertiesInfoBoxComponents: QueryList<PropertiesInfoBoxComponent>;
 
-  constructor(private entitiesApi: EntitiesApiService) {}
+  data: MicroscopyInfoBox = new MicroscopyInfoBox();
+
+  constructor(
+    protected entitiesApi: EntitiesApiService,
+    protected ffService: InfoBoxFactoryService,
+    protected dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
-    const exludeParamsList = ['SourceBlobId', 'SourceBucket', 'UserId'];
+    this.getMetadata();
+  }
 
-    this.entitiesApi.getEntityMetadata(this.fileItem.id, this.fileItem.type).subscribe(x => {
-      const info = x as any;
-      const metadata = JSON.parse(info.metadata.modelInfo);
-      if (metadata) {
-        const fps = metadata.Fingerprints.map((fp: { Type: any; Size: any; Radius: any }) => {
+  protected async getMetadata(): Promise<void> {
+    const properties = await this.entitiesApi.getEntityMetadataProperties(this.fileItem.id, 'files', 'Properties\\BioMetadata').toPromise();
+    let infoBoxList = [];
+
+    if (properties) {
+      // TODO remove it after bug will fix
+      if (!Array.isArray(properties)) {
+        infoBoxList = Object.keys(properties).map(function (key) {
           return {
-            name: 'Fingerprint',
-            value: `Type: ${fp.Type ? fp.Type : null}, Size: ${fp.Size ? fp.Size : null} , Radius: ${fp.Radius ? fp.Radius : null}`,
+            name: key,
+            value: properties[key],
           };
         });
-        const dataset = [
-          {
-            name: 'Dataset. Title',
-            value: metadata.Dataset.Title,
-          },
-          {
-            name: 'Dataset. Description',
-            value: metadata.Dataset.Description,
-          },
-        ];
-        const property = [
-          {
-            name: 'Property. Name',
-            value: metadata.Property.Name,
-          },
-          {
-            name: 'Property. Description',
-            value: metadata.Property.Description,
-          },
-          {
-            name: 'Property. Category',
-            value: metadata.Property.Category,
-          },
-          {
-            name: 'Property. Units',
-            value: metadata.Property.Units,
-          },
-        ];
-        delete metadata.Fingerprints;
-        delete metadata.Dataset;
-        delete metadata.Property;
-        const items = Object.keys(metadata)
-          .map(name => ({ name, value: metadata[name] }))
-          .filter(z => exludeParamsList.indexOf(z.name) < 0);
-        this.data = {
-          name: info.fileName,
-          properties: [...items, ...fps, ...dataset, ...property],
-          img: 'intrinsic.ico',
-        };
-      } else {
-        this.data = null;
       }
-    });
+
+      this.data.name = 'BioMetadata';
+      this.data.img = 'intrinsic.ico';
+      this.data.properties = infoBoxList;
+    }
   }
 }

@@ -1,8 +1,8 @@
-@import '_vars';
-@import '_mixins';
-@import '_info-box';
+@import "_vars";
+@import "_mixins";
+@import "_info-box";
 hr {
-  background-image: linear-gradient( to right, rgba(0, 0, 0, 0), $bg-color-invert, rgba(0, 0, 0, 0));
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), $bg-color-invert, rgba(0, 0, 0, 0));
 }
 
 sidebar {
@@ -86,7 +86,7 @@ sidebar {
         width: 100%;
       }
     }
-    .preview-popover>div {
+    .preview-popover > div {
       position: relative;
     }
 
@@ -107,7 +107,7 @@ sidebar {
     .records-popover.show {
       display: flex;
     }
-    .collapsed-buttons>div {
+    .collapsed-buttons > div {
       width: 100%; //   padding: 0px 4px 2px 4px;
       &.active {
         background: #099;
@@ -122,7 +122,7 @@ sidebar {
   }
   .file-img {
     padding: 0.5rem;
-    &>div {
+    & > div {
       position: relative;
     }
     .structure-loader {
@@ -209,6 +209,10 @@ sidebar {
   flex-direction: column;
   height: 100%;
   overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 
 .wrapper-file-content {

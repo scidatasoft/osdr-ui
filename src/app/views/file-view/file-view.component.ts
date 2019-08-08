@@ -238,15 +238,15 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
             this.infoBoxes = [];
             if (data.properties) {
               for (const i in data.properties) {
-                // if (data.properties.hasOwnProperty(i)) {
-                //   continue;
-                // }
+                if (data.properties.hasOwnProperty(i)) {
+                  continue;
+                }
                 let propArray = [];
                 propArray = data.properties[i];
 
                 // TODO remove it after bug will fix
-                if (!isArray(propArray)) {
-                  propArray = Object.keys(propArray).map(function(key) {
+                if (!Array.isArray(propArray)) {
+                  propArray = Object.keys(propArray).map(function (key) {
                     return {
                       name: key,
                       value: propArray[key],
@@ -333,7 +333,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     }
 
     if (this.fileInfo.fileType() === this.fileType.microscopy) {
-      this.currentTab = 'properties';
+      this.currentTab = 'preview';
     }
 
     if (this.fileInfo.fileType() === this.fileType.other || this.fileInfo.fileType() === this.fileType.image) {
@@ -372,7 +372,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
         (this.copyFilenameTooltip as any).show();
         console.log((this.copyFilenameTooltip as any).show);
       }
-    } catch (err) {}
+    } catch (err) { }
   }
 
   getImageURL(item: BrowserDataItem): string {
@@ -413,7 +413,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     }
   }
 
-  itemClick(event: MouseEvent, item: BrowserDataItem) {}
+  itemClick(event: MouseEvent, item: BrowserDataItem) { }
 
   onApplyFilter(appliedFilterList: FilterField[]) {
     this.appliedFilterList = appliedFilterList;

@@ -209,7 +209,9 @@
 
     <dr-filter-bar [filterFieldsList]="filterListFields" (filterChanged)="onApplyFilter($event)" *ngIf="showFilter">
     </dr-filter-bar>
-    <div #fileViewContainer></div>
+    <div class="overflow-auto">
+      <div #fileViewContainer></div>
+    </div>
     <div [hidden]="currentTab != 'properties'">
       <ng-container *ngFor="let item of infoBoxes">
         <dr-organize-info-box-factory [componentData]="item"></dr-organize-info-box-factory>

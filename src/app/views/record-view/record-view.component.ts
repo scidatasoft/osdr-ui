@@ -138,7 +138,7 @@ export class RecordViewComponent implements OnInit {
       this.listProperties = [];
       if (data.properties) {
         for (const i in data.properties) {
-          if (data.properties[i] && isArray(data.properties[i]) && data.properties[i].length > 0) {
+          if (data.properties[i] && Array.isArray(data.properties[i]) && data.properties[i].length > 0) {
             this.infoBoxes.push(data.properties[i]);
             this.listProperties.push({ name: i, img: 'intrinsic.ico', properties: data.properties[i] });
           }
@@ -251,7 +251,7 @@ export class RecordViewComponent implements OnInit {
       width: '800px',
       data: data,
     });
-    dialogRef.componentInstance.onSaved.subscribe(x => {
+    dialogRef.componentInstance.save.subscribe(x => {
       this.updateRecord();
     });
   }

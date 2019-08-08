@@ -11,7 +11,7 @@ export class UsersApiService {
 
   constructor(public http: HttpClient) { }
 
-  getEntityCounts(params): Observable<any> {
+  getEntityCounts(params: string): Observable<any> {
     return this.http.head(environment.apiUrl + `/nodes/?$filter=${params}`, { observe: 'response', responseType: 'text' }).pipe(
       map(
       (x) => {

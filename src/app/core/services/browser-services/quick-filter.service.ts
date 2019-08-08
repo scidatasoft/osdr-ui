@@ -19,6 +19,7 @@ export class QuickFilterService implements IQuickFilter {
     { name: 'Shared With Me', key: 'sharedWithMe' },
     { name: 'Documents', key: 'documents' },
     { name: 'Images', key: 'images' },
+    { name: 'Microscopy', key: 'microscopy' },
     { name: 'Models', key: 'models' },
     { name: 'Structures', key: 'structures' },
     { name: 'Crystals', key: 'crystals' },
@@ -33,6 +34,7 @@ export class QuickFilterService implements IQuickFilter {
     this.map.set('documents', `type eq 'File' and SubType in ('Office', 'Pdf')`);
     this.map.set('structures', `type eq 'Record' and SubType eq 'Structure'`);
     this.map.set('images', `type eq 'File' and SubType eq 'Image'`);
+    this.map.set('microscopy', `type eq 'File' and SubType eq 'Microscopy'`);
     this.map.set('models', `type eq 'Model'`);
     this.map.set('crystals', `type eq 'Record' and SubType eq 'Crystal'`);
     this.map.set('reactions', `type eq 'Record' and SubType eq 'Reaction'`);

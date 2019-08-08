@@ -3,7 +3,7 @@ import { environment } from 'environments/environment';
 import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 
 @Injectable()
 export class EntitiesApiService {
@@ -66,6 +66,10 @@ export class EntitiesApiService {
   getEntitiesProperties(fileId: string, type: string) {
     return this.http.get<any>(environment.apiUrl
       + `/entities/${type}/` + fileId);
+  }
+
+  getEntityMetadataProperties(fileId: string, type: string, propertyPath: string) {
+    return this.http.get<any>(`${environment.apiUrl}/entities/${type}/${fileId}/${propertyPath}`);
   }
 
   patchRecordProperties(recordId: string, version: number, path: string, value: any[]) {
