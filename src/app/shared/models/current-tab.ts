@@ -4,4 +4,5 @@ export enum CurrentTab {
     Models,
     Bio_Metadata,
     Generic_Metadata,
+    Properties,
 }

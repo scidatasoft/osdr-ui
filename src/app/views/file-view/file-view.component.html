@@ -86,7 +86,7 @@
           </li>
         </ul> -->
         <button *ngFor="let item of listProperties" mat-button class="e2e-show-{{item.viewType}} show-records-btn"
-          (click)="changeView(item.viewType)" [ngClass]="{active:currentTab==item.viewType}">
+          (click)="changeView(item.viewType)" [ngClass]="{active:currentTab === item.viewType}">
           <span class="text-truncate"> {{item.name}}</span>
         </button>
       </div>
@@ -95,9 +95,9 @@
         (mouseleave)="hidePopover('showPreviewPopover')" [ngClass]="{show:showPreviewPopover}" class="preview-popover">
         <div mat-ripple>
           <img class="e2e-middle-preview preview-img" *ngIf="getImageURL(fileInfo)"
-            [class.active]="currentTab === 'preview'" (click)="changeView(tab.Preview)" [src]="getImageURL(fileInfo)"
+            [class.active]="currentTab === tab.Preview" (click)="changeView(tab.Preview)" [src]="getImageURL(fileInfo)"
             no-inline />
-          <!-- <dr-cif-preview *ngIf="JSMolPreview" [viewType]="currentTab === 'preview' ? true : false" [fileItem]="fileInfo"></dr-cif-preview>
+          <!-- <dr-cif-preview *ngIf="JSMolPreview" [viewType]="currentTab === tab.Preview ? true : false" [fileItem]="fileInfo"></dr-cif-preview>
           <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview" [fileItem]="fileInfo"></dr-spectra-jsmol-preview> -->
         </div>
       </div>
@@ -152,7 +152,7 @@
 
     <div class="file-img">
       <div mat-ripple>
-        <div [class.active]="currentTab === 'preview'">
+        <div [class.active]="currentTab === tab.Preview">
           <div *ngIf="getImageURL(fileInfo) && !JSMolPreview && !JsSpectraPreview"
             [class.default-thumbnail]="fileInfo && (!fileInfo.images || !fileInfo.images.length)">
             <img class="e2e-middle-preview preview-img" (click)="changeView(tab.Preview)" [src]="getImageURL(fileInfo)"
