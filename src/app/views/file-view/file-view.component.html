@@ -201,12 +201,11 @@
       <b>{{fileInfo.totalRecords}}</b>
     </button>
 
-    <button *ngIf="isMicroscopy" mat-button class="e2e-show-records show-records-btn" (click)="changeView(tab.Bio_Metadata)"
-      [ngClass]="{active:currentTab === tab.Bio_Metadata}">Bio Metadata</button>
-    <button *ngIf="isMicroscopy" mat-button class="e2e-show-records show-records-btn" (click)="changeView(tab.Generic_Metadata)"
-      [ngClass]="{active:currentTab === tab.Generic_Metadata}">Generic Metadata</button>
-
-    <dr-generic-metadata-preview></dr-generic-metadata-preview>
+    <button *ngIf="isMicroscopy" mat-button class="e2e-show-records show-records-btn"
+      (click)="changeView(tab.Bio_Metadata)" [ngClass]="{active:currentTab === tab.Bio_Metadata}">Bio Metadata</button>
+    <button *ngIf="isMicroscopy" mat-button class="e2e-show-records show-records-btn"
+      (click)="changeView(tab.Generic_Metadata)" [ngClass]="{active:currentTab === tab.Generic_Metadata}">Generic
+      Metadata</button>
 
   </sidebar>
   <content class="file-content">

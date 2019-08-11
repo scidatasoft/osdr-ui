@@ -11,7 +11,6 @@ import { PipesList } from './pipes-list';
 import { DirectivesList } from './directives-list';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { FingerprintsComponent } from './components/fingerprints/fingerprints.component';
-import { GenericMetadataPreviewComponent } from './components/generic-metadata-preview/generic-metadata-preview.component';
 // import { ComponentsList } from './components-list';
 
 const modules = [
@@ -23,7 +22,6 @@ const modules = [
 const components = [
   StringTrimComponent,
   FingerprintsComponent,
-  GenericMetadataPreviewComponent
 ];
 
 @NgModule({

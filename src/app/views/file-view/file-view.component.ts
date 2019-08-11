@@ -62,6 +62,7 @@ import { CurrentTab } from 'app/shared/models/current-tab';
     SpectraJsmolPreviewComponent,
     SavFileViewComponent,
     MicroscopyViewComponent,
+    GenericMetadataPreviewComponent,
   ],
 })
 export class FileViewComponent extends BrowserOptions implements OnInit, AfterContentInit, OnDestroy {

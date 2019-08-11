@@ -56,7 +56,7 @@ export class GenericMetadataPreviewComponent implements OnInit {
     // const genericMetadata = await this.api.getPropertiesMeta('generic', this.fileItem.id).toPromise();
 
     // return genericMetadata;
-    return [];
+    return this.metadata;
   }
 
 }
