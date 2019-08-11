@@ -218,7 +218,7 @@
     <div class="overflow-auto">
       <div #fileViewContainer></div>
     </div>
-    <div [hidden]="currentTab != 'properties'">
+    <div [hidden]="currentTab !== tab.Properties">
       <ng-container *ngFor="let item of infoBoxes">
         <dr-organize-info-box-factory [componentData]="item"></dr-organize-info-box-factory>
       </ng-container>
