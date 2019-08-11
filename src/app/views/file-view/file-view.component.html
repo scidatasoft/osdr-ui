@@ -95,7 +95,7 @@
         (mouseleave)="hidePopover('showPreviewPopover')" [ngClass]="{show:showPreviewPopover}" class="preview-popover">
         <div mat-ripple>
           <img class="e2e-middle-preview preview-img" *ngIf="getImageURL(fileInfo)"
-            [class.active]="currentTab === 'preview'" (click)="changeView('preview')" [src]="getImageURL(fileInfo)"
+            [class.active]="currentTab === 'preview'" (click)="changeView(tab.Preview)" [src]="getImageURL(fileInfo)"
             no-inline />
           <!-- <dr-cif-preview *ngIf="JSMolPreview" [viewType]="currentTab === 'preview' ? true : false" [fileItem]="fileInfo"></dr-cif-preview>
           <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview" [fileItem]="fileInfo"></dr-spectra-jsmol-preview> -->
@@ -105,7 +105,7 @@
       <div *ngIf="sidebarContent.sidebarCollapsed && fileInfo?.totalRecords"
         (mouseenter)="showPopover('showRecordsPopover')" (mouseleave)="hidePopover('showRecordsPopover')"
         [ngClass]="{show:showRecordsPopover}" class="records-popover">
-        <button mat-button (click)="changeView('records')">
+        <button mat-button (click)="changeView(tab.Records)">
           <span>{{recordsType}}&nbsp;records</span>
           <b>{{fileInfo.totalRecords}}</b>
         </button>
@@ -127,22 +127,22 @@
         </div>
 
         <div (mouseenter)="showPopover('showInfoPopover')" (mouseleave)="hidePopover('showInfoPopover')"
-          [ngClass]="{active:currentTab=='properties'}">
-          <button (click)="changeView('properties')" mat-icon-button>
+          [ngClass]="{active: currentTab === tab.Properties}">
+          <button (click)="changeView(tab.Properties)" mat-icon-button>
             <img src="/img/svg/material/ic_info_outline_black_24px.svg" />
           </button>
         </div>
 
         <div (mouseenter)="showPopover('showPreviewPopover')" (mouseleave)="hidePopover('showPreviewPopover')"
-          [ngClass]="{active:currentTab=='preview'}">
-          <button (click)="changeView('preview')" mat-icon-button>
+          [ngClass]="{active:currentTab === tab.Preview}">
+          <button (click)="changeView(tab.Preview)" mat-icon-button>
             <img src="/img/svg/material/ic_image_black_24px.svg" />
           </button>
         </div>
 
         <div *ngIf="showRecords" (mouseenter)="showPopover('showRecordsPopover')"
-          (mouseleave)="hidePopover('showRecordsPopover')" [ngClass]="{active:currentTab=='records'}">
-          <button (click)="changeView('records')" mat-icon-button>
+          (mouseleave)="hidePopover('showRecordsPopover')" [ngClass]="{active:currentTab === tab.Records}">
+          <button (click)="changeView(tab.Records)" mat-icon-button>
             <img src="/img/svg/record.svg" />
           </button>
         </div>
@@ -155,12 +155,12 @@
         <div [class.active]="currentTab === 'preview'">
           <div *ngIf="getImageURL(fileInfo) && !JSMolPreview && !JsSpectraPreview"
             [class.default-thumbnail]="fileInfo && (!fileInfo.images || !fileInfo.images.length)">
-            <img class="e2e-middle-preview preview-img" (click)="changeView('preview')" [src]="getImageURL(fileInfo)"
+            <img class="e2e-middle-preview preview-img" (click)="changeView(tab.Preview)" [src]="getImageURL(fileInfo)"
               no-inline />
           </div>
           <dr-cif-preview *ngIf="JSMolPreview" [fileItem]="fileInfo" [viewType]="currentTab"
-            (click)="changeView('preview')"></dr-cif-preview>
-          <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview" [fileItem]="fileInfo" (click)="changeView('preview')">
+            (click)="changeView(tab.Preview)"></dr-cif-preview>
+          <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview" [fileItem]="fileInfo" (click)="changeView(tab.Preview)">
           </dr-spectra-jsmol-preview>
         </div>
       </div>
@@ -189,17 +189,24 @@
         </li>
       </ul> -->
       <button *ngFor="let item of listProperties" mat-button class="e2e-show-{{item.viewType}} show-records-btn"
-        (click)="changeView(item.viewType)" [ngClass]="{active:currentTab==item.viewType}">
+        (click)="changeView(item.viewType)" [ngClass]="{active: currentTab === item.viewType}">
         <span class="text-truncate"> {{item.name}}</span>
       </button>
     </div>
 
     <button *ngIf="!sidebarContent.sidebarCollapsed && fileInfo?.totalRecords" mat-button
-      class="e2e-show-records show-records-btn" (click)="changeView('records')"
-      [ngClass]="{active:currentTab=='records'}">
+      class="e2e-show-records show-records-btn" (click)="changeView(tab.Records)"
+      [ngClass]="{active:currentTab === tab.Records}">
       <span>{{recordsType}}&nbsp;records</span>
       <b>{{fileInfo.totalRecords}}</b>
     </button>
+
+    <button *ngIf="isMicroscopy" mat-button class="e2e-show-records show-records-btn" (click)="changeView(tab.Bio_Metadata)"
+      [ngClass]="{active:currentTab === tab.Bio_Metadata}">Bio Metadata</button>
+    <button *ngIf="isMicroscopy" mat-button class="e2e-show-records show-records-btn" (click)="changeView(tab.Generic_Metadata)"
+      [ngClass]="{active:currentTab === tab.Generic_Metadata}">Generic Metadata</button>
+
+    <dr-generic-metadata-preview></dr-generic-metadata-preview>
 
   </sidebar>
   <content class="file-content">

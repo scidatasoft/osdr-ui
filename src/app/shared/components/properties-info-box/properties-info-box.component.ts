@@ -10,6 +10,7 @@ export class PropertiesInfoBoxComponent implements OnInit {
   @ViewChild(MatExpansionPanel) panel: { expanded: boolean };
 
   @Input() meta: any;
+  @Input() expansionEnabled = true;
   @Input() data: any;
   @Input() isPublic = false;
   /*   @Input() icon;

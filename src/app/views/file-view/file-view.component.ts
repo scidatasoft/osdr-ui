@@ -45,6 +45,8 @@ import { SavFileViewComponent } from '../../shared/components/file-views/sav-fil
 import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-info-box/properties-info-box.component';
 import { environment } from 'environments/environment';
 import { MicroscopyViewComponent } from 'app/shared/components/file-views/microscopy-view/microscopy-view.component';
+import { GenericMetadataPreviewComponent } from 'app/shared/components/generic-metadata-preview/generic-metadata-preview.component';
+import { CurrentTab } from 'app/shared/models/current-tab';
 
 @Component({
   selector: 'dr-file-view',
@@ -72,8 +74,8 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   currentFileViewComponent = null;
 
   infoBoxes: Object[] = [];
-
-  currentTab = 'records';
+  tab = CurrentTab;
+  currentTab = CurrentTab.Records;
   showFilter = false;
   filterListFields: FilterField[] = [];
   appliedFilterList: FilterField[] = [];
@@ -86,7 +88,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   showFullImagePreview = false;
   JSMolPreview = false;
   JsSpectraPreview = false;
-  microscopyView = false;
+  isMicroscopy = false;
 
   isShared = false;
   sharedToolTip: string;
@@ -329,11 +331,12 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
 
     if (this.fileInfo.fileType() === this.fileType.webpage) {
       this.showImagePreview = true;
-      this.currentTab = 'preview';
+      this.currentTab = CurrentTab.Preview;
     }
 
     if (this.fileInfo.fileType() === this.fileType.microscopy) {
-      this.currentTab = 'preview';
+      this.currentTab = CurrentTab.Preview;
+      this.isMicroscopy = true;
     }
 
     if (this.fileInfo.fileType() === this.fileType.other || this.fileInfo.fileType() === this.fileType.image) {
@@ -359,7 +362,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
       this.fileInfo.fileType() === this.fileType.image
     ) {
       this.showFullImagePreview = true;
-      this.currentTab = 'preview';
+      this.currentTab = CurrentTab.Preview;
     }
   }
 
@@ -486,7 +489,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   }
 
   getFileViewComponent(dataItem: BrowserDataItem): Type<any> {
-    if (this.currentTab === 'preview') {
+    if (this.currentTab === CurrentTab.Preview) {
       if (dataItem.getNodeType() === NodeType.File) {
         if (dataItem.getSubType() === SubType.Image || dataItem.getSubType() === SubType.Records) {
           if (
@@ -513,15 +516,21 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
         } else if (dataItem.getSubType() === SubType.Office && environment.capabilities.office) {
           return OfficePreviewComponent;
         } else if (dataItem.getSubType() === SubType.Microscopy && environment.capabilities.microscopy) {
-          return MicroscopyViewComponent;
+          return ImageFileViewComponent;
         }
       } else if (dataItem.getNodeType() === NodeType.Model) {
         return ImageFileViewComponent;
       }
-    } else if (this.currentTab === 'records') {
+    } else if (this.currentTab === CurrentTab.Records) {
       return OrganizeBrowserComponent;
-    } else if (this.currentTab === 'model') {
+    } else if (this.currentTab === CurrentTab.Models) {
       return SavFileViewComponent;
+    } else if (this.currentTab === CurrentTab.Bio_Metadata) {
+      if (dataItem.getSubType() === SubType.Microscopy && environment.capabilities.microscopy) {
+        return MicroscopyViewComponent;
+      }
+    } else if (this.currentTab === CurrentTab.Generic_Metadata) {
+      return GenericMetadataPreviewComponent;
     } else {
       return null;
     }
@@ -547,7 +556,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     this.currentFileViewComponent = component;
   }
 
-  changeView(tab: string) {
+  changeView(tab: CurrentTab) {
     this.currentTab = tab;
     this.changeFileView(this.getFileViewComponent(this.fileInfo), this.fileInfo);
   }
