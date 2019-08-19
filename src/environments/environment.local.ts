@@ -5,8 +5,8 @@
 
 export const environment = {
   name: 'LOCAL',
-  production: false,
-  identityServerUrl: 'http://keycloak:8080/auth/realms/OSDR',
+  production: true,
+  identityServerUrl: 'https://id.leanda.io/auth/realms/OSDR',
   // apiUrl: 'http://localhost:28610/api',
   apiUrl: 'http://localhost:28611/api',
   // apiUrl: 'https://api.dev.your-company.com/core/v1/api',
@@ -31,7 +31,7 @@ export const environment = {
     webPage: true,
     login: true,
     fvc: true,
-    ssp: false,
-    labwiz: false,
+    ssp: true,
+    labwiz: true,
   },
 };
