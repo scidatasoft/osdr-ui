@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MetadataApiService } from 'app/core/services/api/metadata-api.service';
 import { BrowserDataItem } from '../organize-browser/browser-types';
+import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 
 enum GenericMetadata {
   Project = 'Project',
@@ -14,7 +15,7 @@ enum GenericMetadata {
 }
 
 interface IGenericMetadata {
-  key: GenericMetadata;
+  name: GenericMetadata;
   value: string;
 }
 
@@ -30,14 +31,14 @@ export class GenericMetadataPreviewComponent implements OnInit {
    */
 
   metadata: IGenericMetadata[] = [
-    { key: GenericMetadata.Project, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { key: GenericMetadata.Experimenter, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { key: GenericMetadata.Experimenter_Group, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { key: GenericMetadata.Experiment_Name, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { key: GenericMetadata.Experiment_Date, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { key: GenericMetadata.Original_Folder_path, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { key: GenericMetadata.Instrument_Device_Name, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { key: GenericMetadata.Notes, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
+    { name: GenericMetadata.Project, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
+    { name: GenericMetadata.Experimenter, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
+    { name: GenericMetadata.Experimenter_Group, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
+    { name: GenericMetadata.Experiment_Name, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
+    { name: GenericMetadata.Experiment_Date, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
+    { name: GenericMetadata.Original_Folder_path, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
+    { name: GenericMetadata.Instrument_Device_Name, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
+    { name: GenericMetadata.Notes, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
   ];
 
   // end
@@ -46,17 +47,16 @@ export class GenericMetadataPreviewComponent implements OnInit {
 
   // protected metadata: IGenericMetadata[];
 
-  constructor(protected api: MetadataApiService) { }
+  constructor(private api: MetadataApiService, private entitiesApi: EntitiesApiService) { }
 
   ngOnInit() {
-    this.getGenericMetadata().then(data => this.metadata = data);
+    // this.getMetadata();
   }
 
-  private async getGenericMetadata(): Promise<IGenericMetadata[]> {
-    // const genericMetadata = await this.api.getPropertiesMeta('generic', this.fileItem.id).toPromise();
+  protected async getMetadata(): Promise<void> {
+    const properties = await this.entitiesApi.getEntityMetadataProperties(this.fileItem.id, 'files', 'Properties/BioMetadata').toPromise();
 
-    // return genericMetadata;
-    return this.metadata;
+    this.metadata = properties;
   }
 
 }
