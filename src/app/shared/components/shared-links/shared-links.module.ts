@@ -3,9 +3,10 @@ import { CommonModulesList } from 'app/common-modules-list';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { SharedLinksComponent } from './shared-links.component';
+import { MatInputModule } from '@angular/material';
 
 @NgModule({
-  imports: [SharedModule],
+  imports: [SharedModule, MatInputModule],
   exports: [SharedLinksComponent],
   declarations: [SharedLinksComponent],
   providers: [],
