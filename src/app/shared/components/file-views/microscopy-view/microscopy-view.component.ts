@@ -40,22 +40,7 @@ export class MicroscopyViewComponent implements OnInit {
 
   protected async getMetadata(): Promise<void> {
     const properties = await this.entitiesApi.getEntityMetadataProperties(this.fileItem.id, 'files', 'Properties/BioMetadata').toPromise();
-    let infoBoxList = [];
 
-    if (properties) {
-      // TODO remove it after bug will fix
-      if (!Array.isArray(properties)) {
-        infoBoxList = Object.keys(properties).map(function (key) {
-          return {
-            name: key,
-            value: properties[key],
-          };
-        });
-      }
-
-      this.data.name = 'BioMetadata';
-      this.data.img = 'intrinsic.ico';
-      this.data.properties = infoBoxList;
-    }
+    this.data = { name: 'BioMetadata', img: 'intrinsic.ico', properties: properties };
   }
 }
