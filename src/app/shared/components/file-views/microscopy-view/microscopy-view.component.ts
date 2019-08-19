@@ -39,7 +39,7 @@ export class MicroscopyViewComponent implements OnInit {
   }
 
   protected async getMetadata(): Promise<void> {
-    const properties = await this.entitiesApi.getEntityMetadataProperties(this.fileItem.id, 'files', 'Properties\\BioMetadata').toPromise();
+    const properties = await this.entitiesApi.getEntityMetadataProperties(this.fileItem.id, 'files', 'Properties/BioMetadata').toPromise();
     let infoBoxList = [];
 
     if (properties) {

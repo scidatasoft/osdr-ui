@@ -6,13 +6,15 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ContextMenuModule } from 'ngx-contextmenu';
 
 @NgModule({
-  imports: [...CommonModulesList, SharedModule,
-  ContextMenuModule.forRoot({
-    autoFocus: true,
-    // useBootstrap4: true,
-  })],
+  imports: [
+    SharedModule,
+    ContextMenuModule.forRoot({
+      autoFocus: true
+      // useBootstrap4: true,
+    })
+  ],
   exports: [NavbarComponent],
   declarations: [NavbarComponent],
-  providers: [],
+  providers: []
 })
-export class NavbarModule { }
+export class NavbarModule {}

@@ -12,7 +12,7 @@ import { PdfFileViewComponent } from './pdf-file-view/pdf-file-view.component';
 import { SpectraJsmolPreviewComponent } from './spectra-jsmol-preview/spectra-jsmol-preview.component';
 import { SavFileViewComponent } from './sav-file-view/sav-file-view.component';
 import { MicroscopyViewComponent } from './microscopy-view/microscopy-view.component';
-import { GenericMetadataPreviewComponent } from '../generic-metadata-preview/generic-metadata-preview.component';
+import { GenericMetadataPreviewModule } from '../generic-metadata-preview/generic-metadata-preview.module';
 
 const components = [
   CifPreviewComponent,
@@ -22,14 +22,13 @@ const components = [
   PdfFileViewComponent,
   SpectraJsmolPreviewComponent,
   SavFileViewComponent,
-  MicroscopyViewComponent,
-  GenericMetadataPreviewComponent,
+  MicroscopyViewComponent
 ];
 
 @NgModule({
-  imports: [PropertiesInfoBoxModule, ...CommonModulesList, SharedModule],
+  imports: [PropertiesInfoBoxModule, SharedModule, GenericMetadataPreviewModule],
   exports: [...components],
   declarations: [...components],
-  providers: [],
+  providers: []
 })
-export class FileViewsModule { }
+export class FileViewsModule {}

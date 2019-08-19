@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { UploadInfoBoxComponent } from './upload-info-box.component';
 import { SharedModule } from '../../shared.module';
+import { MatTooltipModule } from '@angular/material';
 
 @NgModule({
-  imports: [SharedModule],
+  imports: [SharedModule, MatTooltipModule],
   exports: [UploadInfoBoxComponent],
   declarations: [UploadInfoBoxComponent],
-  providers: [],
+  providers: []
 })
-export class UploadInfoBoxModule { }
+export class UploadInfoBoxModule {}

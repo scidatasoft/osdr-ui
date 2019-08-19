@@ -8,7 +8,6 @@ import { FingerprintsService } from '../../../core/services/fingerprints/fingerp
   styleUrls: ['./fingerprints.component.scss']
 })
 export class FingerprintsComponent implements OnInit {
-
   @Input() fingerprintType: Origin = null;
 
   fingerprintSizeList: number[] = [128, 256, 512, 1024, 2048];
@@ -19,9 +18,13 @@ export class FingerprintsComponent implements OnInit {
   maxFingerprints: number;
   settings: MlSettings;
 
-  get fingerprintList(): FormArray { return this.fingerprintForm.controls.fingerprints as FormArray; }
+  get fingerprintList(): FormArray {
+    return this.fingerprintForm.controls.fingerprints as FormArray;
+  }
 
-  set fingerprintList(fingerprint) { this.fingerprintForm.controls.fingerprints.setValue(fingerprint); }
+  set fingerprintList(fingerprint) {
+    this.fingerprintForm.controls.fingerprints.setValue(fingerprint);
+  }
 
   constructor(api: FingerprintsService) {
     api.getFingerprints().subscribe((data: MlSettings) => {
@@ -38,9 +41,7 @@ export class FingerprintsComponent implements OnInit {
 
   loadFingerprints() {
     this.fingerprintForm = new FormGroup({
-      fingerprints: new FormArray([
-        this.initFingerprints()
-      ])
+      fingerprints: new FormArray([this.initFingerprints()])
     });
   }
 
@@ -71,7 +72,7 @@ export class FingerprintsComponent implements OnInit {
       } else if (origin === Origin.FvcCIF) {
         this.maxFingerprints = 3;
       }
-      return this.settings.fingerprints.fingerprintList.filter(fp => fp.origin.indexOf(origin) >= 0 ? fp : null);
+      return this.settings.fingerprints.fingerprintList.filter(fp => (fp.origin.indexOf(origin) >= 0 ? fp : null));
     }
   }
 
@@ -93,14 +94,14 @@ export class FingerprintsComponent implements OnInit {
             if (fingerprint.key === val) {
               if (fingerprint.parameters != null && fingerprint.parameters.length > 0) {
                 fingerprint.parameters.forEach(parameter => {
-                  if ((['radius', 'size']).indexOf(parameter) >= 0) {
+                  if (['radius', 'size'].indexOf(parameter) >= 0) {
                     formGroup.addControl(parameter, new FormControl('', Validators.required));
                   } else {
                     formGroup.removeControl(parameter);
                   }
                 });
               } else if (fingerprint && fingerprint.parameters == null) {
-                Object.keys(formGroup.controls).forEach(key => key !== 'type' ? formGroup.removeControl(key) : null);
+                Object.keys(formGroup.controls).forEach(key => (key !== 'type' ? formGroup.removeControl(key) : null));
               }
             }
           });
@@ -114,22 +115,13 @@ export class FingerprintsComponent implements OnInit {
   }
 
   validateDuplications(): void {
-    this.fingerprintList.value.filter(
-      (thing, index, self) => {
-        if (index !== self.findIndex((t) => (
-          t.type === thing.type
-          && t.size === thing.size
-          && t.radius === thing.radius))) {
-          this.setDuplicateError(index);
-        } else if
-        (index === self.findIndex((t) => (
-          t.type === thing.type
-          && t.size === thing.size
-          && t.radius === thing.radius))) {
-          this.removeDuplicateError(index);
-        }
+    this.fingerprintList.value.filter((thing, index, self) => {
+      if (index !== self.findIndex(t => t.type === thing.type && t.size === thing.size && t.radius === thing.radius)) {
+        this.setDuplicateError(index);
+      } else if (index === self.findIndex(t => t.type === thing.type && t.size === thing.size && t.radius === thing.radius)) {
+        this.removeDuplicateError(index);
       }
-    );
+    });
   }
 
   setDuplicateError(index): void {
@@ -137,7 +129,7 @@ export class FingerprintsComponent implements OnInit {
     for (const key in duplicateGroup.controls) {
       if (duplicateGroup.controls.hasOwnProperty(key)) {
         const formControl = duplicateGroup.controls[key];
-        formControl.setErrors({ 'duplicate': true });
+        formControl.setErrors({ duplicate: true });
       }
     }
   }
@@ -206,7 +198,7 @@ export interface MethodsList {
 
 export enum Type {
   Classification = 'classification',
-  Regression = 'regression',
+  Regression = 'regression'
 }
 
 export interface OptimizationList {
@@ -245,5 +237,5 @@ export enum Origin {
 
 export enum Parameter {
   Radius = 'radius',
-  Size = 'size',
+  Size = 'size'
 }

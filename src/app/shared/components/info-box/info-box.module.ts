@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModulesList } from 'app/common-modules-list';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { InfoBoxFactoryService } from './info-box-factory.service';
@@ -7,7 +6,7 @@ import { BasicOrganizeInfoBoxComponent } from './basic-organize-info-box/basic-o
 import { CommonOrganizeInfoBoxComponent } from './common-organize-info-box/common-organize-info-box.component';
 import { CvspOrganizeInfoBoxComponent } from './cvsp-organize-info-box/cvsp-organize-info-box.component';
 import { OrganizeInfoBoxFactoryComponent } from './organize-info-box-factory/organize-info-box-factory.component';
-
+import { MatTooltipModule } from '@angular/material';
 
 const components = [
   BasicOrganizeInfoBoxComponent,
@@ -17,9 +16,9 @@ const components = [
 ];
 
 @NgModule({
-  imports: [SharedModule, ...CommonModulesList],
+  imports: [SharedModule, MatTooltipModule],
   exports: [...components],
   declarations: [...components],
-  providers: [InfoBoxFactoryService],
+  providers: [InfoBoxFactoryService]
 })
-export class InfoBoxModule { }
+export class InfoBoxModule {}

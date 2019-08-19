@@ -5,7 +5,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { SharedLinksComponent } from './shared-links.component';
 
 @NgModule({
-  imports: [SharedModule, ...CommonModulesList],
+  imports: [SharedModule],
   exports: [SharedLinksComponent],
   declarations: [SharedLinksComponent],
   providers: [],

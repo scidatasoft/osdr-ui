@@ -13,7 +13,7 @@ const components = [
 ];
 
 @NgModule({
-  imports: [SharedModule, ...CommonModulesList],
+  imports: [SharedModule],
   exports: [...components],
   declarations: [...components],
   providers: [],

@@ -9,7 +9,7 @@ const modules = [
 ];
 
 @NgModule({
-  imports: [SharedModule, ...CommonModulesList, ...modules],
+  imports: [SharedModule, ...modules],
   exports: [],
   declarations: [],
   providers: [ActionViewService],

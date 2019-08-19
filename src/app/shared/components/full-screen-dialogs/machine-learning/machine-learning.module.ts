@@ -8,23 +8,43 @@ import { MachineLearningService } from './machine-learning.service';
 import { NotificationsModule } from 'app/shared/components/notifications/notifications.module';
 import { OrganizeToolbarModule } from 'app/shared/components/organize-toolbar/organize-toolbar.module';
 import { FolderActionsModule } from '../../folder-actions/folder-actions.module';
+import {
+  MatFormFieldModule,
+  MatStepperModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatCheckboxModule,
+  MatDividerModule,
+  MatRadioModule,
+  MatIconModule,
+  MatPaginatorModule,
+  MatTableModule,
+  MatTooltipModule
+} from '@angular/material';
+import { FingerprntsModule } from '../../fingerprints/fingerprints.module';
 
-const components = [
-  MachineLearningTrainComponent,
-  MachineLearningPredictComponent,
-  MachineLearningFactoryComponent,
-];
+const components = [MachineLearningTrainComponent, MachineLearningPredictComponent, MachineLearningFactoryComponent];
 
-const modules = [
-  NotificationsModule,
-  OrganizeToolbarModule,
-  FolderActionsModule
+const modules = [NotificationsModule, OrganizeToolbarModule, FolderActionsModule, FingerprntsModule];
+
+const MatModules = [
+  MatFormFieldModule,
+  MatStepperModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatCheckboxModule,
+  MatDividerModule,
+  MatRadioModule,
+  MatIconModule,
+  MatPaginatorModule,
+  MatTableModule,
+  MatTooltipModule
 ];
 
 @NgModule({
-  imports: [SharedModule, ...CommonModulesList, ...modules],
+  imports: [SharedModule, ...modules, ...MatModules],
   exports: [...components],
   declarations: [...components],
-  providers: [MachineLearningService],
+  providers: [MachineLearningService]
 })
-export class MachineLearningModule { }
+export class MachineLearningModule {}

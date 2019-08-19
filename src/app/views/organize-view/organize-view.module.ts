@@ -7,7 +7,6 @@ import { SharedModule } from 'app/shared/shared.module';
 
 import { ExportChemFilesService } from 'app/core/services/export-files/export-chem-files.service';
 
-
 import { NotificationsModule } from 'app/shared/components/notifications/notifications.module';
 import { FolderActionsModule } from 'app/shared/components/folder-actions/folder-actions.module';
 import { ImportWebPageModule } from 'app/shared/components/import-web-page/import-web-page.module';
@@ -28,21 +27,18 @@ const modules = [
   SidebarContentModule,
   OrganizeToolbarModule,
   OrganizeBrowserModule,
-  ExportDialogModule,
+  ExportDialogModule
   // MachineLearningModule
 ];
 
 @NgModule({
-  imports: [...CommonModulesList,
-    SharedModule,
-  ...modules,
-    OrganizeViewRoutingModule],
+  imports: [...modules, SharedModule, OrganizeViewRoutingModule],
   exports: [],
   declarations: [OrganizeViewComponent],
   providers: [
-    ActionViewService,
+    ActionViewService
     // MachineLearningService
   ],
-  schemas: [ NO_ERRORS_SCHEMA ]
+  schemas: [NO_ERRORS_SCHEMA]
 })
-export class OrganizeViewModule { }
+export class OrganizeViewModule {}

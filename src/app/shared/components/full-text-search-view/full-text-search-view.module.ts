@@ -3,9 +3,10 @@ import { CommonModulesList } from 'app/common-modules-list';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { FullTextSearchViewComponent } from './full-text-search-view.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 @NgModule({
-  imports: [...CommonModulesList, SharedModule],
+  imports: [SharedModule, BsDropdownModule],
   exports: [FullTextSearchViewComponent],
   declarations: [FullTextSearchViewComponent],
   providers: [],
