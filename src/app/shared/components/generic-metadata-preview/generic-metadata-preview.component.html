@@ -1,8 +1,8 @@
 <mat-card class="m-2">
-  <h5 class="text-danger">Generic Metadata. Development in progress</h5>
+  <h5 class="text-danger">File Information</h5>
   <ul class="p-0">
     <li *ngFor="let item of metadata" class="row">
-      <div class="col-6"><strong>{{item.key}}:</strong></div>
+      <div class="col-6"><strong>{{item.name}}:</strong></div>
       <div class="col-6 pl-1">{{item.value}}</div>
     </li>
   </ul>

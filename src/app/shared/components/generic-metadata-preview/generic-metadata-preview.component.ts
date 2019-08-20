@@ -31,14 +31,17 @@ export class GenericMetadataPreviewComponent implements OnInit {
    */
 
   metadata: IGenericMetadata[] = [
-    { name: GenericMetadata.Project, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { name: GenericMetadata.Experimenter, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { name: GenericMetadata.Experimenter_Group, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { name: GenericMetadata.Experiment_Name, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { name: GenericMetadata.Experiment_Date, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { name: GenericMetadata.Original_Folder_path, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { name: GenericMetadata.Instrument_Device_Name, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
-    { name: GenericMetadata.Notes, value: `${Math.floor(Math.random() * Math.floor(1000))}` },
+    { name: GenericMetadata.Project, value: `Leanda` },
+    { name: GenericMetadata.Experimenter, value: `John Doe` },
+    { name: GenericMetadata.Experimenter_Group, value: `Harward Science` },
+    { name: GenericMetadata.Experiment_Name, value: `Chemical Experiment NH12094` },
+    {
+      name: GenericMetadata.Experiment_Date,
+      value: `${new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)).toLocaleDateString()}`
+    },
+    { name: GenericMetadata.Original_Folder_path, value: `Drafts` },
+    { name: GenericMetadata.Instrument_Device_Name, value: `Laboratory Microscope` },
+    { name: GenericMetadata.Notes, value: `Experimenter had to consume a lot of coffee` },
   ];
 
   // end
