@@ -3,13 +3,13 @@ import XRegExp from '../../../../../node_modules/xregexp';
 
 export function ValidateFolderName(control: AbstractControl) {
   // const regexSpaces = /^[\s]+|[.\s]+$/g;
-  // const regexFolder = /^[a-zA-Z0-9А-Яа-яёЁ\-\.\_\s]+$/gi;
-  const regexFolder = XRegExp('^[\\pL\-\.\_\s0-9]+$');
-  const regexSpaces = /^[]+|[.]+$/g;
+  const regexFolder = /^[a-zA-Z0-9А-Яа-яёЁ\-\.\_\s]+$/gi;
+  // const regexFolder = XRegExp('^[\\pL\-\.\_\s0-9]+$');
+  // const regexSpaces = /^[]+|[.]+$/g;
   const regexWindows = /\.(COM[0-9]|LPT[0-9]|CON|PRN|AUX|CLOCK\$|NUL)/ig;
 
   const spaces = regexFolder.test(control.value)
-    && !regexSpaces.test(control.value)
+    // && !regexSpaces.test(control.value)
     && !regexWindows.test(control.value);
 
   if (!spaces) {
