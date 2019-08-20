@@ -3,10 +3,10 @@ import { CommonModulesList } from 'app/common-modules-list';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { SharedLinksComponent } from './shared-links.component';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatDialogModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
-  imports: [SharedModule, MatInputModule],
+  imports: [SharedModule, MatInputModule, MatDialogModule, MatButtonModule],
   exports: [SharedLinksComponent],
   declarations: [SharedLinksComponent],
   providers: [],

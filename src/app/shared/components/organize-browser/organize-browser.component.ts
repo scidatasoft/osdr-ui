@@ -154,10 +154,13 @@ export class OrganizeBrowserComponent extends BasePreview implements OnInit, OnD
           ' .zip .rar .7z .arj .wav .l.p3 .ogg .aac .wma .ape .flac' +
           ' .tif .tiff .gif .jpeg .jpg .jif .jfif .jp2 .jpx .j2k .fpx .pcd .png .bmp' +
           ' .mpg .mpeg .mp4 .txt .rtf .csv .tsv .xml .html .htm' +
-          ' .mol .sdf .cdx .rxn .rdf .jdx .dx .cif';
+          ' .mol .sdf .cdx .rxn .rdf .jdx .dx .cif .nd2 .lsm .ims .lif .czi';
         if (knownTypes.indexOf(' .' + fileType) < 0) {
           return item.type === 'Record' ? '/img/svg/file-types/record.svg' : '/img/svg/tile/file.svg';
         } else if (fileType) {
+          if (('.nd2 .lsm .ims .lif .czi').indexOf(' .' + fileType) > 0) {
+            return `/img/svg/microscopy.svg`;
+          }
           return `/img/svg/file-types/${fileType}.svg`;
         } else {
           return 'img/svg/tile/file.svg';

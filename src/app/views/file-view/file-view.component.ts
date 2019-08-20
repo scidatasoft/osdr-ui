@@ -336,7 +336,11 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     }
 
     if (this.fileInfo.fileType() === this.fileType.microscopy) {
-      this.currentTab = CurrentTab.Preview;
+      if (this.fileInfo.images) {
+        this.currentTab = CurrentTab.Preview;
+      } else {
+        this.currentTab = CurrentTab.Generic_Metadata;
+      }
       this.isMicroscopy = true;
     }
 
@@ -386,16 +390,20 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
         .pop()
         .toLowerCase();
 
-      const knownTypes =
-        ' .pdf .xls .xlsx .doc .docx .ppt .pptx' +
+      const knownTypes = ' .pdf .xls .xlsx .doc .docx .ppt .pptx' +
         ' .zip .rar .7z .arj .wav .l.p3 .ogg .aac .wma .ape .flac' +
         ' .tif .tiff .gif .jpeg .jpg .jif .jfif .jp2 .jpx .j2k .fpx .pcd .png .bmp' +
         ' .mpg .mpeg .mp4 .txt .rtf .csv .tsv .xml .html .htm' +
-        ' .mol .sdf .cdx .rxn .rdf .jdx .dx .cif';
+        ' .mol .sdf .cdx .rxn .rdf .jdx .dx .cif .nd2 .lsm .ims .lif .czi';
       if (knownTypes.indexOf(' .' + fileType) < 0) {
         return item.type === 'Record' ? '/img/svg/file-types/record.svg' : '/img/svg/tile/file.svg';
-      } else {
+      } else if (fileType) {
+        if (('.nd2 .lsm .ims .lif .czi').indexOf(' .' + fileType) > 0) {
+          return `/img/svg/microscopy.svg`;
+        }
         return `/img/svg/file-types/${fileType}.svg`;
+      } else {
+        return 'img/svg/tile/file.svg';
       }
     } else if (!item) {
       return null;
@@ -558,8 +566,10 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   }
 
   changeView(tab: CurrentTab) {
-    this.currentTab = tab;
-    this.changeFileView(this.getFileViewComponent(this.fileInfo), this.fileInfo);
+    if (!(!this.fileInfo.images && tab === CurrentTab.Preview)) {
+      this.currentTab = tab;
+      this.changeFileView(this.getFileViewComponent(this.fileInfo), this.fileInfo);
+    }
   }
 
   goToAssignInfoBox(item: any, index: any) {

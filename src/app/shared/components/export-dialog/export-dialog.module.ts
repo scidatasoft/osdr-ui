@@ -10,7 +10,7 @@ const MatModules = [
   MatExpansionModule,
   MatDialogModule,
   MatListModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
 ];
 
 @NgModule({
