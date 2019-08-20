@@ -158,9 +158,6 @@ export class OrganizeBrowserComponent extends BasePreview implements OnInit, OnD
         if (knownTypes.indexOf(' .' + fileType) < 0) {
           return item.type === 'Record' ? '/img/svg/file-types/record.svg' : '/img/svg/tile/file.svg';
         } else if (fileType) {
-          if (('.nd2 .lsm .ims .lif .czi').indexOf(' .' + fileType) > 0) {
-            return `/img/svg/microscopy.svg`;
-          }
           return `/img/svg/file-types/${fileType}.svg`;
         } else {
           return 'img/svg/tile/file.svg';
