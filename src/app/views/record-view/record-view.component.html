@@ -100,8 +100,7 @@
         <dt>Created Date</dt>
         <dd>{{record.Created() | date:'shortDate'}}</dd>
         <dt>Owner</dt>
-        <!--<dd>{{record.ownedBy.displayName}}</dd>-->
-        <dd>{{(record.userInfo | async)?.displayName}}</dd>
+        <dd *ngIf="record.userInfo | async as userInfo">{{userInfo?.displayName}}</dd>
         <dt *ngIf="record.totalRecords">Records</dt>
         <dd *ngIf="record.totalRecords">{{record.totalRecords}}</dd>
       </dl>

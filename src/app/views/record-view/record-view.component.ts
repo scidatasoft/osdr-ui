@@ -15,6 +15,7 @@ import { PageTitleService } from 'app/core/services/page-title/page-title.servic
 import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-info-box/properties-info-box.component';
 import { SignalrService } from '../../core/services/signalr/signalr.service';
 import { map } from 'rxjs/operators';
+import { UsersApiService } from 'app/core/services/api/users-api.service';
 
 @Component({
   selector: 'dr-record-view',
@@ -64,6 +65,8 @@ export class RecordViewComponent implements OnInit {
     public sidebarContent: SidebarContentService,
     private pageTitle: PageTitleService,
     private signalr: SignalrService,
+    private usersApi: UsersApiService,
+
   ) {
     this.breadcrumbs = [{ text: 'DRAFTS' }];
   }
@@ -90,9 +93,12 @@ export class RecordViewComponent implements OnInit {
               element.Name = decodeURIComponent(element.Name);
             }
           });
+          const item = new BrowserDataItem(x.body as BrowserDataItem);
+          item.userInfo = this.usersApi.getUserInfo(item.ownedBy);
+
           return {
             breadcrumbs: breadcrumbs,
-            item: new BrowserDataItem(x.body as BrowserDataItem),
+            item: item,
           };
         }),
       )
@@ -242,7 +248,7 @@ export class RecordViewComponent implements OnInit {
         this.copyFilenameText = 'Copied!';
         (this.copyFilenameTooltip as any).show();
       }
-    } catch (err) {}
+    } catch (err) { }
   }
 
   openPropertiesEditorDialog(data) {
