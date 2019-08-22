@@ -49,22 +49,21 @@ export class BlobsApiService {
     }
   }
 
-  uploadFiles(folderId, formData) {
+  uploadFiles(folderId: string, formData: FormData) {
     return this.http.post(environment.blobStorageApiUrl + '/blobs/' + this.auth.user.profile.sub, formData);
   }
 
-  getOfficeFileUrlOld(fileInfo, download?: boolean): string {
+  getOfficeFileUrlOld(fileInfo: { pdf: { bucket: any; blobId: any; }; }, download?: boolean): string {
     if (fileInfo && fileInfo.pdf) {
       const tokenParameter = `/?access_token=${this.auth.user.access_token}`;
 
-      console.log(`${environment.blobStorageApiUrl}/blobs/${fileInfo.pdf.bucket}/${fileInfo.pdf.blobId}${tokenParameter}`);
       return `${environment.blobStorageApiUrl}/blobs/${fileInfo.pdf.bucket}/${fileInfo.pdf.blobId}${tokenParameter}`;
     } else {
       return '';
     }
   }
 
-  getOfficeFileUrl(fileInfo, download?: boolean): string {
+  getOfficeFileUrl(fileInfo: BrowserDataItem, download?: boolean): string {
     if (fileInfo && fileInfo.pdf) {
       const type = 'files';
 
@@ -79,7 +78,7 @@ export class BlobsApiService {
     }
   }
 
-  getInfo(bucket, blobId) {
+  getInfo(bucket: any, blobId: any) {
     return this.http.get(environment.blobStorageApiUrl + `/blobs/${bucket}/${blobId}/info`);
   }
 }

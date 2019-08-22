@@ -25,7 +25,6 @@ export class ExportDialogComponent implements OnInit {
 
   constructor(
     public http: HttpClient,
-    private blobsApi: BlobsApiService,
     private exportService: ExportChemFilesService,
     public dialogRef: MatDialogRef<ExportDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any

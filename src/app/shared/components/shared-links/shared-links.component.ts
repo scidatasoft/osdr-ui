@@ -4,7 +4,6 @@ import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { SignalrService } from 'app/core/services/signalr/signalr.service';
-import { NodeEvent, SignalREvent, SignalREventPermissionChanged } from 'app/shared/components/notifications/events.model';
 
 @Component({
   selector: 'dr-shared-links',
@@ -16,12 +15,10 @@ export class SharedLinksComponent implements OnInit {
   private dom: Document;
   public publicLink: string;
   public isShared = false;
-  private signalRSubscription: Subscription = null;
 
   constructor(
     public entitiesApi: EntitiesApiService,
     public dialogRef: MatDialogRef<SharedLinksComponent>,
-    private signalr: SignalrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     @Inject(DOCUMENT) dom: Document
   ) {
@@ -50,7 +47,7 @@ export class SharedLinksComponent implements OnInit {
     }
   }
 
-  copyToClipboard(el): void {
+  copyToClipboard(el: { select: () => void; }): void {
     el.select();
     this.dom.execCommand('copy');
   }

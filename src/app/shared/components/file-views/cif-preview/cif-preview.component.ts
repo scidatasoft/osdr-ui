@@ -33,14 +33,14 @@ export class CifPreviewComponent implements OnInit, AfterViewInit, IFilePreviewC
     });
   }
 
-  getFileURL(item) {
+  getFileURL(item: BrowserDataItem) {
     const viewerUrl = '/jsmol/jsmol.htm?_USE=HTML5&url=' + this.blobsApi.getBlobUrl(this.fileItem)
       + '&env=' + environment.proxyJSMOL;
     return this.domSanitizer.bypassSecurityTrustResourceUrl(viewerUrl);
     // return this.domSanitizer.bypassSecurityTrustResourceUrl('api/TYPESCRIPT_DESIGN_PATTERNS.pdf');
   }
 
-  getImageURL(item): string {
+  getImageURL(item: BrowserDataItem): string {
     if (item.images) {
       for (const i of item.images) {
         if (i.scale === 'Vector' || i.scale === 'Large') {

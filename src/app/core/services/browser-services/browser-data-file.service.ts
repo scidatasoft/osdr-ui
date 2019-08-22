@@ -58,7 +58,7 @@ export class BrowserDataFileService extends BrowserDataService {
               z.name = z.id;
               z.link = '/record/' + z.id;
             });
-            x.items = x.items.map(z => {
+            x.items = x.items.map((z: BrowserDataItem) => {
               const newItem = new BrowserDataItem(z);
               newItem.userInfo = this.usersApi.getUserInfo(newItem.ownedBy);
               return newItem;

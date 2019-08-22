@@ -8,7 +8,7 @@ $padding: .5rem;
 }
 
 .main {
-  height: calc(100vh - 6.7rem);
+  height: calc(100vh - 9rem);
 }
 
 .main.canClose {
@@ -47,7 +47,7 @@ $padding: .5rem;
 
 .viewer-block-img {
   ::ng-deep svg {
-    height: calc(100vh - 6.7rem);
+    height: calc(100vh - 9rem);
     margin: auto;
     display: block;
     width: 100%;
@@ -66,7 +66,7 @@ $padding: .5rem;
 
 // TODO change styles for safari
 img {
-  max-height: calc(100vh - 6.7rem);
+  max-height: calc(100vh - 9rem);
   max-width: 100%;
   margin: auto;
   display: block;
