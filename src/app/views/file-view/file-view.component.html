@@ -153,13 +153,11 @@
     <div class="file-img">
       <div mat-ripple>
         <div [class.active]="currentTab === tab.Preview">
-          <div *ngIf="getImageURL(fileInfo) && !JSMolPreview && !JsSpectraPreview"
+          <div *ngIf="getImageURL(fileInfo) && !JsSpectraPreview"
             [class.default-thumbnail]="fileInfo && (!fileInfo.images || !fileInfo.images.length)">
             <img class="e2e-middle-preview preview-img" (click)="changeView(tab.Preview)" [src]="getImageURL(fileInfo)"
               no-inline />
           </div>
-          <dr-cif-preview *ngIf="JSMolPreview" [fileItem]="fileInfo" [viewType]="currentTab"
-            (click)="changeView(tab.Preview)"></dr-cif-preview>
           <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview" [fileItem]="fileInfo" (click)="changeView(tab.Preview)">
           </dr-spectra-jsmol-preview>
         </div>
