@@ -100,13 +100,13 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   initied = false;
   private browserEventSubscription: Subscription = null;
 
-  @ViewChild('fileNameInput') fileNameInput: ElementRef;
-  @ViewChild('copyFilenameTooltip') copyFilenameTooltip: ElementRef;
-  @ViewChild('fileViewContainer', { read: ViewContainerRef })
+  @ViewChild('fileNameInput', { static: false }) fileNameInput: ElementRef;
+  @ViewChild('copyFilenameTooltip', { static: false }) copyFilenameTooltip: ElementRef;
+  @ViewChild('fileViewContainer', { read: ViewContainerRef, static: true })
   fileViewContainer: ViewContainerRef;
 
   @ViewChildren('propertiesInfoBox') propertiesInfoBoxComponents: QueryList<PropertiesInfoBoxComponent>;
-  @ViewChild('infoBoxContainer') infoBoxContainer: any;
+  @ViewChild('infoBoxContainer', { static: false }) infoBoxContainer: any;
 
   private signalRSubscription: Subscription = null;
   private routeEventsSubscription: Subscription;

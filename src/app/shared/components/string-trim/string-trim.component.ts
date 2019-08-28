@@ -8,7 +8,7 @@ import {BrowserDataItem} from 'app/shared/components/organize-browser/browser-ty
 })
 export class StringTrimComponent implements OnInit {
 
-  @ViewChild('rulerLength') public rulerLength: ElementRef;
+  @ViewChild('rulerLength', { static: true }) public rulerLength: ElementRef;
   @Input() blockLength = 0;
   @Input() trimmedText: string|BrowserDataItem;
   shortenedText = '';

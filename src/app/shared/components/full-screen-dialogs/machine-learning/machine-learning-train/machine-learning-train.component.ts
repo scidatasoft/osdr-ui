@@ -31,7 +31,7 @@ import { FingerprintsComponent } from '../../../fingerprints/fingerprints.compon
 })
 export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild(FingerprintsComponent) fingerprints: FingerprintsComponent;
+  @ViewChild(FingerprintsComponent, { static: true }) fingerprints: FingerprintsComponent;
 
   currentItem: BrowserDataItem = new BrowserDataItem();
   parentItem: BrowserDataItem = new BrowserDataItem();

@@ -83,12 +83,12 @@ import { environment } from 'environments/environment';
 })
 export class OrganizeViewComponent extends BrowserOptions
   implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(OrganizeBrowserComponent) browser: OrganizeBrowserComponent;
+  @ViewChild(OrganizeBrowserComponent, { static: false }) browser: OrganizeBrowserComponent;
 
-  @ViewChild(ImportWebPageComponent) uploadWebPage: ImportWebPageComponent;
-  @ViewChild('fileUpload') fileInput: ElementRef;
+  @ViewChild(ImportWebPageComponent, { static: false }) uploadWebPage: ImportWebPageComponent;
+  @ViewChild('fileUpload', { static: true }) fileInput: ElementRef;
 
-  @ViewChild('defaultContextMenu')
+  @ViewChild('defaultContextMenu', { static: true })
   public defaultContextMenu: ContextMenuComponent;
   componentData = null;
   activeToolbarButtons: ToolbarButtonType[] = [

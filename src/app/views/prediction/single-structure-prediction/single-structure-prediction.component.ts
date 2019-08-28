@@ -26,12 +26,12 @@ import { SinglePredictionService } from '../single-prediction.service';
 })
 export class SingleStructurePredictionComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild('ketcher') iframe: ElementRef;
-  @ViewChild('stepper') stepper: MatStepper;
+  @ViewChild('ketcher', { static: true }) iframe: ElementRef;
+  @ViewChild('stepper', { static: true }) stepper: MatStepper;
 
-  @ViewChild('stepDrawStructure') stepDrawStructure: MatStep;
-  @ViewChild('stepChooseProperty') stepChooseProperty: MatStep;
-  @ViewChild('stepResult') stepResult: MatStep;
+  @ViewChild('stepDrawStructure', { static: true }) stepDrawStructure: MatStep;
+  @ViewChild('stepChooseProperty', { static: true }) stepChooseProperty: MatStep;
+  @ViewChild('stepResult', { static: true }) stepResult: MatStep;
 
   predictions$: Observable<{ state: string; }>;
 
