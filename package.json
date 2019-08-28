@@ -45,7 +45,7 @@
     "hammerjs": "2.0.8",
     "jquery": "3.3.1",
     "ng-inline-svg": "8.2.2",
-    "ngx-bootstrap": "3.1.3",
+    "ngx-bootstrap": "5.1.1",
     "ngx-contextmenu": "^5.1.1",
     "oidc-client": "1.6.1",
     "papaparse": "4.6.2",
