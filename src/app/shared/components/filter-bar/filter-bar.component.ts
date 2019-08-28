@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FilterField } from 'app/shared/components/filter-bar/filter-bar.model';
-import { NgForm } from '@angular/forms/src/forms';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'dr-filter-bar',
