@@ -20,7 +20,7 @@ import {
   Guid
 } from '../machine-learning.model';
 import { Subscription, Subject, Observable } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { FingerprintsComponent } from '../../../fingerprints/fingerprints.component';
 

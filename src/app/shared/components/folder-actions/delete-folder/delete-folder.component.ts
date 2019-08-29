@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, EventEmitter, HostListener } from '@angular/core';
 import { BrowserDataItem } from '../../organize-browser/browser-types';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'dr-delete-folder',

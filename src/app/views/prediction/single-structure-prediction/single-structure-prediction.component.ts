@@ -1,7 +1,8 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewInit, TemplateRef} from '@angular/core';
 import {MatCheckboxChange} from '@angular/material/checkbox/typings/checkbox';
 import {Subject, zip, Observable} from 'rxjs';
-import {MatStepper, MatStep, MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatStepper, MatStep } from '@angular/material/stepper';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {map, filter, takeUntil} from 'rxjs/operators';
 

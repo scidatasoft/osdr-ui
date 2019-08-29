@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { SignalrService } from 'app/core/services/signalr/signalr.service';
 import { Subscription } from 'rxjs';

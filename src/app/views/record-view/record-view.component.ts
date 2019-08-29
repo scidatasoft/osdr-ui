@@ -6,7 +6,7 @@ import { isArray } from 'util';
 import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { ImagesApiService } from 'app/core/services/api/images-api.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { PropertiesEditorComponent } from 'app/shared/components/properties-editor/properties-editor.component';
 import { MetadataApiService } from 'app/core/services/api/metadata-api.service';
 import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';

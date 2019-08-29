@@ -1,5 +1,5 @@
 import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { BrowserDataItem, BrowserOptions, FileType, NodeType, SubType } from 'app/shared/components/organize-browser/browser-types';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import {

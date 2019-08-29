@@ -22,7 +22,7 @@ import { NotificationsService } from 'app/core/services/notifications/notificati
 import { NotificationItem, NotificationUploadMessage } from 'app/shared/components/notifications/notifications.model';
 import { NotificationUploadItemComponent } from 'app/shared/components/notifications/notifications-side-bar/notification-upload-item/notification-upload-item.component';
 import { NotificationType, SignalREvent } from 'app/shared/components/notifications/events.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
 import { BrowserDataService, IBrowserEvent } from 'app/core/services/browser-services/browser-data.service';
 import { BrowserDataBaseService, BrowserViewState } from 'app/core/services/browser-services/browser-data-base.service';
