@@ -56,7 +56,7 @@
     "svg-pan-zoom": "3.6.0",
     "tether": "1.4.7",
     "xregexp": "^4.2.4",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.1",
