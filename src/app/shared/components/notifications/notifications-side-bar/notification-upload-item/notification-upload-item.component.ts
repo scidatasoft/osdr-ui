@@ -39,11 +39,12 @@ export class NotificationUploadItemComponent implements OnInit, INotificationCom
 
   ngOnInit() {
     this.messageItem = this.notificationItem.componentData as NotificationUploadMessage;
-    this.startProgress();
+    if (!this.messageItem.finished) {
+      this.startProgress();
+    }
   }
 
   startProgress() {
-
     this.ngZone.runOutsideAngular(
       () => {
         this.messageItem.type = NotificationType.Process;
