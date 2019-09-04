@@ -37,11 +37,11 @@ And open <http://localhost:5555> via browser
 
 [Bootstrap](https://getbootstrap.com/)
 
-[TypeSript](https://www.typescriptlang.org/)
+[TypeScript](https://www.typescriptlang.org/)
 
 [SASS](http://sass-lang.com/)
 
-[BOOTSTRAP4 components](https://valor-software.com/ngx-bootstrap/index-bs4.html#/)
+[BOOTSTRAP 4 components](https://valor-software.com/ngx-bootstrap/index-bs4.html#/)
 
 [JSmol](http://wiki.jmol.org/index.php/Jmol_JavaScript_Object)
 
