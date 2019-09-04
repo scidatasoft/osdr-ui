@@ -8,12 +8,10 @@
     "CoenraadS.bracket-pair-colorizer",
     "infinity1207.angular2-switcher",
     "wmaurer.change-case",
-    "PeterJausovec.vscode-docker",
     "DavidAnson.vscode-markdownlint",
     "christian-kohler.path-intellisense",
     "jock.svg",
     "pflannery.vscode-versionlens",
-    "eamodio.gitlens",
-    "robertohuertasm.vscode-icons"
+    "eamodio.gitlens"
 	]
 }

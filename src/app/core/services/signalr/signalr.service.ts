@@ -66,8 +66,8 @@ export class SignalrService {
       };
 
       const organizeHubProxy = new signalR.HubConnectionBuilder()
-        .withUrl(environment.signalrUrl, { accessTokenFactory: () => user.access_token })
-        .configureLogging(signalR.LogLevel.Information)
+        .withUrl(environment.signalrUrl, { accessTokenFactory: () => user.access_token }) 
+        .configureLogging(signalR.LogLevel.Warning)
         .build();
 
       organizeHubProxy.on('organizeUpdate', (data) => {
@@ -110,7 +110,7 @@ export class SignalrService {
       );
 
       organizeHubProxy.on('generalEvents', (data) => {
-        this.ngZone.run(
+          this.ngZone.run(
           () => {
             this.generalEventsSubject.next(new SignalREvent(data));
           },
