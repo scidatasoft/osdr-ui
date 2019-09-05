@@ -6,7 +6,9 @@ import { DeleteFolderComponent } from './delete-folder/delete-folder.component';
 import { MoveFolderComponent } from './move-folder/move-folder.component';
 import { RenameFolderComponent } from './rename-folder/rename-folder.component';
 import { ValidationMessages } from '../../../core/services/validation/validation.service';
-import { MatFormFieldModule, MatDialogModule, MatInputModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { StringTrimModule } from '../string-trim/string-trim.module';
 
 

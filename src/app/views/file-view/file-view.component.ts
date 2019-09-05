@@ -1,5 +1,5 @@
 import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { BrowserDataItem, BrowserOptions, FileType, NodeType, SubType } from 'app/shared/components/organize-browser/browser-types';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import {
@@ -100,13 +100,13 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   initied = false;
   private browserEventSubscription: Subscription = null;
 
-  @ViewChild('fileNameInput') fileNameInput: ElementRef;
-  @ViewChild('copyFilenameTooltip') copyFilenameTooltip: ElementRef;
-  @ViewChild('fileViewContainer', { read: ViewContainerRef })
+  @ViewChild('fileNameInput', { static: false }) fileNameInput: ElementRef;
+  @ViewChild('copyFilenameTooltip', { static: false }) copyFilenameTooltip: ElementRef;
+  @ViewChild('fileViewContainer', { read: ViewContainerRef, static: true })
   fileViewContainer: ViewContainerRef;
 
   @ViewChildren('propertiesInfoBox') propertiesInfoBoxComponents: QueryList<PropertiesInfoBoxComponent>;
-  @ViewChild('infoBoxContainer') infoBoxContainer: any;
+  @ViewChild('infoBoxContainer', { static: false }) infoBoxContainer: any;
 
   private signalRSubscription: Subscription = null;
   private routeEventsSubscription: Subscription;

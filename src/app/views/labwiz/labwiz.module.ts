@@ -4,7 +4,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { NotificationsModule } from 'app/shared/components/notifications/notifications.module';
 import { Routes, RouterModule } from '@angular/router';
 import { LabwizComponent } from './labwiz.component.';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 
 const routes: Routes = [{ path: '', component: LabwizComponent }];
 

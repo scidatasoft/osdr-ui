@@ -8,21 +8,19 @@ import { flatMap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
-  constructor(private injector: Injector, private auth: AuthService) {
-  }
+  constructor(private injector: Injector, private auth: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<HttpEventType.Response>> {
-    return this.auth.getUser()
+    return this.auth
+      .getUser()
       .pipe(
-        flatMap(
-          (userOidc) => {
-            const signalR: SignalrService = this.injector.get(SignalrService);
-            return signalR.manualReconnectAsObservable(userOidc);
-          }
-        ))
+        flatMap(userOidc => {
+          const signalR: SignalrService = this.injector.get(SignalrService);
+          return signalR.manualReconnectAsObservable(userOidc);
+        })
+      )
       .pipe(
-        flatMap<User, HttpEvent<any>>((user) => {
+        flatMap<User, Observable<any>>(user => {
           if (!user) {
             return next.handle(req);
           }
@@ -31,8 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
             setHeaders: {
               Authorization: `Bearer ${user.access_token}`
             }
-          }
-          );
+          });
           return next.handle(request);
         })
       );

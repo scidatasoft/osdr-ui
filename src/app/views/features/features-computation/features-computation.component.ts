@@ -16,9 +16,9 @@ import { FormGroup } from '@angular/forms';
 })
 export class FeaturesComputationComponent implements OnInit {
 
-  @ViewChild('stepper') stepper: MatStepper;
-  @ViewChild('fileInput') fileInput: HTMLInputElement;
-  @ViewChild(FingerprintsComponent) fingerprints: FingerprintsComponent;
+  @ViewChild('stepper', { static: true }) stepper: MatStepper;
+  @ViewChild('fileInput', { static: false }) fileInput: HTMLInputElement;
+  @ViewChild(FingerprintsComponent, { static: true }) fingerprints: FingerprintsComponent;
 
   pollingFinished$: Subject<ComputationStatus> = new Subject();
   fileData: any = null;

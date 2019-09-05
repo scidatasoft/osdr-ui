@@ -12,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ImageFileViewComponent implements OnInit, AfterViewInit, IFilePreviewComponent {
 
-  @ViewChild('imagePreview') imagePreview;
+  @ViewChild('imagePreview', { static: false }) imagePreview;
   @Input() fileItem;
 
   constructor(private imagesApi: ImagesApiService,

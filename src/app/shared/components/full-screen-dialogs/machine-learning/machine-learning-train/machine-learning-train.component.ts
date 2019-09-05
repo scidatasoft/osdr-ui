@@ -20,7 +20,7 @@ import {
   Guid
 } from '../machine-learning.model';
 import { Subscription, Subject, Observable } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { FingerprintsComponent } from '../../../fingerprints/fingerprints.component';
 
@@ -31,7 +31,7 @@ import { FingerprintsComponent } from '../../../fingerprints/fingerprints.compon
 })
 export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild(FingerprintsComponent) fingerprints: FingerprintsComponent;
+  @ViewChild(FingerprintsComponent, { static: true }) fingerprints: FingerprintsComponent;
 
   currentItem: BrowserDataItem = new BrowserDataItem();
   parentItem: BrowserDataItem = new BrowserDataItem();

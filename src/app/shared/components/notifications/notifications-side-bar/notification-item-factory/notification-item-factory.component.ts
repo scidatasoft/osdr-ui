@@ -19,7 +19,7 @@ import { NotificationExportItemComponent } from '../notification-export-item/not
 export class NotificationItemFactoryComponent implements OnInit, OnDestroy {
 
   private eventSubscription: Subscription;
-  @ViewChild('notificationComponentContainer', { read: ViewContainerRef }) _container: ViewContainerRef;
+  @ViewChild('notificationComponentContainer', { read: ViewContainerRef, static: true }) _container: ViewContainerRef;
   @Input()
   set componentData(value: NotificationItem) {
     if (!value) {

@@ -9,7 +9,9 @@ import { SignalREvent } from 'app/shared/components/notifications/events.model';
 import { SignalrService } from 'app/core/services/signalr/signalr.service';
 import { ValidateFolderName } from 'app/core/services/validation/validation.service';
 import { ActionViewService } from 'app/shared/components/full-screen-dialogs/action-view.service';
-import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 import { UsersApiService } from 'app/core/services/api/users-api.service';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -31,7 +33,7 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   selection = new SelectionModel(false, []);
 

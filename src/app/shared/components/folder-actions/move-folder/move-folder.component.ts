@@ -9,7 +9,7 @@ import { ItemImagePreviewService } from 'app/core/services/item-preview-image-se
 import { FoldersApiService } from 'app/core/services/api/folders-api.service';
 import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { map } from 'rxjs/operators';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // import {
 //   MachineLearningTrainComponent
 // } from '../../full-screen-dialogs/machine-learning/machine-learning-train/machine-learning-train.component';

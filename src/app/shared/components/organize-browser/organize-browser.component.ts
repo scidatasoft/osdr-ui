@@ -24,7 +24,7 @@ export class OrganizeBrowserComponent extends BasePreview implements OnInit, OnD
   @Input() options: BrowserOptions;
   @Input() usingFor: string;
   @Input() contextMenuActionsManager: ActionMenuItemsManager = new ActionMenuItemsManager();
-  @ViewChild('myContextMenu') public contextMenu: ContextMenuComponent;
+  @ViewChild('myContextMenu', { static: true }) public contextMenu: ContextMenuComponent;
   // @ViewChild('contextMenuTrigger') contextMenuTrigger: MatMenuTrigger;
 
   activeToolbarButtons: ToolbarButtonType[] = [

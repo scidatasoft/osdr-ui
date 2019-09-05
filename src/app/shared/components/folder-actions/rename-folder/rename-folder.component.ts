@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BrowserDataItem } from '../../organize-browser/browser-types';
 import { ValidateFolderName, ValidationMessages } from 'app/core/services/validation/validation.service';
 import { Subscription } from 'rxjs';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({

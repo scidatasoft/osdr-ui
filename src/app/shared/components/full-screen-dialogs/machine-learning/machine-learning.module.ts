@@ -8,19 +8,17 @@ import { MachineLearningService } from './machine-learning.service';
 import { NotificationsModule } from 'app/shared/components/notifications/notifications.module';
 import { OrganizeToolbarModule } from 'app/shared/components/organize-toolbar/organize-toolbar.module';
 import { FolderActionsModule } from '../../folder-actions/folder-actions.module';
-import {
-  MatFormFieldModule,
-  MatStepperModule,
-  MatOptionModule,
-  MatSelectModule,
-  MatCheckboxModule,
-  MatDividerModule,
-  MatRadioModule,
-  MatIconModule,
-  MatPaginatorModule,
-  MatTableModule,
-  MatTooltipModule
-} from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FingerprntsModule } from '../../fingerprints/fingerprints.module';
 
 const components = [MachineLearningTrainComponent, MachineLearningPredictComponent, MachineLearningFactoryComponent];

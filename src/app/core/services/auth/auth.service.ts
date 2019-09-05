@@ -6,7 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-
 // Log.logger = console;
 // Log.level = Log.DEBUG;
 
@@ -30,7 +29,7 @@ export class AuthService {
 
     monitorSession: true,
     filterProtocolClaims: true,
-    loadUserInfo: true,
+    loadUserInfo: true
   };
 
   notificationTokenExpiring: Subject<any> = new Subject();
@@ -41,126 +40,106 @@ export class AuthService {
   user: User;
   loggedIn = false;
 
-  constructor(private http: HttpClient,
-    public ngZone: NgZone) {
-    this.ngZone.runOutsideAngular(
-      () => {
-        this.manager = new UserManager(this.settings);
-        this.manager.getUser().then(
-          (user) => {
-            if (user) {
-              this.user = user;
-              this.loadUserSettings(user);
-            } else {
-              this.loggedIn = false;
-              this.user = null;
-            }
+  constructor(private http: HttpClient, public ngZone: NgZone) {
+    this.ngZone.runOutsideAngular(() => {
+      this.manager = new UserManager(this.settings);
+      this.manager
+        .getUser()
+        .then(user => {
+          if (user) {
+            this.user = user;
+            this.loadUserSettings(user);
+          } else {
+            this.loggedIn = false;
+            this.user = null;
           }
-        ).catch(
-          (err) => {
-            this.ngZone.run(
-              () => {
-                this.loggedIn = false;
-              }
-            );
-          }
-        );
-
-        this.manager.events.addUserLoaded(user => this.loadUserSettings(user));
-
-        this.manager.events.addUserSignedOut((data) => {
-          console.log('addUserSignedOut', data);
-          this.startSignout();
+        })
+        .catch(err => {
+          this.ngZone.run(() => {
+            this.loggedIn = false;
+          });
         });
 
-        this.manager.events.addSilentRenewError((data) => {
-          console.log('addSilentRenewError', data);
-          this.silentSignIn();
-        });
-
-        this.manager.events.addAccessTokenExpired(
-          () => {
-            console.log('addAccessTokenExpired');
-            this.silentSignIn();
-          }
-        );
-      }
-    );
+      this.manager.events.addUserLoaded(user => this.loadUserSettings(user));
+      this.manager.events.addUserSignedOut(() => this.startSignout());
+      this.manager.events.addSilentRenewError(() => this.silentSignIn());
+      this.manager.events.addAccessTokenExpired(() => this.silentSignIn());
+    });
   }
 
   silentSignIn() {
-    this.manager.signinSilent().then(
-      (userInformation) => {
-      },
-      (error) => {
+    this.manager
+      .signinSilent()
+      .then(
+        userInformation => {},
+        error => {
+          console.log('signinSilent error - ', error);
+          this.startSignin();
+        }
+      )
+      .catch(error => {
         console.log('signinSilent error - ', error);
         this.startSignin();
-      }
-    ).catch(
-      (error) => {
-        console.log('signinSilent error - ', error);
-        this.startSignin();
-      }
-    );
+      });
   }
 
   loadUserSettings(user) {
-    this.ngZone.runOutsideAngular(
-      () => {
-        if (user) {
-          this.loggedIn = true;
-          this.user = user;
+    this.ngZone.runOutsideAngular(() => {
+      if (user) {
+        this.loggedIn = true;
+        this.user = user;
 
-          this.askAboutProfile(user.profile).subscribe(
-            (response: Response) => {
-            },
-            (error) => {
-              if (AuthService._debug) {
-                const url = `${environment.apiUrl}/users/${AuthService.user_test_id}`;
-                this.createUserProfile(user.profile, url);
-              } else {
-                this.createUserProfile(user.profile);
-              }
+        this.askAboutProfile(user.profile).subscribe(
+          (response: Response) => {},
+          error => {
+            if (AuthService._debug) {
+              const url = `${environment.apiUrl}/users/${AuthService.user_test_id}`;
+              this.createUserProfile(user.profile, url);
+            } else {
+              this.createUserProfile(user.profile);
             }
-          );
-        }
-        this.user.profile = this.jwtHelper.decodeToken(user.access_token);
+          }
+        );
       }
-    );
+      this.user.profile = this.jwtHelper.decodeToken(user.access_token);
+    });
   }
 
   startSignin() {
-    this.ngZone.runOutsideAngular(
-      () => {
-        this.manager.signinRedirect({ data: localStorage.getItem('redirectUrl') }).then(() => {
+    this.ngZone.runOutsideAngular(() => {
+      this.manager
+        .signinRedirect({ data: localStorage.getItem('redirectUrl') })
+        .then(() => {
           console.log('signinRedirect done');
-        }).catch(function (err) {
+        })
+        .catch(function(err) {
           console.log(err);
         });
-      }
-    );
+    });
   }
 
   getUser() {
     return this.ngZone.runOutsideAngular(() => {
       return from(
-        this.manager.getUser().then((user) => {
-          // console.log('got user', user);
-          return user;
-        }).catch(function (err) {
-          console.log(err);
-          return null;
-        })
+        this.manager
+          .getUser()
+          .then(user => {
+            // console.log('got user', user);
+            return user;
+          })
+          .catch(function(err) {
+            console.log(err);
+            return null;
+          })
       ).pipe(
-        map(
-          (user) => {
-            if (user) {
-              user.profile = this.jwtHelper.decodeToken(this.user.access_token);
-              this.user.profile = user.profile;
-              return user;
-            }
+        map(user => {
+          if (user) {
+            user.profile = this.jwtHelper.decodeToken(this.user.access_token);
+            this.user.profile = user.profile;
+            return user;
           }
-        ));
+        })
+      );
     });
   }
 
@@ -169,11 +148,14 @@ export class AuthService {
   }
 
   startSignout() {
-    this.manager.signoutRedirect().then(function (resp) {
-      console.log('signed out', resp);
-    }).catch(function (err) {
-      console.log(err);
-    });
+    this.manager
+      .signoutRedirect()
+      .then(function(resp) {
+        console.log('signed out', resp);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
   }
 
   logout() {
@@ -218,9 +200,8 @@ export class AuthService {
       LoginName: userProfile.preferred_username
     };
     this.http.put(url, profileObject).subscribe(
-      (response: Response) => {
-      },
-      (error) => {
+      (response: Response) => {},
+      error => {
         console.log(error);
       }
     );

@@ -1,7 +1,8 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewInit, TemplateRef} from '@angular/core';
 import {MatCheckboxChange} from '@angular/material/checkbox/typings/checkbox';
 import {Subject, zip, Observable} from 'rxjs';
-import {MatStepper, MatStep, MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatStepper, MatStep } from '@angular/material/stepper';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {map, filter, takeUntil} from 'rxjs/operators';
 
@@ -26,12 +27,12 @@ import { SinglePredictionService } from '../single-prediction.service';
 })
 export class SingleStructurePredictionComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild('ketcher') iframe: ElementRef;
-  @ViewChild('stepper') stepper: MatStepper;
+  @ViewChild('ketcher', { static: true }) iframe: ElementRef;
+  @ViewChild('stepper', { static: true }) stepper: MatStepper;
 
-  @ViewChild('stepDrawStructure') stepDrawStructure: MatStep;
-  @ViewChild('stepChooseProperty') stepChooseProperty: MatStep;
-  @ViewChild('stepResult') stepResult: MatStep;
+  @ViewChild('stepDrawStructure', { static: true }) stepDrawStructure: MatStep;
+  @ViewChild('stepChooseProperty', { static: true }) stepChooseProperty: MatStep;
+  @ViewChild('stepResult', { static: true }) stepResult: MatStep;
 
   predictions$: Observable<{ state: string; }>;
 

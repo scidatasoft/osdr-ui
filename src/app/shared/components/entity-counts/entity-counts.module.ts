@@ -3,7 +3,8 @@ import { CommonModulesList } from 'app/common-modules-list';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { EntityCountsComponent } from './entity-counts.component';
-import { MatFormFieldModule, MatTooltipModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MatModules = [
   MatFormFieldModule,
