@@ -4,7 +4,7 @@
 
 ## Requirements
 
-- [Node](https://nodejs.org) v10 or later
+- [Node](https://nodejs.org) v12 or later
 
 ## Commands
 
