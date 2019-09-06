@@ -526,7 +526,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
         fileLimitMessage.type = NotificationType.Error;
         fileLimitMessage.actionDate = new Date();
         this.notificationService.showToastNotification(new NotificationItem(NotificationCommonItemComponent, fileLimitMessage));
-        return;
+        continue;
       }
       const uploadTask: Observable<any> = this.blobsApi.uploadFiles(
         this.dataService.parentItem != null ? this.dataService.parentItem.id : null,
