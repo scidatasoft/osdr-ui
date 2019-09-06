@@ -15,6 +15,7 @@ export const environment = {
   notificationTimeOut: 60 * 60 * 1 * 1000,
   proxyJSMOL: 'I___PROXY_JSMOL_URL___I',
   ketcher: 'I___KETCHER_URL___I',
+  maxBlobUploadingFileSize: 10240 * 1024,
   capabilities: {
     chemical: true,
     crystal: true,

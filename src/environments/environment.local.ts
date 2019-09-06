@@ -17,6 +17,7 @@ export const environment = {
   notificationTimeOut: 60 * 60 * 24 * 1000,
   proxyJSMOL: 'http://localhost:28611/api/proxy/jsmol',
   ketcher: 'https://core.dev.your-company.com/ketcher/indigo/layout',
+  maxBlobUploadingFileSize: 10240 * 1024,
   capabilities: {
     chemical: true,
     crystal: true,
