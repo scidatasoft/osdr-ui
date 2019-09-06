@@ -3,7 +3,7 @@ import { BrowserDataItem } from '../../organize-browser/browser-types';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { InfoBoxFactoryService } from '../../info-box/info-box-factory.service';
 import { PropertiesInfoBoxComponent } from '../../properties-info-box/properties-info-box.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { throwError } from 'rxjs';
 class MicroscopyInfoBox {
   name: string;

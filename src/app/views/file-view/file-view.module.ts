@@ -22,7 +22,7 @@ import { BrowserDataSharedFileServiceService } from '../../core/services/browser
 import { RouterModule, Routes } from '@angular/router';
 import { ShareElementGuard } from '../../core/services/guards/share-element.guard';
 import { SharingParentResolverService } from '../../core/services/resolvers/sharing-parent-resolver.service';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export let dataServiceFactory = (auth: AuthService,
   sharedProvider: BrowserDataSharedFileServiceService,

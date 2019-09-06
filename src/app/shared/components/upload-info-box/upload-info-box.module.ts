@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { UploadInfoBoxComponent } from './upload-info-box.component';
 import { SharedModule } from '../../shared.module';
-import { MatTooltipModule } from '@angular/material';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [SharedModule, MatTooltipModule],

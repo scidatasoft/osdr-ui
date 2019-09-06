@@ -6,7 +6,8 @@ import { BreadcrumbsModule } from 'app/shared/components/breadcrumbs/breadcrumbs
 import { FullTextSearchModule } from 'app/shared/components/full-text-search-view/full-text-search-view.module';
 
 import { OrganizeToolbarComponent } from './organize-toolbar.component';
-import { MatFormFieldModule, MatTooltipModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [SharedModule, BreadcrumbsModule, FullTextSearchModule, MatTooltipModule],

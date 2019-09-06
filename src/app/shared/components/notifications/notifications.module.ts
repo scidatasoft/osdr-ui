@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 // import { SharedModule } from 'app/shared/shared.module';
-import { MatTooltipModule, MatButton, MatButtonModule } from '@angular/material';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'app/shared/shared.module';
 

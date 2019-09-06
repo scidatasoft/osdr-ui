@@ -11,7 +11,7 @@ import { MachineLearningPredictComponent } from '../machine-learning-predict/mac
 export class MachineLearningFactoryComponent {
 
   currentComponent = null;
-  @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef;
+  @ViewChild('dynamicComponentContainer', { read: ViewContainerRef, static: true }) dynamicComponentContainer: ViewContainerRef;
 
   constructor(private resolver: ComponentFactoryResolver) {}
 

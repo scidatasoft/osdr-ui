@@ -11,7 +11,7 @@ import { CvspOrganizeInfoBoxComponent } from '../cvsp-organize-info-box/cvsp-org
 export class OrganizeInfoBoxFactoryComponent {
   currentComponent = null;
 
-  @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef;
+  @ViewChild('dynamicComponentContainer', { read: ViewContainerRef, static: true }) dynamicComponentContainer: ViewContainerRef;
 
   @Input() set componentData(data: { component: any; inputs: any }) {
     if (!data) {

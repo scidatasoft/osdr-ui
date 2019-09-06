@@ -6,7 +6,7 @@ import { isArray } from 'util';
 import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { ImagesApiService } from 'app/core/services/api/images-api.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { PropertiesEditorComponent } from 'app/shared/components/properties-editor/properties-editor.component';
 import { MetadataApiService } from 'app/core/services/api/metadata-api.service';
 import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
@@ -28,14 +28,14 @@ export class RecordViewComponent implements OnInit {
   listProperties = [];
 
   @ViewChildren('propertiesInfoBox') propertiesInfoBoxComponents: QueryList<PropertiesInfoBoxComponent>;
-  @ViewChild('infoBoxContainer') infoBoxContainer;
-  @ViewChild('fileViewContainer', { read: ViewContainerRef }) fileViewContainer: ViewContainerRef;
+  @ViewChild('infoBoxContainer', { static: false }) infoBoxContainer;
+  @ViewChild('fileViewContainer', { read: ViewContainerRef, static: false }) fileViewContainer: ViewContainerRef;
   record: BrowserDataItem;
   toolBarButtons = [];
   infoBoxes: Object[] = [];
 
-  @ViewChild('fileNameInput') fileNameInput: ElementRef;
-  @ViewChild('copyFilenameTooltip') copyFilenameTooltip: ElementRef;
+  @ViewChild('fileNameInput', { static: false }) fileNameInput: ElementRef;
+  @ViewChild('copyFilenameTooltip', { static: false }) copyFilenameTooltip: ElementRef;
   copyFilenameText: string;
 
   JSMolPreview = false;

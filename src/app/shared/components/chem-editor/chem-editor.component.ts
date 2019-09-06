@@ -8,8 +8,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./chem-editor.component.scss']
 })
 export class ChemEditorComponent implements OnInit, IModalState {
-  @ViewChild('staticModal') staticModal: any;
-  @ViewChild('ketcher') iframe: ElementRef;
+  @ViewChild('staticModal', { static: true }) staticModal: any;
+  @ViewChild('ketcher', { static: true }) iframe: ElementRef;
   public subscriptions: Subscription[] = [];
   visible: boolean;
   molData = '';

@@ -1,33 +1,15 @@
 /* tslint:disable:no-access-missing-member */
 // TODO remove it after lint bug will fix
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import {
-  BrowserDataItem,
-  BrowserOptions,
-  NodeType,
-} from 'app/shared/components/organize-browser/browser-types';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { BrowserDataItem, BrowserOptions, NodeType } from 'app/shared/components/organize-browser/browser-types';
 import { Observable, Subscription } from 'rxjs';
 import { OrganizeBrowserComponent } from 'app/shared/components/organize-browser/organize-browser.component';
 import { SignalrService } from 'app/core/services/signalr/signalr.service';
 import { ToolbarButtonType } from 'app/shared/components/organize-toolbar/organize-toolbar.model';
 import { DeleteFolderComponent } from 'app/shared/components/folder-actions/delete-folder/delete-folder.component';
-import {
-  MoveFolderComponent,
-  MoveDialogType,
-} from 'app/shared/components/folder-actions/move-folder/move-folder.component';
-import {
-  ActionMenuItemData,
-  ActionMenuItemsManager,
-  ContextMenu,
-} from './organize-view.model';
+import { MoveFolderComponent, MoveDialogType } from 'app/shared/components/folder-actions/move-folder/move-folder.component';
+import { ActionMenuItemData, ActionMenuItemsManager, ContextMenu } from './organize-view.model';
 import { AuthService } from 'app/core/services/auth/auth.service';
 import { ImportWebPageComponent } from 'app/shared/components/import-web-page/import-web-page.component';
 import { RenameFolderComponent } from 'app/shared/components/folder-actions/rename-folder/rename-folder.component';
@@ -37,31 +19,15 @@ import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
 import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { WebPagesApiService } from 'app/core/services/api/web-pages-api.service';
 import { NotificationsService } from 'app/core/services/notifications/notifications.service';
-import {
-  NotificationItem,
-  NotificationUploadMessage,
-} from 'app/shared/components/notifications/notifications.model';
+import { NotificationItem, NotificationUploadMessage } from 'app/shared/components/notifications/notifications.model';
 import { NotificationUploadItemComponent } from 'app/shared/components/notifications/notifications-side-bar/notification-upload-item/notification-upload-item.component';
-import {
-  NotificationType,
-  SignalREvent,
-} from 'app/shared/components/notifications/events.model';
-import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { MatDialog } from '@angular/material';
+import { NotificationType, SignalREvent } from 'app/shared/components/notifications/events.model';
+import { MatDialog } from '@angular/material/dialog';
 import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
-import {
-  BrowserDataService,
-  IBrowserEvent,
-} from 'app/core/services/browser-services/browser-data.service';
-import {
-  BrowserDataBaseService,
-  BrowserViewState,
-} from 'app/core/services/browser-services/browser-data-base.service';
+import { BrowserDataService, IBrowserEvent } from 'app/core/services/browser-services/browser-data.service';
+import { BrowserDataBaseService, BrowserViewState } from 'app/core/services/browser-services/browser-data-base.service';
 import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
-import {
-  IQuickFilter,
-  QuickFilterService,
-} from 'app/core/services/browser-services/quick-filter.service';
+import { IQuickFilter, QuickFilterService } from 'app/core/services/browser-services/quick-filter.service';
 import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
 import { PageTitleService } from 'app/core/services/page-title/page-title.service';
 import { NotificationsApiService } from 'app/core/services/api/notifications-api.service';
@@ -75,20 +41,15 @@ import { environment } from 'environments/environment';
   selector: 'dr-organize-view',
   templateUrl: './organize-view.component.html',
   styleUrls: ['./organize-view.component.scss'],
-  providers: [
-    { provide: BrowserDataBaseService, useClass: BrowserDataService },
-    PaginatorManagerService,
-    QuickFilterService,
-  ],
+  providers: [{ provide: BrowserDataBaseService, useClass: BrowserDataService }, PaginatorManagerService, QuickFilterService]
 })
-export class OrganizeViewComponent extends BrowserOptions
-  implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(OrganizeBrowserComponent) browser: OrganizeBrowserComponent;
+export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild(OrganizeBrowserComponent, { static: false }) browser: OrganizeBrowserComponent;
 
-  @ViewChild(ImportWebPageComponent) uploadWebPage: ImportWebPageComponent;
-  @ViewChild('fileUpload') fileInput: ElementRef;
+  @ViewChild(ImportWebPageComponent, { static: false }) uploadWebPage: ImportWebPageComponent;
+  @ViewChild('fileUpload', { static: true }) fileInput: ElementRef;
 
-  @ViewChild('defaultContextMenu')
+  @ViewChild('defaultContextMenu', { static: true })
   public defaultContextMenu: ContextMenuComponent;
   componentData = null;
   activeToolbarButtons: ToolbarButtonType[] = [
@@ -100,7 +61,7 @@ export class OrganizeViewComponent extends BrowserOptions
     ToolbarButtonType.addAction,
     ToolbarButtonType.uploadWebPage,
     // ToolbarButtonType.export,
-    ToolbarButtonType.createPublicLink,
+    ToolbarButtonType.createPublicLink
   ];
 
   folderContextMenuManager: ActionMenuItemsManager = new ActionMenuItemsManager();
@@ -141,56 +102,32 @@ export class OrganizeViewComponent extends BrowserOptions
     private quickFilter: QuickFilterService,
     private pageTitle: PageTitleService,
     private notificationsApi: NotificationsApiService,
-    private contextMenuService: ContextMenuService,
+    private contextMenuService: ContextMenuService
   ) {
     super(foldersApi, entitiesApi);
 
     // File folders context menu
     this.folderContextMenuManager.add(
-      new ActionMenuItemData(
-        ContextMenu.CREATE,
-        '/img/svg/imp/add-folder.svg',
-        true,
-        true,
-        item => this.openCreateFolderDialog(),
-      ),
+      new ActionMenuItemData(ContextMenu.CREATE, '/img/svg/imp/add-folder.svg', true, true, item => this.openCreateFolderDialog())
     );
 
     this.folderContextMenuManager.add(
-      new ActionMenuItemData(
-        ContextMenu.DELETE,
-        '/img/svg/draft-menu/delete.svg',
-        true,
-        true,
-        item => {
-          this.openDeleteItemDialog();
-        },
-      ),
+      new ActionMenuItemData(ContextMenu.DELETE, '/img/svg/draft-menu/delete.svg', true, true, item => {
+        this.openDeleteItemDialog();
+      })
     );
 
     this.folderContextMenuManager.add(
-      new ActionMenuItemData(
-        ContextMenu.RENAME,
-        '/img/svg/draft-menu/rename.svg',
-        true,
-        true,
-        item => {
-          // this.browser.editMode = true
-          this.openRenameItemDialog();
-        },
-      ),
+      new ActionMenuItemData(ContextMenu.RENAME, '/img/svg/draft-menu/rename.svg', true, true, item => {
+        // this.browser.editMode = true
+        this.openRenameItemDialog();
+      })
     );
 
     this.folderContextMenuManager.add(
-      new ActionMenuItemData(
-        ContextMenu.MOVE,
-        '/img/svg/draft-menu/move.svg',
-        true,
-        true,
-        item => {
-          this.openMoveItemDialog();
-        },
-      ),
+      new ActionMenuItemData(ContextMenu.MOVE, '/img/svg/draft-menu/move.svg', true, true, item => {
+        this.openMoveItemDialog();
+      })
     );
 
     // const machineLearning = new ActionMenuItemData(ContextMenu.MACHINE_LEARNING, '/img/svg/ml.svg',
@@ -211,85 +148,42 @@ export class OrganizeViewComponent extends BrowserOptions
     // ];
     // this.folderContextMenuManager.add(machineLearning);
     this.folderContextMenuManager.add(
-      new ActionMenuItemData(
-        ContextMenu.DOWNLOAD,
-        '/img/svg/material/ic_file_download_black_24px.svg',
-        false,
-        false,
-        item => {
-          const blobUrl = this.blobsApi.getBlobUrl(
-            item ? item : this.dataService.getSelectedItems()[0],
-            true,
-          );
-          window.open(blobUrl, '_self');
-        },
-      ),
+      new ActionMenuItemData(ContextMenu.DOWNLOAD, '/img/svg/material/ic_file_download_black_24px.svg', false, false, item => {
+        const blobUrl = this.blobsApi.getBlobUrl(item ? item : this.dataService.getSelectedItems()[0], true);
+        window.open(blobUrl, '_self');
+      })
     );
 
     if (environment.capabilities.webPage) {
       this.folderContextMenuManager.add(
-        new ActionMenuItemData(
-          ContextMenu.UPLOAD_WEB_PAGE,
-          '/img/svg/material/ic_pages_black_24px.svg',
-          true,
-          true,
-          item => {
-            this.openWebPageImportDialog();
-          },
-        ),
+        new ActionMenuItemData(ContextMenu.UPLOAD_WEB_PAGE, '/img/svg/material/ic_pages_black_24px.svg', true, true, item => {
+          this.openWebPageImportDialog();
+        })
       );
     }
 
     this.folderContextMenuManager.add(
-      new ActionMenuItemData(
-        ContextMenu.UPLOAD,
-        '/img/svg/material/ic_file_upload_black_24px.svg',
-        true,
-        true,
-        item => this.fileInput.nativeElement.click(),
-      ),
+      new ActionMenuItemData(ContextMenu.UPLOAD, '/img/svg/material/ic_file_upload_black_24px.svg', true, true, item =>
+        this.fileInput.nativeElement.click()
+      )
     );
 
     this.folderContextMenuManager.add(
-      new ActionMenuItemData(
-        ContextMenu.ENTITY_LOCATION,
-        '/img/svg/import.svg',
-        true,
-        true,
-        item => {
-          this.goToFileLocation(item);
-        },
-      ),
+      new ActionMenuItemData(ContextMenu.ENTITY_LOCATION, '/img/svg/import.svg', true, true, item => {
+        this.goToFileLocation(item);
+      })
     );
 
-    const exportFile = new ActionMenuItemData(
-      ContextMenu.EXPORT,
-      '/img/svg/draft-menu/export.svg',
-      true,
-      true,
-      item => {
-        this.openExportDialog('csv');
-      },
-    );
+    const exportFile = new ActionMenuItemData(ContextMenu.EXPORT, '/img/svg/draft-menu/export.svg', true, true, item => {
+      this.openExportDialog('csv');
+    });
     exportFile.subItems = [
-      new ActionMenuItemData(
-        ContextMenu.EXPORT_TO_CSV,
-        '/img/svg/material/ic_file_download_black_24px.svg',
-        true,
-        true,
-        item => {
-          this.openExportDialog('csv');
-        },
-      ),
-      new ActionMenuItemData(
-        ContextMenu.EXPORT_TO_SDF,
-        '/img/svg/material/ic_file_download_black_24px.svg',
-        true,
-        true,
-        item => {
-          this.openExportDialog('sdf');
-        },
-      ),
+      new ActionMenuItemData(ContextMenu.EXPORT_TO_CSV, '/img/svg/material/ic_file_download_black_24px.svg', true, true, item => {
+        this.openExportDialog('csv');
+      }),
+      new ActionMenuItemData(ContextMenu.EXPORT_TO_SDF, '/img/svg/material/ic_file_download_black_24px.svg', true, true, item => {
+        this.openExportDialog('sdf');
+      })
       // new ActionMenuItemData(ContextMenu.EXPORT_TO_SPL, '/img/svg/material/ic_file_download_black_24px.svg',
       //   true,
       //   true,
@@ -303,27 +197,15 @@ export class OrganizeViewComponent extends BrowserOptions
       '/img/svg/material/ic_link_black_24px.svg',
       true,
       true,
-      item => {},
+      item => {}
     );
     sharingSettings.subItems = [
-      new ActionMenuItemData(
-        ContextMenu.CREATE_PUBLIC_LINK,
-        '/img/svg/material/ic_link_black_24px.svg',
-        true,
-        true,
-        item => {
-          this.openSharedLinksDialog();
-        },
-      ),
-      new ActionMenuItemData(
-        ContextMenu.CHANGE_SHARING_SETTINGS,
-        '/img/svg/material/ic_link_black_24px.svg',
-        true,
-        true,
-        item => {
-          this.openSharedLinksDialog();
-        },
-      ),
+      new ActionMenuItemData(ContextMenu.CREATE_PUBLIC_LINK, '/img/svg/material/ic_link_black_24px.svg', true, true, item => {
+        this.openSharedLinksDialog();
+      }),
+      new ActionMenuItemData(ContextMenu.CHANGE_SHARING_SETTINGS, '/img/svg/material/ic_link_black_24px.svg', true, true, item => {
+        this.openSharedLinksDialog();
+      })
     ];
     this.folderContextMenuManager.add(sharingSettings);
 
@@ -343,7 +225,7 @@ export class OrganizeViewComponent extends BrowserOptions
 
       this.paginator.initPaginator(
         'pageNumber' in queryParam ? queryParam['pageNumber'] : null,
-        'pageSize' in queryParam ? queryParam['pageSize'] : null,
+        'pageSize' in queryParam ? queryParam['pageSize'] : null
       );
 
       // // Init filter side bar
@@ -352,17 +234,10 @@ export class OrganizeViewComponent extends BrowserOptions
 
       for (const i in queryParam) {
         if (queryParam.hasOwnProperty(i)) {
-          if (
-            (i === '$filter' &&
-              this.quickFilter.getFilterKeyByValue(queryParam[i])) ||
-            i !== '$filter'
-          ) {
+          if ((i === '$filter' && this.quickFilter.getFilterKeyByValue(queryParam[i])) || i !== '$filter') {
             p[i] = queryParam[i];
           }
-          if (
-            i === '$filter' &&
-            this.quickFilter.getFilterKeyByValue(queryParam[i])
-          ) {
+          if (i === '$filter' && this.quickFilter.getFilterKeyByValue(queryParam[i])) {
             applyFilter = true;
             const key = this.quickFilter.getFilterKeyByValue(queryParam[i]);
             this.quickFilter.initView({ filterValue: key, isFilterSet: true });
@@ -392,21 +267,16 @@ export class OrganizeViewComponent extends BrowserOptions
     });
 
     if (!this.browserEventSubscription) {
-      this.browserEventSubscription = (this
-        .dataService as BrowserDataService).browserEvents.subscribe(
-        (eventData: IBrowserEvent) => {
-          if (eventData.event.type === 'dblclick') {
-            this.itemDbClick(eventData.event, eventData.item);
-          } else if (eventData.event.type === 'click') {
-            this.itemClick(eventData.event, eventData.item);
-          }
-        },
-      );
+      this.browserEventSubscription = (this.dataService as BrowserDataService).browserEvents.subscribe((eventData: IBrowserEvent) => {
+        if (eventData.event.type === 'dblclick') {
+          this.itemDbClick(eventData.event, eventData.item);
+        } else if (eventData.event.type === 'click') {
+          this.itemClick(eventData.event, eventData.item);
+        }
+      });
     }
 
-    this.quickFilter.filterEvents.subscribe((filterData: IQuickFilter) =>
-      this.onFilterChange(filterData),
-    );
+    this.quickFilter.filterEvents.subscribe((filterData: IQuickFilter) => this.onFilterChange(filterData));
 
     this.dataService.browserStateChange.subscribe(data => {
       this.onBrowseSearchResult(data);
@@ -434,19 +304,17 @@ export class OrganizeViewComponent extends BrowserOptions
           this.dataService.breadcrumbs = [
             { text: 'DRAFTS', width: null, link: '/organize/drafts' },
             {
-              text: `FILTER: ${this.quickFilter.getFilterTitle(
-                this.dataService.viewParams['$filter'],
-              )}`,
+              text: `FILTER: ${this.quickFilter.getFilterTitle(this.dataService.viewParams['$filter'])}`,
               width: null,
-              link: '/organize/drafts',
-            },
+              link: '/organize/drafts'
+            }
           ];
           this.activeToolbarButtons = [
             ToolbarButtonType.tile,
             ToolbarButtonType.table,
             ToolbarButtonType.subMenu,
             ToolbarButtonType.search,
-            ToolbarButtonType.export,
+            ToolbarButtonType.export
           ];
         } else if ('search' in this.dataService.viewParams) {
           this.folderContextMenuManager.filtered = true;
@@ -455,22 +323,19 @@ export class OrganizeViewComponent extends BrowserOptions
             ToolbarButtonType.table,
             ToolbarButtonType.subMenu,
             ToolbarButtonType.search,
-            ToolbarButtonType.export,
+            ToolbarButtonType.export
           ];
 
           this.dataService.breadcrumbs = [
             { text: 'DRAFTS', width: null, link: '/organize/drafts' },
             {
-              text: `RESULT OF SEARCH: ${
-                this.dataService.viewParams['search']
-              }`,
+              text: `RESULT OF SEARCH: ${this.dataService.viewParams['search']}`,
               width: null,
-              link: '/organize/drafts',
-            },
+              link: '/organize/drafts'
+            }
           ];
 
-          this.dataService.browserServiceState =
-            BrowserViewState.searchResultBrowser;
+          this.dataService.browserServiceState = BrowserViewState.searchResultBrowser;
         } else {
           this.dataService.browserServiceState = BrowserViewState.browser;
           this.folderContextMenuManager.filtered = false;
@@ -482,7 +347,7 @@ export class OrganizeViewComponent extends BrowserOptions
             ToolbarButtonType.upload,
             ToolbarButtonType.addAction,
             ToolbarButtonType.uploadWebPage,
-            ToolbarButtonType.export,
+            ToolbarButtonType.export
           ];
         }
         this.pageTitle.title = this.dataService.breadcrumbs.slice(-1)[0].text;
@@ -514,7 +379,7 @@ export class OrganizeViewComponent extends BrowserOptions
       if (parentItem.isFolder() || parentItem.type === 'Model') {
         this.paginator.paging.current = 1;
         this.router.navigate([`organize/${parentItem.id}`], {
-          queryParams: { pageNumber: 1, pageSize: 20 },
+          queryParams: { pageNumber: 1, pageSize: 20 }
         });
       } else if (parentItem.getNodeType() === NodeType.Record) {
         this.router.navigate(['/record', parentItem.id]);
@@ -522,11 +387,9 @@ export class OrganizeViewComponent extends BrowserOptions
         this.router.navigate(['/file', parentItem.id]);
       } else if (parentItem.getNodeType() === NodeType.User) {
         const itemsPerPage = this.paginator.paging.itemsPerPage;
-        this.nodesApi
-          .getNodePageLocationNumber(currentItem.id, itemsPerPage)
-          .subscribe(y => {
-            this.paginator.paging.current = y.body as number;
-          });
+        this.nodesApi.getNodePageLocationNumber(currentItem.id, itemsPerPage).subscribe(y => {
+          this.paginator.paging.current = y.body as number;
+        });
         this.router.navigate([`organize/drafts`]);
       }
     });
@@ -551,21 +414,21 @@ export class OrganizeViewComponent extends BrowserOptions
   openExportDialog(fileType: string): void {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       width: '800px',
-      data: { fileType, selectedItems: this.dataService.selectedItems },
+      data: { fileType, selectedItems: this.dataService.selectedItems }
     });
   }
 
   openSharedLinksDialog(): void {
     const dialogRef = this.dialog.open(SharedLinksComponent, {
       width: '650px',
-      data: { fileInfo: this.dataService.selectedItems[0] },
+      data: { fileInfo: this.dataService.selectedItems[0] }
     });
   }
 
   openCreateFolderDialog(): void {
     const dialogRef = this.dialog.open(CreateFolderComponent, {
       width: '500px',
-      data: { parentItem: this.dataService.parentItem },
+      data: { parentItem: this.dataService.parentItem }
     });
     dialogRef.componentInstance.createFolderEvent.subscribe((name: string) => {
       this.onCreateFolder(name);
@@ -576,7 +439,7 @@ export class OrganizeViewComponent extends BrowserOptions
   openDeleteItemDialog(): void {
     const dialogRef = this.dialog.open(DeleteFolderComponent, {
       width: '500px',
-      data: this.dataService.selectedItems,
+      data: this.dataService.selectedItems
     });
     dialogRef.componentInstance.deleteFolderEvent.subscribe(() => {
       this.onDeleteFolder();
@@ -588,40 +451,34 @@ export class OrganizeViewComponent extends BrowserOptions
     const dialogRef = this.dialog.open(MoveFolderComponent, {
       width: '500px',
       data: {
-        startFolder: this.dataService.currentItem
-          ? this.dataService.parentItem
-          : null,
+        startFolder: this.dataService.currentItem ? this.dataService.parentItem : null,
         movedItems: this.dataService.getSelectedItems(),
         options: this.getOptions(),
         submitButtonText: 'Move to this folder',
-        dialogType: MoveDialogType.FileManager,
-      },
+        dialogType: MoveDialogType.FileManager
+      }
     });
-    dialogRef.componentInstance.moveFolderEvent.subscribe(
-      (e: { toFolder: BrowserDataItem; folder: BrowserDataItem }) => {
-        this.moveFolderAction(e.folder, e.toFolder);
-        dialogRef.close();
-      },
-    );
+    dialogRef.componentInstance.moveFolderEvent.subscribe((e: { toFolder: BrowserDataItem; folder: BrowserDataItem }) => {
+      this.moveFolderAction(e.folder, e.toFolder);
+      dialogRef.close();
+    });
   }
 
   openRenameItemDialog(): void {
     const dialogRef = this.dialog.open(RenameFolderComponent, {
       width: '500px',
-      data: { fileInfo: this.dataService.selectedItems[0] },
+      data: { fileInfo: this.dataService.selectedItems[0] }
     });
-    dialogRef.componentInstance.renameFolderEvent.subscribe(
-      (e: { item: BrowserDataItem; name: string }) => {
-        this.renameFolderAction(e.item, e.name);
-        dialogRef.close();
-      },
-    );
+    dialogRef.componentInstance.renameFolderEvent.subscribe((e: { item: BrowserDataItem; name: string }) => {
+      this.renameFolderAction(e.item, e.name);
+      dialogRef.close();
+    });
   }
 
   openWebPageImportDialog(): void {
     const dialogRef = this.dialog.open(ImportWebPageComponent, {
       width: '500px',
-      data: { fileInfo: this.dataService.selectedItems[0] },
+      data: { fileInfo: this.dataService.selectedItems[0] }
     });
     dialogRef.componentInstance.importPageEvent.subscribe((url: string) => {
       this.onImportPage(url);
@@ -630,10 +487,7 @@ export class OrganizeViewComponent extends BrowserOptions
   }
 
   onToolBarButtonClick(button_type: ToolbarButtonType) {
-    if (
-      button_type === ToolbarButtonType.tile ||
-      button_type === ToolbarButtonType.table
-    ) {
+    if (button_type === ToolbarButtonType.tile || button_type === ToolbarButtonType.table) {
       this.browser.toolBarEvent(button_type);
     } else if (button_type === ToolbarButtonType.upload) {
       this.fileInput.nativeElement.click();
@@ -663,10 +517,8 @@ export class OrganizeViewComponent extends BrowserOptions
       }
       formData.append('file[]', i);
       const uploadTask: Observable<any> = this.blobsApi.uploadFiles(
-        this.dataService.parentItem != null
-          ? this.dataService.parentItem.id
-          : null,
-        formData,
+        this.dataService.parentItem != null ? this.dataService.parentItem.id : null,
+        formData
       );
 
       const message = new NotificationUploadMessage();
@@ -678,10 +530,7 @@ export class OrganizeViewComponent extends BrowserOptions
       message.type = NotificationType.Process;
       message.actionDate = new Date();
 
-      const notificationItem = new NotificationItem(
-        NotificationUploadItemComponent,
-        message,
-      );
+      const notificationItem = new NotificationItem(NotificationUploadItemComponent, message);
       this.notificationService.showToastNotification(notificationItem);
     }
   }
@@ -701,13 +550,13 @@ export class OrganizeViewComponent extends BrowserOptions
     if (item.isFolder()) {
       this.paginator.paging.current = 1;
       this.router.navigate([`organize/${item.id}`], {
-        queryParams: { pageNumber: 1 },
+        queryParams: { pageNumber: 1 }
       });
     } else if (item.getNodeType() === NodeType.Model) {
       this.paginator.paging.current = 1;
       // this.router.navigate(['/model', item.id]);
       this.router.navigate([`model/${item.id}`], {
-        queryParams: { pageNumber: 1 },
+        queryParams: { pageNumber: 1 }
       });
     } else {
       if (item.getNodeType() === NodeType.Record) {
@@ -736,10 +585,7 @@ export class OrganizeViewComponent extends BrowserOptions
     }
   }
 
-  onMoveFolder(moveObj: {
-    toFolder: BrowserDataItem;
-    folder: BrowserDataItem;
-  }) {
+  onMoveFolder(moveObj: { toFolder: BrowserDataItem; folder: BrowserDataItem }) {
     this.moveFolderAction(moveObj.folder, moveObj.toFolder);
   }
 
@@ -761,7 +607,7 @@ export class OrganizeViewComponent extends BrowserOptions
       // Optional - if unspecified, all context menu components will open
       contextMenu: this.defaultContextMenu,
       event: <any>$event,
-      item: item,
+      item: item
     });
     this.dataService.clearSelection();
     $event.preventDefault();
@@ -785,9 +631,9 @@ export class OrganizeViewComponent extends BrowserOptions
     if (filterParams.isFilterSet && filterParams.filterValue !== 'all') {
       this.router.navigate(['./'], {
         queryParams: {
-          $filter: this.quickFilter.getFilterByKey(filterParams.filterValue),
+          $filter: this.quickFilter.getFilterByKey(filterParams.filterValue)
         },
-        relativeTo: this.activatedRoute,
+        relativeTo: this.activatedRoute
       });
     } else {
       this.dataService.clearSelection();
@@ -798,7 +644,7 @@ export class OrganizeViewComponent extends BrowserOptions
   onBrowseSearchResult(data: { [x: string]: any }) {
     this.router.navigate(['./'], {
       queryParams: { search: data['searchString'] },
-      relativeTo: this.activatedRoute,
+      relativeTo: this.activatedRoute
     });
   }
 }

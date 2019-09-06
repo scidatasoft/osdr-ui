@@ -4,7 +4,8 @@ import { FeaturesRoutingModule } from './features-routing.module';
 import { FeaturesComputationComponent } from './features-computation/features-computation.component';
 import { SharedModule } from '../../shared/shared.module';
 import { PopoverModule } from 'ngx-bootstrap';
-import { MatStepperModule, MatFormFieldModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
 import { FingerprntsModule } from 'app/shared/components/fingerprints/fingerprints.module';
 
 @NgModule({

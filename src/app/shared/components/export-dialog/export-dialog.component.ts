@@ -1,7 +1,8 @@
 import { Component, OnInit, QueryList, ViewChildren, Inject } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
-import { MatSelectionList, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSelectionList } from '@angular/material/list';
 import { HttpClient } from '@angular/common/http';
 import { ExportChemFilesService } from 'app/core/services/export-files/export-chem-files.service';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, EventEmitter, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidateFolderName, ValidationMessages } from 'app/core/services/validation/validation.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NodeType } from '../../organize-browser/browser-types';
 
 @Component({

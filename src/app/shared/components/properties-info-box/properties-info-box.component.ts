@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
-import { MatExpansionPanel } from '@angular/material';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
   selector: 'dr-properties-info-box',
@@ -7,7 +7,7 @@ import { MatExpansionPanel } from '@angular/material';
   styleUrls: ['./properties-info-box.component.scss'],
 })
 export class PropertiesInfoBoxComponent implements OnInit {
-  @ViewChild(MatExpansionPanel) panel: { expanded: boolean };
+  @ViewChild(MatExpansionPanel, { static: false }) panel: { expanded: boolean };
 
   @Input() meta: any;
   @Input() expansionEnabled = true;

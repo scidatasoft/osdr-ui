@@ -26,8 +26,8 @@ export class OrganizeToolbarComponent implements OnInit {
   @Output() toolbarExportEvent: EventEmitter<string> = new EventEmitter<string>();
   @Input() contextMenuActionsManager: ActionMenuItemsManager = new ActionMenuItemsManager();
 
-  @ViewChild('fileContextMenu') public fileContextMenu: ContextMenuComponent;
-  @ViewChild('searchBox') searchBox: ElementRef;
+  @ViewChild('fileContextMenu', { static: true }) public fileContextMenu: ContextMenuComponent;
+  @ViewChild('searchBox', { static: true }) searchBox: ElementRef;
 
   @Input() activeButtons: ToolbarButtonType[] = [];
 

@@ -6,7 +6,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { SingleStructurePredictionComponent } from './single-structure-prediction/single-structure-prediction.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SinglePredictionService } from './single-prediction.service';
-import { MatStepperModule, MatFormFieldModule, MatCheckboxModule, MatTableModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTableModule } from '@angular/material/table';
 import { PopoverModule } from 'ngx-bootstrap';
 
 const routes: Routes = [

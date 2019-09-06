@@ -3,7 +3,7 @@ import {
   NodeType,
   SubType,
 } from 'app/shared/components/organize-browser/browser-types';
-import { MatMenu } from '@angular/material';
+import { MatMenu } from '@angular/material/menu';
 import { environment } from 'environments/environment';
 
 export class PropertyType {

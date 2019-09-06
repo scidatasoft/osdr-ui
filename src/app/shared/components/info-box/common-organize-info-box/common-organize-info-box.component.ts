@@ -9,7 +9,7 @@ import { BasicOrganizeInfoBoxComponent } from '../basic-organize-info-box/basic-
   styleUrls: ['./common-organize-info-box.component.scss'],
 })
 export class CommonOrganizeInfoBoxComponent extends BasicOrganizeInfoBoxComponent {
-  @ViewChild('collapseContainer') collapseContainer: { nativeElement: any };
+  @ViewChild('collapseContainer', { static: true }) collapseContainer: { nativeElement: any };
 
   maxPropNameElWidth = 300;
 

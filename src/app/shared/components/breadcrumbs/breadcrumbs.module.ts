@@ -3,7 +3,7 @@ import { CommonModulesList } from 'app/common-modules-list';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { BreadcrumbsComponent } from './breadcrumbs.component';
-import { MatTooltipModule } from '@angular/material';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 const MatModules = [

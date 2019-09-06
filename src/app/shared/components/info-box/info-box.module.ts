@@ -6,7 +6,7 @@ import { BasicOrganizeInfoBoxComponent } from './basic-organize-info-box/basic-o
 import { CommonOrganizeInfoBoxComponent } from './common-organize-info-box/common-organize-info-box.component';
 import { CvspOrganizeInfoBoxComponent } from './cvsp-organize-info-box/cvsp-organize-info-box.component';
 import { OrganizeInfoBoxFactoryComponent } from './organize-info-box-factory/organize-info-box-factory.component';
-import { MatTooltipModule } from '@angular/material';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const components = [
   BasicOrganizeInfoBoxComponent,
