@@ -15,6 +15,7 @@ export const environment = {
   notificationTimeOut: 60 * 60 * 1 * 1000,
   proxyJSMOL: 'https://api.leanda.io/core-api/v1/api/proxy/jsmol',
   ketcher: 'https://core.leanda.io/ketcher/indigo/layout',
+  maxBlobUploadingFileSize: 10240 * 1024,
   capabilities: {
     chemical: true,
     crystal: true,

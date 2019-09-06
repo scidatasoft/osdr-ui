@@ -19,7 +19,7 @@ import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
 import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { WebPagesApiService } from 'app/core/services/api/web-pages-api.service';
 import { NotificationsService } from 'app/core/services/notifications/notifications.service';
-import { NotificationItem, NotificationUploadMessage } from 'app/shared/components/notifications/notifications.model';
+import { NotificationItem, NotificationUploadMessage, NotificationMessage } from 'app/shared/components/notifications/notifications.model';
 import { NotificationUploadItemComponent } from 'app/shared/components/notifications/notifications-side-bar/notification-upload-item/notification-upload-item.component';
 import { NotificationType, SignalREvent } from 'app/shared/components/notifications/events.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -36,6 +36,7 @@ import { ActionViewService } from 'app/shared/components/full-screen-dialogs/act
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { CreateFolderComponent } from 'app/shared/components/folder-actions/create-folder/create-folder.component';
 import { environment } from 'environments/environment';
+import { NotificationCommonItemComponent } from 'app/shared/components/notifications/notifications-side-bar/notification-common-item/notification-common-item.component';
 
 @Component({
   selector: 'dr-organize-view',
@@ -510,12 +511,23 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       return;
     }
 
-    for (const i of filesList) {
+    for (const file of filesList) {
       const formData = new FormData();
       if (this.dataService.parentItem) {
         formData.append('parentId', this.dataService.parentItem.id);
       }
-      formData.append('file[]', i);
+      formData.append('file[]', file);
+      if (file.size > environment.maxBlobUploadingFileSize) {
+        const fileLimitMessage = new NotificationMessage();
+        fileLimitMessage.id = fileLimitMessage.generateIdIg();
+        const maxFileSize = environment.maxBlobUploadingFileSize / 1024 / 1024;
+        fileLimitMessage.header = `File size exceeded: ${maxFileSize}MB`;
+        fileLimitMessage.message = file.name;
+        fileLimitMessage.type = NotificationType.Error;
+        fileLimitMessage.actionDate = new Date();
+        this.notificationService.showToastNotification(new NotificationItem(NotificationCommonItemComponent, fileLimitMessage));
+        return;
+      }
       const uploadTask: Observable<any> = this.blobsApi.uploadFiles(
         this.dataService.parentItem != null ? this.dataService.parentItem.id : null,
         formData
@@ -525,7 +537,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       message.id = message.generateIdIg();
       message.uploadTask = uploadTask;
       message.header = 'Upload file';
-      message.message = i.name;
+      message.message = file.name;
       message.parentId = this.dataService.currentItem.id;
       message.type = NotificationType.Process;
       message.actionDate = new Date();
