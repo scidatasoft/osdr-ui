@@ -1,9 +1,11 @@
 <ng-container *ngIf="data; then infoboxTemplate; else messageTemplate"></ng-container>
 
 <ng-template #infoboxTemplate>
-  <dr-properties-info-box [data]="data" [expansionEnabled]="true"></dr-properties-info-box>
+  <dr-properties-info-box [data]="data"></dr-properties-info-box>
 </ng-template>
 
 <ng-template #messageTemplate>
-  <div class="p-2 text-primary"><strong>{{message}}</strong></div>
+  <div class="p-2 text-primary">
+    <strong>{{ message }}</strong>
+  </div>
 </ng-template>

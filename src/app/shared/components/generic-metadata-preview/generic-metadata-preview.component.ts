@@ -3,7 +3,7 @@ import { MetadataApiService } from 'app/core/services/api/metadata-api.service';
 import { BrowserDataItem } from '../organize-browser/browser-types';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 
-enum GenericMetadata {
+enum EGenericMetadata {
   Project = 'Project',
   Experimenter = 'Experimenter',
   Experimenter_Group = 'Experimenter Group',
@@ -11,11 +11,11 @@ enum GenericMetadata {
   Experiment_Date = 'Experiment Date',
   Original_Folder_path = 'Original Folder (path)',
   Instrument_Device_Name = 'Instrument Device Name',
-  Notes = 'Notes',
+  Notes = 'Notes'
 }
 
 interface IGenericMetadata {
-  name: GenericMetadata;
+  name: EGenericMetadata;
   value: string;
 }
 
@@ -25,24 +25,25 @@ interface IGenericMetadata {
   styleUrls: ['./generic-metadata-preview.component.scss']
 })
 export class GenericMetadataPreviewComponent implements OnInit {
-
   /**
    * Metadata mock
    */
 
-  metadata: IGenericMetadata[] = [
-    { name: GenericMetadata.Project, value: `Leanda` },
-    { name: GenericMetadata.Experimenter, value: `John Doe` },
-    { name: GenericMetadata.Experimenter_Group, value: `Harward Science` },
-    { name: GenericMetadata.Experiment_Name, value: `Chemical Experiment NH12094` },
+  mockedMetadata: IGenericMetadata[] = [
+    { name: EGenericMetadata.Project, value: `Leanda` },
+    { name: EGenericMetadata.Experimenter, value: `John Doe` },
+    { name: EGenericMetadata.Experimenter_Group, value: `Harward Science` },
+    { name: EGenericMetadata.Experiment_Name, value: `Chemical Experiment NH12094` },
     {
-      name: GenericMetadata.Experiment_Date,
-      value: `${new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)).toLocaleDateString()}`
+      name: EGenericMetadata.Experiment_Date,
+      value: `${new Date(+new Date() - Math.floor(Math.random() * 10000000000)).toLocaleDateString()}`
     },
-    { name: GenericMetadata.Original_Folder_path, value: `Drafts` },
-    { name: GenericMetadata.Instrument_Device_Name, value: `Laboratory Microscope` },
-    { name: GenericMetadata.Notes, value: `Experimenter had to consume a lot of coffee` },
+    { name: EGenericMetadata.Original_Folder_path, value: `Drafts` },
+    { name: EGenericMetadata.Instrument_Device_Name, value: `Laboratory Microscope` },
+    { name: EGenericMetadata.Notes, value: `Experimenter had to consume a lot of coffee` }
   ];
+
+  data: { img: string; name: string; properties: IGenericMetadata[] } = { img: 'intrinsic.ico', name: 'File Information', properties: [] };
 
   // end
 
@@ -50,16 +51,16 @@ export class GenericMetadataPreviewComponent implements OnInit {
 
   // protected metadata: IGenericMetadata[];
 
-  constructor(private api: MetadataApiService, private entitiesApi: EntitiesApiService) { }
+  constructor(private api: MetadataApiService, private entitiesApi: EntitiesApiService) {}
 
   ngOnInit() {
+    this.data.properties = this.mockedMetadata;
     // this.getMetadata();
   }
 
   protected async getMetadata(): Promise<void> {
     const properties = await this.entitiesApi.getEntityMetadataProperties(this.fileItem.id, 'files', 'Properties/BioMetadata').toPromise();
 
-    this.metadata = properties;
+    this.data.properties = properties;
   }
-
 }
