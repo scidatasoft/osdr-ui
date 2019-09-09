@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({

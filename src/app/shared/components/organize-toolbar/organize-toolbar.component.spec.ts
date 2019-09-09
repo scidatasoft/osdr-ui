@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { OrganizeToolbarComponent } from './organize-toolbar.component';
 
@@ -8,7 +8,7 @@ describe('OrganizeToolbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrganizeToolbarComponent ]
+      declarations: [ OrganizeToolbarComponent ],
     })
     .compileComponents();
   }));

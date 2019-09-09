@@ -1,11 +1,10 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewInit, TemplateRef} from '@angular/core';
-import {MatCheckboxChange} from '@angular/material/checkbox/typings/checkbox';
-import {Subject, zip, Observable} from 'rxjs';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox/typings/checkbox';
 import { MatDialog } from '@angular/material/dialog';
-import { MatStepper, MatStep } from '@angular/material/stepper';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {map, filter, takeUntil} from 'rxjs/operators';
-
+import { MatStep, MatStepper } from '@angular/material/stepper';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable, Subject, zip } from 'rxjs';
+import { filter, map, takeUntil } from 'rxjs/operators';
 
 // own resources
 import {
@@ -15,18 +14,16 @@ import {
   PredictionModelManager,
   PredictionReport,
   PredictionStatus,
-  PredictionTask
+  PredictionTask,
 } from '../prediction.model';
 import { SinglePredictionService } from '../single-prediction.service';
-
 
 @Component({
   selector: 'dr-single-structure-prediction',
   templateUrl: './single-structure-prediction.component.html',
-  styleUrls: ['./single-structure-prediction.component.scss']
+  styleUrls: ['./single-structure-prediction.component.scss'],
 })
 export class SingleStructurePredictionComponent implements OnInit, OnDestroy, AfterViewInit {
-
   @ViewChild('ketcher', { static: true }) iframe: ElementRef;
   @ViewChild('stepper', { static: true }) stepper: MatStepper;
 
@@ -34,7 +31,7 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
   @ViewChild('stepChooseProperty', { static: true }) stepChooseProperty: MatStep;
   @ViewChild('stepResult', { static: true }) stepResult: MatStep;
 
-  predictions$: Observable<{ state: string; }>;
+  predictions$: Observable<{ state: string }>;
 
   drawStepError = false;
   predictionStepError = false;
@@ -47,12 +44,11 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
   task: PredictionTask = null;
   predictionStatus = PredictionStatus;
 
-  predictionsTasks: { data: { property: ModelProperty, model: MLModel[], smiles: string }, task: PredictionTask }[] = [];
+  predictionsTasks: { data: { property: ModelProperty; model: MLModel[]; smiles: string }; task: PredictionTask }[] = [];
 
   report: PredictionReport = null;
 
-  constructor(private predictionService: SinglePredictionService, private route: ActivatedRoute, public dialog: MatDialog) {
-  }
+  constructor(private predictionService: SinglePredictionService, private route: ActivatedRoute, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.getMetadata();
@@ -76,11 +72,12 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
     }
 
     this.route.queryParamMap
-      .pipe(map((params: ParamMap) => {
+      .pipe(
+        map((params: ParamMap) => {
           return params.has('smiles') ? params.get('smiles') : '';
-        })
-      ).subscribe(
-      (result) => {
+        }),
+      )
+      .subscribe(result => {
         if (result) {
           if (!this.ketcherInstance) {
             const doc = this.iframe.nativeElement.contentWindow;
@@ -88,13 +85,10 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
           }
 
           if (this.ketcherInstance && result) {
-            this.predictionService.getMolFile(result).subscribe(
-              molFile => this.ketcherInstance.setMolecule(molFile)
-            );
+            this.predictionService.getMolFile(result).subscribe(molFile => this.ketcherInstance.setMolecule(molFile));
           }
         }
-      }
-    );
+      });
   }
 
   onGoToChoosePropertiesClick() {
@@ -124,29 +118,30 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
 
   onGoToPredictionPage() {
     this.predictionsTasks = [];
-    const propsArray: { property: ModelProperty, model: MLModel[] }[] = [];
+    const propsArray: { property: ModelProperty; model: MLModel[] }[] = [];
 
-    this.modelsData.getCheckedPropertiesGroupByProperty().map(
-      (item: { property: ModelProperty, model: MLModel[] }) => {
-        propsArray.push(item);
-      }
-    );
+    this.modelsData.getCheckedPropertiesGroupByProperty().map((item: { property: ModelProperty; model: MLModel[] }) => {
+      propsArray.push(item);
+    });
 
     this.report = new PredictionReport(propsArray);
-    this.report.getRows().map(
-      item => {
-        const predictData = {property: item.property, model: item.models, smiles: this.smilesFile};
-        const taskData = {data: predictData, task: new PredictionTask(predictData, this.destroy$, this.predictionService)};
-        this.predictionsTasks.push(taskData);
-        item['referTask'] = taskData;
-      }
-    );
+    this.report.getRows().map(item => {
+      const predictData = { property: item.property, model: item.models, smiles: this.smilesFile };
+      const taskData = { data: predictData, task: new PredictionTask(predictData, this.destroy$, this.predictionService) };
+      this.predictionsTasks.push(taskData);
+      item['referTask'] = taskData;
+    });
 
-    const tasks = this.predictionsTasks.map((item) => {
-      return item.task.startTask().pipe(filter((taskItem: { status: PredictionStatus, data: any }) => {
-        return taskItem.status === PredictionStatus.finishOk
-          || taskItem.status === PredictionStatus.error || taskItem.status === PredictionStatus.timeout;
-      }));
+    const tasks = this.predictionsTasks.map(item => {
+      return item.task.startTask().pipe(
+        filter((taskItem: { status: PredictionStatus; data: any }) => {
+          return (
+            taskItem.status === PredictionStatus.finishOk ||
+            taskItem.status === PredictionStatus.error ||
+            taskItem.status === PredictionStatus.timeout
+          );
+        }),
+      );
     });
 
     if (this.predictionsTasks.length > 0) {
@@ -159,9 +154,10 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
 
       this.predictions$ = zip(...tasks).pipe(
         takeUntil(this.destroy$),
-        map((zipData: { status: PredictionStatus, data: any }[]) => {
-          return {state: 'finish'};
-        }));
+        map((zipData: { status: PredictionStatus; data: any }[]) => {
+          return { state: 'finish' };
+        }),
+      );
     } else {
       this.predictionStepError = true;
     }
@@ -169,14 +165,14 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
 
   getGroups(): string[] {
     let groups: string[] = [];
-    groups = this.modelsData.getCheckedProperties()
-      .reduce((accumulator: string[], current: { property: ModelProperty, model: MLModel }) => {
-          if (accumulator.indexOf(current.property.propertyCategory) < 0) {
-            accumulator.push(current.property.propertyCategory);
-          }
-          return accumulator;
-        }, []
-      );
+    groups = this.modelsData
+      .getCheckedProperties()
+      .reduce((accumulator: string[], current: { property: ModelProperty; model: MLModel }) => {
+        if (accumulator.indexOf(current.property.propertyCategory) < 0) {
+          accumulator.push(current.property.propertyCategory);
+        }
+        return accumulator;
+      }, []);
 
     return groups.sort();
   }
@@ -222,27 +218,30 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
     return false;
   }
 
-  propsCount(group: { name: string, checked: boolean }): number {
+  propsCount(group: { name: string; checked: boolean }): number {
     return Array.from(this.modelsData.propsTree.get(group).keys()).reduce((sum, current) => {
       return sum + Number(current.checked);
     }, 0);
   }
 
   modelsCount(group, property): number {
-    return this.modelsData.propsTree.get(group).get(property).reduce((sum, current) => sum + 1, 0);
+    return this.modelsData.propsTree
+      .get(group)
+      .get(property)
+      .reduce((sum, current) => sum + 1, 0);
   }
 
-  onGroupClick(event: MatCheckboxChange, group: { name: string, checked: boolean }) {
+  onGroupClick(event: MatCheckboxChange, group: { name: string; checked: boolean }) {
     group.checked = !group.checked;
     this.modelsData.selectGroup(group);
   }
 
-  onPropsClick(event: MatCheckboxChange, group: { name: string, checked: boolean }, property: ModelProperty) {
+  onPropsClick(event: MatCheckboxChange, group: { name: string; checked: boolean }, property: ModelProperty) {
     property.checked = !property.checked;
     this.modelsData.selectProperty(group, property);
   }
 
-  onModelClick(event: MatCheckboxChange, group: { name: string, checked: boolean }, property: ModelProperty, model: MLModel) {
+  onModelClick(event: MatCheckboxChange, group: { name: string; checked: boolean }, property: ModelProperty, model: MLModel) {
     model.checked = !model.checked;
     this.modelsData.modelClick(group, property, model);
   }
@@ -251,7 +250,7 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
     const array = Array.from(mapParam.keys());
     if (array.length > 0) {
       if (array[0] instanceof ModelProperty) {
-        return Array.from(mapParam.keys()).sort(function (a: ModelProperty, b: ModelProperty) {
+        return Array.from(mapParam.keys()).sort((a: ModelProperty, b: ModelProperty) => {
           const nameA = a.propertyName.toUpperCase(); // ignore upper and lowercase
           const nameB = b.propertyName.toUpperCase(); // ignore upper and lowercase
           if (nameA < nameB) {
@@ -263,9 +262,8 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
           // names must be equal
           return 0;
         });
-
       } else {
-        return Array.from(mapParam.keys()).sort(function (a: { name: string, checked: false }, b: any) {
+        return Array.from(mapParam.keys()).sort((a: { name: string; checked: false }, b: any) => {
           const nameA = a.name.toUpperCase(); // ignore upper and lowercase
           const nameB = b.name.toUpperCase(); // ignore upper and lowercase
           if (nameA < nameB) {
@@ -278,7 +276,6 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
           return 0;
         });
       }
-
     } else {
       return array;
     }
@@ -292,15 +289,15 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
     return row[column].find(item => item.id === model.id);
   }
 
-  outsideDomain(value: { density: string, distance: string }): boolean {
+  outsideDomain(value: { density: string; distance: string }): boolean {
     return value.density === 'Outside' && value.distance === 'Outside';
   }
 
-  insideDomain(value: { density: string, distance: string }): boolean {
+  insideDomain(value: { density: string; distance: string }): boolean {
     return value.density === 'Inside' && value.distance === 'Inside';
   }
 
-  fiftyFifty(value: { density: string, distance: string }): boolean {
+  fiftyFifty(value: { density: string; distance: string }): boolean {
     return this.outsideDomain(value) === false && this.insideDomain(value) === false;
   }
 
@@ -309,7 +306,7 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
     this.destroy$.complete();
   }
 
-  convertToExp(value): { value: string, exp: string } {
+  convertToExp(value): { value: string; exp: string } {
     const newNumber: string = Number.parseFloat(value).toExponential(2);
     const digit: string = newNumber.slice(0, newNumber.indexOf('e'));
     let exp: string = newNumber.slice(newNumber.indexOf('e') + 1);
@@ -319,20 +316,18 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
     }
 
     if (Number.parseFloat(value) > 10000 || Number.parseFloat(value) < -10000 || Math.abs(Number.parseFloat(value)) < 0.00001) {
-      return {value: digit, exp: exp};
+      return { value: digit, exp: exp };
     } else {
-      return {value: digit, exp: null};
+      return { value: digit, exp: null };
     }
   }
 
-  getPropertyInfo(prop: ModelProperty): { property: ModelProperty, dataset: DataSet, models: MLModel[], consensus: number }[] {
-    const propsArray: { property: ModelProperty, model: MLModel[] }[] = [];
+  getPropertyInfo(prop: ModelProperty): { property: ModelProperty; dataset: DataSet; models: MLModel[]; consensus: number }[] {
+    const propsArray: { property: ModelProperty; model: MLModel[] }[] = [];
 
-    this.modelsData.getPropertyAndModel(prop).map(
-      (item: { property: ModelProperty, model: MLModel[] }) => {
-        propsArray.push(item);
-      }
-    );
+    this.modelsData.getPropertyAndModel(prop).map((item: { property: ModelProperty; model: MLModel[] }) => {
+      propsArray.push(item);
+    });
 
     return new PredictionReport(propsArray).getRows();
   }
@@ -342,24 +337,20 @@ export class SingleStructurePredictionComponent implements OnInit, OnDestroy, Af
 
     let modelsCount = 0;
     let datasetCount = 0;
-    let rows: { property: ModelProperty, dataset: DataSet, models: MLModel[], consensus: number }[] = [];
+    let rows: { property: ModelProperty; dataset: DataSet; models: MLModel[]; consensus: number }[] = [];
 
-    const propsArray: { property: ModelProperty, model: MLModel[] }[] = [];
+    const propsArray: { property: ModelProperty; model: MLModel[] }[] = [];
 
-    this.modelsData.getPropertyAndModel(prop).map(
-      (item: { property: ModelProperty, model: MLModel[] }) => {
-        propsArray.push(item);
-      }
-    );
+    this.modelsData.getPropertyAndModel(prop).map((item: { property: ModelProperty; model: MLModel[] }) => {
+      propsArray.push(item);
+    });
 
     rows = new PredictionReport(propsArray).getRows();
 
-    rows.map(
-      item => {
-        datasetCount++;
-        modelsCount += item.models.length;
-      }
-    );
+    rows.map(item => {
+      datasetCount++;
+      modelsCount += item.models.length;
+    });
 
     if (modelsCount > 1) {
       str = `${modelsCount} models trained on ${datasetCount} `;

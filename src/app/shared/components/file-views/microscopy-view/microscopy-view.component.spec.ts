@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { MicroscopyViewComponent } from './microscopy-view.component';
 
@@ -8,7 +8,7 @@ describe('MicroscopyViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MicroscopyViewComponent ]
+      declarations: [ MicroscopyViewComponent ],
     })
     .compileComponents();
   }));

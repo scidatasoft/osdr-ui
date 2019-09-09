@@ -1,15 +1,15 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { BrowserDataItem, NodeType } from 'app/shared/components/organize-browser/browser-types';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
-import { IFilePreviewComponent } from 'app/shared/components/file-views/file-view.model';
 import { ImagesApiService } from 'app/core/services/api/images-api.service';
+import { IFilePreviewComponent } from 'app/shared/components/file-views/file-view.model';
+import { BrowserDataItem, NodeType } from 'app/shared/components/organize-browser/browser-types';
 import { environment } from 'environments/environment';
 
 @Component({
   selector: 'dr-cif-preview',
   templateUrl: './cif-preview.component.html',
-  styleUrls: ['./cif-preview.component.scss']
+  styleUrls: ['./cif-preview.component.scss'],
 })
 export class CifPreviewComponent implements OnInit, AfterViewInit, IFilePreviewComponent {
 

@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GenericMetadataPreviewComponent } from './generic-metadata-preview.component';
+import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+
 import { PropertiesInfoBoxModule } from '../properties-info-box/properties-info-box.module';
+
+import { GenericMetadataPreviewComponent } from './generic-metadata-preview.component';
 
 @NgModule({
   declarations: [GenericMetadataPreviewComponent],
@@ -10,7 +12,7 @@ import { PropertiesInfoBoxModule } from '../properties-info-box/properties-info-
   imports: [
     CommonModule,
     MatCardModule,
-  PropertiesInfoBoxModule
-  ]
+    PropertiesInfoBoxModule,
+  ],
 })
 export class GenericMetadataPreviewModule { }

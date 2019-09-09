@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { RouterModule, Routes } from '@angular/router';
+import { NotificationsModule } from 'app/shared/components/notifications/notifications.module';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { NotificationsModule } from 'app/shared/components/notifications/notifications.module';
-import { Routes, RouterModule } from '@angular/router';
 import { LabwizComponent } from './labwiz.component.';
-import { MatCardModule } from '@angular/material/card';
 
 const routes: Routes = [{ path: '', component: LabwizComponent }];
 
@@ -12,6 +12,6 @@ const routes: Routes = [{ path: '', component: LabwizComponent }];
   imports: [SharedModule, NotificationsModule, MatCardModule, RouterModule.forChild(routes)],
   exports: [LabwizComponent],
   declarations: [LabwizComponent],
-  providers: []
+  providers: [],
 })
 export class LabWizModule {}

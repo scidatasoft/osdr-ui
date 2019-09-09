@@ -1,11 +1,12 @@
-import { Component, OnInit, Inject, EventEmitter, HostListener } from '@angular/core';
+import { Component, EventEmitter, HostListener, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
 import { BrowserDataItem } from '../../organize-browser/browser-types';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'dr-delete-folder',
   templateUrl: './delete-folder.component.html',
-  styleUrls: ['./delete-folder.component.scss']
+  styleUrls: ['./delete-folder.component.scss'],
 })
 export class DeleteFolderComponent implements OnInit {
 

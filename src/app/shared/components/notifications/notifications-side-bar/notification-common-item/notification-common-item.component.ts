@@ -1,11 +1,12 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
-import {INotificationComponent, NotificationItem, NotificationMessage} from '../../notifications.model';
+
 import {NotificationType} from '../../events.model';
+import {INotificationComponent, NotificationItem, NotificationMessage} from '../../notifications.model';
 
 @Component({
   selector: 'dr-notification-item',
   templateUrl: './notification-common-item.component.html',
-  styleUrls: ['./notification-common-item.component.scss']
+  styleUrls: ['./notification-common-item.component.scss'],
 })
 export class NotificationCommonItemComponent implements OnInit, INotificationComponent {
 
@@ -16,6 +17,8 @@ export class NotificationCommonItemComponent implements OnInit, INotificationCom
   @Input('notificationItem') notificationItem: NotificationItem;
   @Output() closeEvent = new EventEmitter<NotificationItem>();
 
+  constructor() { }
+
   @HostListener('mouseenter') onMouseEnter() {
     this.showCloseButton = true;
   }
@@ -23,8 +26,6 @@ export class NotificationCommonItemComponent implements OnInit, INotificationCom
   @HostListener('mouseleave') onMouseLeave() {
     this.showCloseButton = false;
   }
-
-  constructor() { }
 
   ngOnInit() {
     this.messageItem = this.notificationItem.componentData;

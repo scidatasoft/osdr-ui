@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MachineLearningTrainComponent } from './machine-learning-train/machine-learning-train.component';
+
 import { MachineLearningPredictComponent } from './machine-learning-predict/machine-learning-predict.component';
+import { MachineLearningTrainComponent } from './machine-learning-train/machine-learning-train.component';
 
 @Injectable()
 export class MachineLearningService {

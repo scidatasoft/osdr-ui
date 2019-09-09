@@ -1,12 +1,14 @@
 import { EventEmitter, Type } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NodeEvent, NotificationType, SignalREvent, SignalREventExportFinished, SignalREventPermissionChanged } from './events.model';
+
 import { NodeType } from '../organize-browser/browser-types';
+
+import { NodeEvent, NotificationType, SignalREvent, SignalREventExportFinished, SignalREventPermissionChanged } from './events.model';
 
 export enum NotificationAction {
   SplashMessage,
   ShowBar,
-  AddNotification
+  AddNotification,
 }
 
 export class NotificationMessage {
@@ -17,14 +19,21 @@ export class NotificationMessage {
   actionDate: Date;
   link: string;
 
+  generateIdIg(): string {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  }
+
   static CreateOrganizeUpdateEventMessage(event: SignalREvent): NotificationMessage {
     if ([NodeEvent.FileCreated, NodeEvent.FolderCreated,
-        NodeEvent.FileDeleted, NodeEvent.FolderDeleted,
-        NodeEvent.FileNameChanged, NodeEvent.FolderNameChanged,
-        NodeEvent.FileMoved, NodeEvent.FolderMoved,
-        NodeEvent.ProcessingFinished, NodeEvent.PropertiesPredictionFinished,
-        NodeEvent.ModelTrainingFinished, NodeEvent.TrainingFailed,
-        NodeEvent.ReportGenerationFailed, NodeEvent.TotalRecordsUpdated].includes(event.getNodeEvent())) {
+         NodeEvent.FileDeleted, NodeEvent.FolderDeleted,
+         NodeEvent.FileNameChanged, NodeEvent.FolderNameChanged,
+         NodeEvent.FileMoved, NodeEvent.FolderMoved,
+         NodeEvent.ProcessingFinished, NodeEvent.PropertiesPredictionFinished,
+         NodeEvent.ModelTrainingFinished, NodeEvent.TrainingFailed,
+         NodeEvent.ReportGenerationFailed, NodeEvent.TotalRecordsUpdated].includes(event.getNodeEvent())) {
       if (event.EventData) {
         const message = new NotificationMessage();
 
@@ -63,7 +72,7 @@ export class NotificationMessage {
     message.accessPermissions = {
       groups: (event.EventData as SignalREventPermissionChanged).permissionGroups,
       users: (event.EventData as SignalREventPermissionChanged).permissionUsers,
-      isPublic: (event.EventData as SignalREventPermissionChanged).permissionPublic
+      isPublic: (event.EventData as SignalREventPermissionChanged).permissionPublic,
     };
     return message;
   }
@@ -76,13 +85,6 @@ export class NotificationMessage {
     message.header = header;
     message.message = messageBody;
     return message;
-  }
-
-  generateIdIg(): string {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   }
 }
 

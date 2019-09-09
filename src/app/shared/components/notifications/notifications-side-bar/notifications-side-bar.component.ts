@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit,EventEmitter, NgZone, ElementRef, HostListener } from '@angular/core';
-import { NotificationsService } from 'app/core/services/notifications/notifications.service';
-import { Subscription , interval } from 'rxjs';
-import { NotificationAction, NotificationItem } from '../notifications.model';
-import { environment } from 'environments/environment';
+import { Component, ElementRef, EventEmitter, HostListener, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { NotificationsApiService } from 'app/core/services/api/notifications-api.service';
+import { NotificationsService } from 'app/core/services/notifications/notifications.service';
+import { environment } from 'environments/environment';
+import { Subscription , interval } from 'rxjs';
 
+import { NotificationAction, NotificationItem } from '../notifications.model';
 
 @Component({
   selector: 'dr-notifications-side-bar',
@@ -32,12 +32,12 @@ export class NotificationsSideBarComponent implements OnInit, OnDestroy {
     private notificationsService: NotificationsService,
     private notificationsApiService: NotificationsApiService,
     private _ngZone: NgZone,
-    private _elref: ElementRef
+    private _elref: ElementRef,
   ) {
     this.notificationEventSubscription = this.notificationsService.notificationEvent.subscribe(
       (notifyEvent: { action: NotificationAction, item: NotificationItem }) => {
         this.serviceHandlerAction(notifyEvent);
-      }
+      },
     );
   }
 

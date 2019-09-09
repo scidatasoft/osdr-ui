@@ -25,7 +25,7 @@ export class TrainMachineLearningModel {
             {
                 folderName: data.folderName,
                 modelType: data.modelType,
-                targetFolderId: data.targetFolderId
+                targetFolderId: data.targetFolderId,
             },
             {
                 trainingParameter: data.trainingParameter,
@@ -34,31 +34,20 @@ export class TrainMachineLearningModel {
                 testDataSize: data.testDataSize,
                 kFold: data.kFold,
                 scaler: data.scaler,
-                hyperParameters: data.hyperParameters
+                hyperParameters: data.hyperParameters,
             },
-            { methods: data.methods }
+            { methods: data.methods },
         ];
     }
 }
 
 export class Guid {
     private value: string = this.empty;
-    public static newGuid(): Guid {
-        return new Guid('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-            const r = Math.random() * 16 | 0;
-            const v = (c === 'x') ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        }));
-    }
     public static get empty(): string {
         return '00000000-0000-0000-0000-000000000000';
     }
     public get empty(): string {
         return Guid.empty;
-    }
-    public static isValid(str: string): boolean {
-        const validRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-        return validRegex.test(str);
     }
     constructor(value?: string) {
         if (value) {
@@ -73,6 +62,17 @@ export class Guid {
 
     public toJSON(): string {
         return this.value;
+    }
+    public static newGuid(): Guid {
+        return new Guid('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+            const r = Math.random() * 16 | 0;
+            const v = (c === 'x') ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        }));
+    }
+    public static isValid(str: string): boolean {
+        const validRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        return validRegex.test(str);
     }
 }
 

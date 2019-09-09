@@ -1,22 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
+import { Params } from '@angular/router';
+import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
 import { PropertyType } from 'app/views/organize-view/organize-view.model';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
-import { NodesApiService } from 'app/core/services/api/nodes-api.service';
-import { HttpClient } from '@angular/common/http';
-import { Params } from '@angular/router';
 import { map } from 'rxjs/operators';
-
 
 @Injectable()
 export class FilesApiService {
-
-  constructor(public http: HttpClient, private nodesApi: NodesApiService) {
-  }
+  constructor(public http: HttpClient, private nodesApi: NodesApiService) {}
 
   getFieldsOfFile(fileId: string): Observable<any[]> {
-    return this.http.get(environment.apiUrl + `/entities/files/${fileId}?$projection=properties`).pipe(
+    return this.http.get(`${environment.apiUrl}/entities/files/${fileId}?$projection=properties`).pipe(
       map((response: Response) => {
         const data: any = response;
 
@@ -29,8 +26,8 @@ export class FilesApiService {
         }
 
         return fieldsArray;
-      },
-      ))
+      }),
+    );
   }
 
   isFileNameValid(fileName: string) {
@@ -38,8 +35,8 @@ export class FilesApiService {
       map(res => {
         // TODO remove fake data
         return { fileExists: false };
-      },
-      ));
+      }),
+    );
   }
 
   dataSetTransform(fileName: string, propertyList: { property: PropertyType; newName: string; mapValue: string }[]) {
@@ -47,13 +44,13 @@ export class FilesApiService {
       map(res => {
         // TODO remove fake data
         return { success: true };
-      },
-      ));
+      }),
+    );
   }
 
   getProperties(fileId: string): Observable<PropertyType[]> {
     return this.http.get('api/properties.json').pipe(
-      map((response) => {
+      map(response => {
         const data: any = response;
 
         const propertyArray: PropertyType[] = [];
@@ -63,17 +60,23 @@ export class FilesApiService {
         }
 
         return propertyArray;
-      },
-      ));
+      }),
+    );
   }
 
   getRecords(fileId: string, pageNumber: number, pageSize: number): Observable<any> {
-    return this.nodesApi.getNodes(fileId, {
-      pageNumber, pageSize, type: 'record',
-    }).pipe(map(x => ({
-      items: x.body as BrowserDataItem[],
-      page: JSON.parse(x.headers.get('x-pagination')),
-    })));
+    return this.nodesApi
+      .getNodes(fileId, {
+        pageNumber,
+        pageSize,
+        type: 'record',
+      })
+      .pipe(
+        map(x => ({
+          items: x.body as BrowserDataItem[],
+          page: JSON.parse(x.headers.get('x-pagination')),
+        })),
+      );
   }
 
   getRecordsWithParams(fileId: string, params: Params): Observable<any> {
@@ -82,6 +85,7 @@ export class FilesApiService {
       map(x => ({
         items: x.body as BrowserDataItem[],
         page: JSON.parse(x.headers.get('x-pagination')),
-      })));
+      })),
+    );
   }
 }

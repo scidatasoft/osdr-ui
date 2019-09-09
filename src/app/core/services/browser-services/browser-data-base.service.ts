@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Params} from '@angular/router';
-import {Subject, Observable} from 'rxjs';
-
-// Own resources
 import {BrowserData, BrowserDataItem, MultiItemSelection} from 'app/shared/components/organize-browser/browser-types';
+import {Observable, Subject} from 'rxjs';
+
 import {IBrowserEvent} from './browser-data.service';
 
 export enum BrowserViewState {
   browser,
   filterBrowser,
-  searchResultBrowser
+  searchResultBrowser,
 }
 
 @Injectable()
@@ -54,7 +53,7 @@ export abstract class BrowserDataBaseService implements MultiItemSelection<Brows
   setBrowserState(newValue: BrowserViewState) {
     this.browserServiceState = newValue;
     this.browserStateChange.next({oldValue: this.browserStateChange,
-      newValue: newValue,
-      searchString: this.searchData});
+                                  newValue: newValue,
+                                  searchString: this.searchData});
   }
 }

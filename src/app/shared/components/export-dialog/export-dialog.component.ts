@@ -1,16 +1,15 @@
-import { Component, OnInit, QueryList, ViewChildren, Inject } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
-import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
+import { HttpClient } from '@angular/common/http';
+import { Component, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectionList } from '@angular/material/list';
-import { HttpClient } from '@angular/common/http';
+import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
 import { ExportChemFilesService } from 'app/core/services/export-files/export-chem-files.service';
-
+import { Observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'dr-export-dialog',
   templateUrl: './export-dialog.component.html',
-  styleUrls: ['./export-dialog.component.scss']
+  styleUrls: ['./export-dialog.component.scss'],
 })
 export class ExportDialogComponent implements OnInit {
 
@@ -28,7 +27,7 @@ export class ExportDialogComponent implements OnInit {
     public http: HttpClient,
     private exportService: ExportChemFilesService,
     public dialogRef: MatDialogRef<ExportDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit() {
@@ -96,7 +95,7 @@ export class ExportDialogComponent implements OnInit {
     const exportData = {
       'BlobId': this.selectedFilesBlobIdList[0],
       'Format': this.data.fileType || 'csv',
-      'Properties': []
+      'Properties': [],
     };
 
     this.selectedOptionsValues = [];

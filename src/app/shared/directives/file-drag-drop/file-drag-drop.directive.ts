@@ -1,13 +1,12 @@
 import { Directive, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Directive({
-  selector: '[drFileDragDrop]'
+  selector: '[drFileDragDrop]',
 })
 export class FileDragDropDirective implements OnInit {
   @Input() hoverClass: string;
   @Input() drFileDragDrop: boolean;
   @Output() fileDrop: EventEmitter<any> = new EventEmitter();
-
 
   private dragentered = false;
   private dragleaveTimeout;

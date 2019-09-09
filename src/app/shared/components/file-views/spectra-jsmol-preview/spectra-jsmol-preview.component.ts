@@ -1,15 +1,15 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
-import { IFilePreviewComponent } from 'app/shared/components/file-views/file-view.model';
 import { ImagesApiService } from 'app/core/services/api/images-api.service';
+import { IFilePreviewComponent } from 'app/shared/components/file-views/file-view.model';
+import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
 import { environment } from 'environments/environment';
 
 @Component({
   selector: 'dr-spectra-jsmol-preview',
   templateUrl: './spectra-jsmol-preview.component.html',
-  styleUrls: ['./spectra-jsmol-preview.component.scss']
+  styleUrls: ['./spectra-jsmol-preview.component.scss'],
 })
 export class SpectraJsmolPreviewComponent implements OnInit, AfterViewInit, IFilePreviewComponent {
 

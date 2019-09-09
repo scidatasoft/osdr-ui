@@ -1,16 +1,16 @@
-import { Component, OnInit, EventEmitter, Inject, HostListener } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { BrowserDataItem } from '../../organize-browser/browser-types';
+import { Component, EventEmitter, HostListener, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ValidateFolderName, ValidationMessages } from 'app/core/services/validation/validation.service';
 import { Subscription } from 'rxjs';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { BrowserDataItem } from '../../organize-browser/browser-types';
 
 @Component({
   selector: 'dr-rename-folder',
   templateUrl: './rename-folder.component.html',
   styleUrls: ['./rename-folder.component.scss'],
-  providers: []
+  providers: [],
 })
 export class RenameFolderComponent implements OnInit {
 
@@ -25,10 +25,10 @@ export class RenameFolderComponent implements OnInit {
   targetFolder: BrowserDataItem = null;
 
   constructor(public dialogRef: MatDialogRef<RenameFolderComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private vm: ValidationMessages) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private vm: ValidationMessages) {
     this.folderRenameFG = new FormGroup({
-      folderName: new FormControl(null, Validators.compose([Validators.required, ValidateFolderName, Validators.maxLength(255)]))
+      folderName: new FormControl(null, Validators.compose([Validators.required, ValidateFolderName, Validators.maxLength(255)])),
     });
     this.validationMessages = this.vm.getNodeNameValidationMessages((this.data.fileInfo as BrowserDataItem).type);
   }

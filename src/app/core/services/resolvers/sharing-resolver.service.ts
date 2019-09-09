@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
-import { NodesApiService } from '../api/nodes-api.service';
+import { catchError, map } from 'rxjs/operators';
+
 import { BrowserDataItem } from '../../../shared/components/organize-browser/browser-types';
-import { map, catchError } from 'rxjs/operators';
+import { NodesApiService } from '../api/nodes-api.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class SharingResolver implements Resolve<boolean> {
 
   constructor(private auth: AuthService,
-    private nodesApi: NodesApiService) {
+              private nodesApi: NodesApiService) {
   }
 
   resolve(route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+          state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.nodesApi.getRawNode(route.params['id']).pipe(
       map(
         (item: BrowserDataItem) => {
@@ -23,15 +24,15 @@ export class SharingResolver implements Resolve<boolean> {
           } else {
             return true;
           }
-        }
+        },
       ), catchError(
         (error) => {
           return Observable.create(
             (observer) => {
               observer.next(false);
-            }
+            },
           ) as Observable<boolean>;
-        }
+        },
       ));
   }
 }

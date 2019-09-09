@@ -3,13 +3,12 @@ import {
   BsDropdownModule,
   ModalModule,
   PopoverModule,
-  TooltipModule
+  TooltipModule,
 } from 'ngx-bootstrap';
 
 export const BsModules = [
-  BsDropdownModule, ModalModule, PopoverModule, TooltipModule
+  BsDropdownModule, ModalModule, PopoverModule, TooltipModule,
 ];
-
 
 @NgModule({
   imports: [BsDropdownModule.forRoot(), ModalModule.forRoot(), PopoverModule.forRoot(), TooltipModule.forRoot()],

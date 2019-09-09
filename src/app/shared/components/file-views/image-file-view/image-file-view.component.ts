@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { IFilePreviewComponent } from '../file-view.model';
-import { BrowserDataItem } from '../../organize-browser/browser-types';
-import { ImagesApiService } from 'app/core/services/api/images-api.service';
-import { ActivatedRoute } from '@angular/router';
-import { NodesApiService } from 'app/core/services/api/nodes-api.service';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { ImagesApiService } from 'app/core/services/api/images-api.service';
+import { NodesApiService } from 'app/core/services/api/nodes-api.service';
+
+import { BrowserDataItem } from '../../organize-browser/browser-types';
+import { IFilePreviewComponent } from '../file-view.model';
 @Component({
   selector: 'dr-image-file-view',
   templateUrl: './image-file-view.component.html',
-  styleUrls: ['./image-file-view.component.scss']
+  styleUrls: ['./image-file-view.component.scss'],
 })
 export class ImageFileViewComponent implements OnInit, AfterViewInit, IFilePreviewComponent {
 
@@ -16,10 +17,10 @@ export class ImageFileViewComponent implements OnInit, AfterViewInit, IFilePrevi
   @Input() fileItem;
 
   constructor(private imagesApi: ImagesApiService,
-    private activatedRoute: ActivatedRoute,
-    private domSanitizer: DomSanitizer,
-    private nodesApi: NodesApiService,
-    private elRef: ElementRef) { }
+              private activatedRoute: ActivatedRoute,
+              private domSanitizer: DomSanitizer,
+              private nodesApi: NodesApiService,
+              private elRef: ElementRef) { }
 
   ngOnInit() {
   }
@@ -28,7 +29,7 @@ export class ImageFileViewComponent implements OnInit, AfterViewInit, IFilePrevi
     setTimeout(() => {
       const file_id = this.activatedRoute.snapshot.params['id'];
       if (this.fileItem == null) {
-        this.nodesApi.getNode(file_id).subscribe((requestData) => {
+        this.nodesApi.getNode({ id: { id: file_id } }).subscribe((requestData) => {
           this.fileItem = new BrowserDataItem(requestData.body as BrowserDataItem);
         });
       }

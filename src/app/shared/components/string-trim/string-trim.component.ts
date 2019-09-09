@@ -4,7 +4,7 @@ import {BrowserDataItem} from 'app/shared/components/organize-browser/browser-ty
 @Component({
   selector: 'dr-string-trim',
   templateUrl: './string-trim.component.html',
-  styleUrls: ['./string-trim.component.scss']
+  styleUrls: ['./string-trim.component.scss'],
 })
 export class StringTrimComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class StringTrimComponent implements OnInit {
         } else if (this.trimmedText && this.trimmedText instanceof String && this.trimmedText.length > 0 && this.blockLength > 0) {
           this.trimString();
         }
-      }
+      },
     );
   }
 

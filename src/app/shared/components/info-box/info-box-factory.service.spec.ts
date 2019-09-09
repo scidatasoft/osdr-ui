@@ -1,10 +1,11 @@
 import { TestBed, inject } from '@angular/core/testing';
+
 import {InfoBoxFactoryService} from './info-box-factory.service';
 
 describe('FieldFactoryService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [InfoBoxFactoryService]
+      providers: [InfoBoxFactoryService],
     });
   });
 

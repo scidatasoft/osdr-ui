@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { CvspOrganizeInfoBoxComponent } from './cvsp-organize-info-box.component';
 
@@ -8,7 +8,7 @@ describe('CvspOrganizeInfoBoxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CvspOrganizeInfoBoxComponent ]
+      declarations: [ CvspOrganizeInfoBoxComponent ],
     })
     .compileComponents();
   }));

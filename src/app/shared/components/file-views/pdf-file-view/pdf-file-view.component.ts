@@ -1,15 +1,16 @@
-import {AfterViewInit, Component, OnInit, Input} from '@angular/core';
-import {IFilePreviewComponent} from '../file-view.model';
-import {BrowserDataItem, FileType} from '../../organize-browser/browser-types';
-import {BlobsApiService} from 'app/core/services/api/blobs-api.service';
-import {ActivatedRoute} from '@angular/router';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {ActivatedRoute} from '@angular/router';
+import {BlobsApiService} from 'app/core/services/api/blobs-api.service';
 import {NodesApiService} from 'app/core/services/api/nodes-api.service';
+
+import {BrowserDataItem, FileType} from '../../organize-browser/browser-types';
+import {IFilePreviewComponent} from '../file-view.model';
 
 @Component({
   selector: 'dr-pdf-file-view',
   templateUrl: './pdf-file-view.component.html',
-  styleUrls: ['./pdf-file-view.component.scss']
+  styleUrls: ['./pdf-file-view.component.scss'],
 })
 export class PdfFileViewComponent implements OnInit, AfterViewInit, IFilePreviewComponent {
 
@@ -28,7 +29,7 @@ export class PdfFileViewComponent implements OnInit, AfterViewInit, IFilePreview
     setTimeout(() => {
       const file_id = this.activatedRoute.snapshot.params['id'];
       if (this.fileItem == null) {
-        this.nodesApi.getNode(file_id).subscribe((requestData) => {
+        this.nodesApi.getNode({ id: { id: file_id } }).subscribe((requestData) => {
           this.fileItem = new BrowserDataItem(requestData.body as BrowserDataItem);
           this.initView();
         });

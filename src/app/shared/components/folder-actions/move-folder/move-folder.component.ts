@@ -1,20 +1,20 @@
-import { Component, EventEmitter, OnInit, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-
-import { BrowserData, BrowserDataItem, BrowserOptions } from '../../organize-browser/browser-types';
-import { AuthService } from 'app/core/services/auth/auth.service';
-import { ValidateFolderName} from 'app/core/services/validation/validation.service';
-import { ItemImagePreviewService } from 'app/core/services/item-preview-image-service/item-image-preview.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FoldersApiService } from 'app/core/services/api/folders-api.service';
 import { NodesApiService } from 'app/core/services/api/nodes-api.service';
+import { AuthService } from 'app/core/services/auth/auth.service';
+import { ItemImagePreviewService } from 'app/core/services/item-preview-image-service/item-image-preview.service';
+import { ValidateFolderName} from 'app/core/services/validation/validation.service';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 // import {
 //   MachineLearningTrainComponent
 // } from '../../full-screen-dialogs/machine-learning/machine-learning-train/machine-learning-train.component';
 import { SignalrService } from '../../../../core/services/signalr/signalr.service';
 import { SignalREvent } from '../../notifications/events.model';
+import { BrowserData, BrowserDataItem, BrowserOptions } from '../../organize-browser/browser-types';
 
 class BreadCrumbs {
   items: BrowserDataItem[] = [];
@@ -63,14 +63,14 @@ class BreadCrumbs {
 
 export enum MoveDialogType {
   FileManager,
-  FolderPicker
+  FolderPicker,
 }
 
 @Component({
   selector: 'dr-move-folder',
   templateUrl: './move-folder.component.html',
   styleUrls: ['./move-folder.component.scss'],
-  providers: [ItemImagePreviewService]
+  providers: [ItemImagePreviewService],
 })
 export class MoveFolderComponent implements OnInit {
 
@@ -135,7 +135,7 @@ export class MoveFolderComponent implements OnInit {
 
   createForm(): FormGroup {
     return new FormGroup({
-      folderName: new FormControl(null, Validators.compose([Validators.required, ValidateFolderName, Validators.maxLength(255)]))
+      folderName: new FormControl(null, Validators.compose([Validators.required, ValidateFolderName, Validators.maxLength(255)])),
     });
   }
 
@@ -214,17 +214,13 @@ export class MoveFolderComponent implements OnInit {
     );
   }
 
-  private refreshData(x: any) {
-    this.initFolderList(this.pathToRoot.getLast());
-  }
-
   openDialog() {
     this.data.items = [];
     this.createFolderMode = false;
     this.selectedFolder = null;
     // this.modalRef = this.modalService.show(this.moveFolderModal);
 
-    this.nodesApi.getNode(this.startFolder.id).pipe(
+    this.nodesApi.getNode({ id: { id: this.startFolder.id } }).pipe(
       map(
         (x) => {
           return {
@@ -252,7 +248,7 @@ export class MoveFolderComponent implements OnInit {
           this.createFolderMode = false;
           this.folderCreateFG.setValue({ folderName: '' });
           this.folderCreateFG.get('folderName').markAsUntouched();
-        }
+        },
       );
 
     this.updateSubscription = this.options.update.subscribe(x => this.refreshData(x));
@@ -271,7 +267,7 @@ export class MoveFolderComponent implements OnInit {
 
         this.updateSubscription.unsubscribe();
         this.data.items = [];
-      }
+      },
     );
   }
 
@@ -281,7 +277,7 @@ export class MoveFolderComponent implements OnInit {
         this.updateSubscription.unsubscribe();
         this.data.items = [];
         this.dialogRef.close();
-      }
+      },
     );
   }
 
@@ -289,7 +285,6 @@ export class MoveFolderComponent implements OnInit {
     if (!item.isFolder()) {
       return true;
     }
-
 
     for (const i of this.movedItems) {
       if (item.id === i.id) {
@@ -320,7 +315,7 @@ export class MoveFolderComponent implements OnInit {
 
         this.pathToRoot.addItem(new BrowserDataItem(item));
         this.initFolderList(this.pathToRoot.getLast());
-      }
+      },
     );
   }
 
@@ -345,7 +340,7 @@ export class MoveFolderComponent implements OnInit {
         } else {
           this.initFolderList(this.pathToRoot.getLast());
         }
-      }
+      },
     );
   }
 
@@ -379,5 +374,9 @@ export class MoveFolderComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  private refreshData(x: any) {
+    this.initFolderList(this.pathToRoot.getLast());
   }
 }

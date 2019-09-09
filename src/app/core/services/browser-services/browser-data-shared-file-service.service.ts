@@ -1,19 +1,19 @@
 import {Injectable, NgZone} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
 
-// Own resources
-import { BrowserDataService } from './browser-data.service';
-import { NodesApiService } from '../api/nodes-api.service';
+import {BrowserDataItem} from '../../../shared/components/organize-browser/browser-types';
+import { FilesApiService } from '../api/files-api.service';
 import { FoldersApiService } from '../api/folders-api.service';
+import { NodesApiService } from '../api/nodes-api.service';
+import { SearchResultsApiService } from '../api/search-results-api.service';
+import { UsersApiService } from '../api/users-api.service';
 import { AuthService } from '../auth/auth.service';
 import { SignalrService } from '../signalr/signalr.service';
+
+import { BrowserDataService } from './browser-data.service';
 import { PaginatorManagerService } from './paginator-manager.service';
-import { FilesApiService } from '../api/files-api.service';
-import { UsersApiService } from '../api/users-api.service';
-import { SearchResultsApiService } from '../api/search-results-api.service';
-import {BrowserDataItem} from '../../../shared/components/organize-browser/browser-types';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class BrowserDataSharedFileServiceService extends BrowserDataService {
@@ -32,14 +32,14 @@ export class BrowserDataSharedFileServiceService extends BrowserDataService {
   }
 
   setActiveNode(id: string = null): Observable<BrowserDataItem> {
-    return this.nodesApi.getNode(id).pipe(map(
+    return this.nodesApi.getNode({ id: { id } }).pipe(map(
       (item: any) => {
         this.currentItem = new BrowserDataItem(item.body);
         if (this.currentItem.ownedBy) {
           this.currentItem.userInfo = this.usersApi.getUserInfo(this.currentItem.ownedBy);
         }
         return this.currentItem;
-      }
+      },
     ));
   }
 
@@ -109,7 +109,7 @@ export class BrowserDataSharedFileServiceService extends BrowserDataService {
       breadcrumbs.push({
         text: this.currentItem.name,
         width: null,
-        link: `/${this.currentItem.type}/${this.currentItem.id}`
+        link: `/${this.currentItem.type}/${this.currentItem.id}`,
       });
     }
     const data: { share: boolean, shareParent: boolean } = this.myActivateRouter.snapshot.data;

@@ -1,7 +1,7 @@
-import { Directive, ElementRef, Input, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
-  selector: '[drTruncate]'
+  selector: '[drTruncate]',
 })
 export class TruncateDirective implements AfterViewInit {
 
@@ -14,12 +14,12 @@ export class TruncateDirective implements AfterViewInit {
 
     const update = () => {
       if (this.el.nativeElement.innerText) {
-        this.el.nativeElement.removeEventListener('DOMSubtreeModified', update)
-        while (this.updateElement(this.el.nativeElement, this.maxWidth, this.lastSymbolsCount)) { };
+        this.el.nativeElement.removeEventListener('DOMSubtreeModified', update);
+        while (this.updateElement(this.el.nativeElement, this.maxWidth, this.lastSymbolsCount)) { }
       }
-    }
+    };
 
-    this.el.nativeElement.addEventListener('DOMSubtreeModified', update, false)
+    this.el.nativeElement.addEventListener('DOMSubtreeModified', update, false);
   }
 
   updateElement(el: any, maxWidth: number, lastSymbolsCount: number) {
@@ -34,7 +34,7 @@ export class TruncateDirective implements AfterViewInit {
 
     el.lastInnerText = el.rawText.substring(0, lastIndex)
       + '...'
-      + el.rawText.substring(el.rawText.length - lastSymbolsCount, el.rawText.length)
+      + el.rawText.substring(el.rawText.length - lastSymbolsCount, el.rawText.length);
     el.innerText = el.lastInnerText;
     return true;
   }

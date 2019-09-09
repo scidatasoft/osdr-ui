@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { MachineLearningPredictComponent } from './machine-learning-predict.component';
 
@@ -8,7 +8,7 @@ describe('MachineLearningPredictComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MachineLearningPredictComponent ]
+      declarations: [ MachineLearningPredictComponent ],
     })
     .compileComponents();
   }));

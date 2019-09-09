@@ -1,22 +1,22 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-
-// own resources
-import { SingleStructurePredictionComponent } from './single-structure-prediction/single-structure-prediction.component';
-import { SharedModule } from '../../shared/shared.module';
-import { SinglePredictionService } from './single-prediction.service';
+import { NgModule } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
+import { RouterModule, Routes } from '@angular/router';
 import { PopoverModule } from 'ngx-bootstrap';
+
+import { SharedModule } from '../../shared/shared.module';
+
+import { SinglePredictionService } from './single-prediction.service';
+import { SingleStructurePredictionComponent } from './single-structure-prediction/single-structure-prediction.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SingleStructurePredictionComponent
-  }
+    component: SingleStructurePredictionComponent,
+  },
 ];
 
 @NgModule({
@@ -28,9 +28,9 @@ const routes: Routes = [
     MatCheckboxModule,
     MatTableModule,
     PopoverModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   declarations: [SingleStructurePredictionComponent],
-  providers: [SinglePredictionService]
+  providers: [SinglePredictionService],
 })
 export class PredictionModule {}

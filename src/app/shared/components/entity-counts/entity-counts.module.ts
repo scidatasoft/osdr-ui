@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModulesList } from 'app/common-modules-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { EntityCountsComponent } from './entity-counts.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MatModules = [
   MatFormFieldModule,
-  MatTooltipModule
+  MatTooltipModule,
 ];
 
 @NgModule({

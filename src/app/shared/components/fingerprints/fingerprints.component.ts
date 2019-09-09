@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Validators, FormArray, FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { FingerprintsService } from '../../../core/services/fingerprints/fingerprints.service';
 
 @Component({
   selector: 'dr-fingerprints',
   templateUrl: './fingerprints.component.html',
-  styleUrls: ['./fingerprints.component.scss']
+  styleUrls: ['./fingerprints.component.scss'],
 })
 export class FingerprintsComponent implements OnInit {
   @Input() fingerprintType: Origin = null;
@@ -41,13 +42,13 @@ export class FingerprintsComponent implements OnInit {
 
   loadFingerprints() {
     this.fingerprintForm = new FormGroup({
-      fingerprints: new FormArray([this.initFingerprints()])
+      fingerprints: new FormArray([this.initFingerprints()]),
     });
   }
 
   initFingerprints(): FormGroup {
     return new FormGroup({
-      type: new FormControl('', Validators.required)
+      type: new FormControl('', Validators.required),
     });
   }
 
@@ -198,7 +199,7 @@ export interface MethodsList {
 
 export enum Type {
   Classification = 'classification',
-  Regression = 'regression'
+  Regression = 'regression',
 }
 
 export interface OptimizationList {
@@ -232,10 +233,10 @@ export interface Fingerprint {
 export enum Origin {
   FvcCIF = 'fvcCIF',
   FvcSDF = 'fvcSDF',
-  MlTrain = 'mlTrain'
+  MlTrain = 'mlTrain',
 }
 
 export enum Parameter {
   Radius = 'radius',
-  Size = 'size'
+  Size = 'size',
 }

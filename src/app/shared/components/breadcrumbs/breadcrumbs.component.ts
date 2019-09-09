@@ -1,10 +1,10 @@
-import {Component, OnInit, Input, SimpleChanges, OnChanges, Optional} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, Optional, SimpleChanges} from '@angular/core';
 import {BrowserDataBaseService} from 'app/core/services/browser-services/browser-data-base.service';
 
 @Component({
   selector: 'dr-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.scss']
+  styleUrls: ['./breadcrumbs.component.scss'],
 })
 export class BreadcrumbsComponent implements OnInit, OnChanges {
 

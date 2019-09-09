@@ -5,7 +5,7 @@ import { MachineLearningService } from './machine-learning.service';
 describe('MachineLearningService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MachineLearningService]
+      providers: [MachineLearningService],
     });
   });
 

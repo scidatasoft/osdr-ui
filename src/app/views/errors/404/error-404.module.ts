@@ -1,23 +1,25 @@
-import { Error404Component } from './error-404.component';
-import { RouterModule } from '@angular/router';
-import { SharedModule } from '../../../shared/shared.module';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { SharedModule } from '../../../shared/shared.module';
+
+import { Error404Component } from './error-404.component';
 
 const routes = [
   {
     path: '',
-    component: Error404Component
-  }
+    component: Error404Component,
+  },
 ];
 
 @NgModule({
   declarations: [
-    Error404Component
+    Error404Component,
   ],
   imports: [
     SharedModule,
-    RouterModule.forChild(routes)
-  ]
+    RouterModule.forChild(routes),
+  ],
 })
 
 export class Error404Module {

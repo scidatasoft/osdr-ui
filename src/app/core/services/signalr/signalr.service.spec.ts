@@ -5,7 +5,7 @@ import { SignalrService } from './signalr.service';
 describe('SignalrService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SignalrService]
+      providers: [SignalrService],
     });
   });
 

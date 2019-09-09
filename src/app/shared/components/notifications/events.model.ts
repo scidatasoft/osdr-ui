@@ -1,13 +1,14 @@
-import { NodeType } from '../organize-browser/browser-types';
+import { Location } from '@angular/common';
 import { INotificationPermission } from 'app/shared/components/notifications/notifications.model';
-import { Location } from "@angular/common";
+
+import { NodeType } from '../organize-browser/browser-types';
 
 export enum NotificationType {
   Info,
   Error,
   Warning,
   Success,
-  Process
+  Process,
 }
 
 export enum NodeEvent {
@@ -29,13 +30,13 @@ export enum NodeEvent {
   PropertiesPredictionFinished,
   ReportGenerationFailed,
   ModelTrainingFinished,
-  TrainingFailed
+  TrainingFailed,
 }
 
 export enum FolderStatus {
   Created = 1,
   Processing,
-  Processed
+  Processed,
 }
 
 export enum FileStatus {
@@ -45,21 +46,21 @@ export enum FileStatus {
   Parsed,
   Processing,
   Processed,
-  Failed
+  Failed,
 }
 
 export enum RecordStatus {
   Created = 1,
   Processing,
   Processed,
-  Failed
+  Failed,
 }
 
 export enum ModelStatus {
   Created = 1,
   Processing,
   Processed,
-  Failed
+  Failed,
 }
 
 export class SignalREventDataBasic {
@@ -69,6 +70,42 @@ export class SignalREventDataBasic {
   version: number;
   nodeType: NodeType;
   eventType: NodeEvent;
+
+  constructor(data?: { id: string, timeStamp: string, userId: string, version: number }) {
+    if (data) {
+      this.id = data.id;
+      this.timeStamp = data.timeStamp;
+      this.userId = data.userId;
+      this.version = data.version;
+    }
+  }
+
+  getDate(): Date {
+    return new Date(this.timeStamp);
+  }
+
+  getLink(): string {
+    return '/organize/drafts';
+  }
+
+  getEventHeader() {
+    if (this.eventType === NodeEvent.FileDeleted || this.eventType === NodeEvent.FolderDeleted) {
+      return `${NodeType[this.nodeType]} Deleted`;
+    }
+    return `${NodeType[this.nodeType]} Action`;
+  }
+
+  getEventDescription(): string {
+    let description = NodeType[this.nodeType];
+    if (this.eventType === NodeEvent.FileDeleted || this.eventType === NodeEvent.FolderDeleted) {
+      description += ' was deleted.';
+    }
+    return description;
+  }
+
+  getNotificationType(): NotificationType {
+    return NotificationType.Info;
+  }
 
   static Create(nodeType: NodeType, eventType: NodeEvent, data: any): SignalREventDataBasic {
     let signalRObject: SignalREventDataBasic = new SignalREventDataBasic(data);
@@ -161,42 +198,6 @@ export class SignalREventDataBasic {
     signalRObject.eventType = eventType;
 
     return signalRObject;
-  }
-
-  constructor(data?: { id: string, timeStamp: string, userId: string, version: number }) {
-    if (data) {
-      this.id = data.id;
-      this.timeStamp = data.timeStamp;
-      this.userId = data.userId;
-      this.version = data.version;
-    }
-  }
-
-  getDate(): Date {
-    return new Date(this.timeStamp);
-  }
-
-  getLink(): string {
-    return '/organize/drafts';
-  }
-
-  getEventHeader() {
-    if (this.eventType === NodeEvent.FileDeleted || this.eventType === NodeEvent.FolderDeleted) {
-      return `${NodeType[this.nodeType]} Deleted`;
-    }
-    return `${NodeType[this.nodeType]} Action`;
-  }
-
-  getEventDescription(): string {
-    let description = NodeType[this.nodeType];
-    if (this.eventType === NodeEvent.FileDeleted || this.eventType === NodeEvent.FolderDeleted) {
-      description += ' was deleted.';
-    }
-    return description;
-  }
-
-  getNotificationType(): NotificationType {
-    return NotificationType.Info;
   }
 }
 
@@ -397,8 +398,8 @@ export class SignalREventDataMove extends SignalREventDataBasic {
     data?: {
       id: string, timeStamp: string, userId: string,
       version: number, newParentId: string, oldParentId: string,
-      targetFolderName: string, targetFolderId: string
-    }
+      targetFolderName: string, targetFolderId: string,
+    },
     ) {
     if (data) {
       super(data);
@@ -526,14 +527,14 @@ export class SignalREventModelTraining extends SignalREventDataBasic {
 export class SignalREvent {
   private static deleteMoveActions: NodeEvent[] = [
     NodeEvent.FileDeleted, NodeEvent.FolderDeleted,
-    NodeEvent.FileMoved, NodeEvent.FolderMoved
+    NodeEvent.FileMoved, NodeEvent.FolderMoved,
   ];
   // renameAddActions - call data refresh on node/entity
   private static renameAddActions: NodeEvent[] = [
     NodeEvent.FileCreated, NodeEvent.FileNameChanged,
     NodeEvent.FolderCreated, NodeEvent.FolderNameChanged, NodeEvent.ImageAdded, NodeEvent.StatusChanged,
     NodeEvent.ProcessingFinished, NodeEvent.ProcessingStarted, NodeEvent.PropertiesPredictionFinished,
-    NodeEvent.ModelTrainingFinished, NodeEvent.TrainingFailed
+    NodeEvent.ModelTrainingFinished, NodeEvent.TrainingFailed,
   ];
 
   Id: string;

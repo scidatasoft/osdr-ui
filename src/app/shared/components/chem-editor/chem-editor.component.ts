@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'dr-chem-editor',
   templateUrl: './chem-editor.component.html',
-  styleUrls: ['./chem-editor.component.scss']
+  styleUrls: ['./chem-editor.component.scss'],
 })
 export class ChemEditorComponent implements OnInit, IModalState {
   @ViewChild('staticModal', { static: true }) staticModal: any;

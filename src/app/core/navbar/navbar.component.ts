@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth/auth.service';
-import { User } from 'oidc-client';
-import { NotificationsService } from '../../core/services/notifications/notifications.service';
-import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { environment } from 'environments/environment';
+import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
+import { User } from 'oidc-client';
+
+import { AuthService } from '../../core/services/auth/auth.service';
+import { NotificationsService } from '../../core/services/notifications/notifications.service';
 
 @Component({
   selector: 'dr-navbar',
@@ -43,7 +44,7 @@ export class NavbarComponent implements OnInit {
       name: 'LabWiz',
       path: 'labwiz',
       visible: () => environment.capabilities.labwiz,
-    }
+    },
   ];
   @ViewChild('profileMenu', { static: true }) public profileMenu: ContextMenuComponent;
   user: User;

@@ -1,6 +1,5 @@
 import { FeaturesModule } from './features.module';
 
-
 describe('ChemicalFeaturesComputationModule', () => {
   let chemicalFeaturesComputationModule: FeaturesModule;
 

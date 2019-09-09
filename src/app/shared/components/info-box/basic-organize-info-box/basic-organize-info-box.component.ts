@@ -1,9 +1,9 @@
-import {Component, Input, Injector} from '@angular/core';
+import {Component, Injector, Input} from '@angular/core';
 
 @Component({
   selector: 'dr-basic-organize-info-box',
   templateUrl: './basic-organize-info-box.component.html',
-  styleUrls: ['./basic-organize-info-box.component.scss']
+  styleUrls: ['./basic-organize-info-box.component.scss'],
 })
 export class BasicOrganizeInfoBoxComponent {
 
