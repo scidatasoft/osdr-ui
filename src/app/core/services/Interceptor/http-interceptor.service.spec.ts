@@ -5,7 +5,7 @@ import { HttpInterceptorService } from './http-interceptor.service';
 describe('HttpInterceptorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HttpInterceptorService]
+      providers: [HttpInterceptorService],
     });
   });
 

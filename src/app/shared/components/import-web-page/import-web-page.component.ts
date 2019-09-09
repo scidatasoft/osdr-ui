@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ValidationMessages, ValidateWebPageUrl } from 'app/core/services/validation/validation.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ValidateWebPageUrl, ValidationMessages } from 'app/core/services/validation/validation.service';
 
 @Component({
   selector: 'dr-import-web-page',
   templateUrl: './import-web-page.component.html',
-  styleUrls: ['./import-web-page.component.scss']
+  styleUrls: ['./import-web-page.component.scss'],
 })
 export class ImportWebPageComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class ImportWebPageComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ImportWebPageComponent>,
-    private vm: ValidationMessages
+    private vm: ValidationMessages,
   ) {
     this.validationMessages = this.vm.web_page_validation_messages;
   }
@@ -30,7 +30,7 @@ export class ImportWebPageComponent implements OnInit {
 
   openDialog() {
     this.importWebPageFG = new FormGroup({
-      siteUrl: new FormControl(null, [Validators.required, ValidateWebPageUrl])
+      siteUrl: new FormControl(null, [Validators.required, ValidateWebPageUrl]),
     });
   }
 

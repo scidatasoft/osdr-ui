@@ -1,8 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 // import { SharedModule } from 'app/shared/shared.module';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CommonModule } from '@angular/common';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { NotificationCommonItemComponent } from './notifications-side-bar/notification-common-item/notification-common-item.component';
@@ -11,8 +11,8 @@ import { NotificationItemFactoryComponent } from './notifications-side-bar/notif
 import { NotificationProcessItemComponent } from './notifications-side-bar/notification-process-item/notification-process-item.component';
 import { NotificationUploadItemComponent } from './notifications-side-bar/notification-upload-item/notification-upload-item.component';
 import { NotificationsSideBarComponent } from './notifications-side-bar/notifications-side-bar.component';
-import { ToastMessageComponent } from './splash-notifications/toast-message/toast-message.component';
 import { SplashNotificationsComponent } from './splash-notifications/splash-notifications.component';
+import { ToastMessageComponent } from './splash-notifications/toast-message/toast-message.component';
 
 const components = [
   NotificationCommonItemComponent,
@@ -22,7 +22,7 @@ const components = [
   NotificationUploadItemComponent,
   NotificationsSideBarComponent,
   ToastMessageComponent,
-  SplashNotificationsComponent
+  SplashNotificationsComponent,
 ];
 
 @NgModule({

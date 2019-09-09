@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject, EventEmitter, HostListener } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, HostListener, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ValidateFolderName, ValidationMessages } from 'app/core/services/validation/validation.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { NodeType } from '../../organize-browser/browser-types';
 
 @Component({
@@ -16,9 +17,9 @@ export class CreateFolderComponent implements OnInit {
   validationMessages: {}[] = null;
 
   constructor(public dialogRef: MatDialogRef<CreateFolderComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
-    private vm: ValidationMessages) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private fb: FormBuilder,
+              private vm: ValidationMessages) {
     this.createFolderDialog = this.fb.group({
       folderName: ['', Validators.compose([Validators.required, ValidateFolderName, Validators.maxLength(255)])],
     });

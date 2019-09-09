@@ -1,15 +1,15 @@
-import { Component, Input, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
-import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
-import * as Papa from 'papaparse';
+import { AfterViewInit, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
-import { IFilePreviewComponent } from 'app/shared/components/file-views/file-view.model';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
+import { IFilePreviewComponent } from 'app/shared/components/file-views/file-view.model';
+import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
 import { ToolbarButtonType } from 'app/shared/components/organize-toolbar/organize-toolbar.model';
+import * as Papa from 'papaparse';
 
 @Component({
   selector: 'dr-csv-preview',
   templateUrl: './csv-preview.component.html',
-  styleUrls: ['./csv-preview.component.scss']
+  styleUrls: ['./csv-preview.component.scss'],
 })
 export class CSVPreviewComponent implements OnInit, AfterViewInit, IFilePreviewComponent {
   activeToolbarButtons: ToolbarButtonType[] = [];
@@ -36,7 +36,7 @@ export class CSVPreviewComponent implements OnInit, AfterViewInit, IFilePreviewC
             this.dataArrayFromFile.splice(i, i);
           }
         }
-      }
+      },
     });
   }
 

@@ -1,4 +1,5 @@
 import { AbstractControl } from '@angular/forms';
+
 import XRegExp from '../../../../../node_modules/xregexp';
 
 export function ValidateFolderName(control: AbstractControl) {
@@ -27,14 +28,14 @@ export class ValidationMessages {
 
   web_page_validation_messages = [
     { type: 'notValidUrl', message: 'Please enter a valid web page URL' },
-    { type: 'required', message: 'Please enter web page URL' }
+    { type: 'required', message: 'Please enter web page URL' },
   ];
 
   getNodeNameValidationMessages(nodeType: string) {
     return [
       { type: 'required', message: `You should enter ${nodeType.toLowerCase()} name` },
       { type: 'invalidName', message: `Invalid characters in the ${nodeType.toLowerCase()} name` },
-      { type: 'maxlength', message: `${nodeType}  name cannot be more then 255 characters` }
+      { type: 'maxlength', message: `${nodeType}  name cannot be more then 255 characters` },
     ];
   }
 

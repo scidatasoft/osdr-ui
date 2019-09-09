@@ -1,12 +1,13 @@
-import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, Input, ReflectiveInjector } from '@angular/core';
-import { MachineLearningTrainComponent } from '../machine-learning-train/machine-learning-train.component';
+import { Component, ComponentFactoryResolver, Input, OnInit, ReflectiveInjector, ViewChild, ViewContainerRef } from '@angular/core';
+
 import { MachineLearningPredictComponent } from '../machine-learning-predict/machine-learning-predict.component';
+import { MachineLearningTrainComponent } from '../machine-learning-train/machine-learning-train.component';
 
 @Component({
   selector: 'dr-machine-learning-factory',
   templateUrl: './machine-learning-factory.component.html',
   styleUrls: ['./machine-learning-factory.component.scss'],
-  entryComponents: [MachineLearningTrainComponent, MachineLearningPredictComponent]
+  entryComponents: [MachineLearningTrainComponent, MachineLearningPredictComponent],
 })
 export class MachineLearningFactoryComponent {
 

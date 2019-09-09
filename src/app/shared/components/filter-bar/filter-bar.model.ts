@@ -3,15 +3,15 @@ export class FilterField {
   type: string;
   value = '';
 
+  constructor(name: string, value?: string) {
+    this.name = name;
+  }
+
   getFilter(): string {
     if (!this.value) {
       return 'All';
     }
 
     return this.value;
-  }
-
-  constructor(name: string, value?: string) {
-    this.name = name;
   }
 }

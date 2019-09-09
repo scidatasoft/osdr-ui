@@ -8,8 +8,19 @@ import { CSVPreviewComponent } from './components/file-views/csv-preview/csv-pre
 import { ImageFileViewComponent } from './components/file-views/image-file-view/image-file-view.component';
 import { OfficePreviewComponent } from './components/file-views/office-preview/office-preview.component';
 import { PdfFileViewComponent } from './components/file-views/pdf-file-view/pdf-file-view.component';
+import { SavFileViewComponent } from './components/file-views/sav-file-view/sav-file-view.component';
 import { SpectraJsmolPreviewComponent } from './components/file-views/spectra-jsmol-preview/spectra-jsmol-preview.component';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
+// import {
+//   MachineLearningFactoryComponent
+// } from './components/full-screen-dialogs/machine-learning/machine-learning-factory/machine-learning-factory.component';
+// import {
+//   MachineLearningPredictComponent
+// } from './components/full-screen-dialogs/machine-learning/machine-learning-predict/machine-learning-predict.component';
+// import {
+//   MachineLearningTrainComponent
+// } from './components/full-screen-dialogs/machine-learning/machine-learning-train/machine-learning-train.component';
+import { FingerprintsComponent } from './components/fingerprints/fingerprints.component';
 import { CreateFolderComponent } from './components/folder-actions/create-folder/create-folder.component';
 import { DeleteFolderComponent } from './components/folder-actions/delete-folder/delete-folder.component';
 import { MoveFolderComponent } from './components/folder-actions/move-folder/move-folder.component';
@@ -48,20 +59,6 @@ import { SharedLinksComponent } from './components/shared-links/shared-links.com
 import { SidebarContentComponent } from './components/sidebar-content/sidebar-content.component';
 import { StringTrimComponent } from './components/string-trim/string-trim.component';
 import { UploadInfoBoxComponent } from './components/upload-info-box/upload-info-box.component';
-import { SavFileViewComponent } from './components/file-views/sav-file-view/sav-file-view.component';
-// import {
-//   MachineLearningFactoryComponent
-// } from './components/full-screen-dialogs/machine-learning/machine-learning-factory/machine-learning-factory.component';
-// import {
-//   MachineLearningPredictComponent
-// } from './components/full-screen-dialogs/machine-learning/machine-learning-predict/machine-learning-predict.component';
-// import {
-//   MachineLearningTrainComponent
-// } from './components/full-screen-dialogs/machine-learning/machine-learning-train/machine-learning-train.component';
-import { FingerprintsComponent } from './components/fingerprints/fingerprints.component';
-
-
-
 
 export const ComponentsList = [
   FingerprintsComponent,

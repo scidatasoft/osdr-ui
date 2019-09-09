@@ -1,21 +1,22 @@
-import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
-import { Component, ElementRef, OnInit, ViewChild, ViewChildren, QueryList, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
-import { isArray } from 'util';
-import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { ImagesApiService } from 'app/core/services/api/images-api.service';
-import { MatDialog } from '@angular/material/dialog';
-import { PropertiesEditorComponent } from 'app/shared/components/properties-editor/properties-editor.component';
 import { MetadataApiService } from 'app/core/services/api/metadata-api.service';
-import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
-import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
-import { PageTitleService } from 'app/core/services/page-title/page-title.service';
-import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-info-box/properties-info-box.component';
-import { SignalrService } from '../../core/services/signalr/signalr.service';
-import { map } from 'rxjs/operators';
+import { NodesApiService } from 'app/core/services/api/nodes-api.service';
 import { UsersApiService } from 'app/core/services/api/users-api.service';
+import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
+import { PageTitleService } from 'app/core/services/page-title/page-title.service';
+import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
+import { PropertiesEditorComponent } from 'app/shared/components/properties-editor/properties-editor.component';
+import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-info-box/properties-info-box.component';
+import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
+import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
+import { map } from 'rxjs/operators';
+import { isArray } from 'util';
+
+import { SignalrService } from '../../core/services/signalr/signalr.service';
 
 @Component({
   selector: 'dr-record-view',
@@ -84,7 +85,7 @@ export class RecordViewComponent implements OnInit {
     const recordId = this.activatedRoute.snapshot.params['id'];
 
     this.nodesApi
-      .getNode(recordId)
+      .getNode({ id: { id: recordId } })
       .pipe(
         map(x => {
           const breadcrumbs = JSON.parse(x.headers.get('x-breadcrumbs')) as { Id: string; Name: string }[];

@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import {
-  CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot,
+  CanActivate,
   Router,
+  RouterStateSnapshot,
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { AuthService } from './auth.service';
-import { User } from 'oidc-client';
-import { map, catchError, flatMap } from 'rxjs/operators';
 import { environment } from 'environments/environment';
+import { User } from 'oidc-client';
+import { Observable, of } from 'rxjs';
+import { catchError, flatMap, map } from 'rxjs/operators';
+
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthProfileGuard implements CanActivate {

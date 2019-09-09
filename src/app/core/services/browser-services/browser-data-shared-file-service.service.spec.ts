@@ -5,7 +5,7 @@ import { BrowserDataSharedFileServiceService } from './browser-data-shared-file-
 describe('BrowserDataSharedFileServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BrowserDataSharedFileServiceService]
+      providers: [BrowserDataSharedFileServiceService],
     });
   });
 

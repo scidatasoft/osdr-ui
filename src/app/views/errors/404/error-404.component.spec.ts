@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Error404Component } from './error-404.component';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
+import { Error404Component } from './error-404.component';
 
 describe('NotFoundComponent', () => {
   let component: Error404Component;
@@ -8,7 +8,7 @@ describe('NotFoundComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Error404Component ]
+      declarations: [ Error404Component ],
     })
     .compileComponents();
   }));

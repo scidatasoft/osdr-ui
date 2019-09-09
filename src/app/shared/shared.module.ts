@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-
 import { CommonModulesList } from 'app/common-modules-list';
-import { PipesList } from './pipes-list';
-import { DirectivesList } from './directives-list';
 import { ContextMenuModule } from 'ngx-contextmenu';
+
+import { DirectivesList } from './directives-list';
+import { PipesList } from './pipes-list';
 
 const modules = [
   ...CommonModulesList,

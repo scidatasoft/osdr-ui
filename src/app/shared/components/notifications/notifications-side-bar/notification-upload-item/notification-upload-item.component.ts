@@ -1,16 +1,17 @@
 import { Component, EventEmitter, HostListener, Input, NgZone, OnInit, Output } from '@angular/core';
+import { NotificationsService } from 'app/core/services/notifications/notifications.service';
+import { Subscription } from 'rxjs';
+
+import { NotificationType } from '../../events.model';
 import {
   INotificationComponent, NotificationItem,
-  NotificationUploadMessage
+  NotificationUploadMessage,
 } from '../../notifications.model';
-import { Subscription } from 'rxjs';
-import { NotificationsService } from 'app/core/services/notifications/notifications.service';
-import { NotificationType } from '../../events.model';
 
 @Component({
   selector: 'dr-notification-upload-item',
   templateUrl: './notification-upload-item.component.html',
-  styleUrls: ['./notification-upload-item.component.scss']
+  styleUrls: ['./notification-upload-item.component.scss'],
 })
 export class NotificationUploadItemComponent implements OnInit, INotificationComponent {
 
@@ -24,6 +25,9 @@ export class NotificationUploadItemComponent implements OnInit, INotificationCom
   taskSubscription: Subscription;
   inProgress = false;
 
+  constructor(private ngZone: NgZone, private notificationsService: NotificationsService) {
+  }
+
   @HostListener('mouseenter')
   onMouseEnter() {
     this.showCloseButton = true;
@@ -32,9 +36,6 @@ export class NotificationUploadItemComponent implements OnInit, INotificationCom
   @HostListener('mouseleave')
   onMouseLeave() {
     this.showCloseButton = false;
-  }
-
-  constructor(private ngZone: NgZone, private notificationsService: NotificationsService) {
   }
 
   ngOnInit() {
@@ -59,18 +60,18 @@ export class NotificationUploadItemComponent implements OnInit, INotificationCom
                   this.inProgress = true;
                   this.finishTasks(response);
                 }
-              }
+              },
             );
           },
           (error) => {
             this.ngZone.run(
               () => {
                 this.finishTasksWithError();
-              }
+              },
             );
-          }
+          },
         );
-      }
+      },
     );
   }
 

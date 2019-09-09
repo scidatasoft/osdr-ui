@@ -1,14 +1,14 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { SignalrService } from 'app/core/services/signalr/signalr.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dr-shared-links',
   templateUrl: './shared-links.component.html',
-  styleUrls: ['./shared-links.component.scss']
+  styleUrls: ['./shared-links.component.scss'],
 })
 export class SharedLinksComponent implements OnInit {
 
@@ -20,7 +20,7 @@ export class SharedLinksComponent implements OnInit {
     public entitiesApi: EntitiesApiService,
     public dialogRef: MatDialogRef<SharedLinksComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    @Inject(DOCUMENT) dom: Document
+    @Inject(DOCUMENT) dom: Document,
   ) {
     this.dom = dom;
     this.getSharedStatus();

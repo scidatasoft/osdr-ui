@@ -1,5 +1,5 @@
-import {Subscription, Observable} from 'rxjs';
 import {NgZone} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
 
 export class UploadInfoBoxElement {
   name = '';
@@ -36,18 +36,18 @@ export class UploadInfoBoxElement {
               this.ngZone.run(
                 () => {
                   this.finishTasks();
-                }
+                },
               );
             },
             (error) => {
               this.ngZone.run(
                 () => {
                   this.finishTasksWithError();
-                }
+                },
               );
-            }
+            },
           );
-        }
+        },
       );
     }
   }

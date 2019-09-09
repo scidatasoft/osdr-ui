@@ -1,7 +1,3 @@
-import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { BrowserDataItem, BrowserOptions, FileType, NodeType, SubType } from 'app/shared/components/organize-browser/browser-types';
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import {
   AfterContentInit,
   Component,
@@ -11,42 +7,47 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  QueryList,
   Type,
   ViewChild,
-  ViewContainerRef,
   ViewChildren,
-  QueryList,
+  ViewContainerRef,
 } from '@angular/core';
-import { ToolbarButtonType } from 'app/shared/components/organize-toolbar/organize-toolbar.model';
-import { FilterField } from 'app/shared/components/filter-bar/filter-bar.model';
-import { InfoBoxFactoryService } from 'app/shared/components/info-box/info-box-factory.service';
-import { isArray } from 'util';
-import { SignalrService } from 'app/core/services/signalr/signalr.service';
-import { Subscription } from 'rxjs';
-import { FoldersApiService } from 'app/core/services/api/folders-api.service';
-import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
-import { ImagesApiService } from 'app/core/services/api/images-api.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
-import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
+import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
+import { FoldersApiService } from 'app/core/services/api/folders-api.service';
+import { ImagesApiService } from 'app/core/services/api/images-api.service';
 import { BrowserDataBaseService } from 'app/core/services/browser-services/browser-data-base.service';
-import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
 import { IBrowserEvent } from 'app/core/services/browser-services/browser-data.service';
-import { OrganizeBrowserComponent } from 'app/shared/components/organize-browser/organize-browser.component';
-import { IFilePreviewComponent } from 'app/shared/components/file-views/file-view.model';
-import { PdfFileViewComponent } from 'app/shared/components/file-views/pdf-file-view/pdf-file-view.component';
-import { ImageFileViewComponent } from 'app/shared/components/file-views/image-file-view/image-file-view.component';
-import { CSVPreviewComponent } from 'app/shared/components/file-views/csv-preview/csv-preview.component';
-import { OfficePreviewComponent } from 'app/shared/components/file-views/office-preview/office-preview.component';
-import { CifPreviewComponent } from 'app/shared/components/file-views/cif-preview/cif-preview.component';
-import { SpectraJsmolPreviewComponent } from 'app/shared/components/file-views/spectra-jsmol-preview/spectra-jsmol-preview.component';
-import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
+import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
 import { PageTitleService } from 'app/core/services/page-title/page-title.service';
-import { SavFileViewComponent } from '../../shared/components/file-views/sav-file-view/sav-file-view.component';
-import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-info-box/properties-info-box.component';
-import { environment } from 'environments/environment';
+import { SignalrService } from 'app/core/services/signalr/signalr.service';
+import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
+import { CifPreviewComponent } from 'app/shared/components/file-views/cif-preview/cif-preview.component';
+import { CSVPreviewComponent } from 'app/shared/components/file-views/csv-preview/csv-preview.component';
+import { IFilePreviewComponent } from 'app/shared/components/file-views/file-view.model';
+import { ImageFileViewComponent } from 'app/shared/components/file-views/image-file-view/image-file-view.component';
 import { MicroscopyViewComponent } from 'app/shared/components/file-views/microscopy-view/microscopy-view.component';
+import { OfficePreviewComponent } from 'app/shared/components/file-views/office-preview/office-preview.component';
+import { PdfFileViewComponent } from 'app/shared/components/file-views/pdf-file-view/pdf-file-view.component';
+import { SpectraJsmolPreviewComponent } from 'app/shared/components/file-views/spectra-jsmol-preview/spectra-jsmol-preview.component';
+import { FilterField } from 'app/shared/components/filter-bar/filter-bar.model';
 import { GenericMetadataPreviewComponent } from 'app/shared/components/generic-metadata-preview/generic-metadata-preview.component';
+import { InfoBoxFactoryService } from 'app/shared/components/info-box/info-box-factory.service';
+import { BrowserDataItem, BrowserOptions, FileType, NodeType, SubType } from 'app/shared/components/organize-browser/browser-types';
+import { OrganizeBrowserComponent } from 'app/shared/components/organize-browser/organize-browser.component';
+import { ToolbarButtonType } from 'app/shared/components/organize-toolbar/organize-toolbar.model';
+import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-info-box/properties-info-box.component';
+import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
+import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
 import { CurrentTab } from 'app/shared/models/current-tab';
+import { environment } from 'environments/environment';
+import { Subscription } from 'rxjs';
+import { isArray } from 'util';
+
+import { SavFileViewComponent } from '../../shared/components/file-views/sav-file-view/sav-file-view.component';
 
 @Component({
   selector: 'dr-file-view',
@@ -249,7 +250,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
 
                 // TODO remove it after bug will fix
                 if (!Array.isArray(propArray)) {
-                  propArray = Object.keys(propArray).map(function (key) {
+                  propArray = Object.keys(propArray).map(function(key) {
                     return {
                       name: key,
                       value: propArray[key],
@@ -395,7 +396,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
         ' .tif .tiff .gif .jpeg .jpg .jif .jfif .jp2 .jpx .j2k .fpx .pcd .png .bmp' +
         ' .mpg .mpeg .mp4 .txt .rtf .csv .tsv .xml .html .htm' +
         ' .mol .sdf .cdx .rxn .rdf .jdx .dx .cif .nd2 .lsm .ims .lif .czi';
-      if (knownTypes.indexOf(' .' + fileType) < 0) {
+      if (knownTypes.indexOf(` .${fileType}`) < 0) {
         return item.type === 'Record' ? '/img/svg/file-types/record.svg' : '/img/svg/tile/file.svg';
       } else if (fileType) {
         return `/img/svg/file-types/${fileType}.svg`;
@@ -416,7 +417,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
 
   itemDbClick(event: MouseEvent, item: BrowserDataItem) {
     if (!item.isFolder() && item.type === 'Record') {
-      this.router.navigateByUrl('/record/' + item.id);
+      this.router.navigateByUrl(`/record/${item.id}`);
     } else {
       this.router.navigate(['/file', item.id]);
     }

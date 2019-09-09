@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared.module';
-import { FilterBarComponent } from './filter-bar.component';
 import { FormsModule } from '@angular/forms';
+
+import { SharedModule } from '../../shared.module';
+
+import { FilterBarComponent } from './filter-bar.component';
 
 @NgModule({
   imports: [SharedModule, FormsModule],

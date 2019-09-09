@@ -1,11 +1,10 @@
-import { Directive, Input, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[drTextAutoWidth]'
+  selector: '[drTextAutoWidth]',
 })
 export class TextAutoWidthDirective implements OnInit, AfterViewInit {
   static groupedElements: { [id: string]: any[] } = {};
-
 
   // auto width of several inline elements in group
   @Input() groupName: string;

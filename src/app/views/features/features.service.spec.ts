@@ -5,7 +5,7 @@ import { FeaturesService } from './features.service';
 describe('ChemicalFeaturesComputationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FeaturesService]
+      providers: [FeaturesService],
     });
   });
 

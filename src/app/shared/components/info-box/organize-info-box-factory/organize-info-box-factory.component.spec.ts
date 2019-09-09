@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {OrganizeInfoBoxFactoryComponent} from './organize-info-box-factory.component';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
+import {OrganizeInfoBoxFactoryComponent} from './organize-info-box-factory.component';
 
 describe('FieldsFactoryComponent', () => {
   let component: OrganizeInfoBoxFactoryComponent;
@@ -8,7 +8,7 @@ describe('FieldsFactoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrganizeInfoBoxFactoryComponent ]
+      declarations: [ OrganizeInfoBoxFactoryComponent ],
     })
     .compileComponents();
   }));

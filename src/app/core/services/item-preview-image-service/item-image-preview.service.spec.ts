@@ -5,7 +5,7 @@ import { ItemImagePreviewService } from './item-image-preview.service';
 describe('ItemImagePreviewService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ItemImagePreviewService]
+      providers: [ItemImagePreviewService],
     });
   });
 

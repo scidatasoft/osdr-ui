@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { FileViewComponent } from './file-view.component';
 
@@ -8,7 +8,7 @@ describe('FileViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileViewComponent ]
+      declarations: [ FileViewComponent ],
     })
     .compileComponents();
   }));

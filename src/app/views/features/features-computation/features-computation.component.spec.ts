@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { FeaturesComputationComponent } from './features-computation.component';
 
@@ -8,7 +8,7 @@ describe('FeaturesComputationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeaturesComputationComponent ]
+      declarations: [ FeaturesComputationComponent ],
     })
     .compileComponents();
   }));

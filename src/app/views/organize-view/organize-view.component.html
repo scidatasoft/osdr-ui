@@ -15,13 +15,16 @@
 
 <dr-sidebar-content *ngIf="!display">
   <sidebar>
-    <dr-entity-counts></dr-entity-counts>
+    <ng-contaner [ngSwitch]="currentSidebar">
+      <ng-container *ngSwitchCase="currentSidebarType.CATEGORIES">
+        <!-- <dr-categories-tree></dr-categories-tree> -->
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <dr-entity-counts></dr-entity-counts>
+      </ng-container>
+    </ng-contaner>
   </sidebar>
-  <content
-    [drFileDragDrop]="true"
-    (fileDrop)="onFileDrop($event)"
-    hoverClass="browser-drag-hover"
-  >
+  <content [drFileDragDrop]="true" (fileDrop)="onFileDrop($event)" hoverClass="browser-drag-hover">
     <dr-organize-toolbar
       [contextMenuActionsManager]="folderContextMenuManager"
       [drContextMenu]="defaultContextMenu"
@@ -41,17 +44,7 @@
   </content>
   <br />
 </dr-sidebar-content>
-<dr-machine-learning-factory
-  [componentData]="componentData"
-  *ngIf="display"
-></dr-machine-learning-factory>
+<dr-machine-learning-factory [componentData]="componentData" *ngIf="display"></dr-machine-learning-factory>
 <dr-notifications-side-bar></dr-notifications-side-bar>
 <dr-splash-notification></dr-splash-notification>
-<input
-  class="e2e-upload-file"
-  #fileUpload
-  type="file"
-  multiple
-  style="display: none;"
-  (change)="onFileChange($event)"
-/>
+<input class="e2e-upload-file" #fileUpload type="file" multiple style="display: none;" (change)="onFileChange($event)" />

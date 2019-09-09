@@ -2,11 +2,10 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import {SharingResolver} from './sharing-resolver.service';
 
-
 describe('ShareResolverService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SharingResolver]
+      providers: [SharingResolver],
     });
   });
 

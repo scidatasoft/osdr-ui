@@ -5,7 +5,7 @@ import { SinglePredictionService } from './single-prediction.service';
 describe('SinglePredictionService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SinglePredictionService]
+      providers: [SinglePredictionService],
     });
   });
 

@@ -1,7 +1,6 @@
 export class FeaturesCalculation {
 }
 
-
 export interface FeatureStatus {
     status: number;
     statusText?: string;
@@ -14,5 +13,5 @@ export enum ComputationStatus {
     RENDERED = 'RENDERED',
     PROCESSING = 'PROCESSING',
     ABSENT = 'ABSENT',
-    FAILED = 'FAILED'
+    FAILED = 'FAILED',
 }

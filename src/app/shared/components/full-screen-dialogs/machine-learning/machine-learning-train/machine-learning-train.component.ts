@@ -1,33 +1,34 @@
 import {
-  Component, OnInit, OnDestroy, Injector, HostListener, ViewChild, AfterViewInit
+  AfterViewInit, Component, HostListener, Injector, OnDestroy, OnInit, ViewChild,
 } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { FilesApiService } from 'app/core/services/api/files-api.service';
-import { AuthService } from 'app/core/services/auth/auth.service';
-import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
 import { MachineLearningApiService } from 'app/core/services/api/machine-learning-api.service';
-import { MoveFolderComponent, MoveDialogType } from 'app/shared/components/folder-actions/move-folder/move-folder.component';
+import { NodesApiService } from 'app/core/services/api/nodes-api.service';
+import { AuthService } from 'app/core/services/auth/auth.service';
 import { SignalrService } from 'app/core/services/signalr/signalr.service';
+import { MoveDialogType, MoveFolderComponent } from 'app/shared/components/folder-actions/move-folder/move-folder.component';
 import { SignalREvent } from 'app/shared/components/notifications/events.model';
+import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
+import { Observable, Subject, Subscription } from 'rxjs';
+
+import { FingerprintsComponent } from '../../../fingerprints/fingerprints.component';
 import { ActionViewService } from '../../action-view.service';
 import {
-  Scaler,
-  TrainingParameter,
+  Guid,
   ModelType,
-  TrainingMode,
-  TrainingMethod,
+  Scaler,
   TrainMachineLearningModel,
-  Guid
+  TrainingMethod,
+  TrainingMode,
+  TrainingParameter,
 } from '../machine-learning.model';
-import { Subscription, Subject, Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { NodesApiService } from 'app/core/services/api/nodes-api.service';
-import { FingerprintsComponent } from '../../../fingerprints/fingerprints.component';
 
 @Component({
   selector: 'dr-machine-learning-train',
   templateUrl: './machine-learning-train.component.html',
-  styleUrls: ['./machine-learning-train.component.scss']
+  styleUrls: ['./machine-learning-train.component.scss'],
 })
 export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -47,12 +48,12 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
   trainingModeList: TrainingMode[] = [
     {
       name: 'The system will optimize fingerprints and training parameters (takes longer to calculate)',
-      optimize: true
+      optimize: true,
     },
     {
       optimize: false,
       name: 'Enter training parameters manually',
-    }
+    },
   ];
 
   trainingParameterList: TrainingParameter[] = [];
@@ -60,20 +61,20 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
   modelType: ModelType[] =
     [
       { id: 1, value: 'Classification' },
-      { id: 2, value: 'Regression' }
+      { id: 2, value: 'Regression' },
     ];
 
   optimizationList =
     [
       { key: 'default', name: 'Without optimization' },
-      { key: 'parzen', name: 'With optimization' }
+      { key: 'parzen', name: 'With optimization' },
     ];
 
   scaleList: Scaler[] = [
     { id: 1, value: 'Standard', name: 'Standard' },
     { id: 2, value: 'MinMax', name: 'MinMax' },
     { id: 3, value: 'Robust', name: 'Robust' },
-    { id: 4, value: null, name: 'None' }
+    { id: 4, value: null, name: 'None' },
   ];
 
   methodsList: TrainingMethod[] = [
@@ -93,11 +94,11 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
   ];
 
   dnnLayerList = [
-    1, 2, 3, 4
+    1, 2, 3, 4,
   ];
 
   dnnNeuronList = [
-    32, 64, 128, 256, 512
+    32, 64, 128, 256, 512,
   ];
 
   // *****************************
@@ -123,7 +124,6 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
   get secondStep(): FormGroup { return this.modelTrainForm.controls[1] as FormGroup; }
   get thirdStep(): FormGroup { return this.modelTrainForm.controls[2] as FormGroup; }
 
-
   get display(): boolean {
     return this.actionViewService.isActionViewActive;
   }
@@ -141,13 +141,13 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
     private injector: Injector,
     private actionViewService: ActionViewService,
     private dialog: MatDialog,
-    private nodesApi: NodesApiService
+    private nodesApi: NodesApiService,
   ) {
     this.currentItem = this.injector.get('selectedItems');
     this.parentItem = this.injector.get('parentItem');
     this.mockMetaData.push(
       this.modelType,
-      this.scaleList
+      this.scaleList,
     );
   }
 
@@ -192,13 +192,13 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
         this.fb.group({
           folderName: [null, Validators.required],
           modelType: [null, Validators.required],
-          targetFolderId: [this.auth.user.profile.sub]
+          targetFolderId: [this.auth.user.profile.sub],
         }),
         this.initDataSetProperties(),
         this.fb.group({
           methods: this.initMethods(),
-        })
-      ])
+        }),
+      ]),
     });
   }
 
@@ -213,8 +213,8 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
       scaler: ['MinMax'],
       hyperParameters: this.fb.group({
         numberOfIterations: [100, Validators.compose([Validators.min(10), Validators.max(1000), Validators.required])],
-        optimizationMethod: ['default', Validators.required]
-      })
+        optimizationMethod: ['default', Validators.required],
+      }),
     });
   }
 
@@ -243,21 +243,21 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
       sourceBlobId: this.currentItem.blob.id,
       sourceBucket: this.currentItem.blob.bucket,
       sourceFileName: this.currentItem.name,
-      userId: this.auth.user.profile.sub
+      userId: this.auth.user.profile.sub,
     };
   }
 
   generatePayLoadData(): void {
     this.MLCreateModel.value.modelTrainForm.forEach(el => {
       if (el.hasOwnProperty('trainingParameter') && el.trainingParameter && this.secondStep.controls.optimize.value) {
-        this.formPayLoad = Object.assign({}, this.formPayLoad, { trainingParameter: el.trainingParameter });
+        this.formPayLoad = {...this.formPayLoad,  trainingParameter: el.trainingParameter};
       } else {
-        this.formPayLoad = Object.assign({}, this.formPayLoad, el, { optimize: this.secondStep.controls.optimize.value });
+        this.formPayLoad = {...this.formPayLoad, ...el,  optimize: this.secondStep.controls.optimize.value};
         Object.assign(this.MLCreateModel.value.modelTrainForm[1].fingerprints, this.fingerprints.fingerprintList.value);
       }
     });
     this.formPayLoad['fingerprints'] = this.fingerprints.fingerprintList.value;
-    this.formPayLoad = Object.assign({}, this.formPayLoad, this.filePayload);
+    this.formPayLoad = {...this.formPayLoad, ...this.filePayload};
     this.formPayLoad['methods'] = this.methodsList.filter(x => x.type === this.selectedModelType)
       .filter(y => this.formPayLoad['methods'].indexOf(y.key) !== -1).map(res => res.key);
     delete this.formPayLoad['folderName'];
@@ -287,7 +287,7 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
       regression: {
         key: 'regression',
         value: JSON.parse(lsRegression),
-      }
+      },
     };
     return data;
   }
@@ -316,7 +316,7 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
   loadPreviousTrainingData(): void {
     const data = this.getLocalStorageData();
     if (data && data.modelType && data[data.modelType].value) {
-      data[data.modelType].value.forEach(x => Object.assign(this.parameters, x));
+      data[data.modelType].value.forEach(x => ({...this.parameters, ...x}));
       this.removeDuplicateMethods(this.parameters.methods);
       this.isFolderExist(this.parameters.targetFolderId);
       this.modelTrainForm.patchValue(this.parameters.getFormValue(this.parameters));
@@ -385,7 +385,6 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
     }
   }
 
-
   onTrainingModeChange(): void {
     this.trainingModeValueChange = this.secondStep.controls.optimize.valueChanges.subscribe(x => {
       this.updateTrainingMode();
@@ -401,8 +400,8 @@ export class MachineLearningTrainComponent implements OnInit, AfterViewInit, OnD
         options: this.options,
         submitButtonText: 'Select folder',
         dialogType: MoveDialogType.FolderPicker,
-        viewInit: this.viewInit
-      }
+        viewInit: this.viewInit,
+      },
     });
     dialogRef.componentInstance.moveFolderEvent.subscribe((e: { toFolder: BrowserDataItem, folder: BrowserDataItem }) => {
       this.selectedFolder = e.toFolder;

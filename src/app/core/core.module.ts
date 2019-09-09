@@ -1,22 +1,20 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // rm
 import { RouterModule } from '@angular/router';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { AuthInterceptor } from './services/auth/auth-interceptor';
-import { HttpInterceptorService } from './services/Interceptor/http-interceptor.service';
-
 import {
   BsDropdownModule,
   ModalModule,
   PopoverModule,
-  TooltipModule
+  TooltipModule,
 } from 'ngx-bootstrap';
+import { ContextMenuModule } from 'ngx-contextmenu';
 
 import { ServicesList } from './services-list';
-import { ContextMenuModule } from 'ngx-contextmenu';
+import { AuthInterceptor } from './services/auth/auth-interceptor';
+import { HttpInterceptorService } from './services/Interceptor/http-interceptor.service';
 
 @NgModule({
   imports: [
@@ -35,7 +33,7 @@ import { ContextMenuModule } from 'ngx-contextmenu';
   exports: [],
   declarations: [],
   providers: [...ServicesList,
-  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
+              { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+              { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
 })
 export class CoreModule { }

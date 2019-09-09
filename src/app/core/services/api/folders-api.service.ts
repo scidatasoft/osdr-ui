@@ -1,13 +1,14 @@
-import { AuthService } from '../auth/auth.service';
-import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
-import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
-import { Observable } from 'rxjs';
-import { NodesApiService } from './nodes-api.service';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { map, flatMap } from 'rxjs/operators';
+import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
+import { environment } from 'environments/environment';
+import { Observable } from 'rxjs';
+import { flatMap, map } from 'rxjs/operators';
 
+import { AuthService } from '../auth/auth.service';
+
+import { NodesApiService } from './nodes-api.service';
 
 @Injectable()
 export class FoldersApiService {
@@ -33,7 +34,7 @@ export class FoldersApiService {
     const nodeParams = { pageSize: '100', type: 'file,folder' };
 
     if (folderId.length !== 0) {
-      return this.nodesApi.getNode(folderId, nodeParams).pipe(
+      return this.nodesApi.getNode({ id: { id: folderId, params: nodeParams } }).pipe(
         flatMap(
         (outputData) => {
           const dataO = outputData.body;
@@ -62,7 +63,7 @@ export class FoldersApiService {
   }
 
   getFolderInfoByPath(path) {
-    return this.nodesApi.getNode(path).pipe(map(
+    return this.nodesApi.getNode({ id: { id: path } }).pipe(map(
       x => new BrowserDataItem(x.body as BrowserDataItem),
     ));
   }
@@ -127,7 +128,7 @@ export class FoldersApiService {
       data = { Name: folderName };
     }
 
-    this.http.post(environment.apiUrl + '/entities/folders', data).subscribe(
+    this.http.post(`${environment.apiUrl}/entities/folders`, data).subscribe(
       (dataOutput) => {
       },
       (error) => {

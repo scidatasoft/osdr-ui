@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IFilePreviewComponent } from '../file-view.model';
-import { BrowserDataItem } from '../../organize-browser/browser-types';
+import { Component, Input, OnInit } from '@angular/core';
+
 import { EntitiesApiService } from '../../../../core/services/api/entities-api.service';
+import { BrowserDataItem } from '../../organize-browser/browser-types';
+import { IFilePreviewComponent } from '../file-view.model';
 
 @Component({
   selector: 'dr-sav-file-view',

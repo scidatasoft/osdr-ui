@@ -1,13 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, ViewChild } from '@angular/core';
-import { ToolbarButtonType } from './organize-toolbar.model';
-import { ActionMenuItemsManager } from 'app/views/organize-view/organize-view.model';
 import { Router } from '@angular/router';
-import { FullTextSearchService } from 'app/core/services/search/full-text-search.service';
 import { BrowserDataBaseService } from 'app/core/services/browser-services/browser-data-base.service';
 import { BrowserViewState } from 'app/core/services/browser-services/browser-data-base.service';
+import { FullTextSearchService } from 'app/core/services/search/full-text-search.service';
+import { ActionMenuItemsManager } from 'app/views/organize-view/organize-view.model';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 
-
+import { ToolbarButtonType } from './organize-toolbar.model';
 
 @Component({
   selector: 'dr-organize-toolbar',
@@ -34,9 +33,9 @@ export class OrganizeToolbarComponent implements OnInit {
   showSearchInput = false;
 
   constructor(private contextMenuService: ContextMenuService,
-    private searchService: FullTextSearchService,
-    private router: Router,
-    @Optional() private dataService: BrowserDataBaseService) {
+              private searchService: FullTextSearchService,
+              private router: Router,
+              @Optional() private dataService: BrowserDataBaseService) {
   }
 
   ngOnInit() {

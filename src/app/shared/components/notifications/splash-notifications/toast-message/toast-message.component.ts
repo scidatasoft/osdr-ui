@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, NgZone, OnInit, Output} from '@angular/core';
-import {NotificationMessage} from '../../notifications.model';
+
 import {NotificationType} from '../../events.model';
+import {NotificationMessage} from '../../notifications.model';
 
 @Component({
   selector: 'dr-toast-message',
   templateUrl: './toast-message.component.html',
-  styleUrls: ['./toast-message.component.scss']
+  styleUrls: ['./toast-message.component.scss'],
 })
 export class ToastMessageComponent implements OnInit {
 
@@ -23,12 +24,12 @@ export class ToastMessageComponent implements OnInit {
             this.ngZone.run(
               () => {
                 this.onCloseToast();
-              }
+              },
             );
           },
-          3000
+          3000,
         );
-      }
+      },
     );
   }
 
