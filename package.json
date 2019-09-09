@@ -66,6 +66,7 @@
     "@angular/compiler-cli": "8.2.4",
     "@types/jasmine": "3.4.0",
     "@types/node": "10.12.18",
+    "@types/papaparse": "^5.0.1",
     "@types/selenium-webdriver": "3.0.14",
     "autoprefixer": "9.4.3",
     "babel-runtime": "6.26.0",
