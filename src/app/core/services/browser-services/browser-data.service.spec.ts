@@ -1,11 +1,11 @@
 import {TestBed, inject} from '@angular/core/testing';
-import {BrowserDataService} from './browser-data.service';
 
+import {BrowserDataService} from './browser-data.service';
 
 describe('BrowserDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BrowserDataService]
+      providers: [BrowserDataService],
     });
   });
 

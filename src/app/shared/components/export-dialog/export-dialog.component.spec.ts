@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { ExportDialogComponent } from './export-dialog.component';
 
@@ -8,7 +8,7 @@ describe('ExportDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExportDialogComponent ]
+      declarations: [ ExportDialogComponent ],
     })
     .compileComponents();
   }));

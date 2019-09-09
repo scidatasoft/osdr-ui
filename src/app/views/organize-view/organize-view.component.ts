@@ -1,48 +1,49 @@
 /* tslint:disable:no-access-missing-member */
 // TODO remove it after lint bug will fix
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { BrowserDataItem, BrowserOptions, NodeType } from 'app/shared/components/organize-browser/browser-types';
-import { Observable, Subscription } from 'rxjs';
-import { OrganizeBrowserComponent } from 'app/shared/components/organize-browser/organize-browser.component';
-import { SignalrService } from 'app/core/services/signalr/signalr.service';
-import { ToolbarButtonType } from 'app/shared/components/organize-toolbar/organize-toolbar.model';
-import { DeleteFolderComponent } from 'app/shared/components/folder-actions/delete-folder/delete-folder.component';
-import { MoveFolderComponent, MoveDialogType } from 'app/shared/components/folder-actions/move-folder/move-folder.component';
-import { ActionMenuItemData, ActionMenuItemsManager, ContextMenu } from './organize-view.model';
-import { AuthService } from 'app/core/services/auth/auth.service';
-import { ImportWebPageComponent } from 'app/shared/components/import-web-page/import-web-page.component';
-import { RenameFolderComponent } from 'app/shared/components/folder-actions/rename-folder/rename-folder.component';
-import { FoldersApiService } from 'app/core/services/api/folders-api.service';
-import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
-import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
-import { NodesApiService } from 'app/core/services/api/nodes-api.service';
-import { WebPagesApiService } from 'app/core/services/api/web-pages-api.service';
-import { NotificationsService } from 'app/core/services/notifications/notifications.service';
-import { NotificationItem, NotificationUploadMessage, NotificationMessage } from 'app/shared/components/notifications/notifications.model';
-import { NotificationUploadItemComponent } from 'app/shared/components/notifications/notifications-side-bar/notification-upload-item/notification-upload-item.component';
-import { NotificationType, SignalREvent } from 'app/shared/components/notifications/events.model';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
-import { BrowserDataService, IBrowserEvent } from 'app/core/services/browser-services/browser-data.service';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
+import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
+import { FoldersApiService } from 'app/core/services/api/folders-api.service';
+import { NodesApiService } from 'app/core/services/api/nodes-api.service';
+import { NotificationsApiService } from 'app/core/services/api/notifications-api.service';
+import { WebPagesApiService } from 'app/core/services/api/web-pages-api.service';
+import { AuthService } from 'app/core/services/auth/auth.service';
 import { BrowserDataBaseService, BrowserViewState } from 'app/core/services/browser-services/browser-data-base.service';
+import { BrowserDataService, IBrowserEvent } from 'app/core/services/browser-services/browser-data.service';
 import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
 import { IQuickFilter, QuickFilterService } from 'app/core/services/browser-services/quick-filter.service';
-import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
+import { NotificationsService } from 'app/core/services/notifications/notifications.service';
 import { PageTitleService } from 'app/core/services/page-title/page-title.service';
-import { NotificationsApiService } from 'app/core/services/api/notifications-api.service';
+import { SignalrService } from 'app/core/services/signalr/signalr.service';
+import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
+import { CreateFolderComponent } from 'app/shared/components/folder-actions/create-folder/create-folder.component';
+import { DeleteFolderComponent } from 'app/shared/components/folder-actions/delete-folder/delete-folder.component';
+import { MoveDialogType, MoveFolderComponent } from 'app/shared/components/folder-actions/move-folder/move-folder.component';
+import { RenameFolderComponent } from 'app/shared/components/folder-actions/rename-folder/rename-folder.component';
 // import { MachineLearningService } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.service';
 import { ActionViewService } from 'app/shared/components/full-screen-dialogs/action-view.service';
-import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
-import { CreateFolderComponent } from 'app/shared/components/folder-actions/create-folder/create-folder.component';
-import { environment } from 'environments/environment';
+import { ImportWebPageComponent } from 'app/shared/components/import-web-page/import-web-page.component';
+import { NotificationType, SignalREvent } from 'app/shared/components/notifications/events.model';
 import { NotificationCommonItemComponent } from 'app/shared/components/notifications/notifications-side-bar/notification-common-item/notification-common-item.component';
+import { NotificationUploadItemComponent } from 'app/shared/components/notifications/notifications-side-bar/notification-upload-item/notification-upload-item.component';
+import { NotificationItem, NotificationMessage, NotificationUploadMessage } from 'app/shared/components/notifications/notifications.model';
+import { BrowserDataItem, BrowserOptions, NodeType } from 'app/shared/components/organize-browser/browser-types';
+import { OrganizeBrowserComponent } from 'app/shared/components/organize-browser/organize-browser.component';
+import { ToolbarButtonType } from 'app/shared/components/organize-toolbar/organize-toolbar.model';
+import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
+import { environment } from 'environments/environment';
+import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
+import { Observable, Subscription } from 'rxjs';
+
+import { ActionMenuItemData, ActionMenuItemsManager, ContextMenu, ECurrentSidebar } from './organize-view.model';
 
 @Component({
   selector: 'dr-organize-view',
   templateUrl: './organize-view.component.html',
   styleUrls: ['./organize-view.component.scss'],
-  providers: [{ provide: BrowserDataBaseService, useClass: BrowserDataService }, PaginatorManagerService, QuickFilterService]
+  providers: [{ provide: BrowserDataBaseService, useClass: BrowserDataService }, PaginatorManagerService, QuickFilterService],
 })
 export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(OrganizeBrowserComponent, { static: false }) browser: OrganizeBrowserComponent;
@@ -62,15 +63,17 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
     ToolbarButtonType.addAction,
     ToolbarButtonType.uploadWebPage,
     // ToolbarButtonType.export,
-    ToolbarButtonType.createPublicLink
+    ToolbarButtonType.createPublicLink,
   ];
 
   folderContextMenuManager: ActionMenuItemsManager = new ActionMenuItemsManager();
+  disabledMenu = false;
+  currentSidebarType: any = ECurrentSidebar;
+
   private updateSubscription: Subscription;
   private browserEventSubscription: Subscription = null;
   private idUrlParameter: string;
   private routeEventsSubscription: Subscription;
-  disabledMenu = false;
 
   get currentView() {
     return localStorage.getItem('currentBrowserViewFor:nodes-view') || 'tile';
@@ -103,32 +106,32 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
     private quickFilter: QuickFilterService,
     private pageTitle: PageTitleService,
     private notificationsApi: NotificationsApiService,
-    private contextMenuService: ContextMenuService
+    private contextMenuService: ContextMenuService,
   ) {
     super(foldersApi, entitiesApi);
 
     // File folders context menu
     this.folderContextMenuManager.add(
-      new ActionMenuItemData(ContextMenu.CREATE, '/img/svg/imp/add-folder.svg', true, true, item => this.openCreateFolderDialog())
+      new ActionMenuItemData(ContextMenu.CREATE, '/img/svg/imp/add-folder.svg', true, true, item => this.openCreateFolderDialog()),
     );
 
     this.folderContextMenuManager.add(
       new ActionMenuItemData(ContextMenu.DELETE, '/img/svg/draft-menu/delete.svg', true, true, item => {
         this.openDeleteItemDialog();
-      })
+      }),
     );
 
     this.folderContextMenuManager.add(
       new ActionMenuItemData(ContextMenu.RENAME, '/img/svg/draft-menu/rename.svg', true, true, item => {
         // this.browser.editMode = true
         this.openRenameItemDialog();
-      })
+      }),
     );
 
     this.folderContextMenuManager.add(
       new ActionMenuItemData(ContextMenu.MOVE, '/img/svg/draft-menu/move.svg', true, true, item => {
         this.openMoveItemDialog();
-      })
+      }),
     );
 
     // const machineLearning = new ActionMenuItemData(ContextMenu.MACHINE_LEARNING, '/img/svg/ml.svg',
@@ -152,27 +155,27 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       new ActionMenuItemData(ContextMenu.DOWNLOAD, '/img/svg/material/ic_file_download_black_24px.svg', false, false, item => {
         const blobUrl = this.blobsApi.getBlobUrl(item ? item : this.dataService.getSelectedItems()[0], true);
         window.open(blobUrl, '_self');
-      })
+      }),
     );
 
     if (environment.capabilities.webPage) {
       this.folderContextMenuManager.add(
         new ActionMenuItemData(ContextMenu.UPLOAD_WEB_PAGE, '/img/svg/material/ic_pages_black_24px.svg', true, true, item => {
           this.openWebPageImportDialog();
-        })
+        }),
       );
     }
 
     this.folderContextMenuManager.add(
       new ActionMenuItemData(ContextMenu.UPLOAD, '/img/svg/material/ic_file_upload_black_24px.svg', true, true, item =>
-        this.fileInput.nativeElement.click()
-      )
+        this.fileInput.nativeElement.click(),
+      ),
     );
 
     this.folderContextMenuManager.add(
       new ActionMenuItemData(ContextMenu.ENTITY_LOCATION, '/img/svg/import.svg', true, true, item => {
         this.goToFileLocation(item);
-      })
+      }),
     );
 
     const exportFile = new ActionMenuItemData(ContextMenu.EXPORT, '/img/svg/draft-menu/export.svg', true, true, item => {
@@ -184,7 +187,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       }),
       new ActionMenuItemData(ContextMenu.EXPORT_TO_SDF, '/img/svg/material/ic_file_download_black_24px.svg', true, true, item => {
         this.openExportDialog('sdf');
-      })
+      }),
       // new ActionMenuItemData(ContextMenu.EXPORT_TO_SPL, '/img/svg/material/ic_file_download_black_24px.svg',
       //   true,
       //   true,
@@ -198,7 +201,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       '/img/svg/material/ic_link_black_24px.svg',
       true,
       true,
-      item => {}
+      item => {},
     );
     sharingSettings.subItems = [
       new ActionMenuItemData(ContextMenu.CREATE_PUBLIC_LINK, '/img/svg/material/ic_link_black_24px.svg', true, true, item => {
@@ -206,7 +209,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       }),
       new ActionMenuItemData(ContextMenu.CHANGE_SHARING_SETTINGS, '/img/svg/material/ic_link_black_24px.svg', true, true, item => {
         this.openSharedLinksDialog();
-      })
+      }),
     ];
     this.folderContextMenuManager.add(sharingSettings);
 
@@ -226,7 +229,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
 
       this.paginator.initPaginator(
         'pageNumber' in queryParam ? queryParam['pageNumber'] : null,
-        'pageSize' in queryParam ? queryParam['pageSize'] : null
+        'pageSize' in queryParam ? queryParam['pageSize'] : null,
       );
 
       // // Init filter side bar
@@ -307,15 +310,15 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
             {
               text: `FILTER: ${this.quickFilter.getFilterTitle(this.dataService.viewParams['$filter'])}`,
               width: null,
-              link: '/organize/drafts'
-            }
+              link: '/organize/drafts',
+            },
           ];
           this.activeToolbarButtons = [
             ToolbarButtonType.tile,
             ToolbarButtonType.table,
             ToolbarButtonType.subMenu,
             ToolbarButtonType.search,
-            ToolbarButtonType.export
+            ToolbarButtonType.export,
           ];
         } else if ('search' in this.dataService.viewParams) {
           this.folderContextMenuManager.filtered = true;
@@ -324,7 +327,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
             ToolbarButtonType.table,
             ToolbarButtonType.subMenu,
             ToolbarButtonType.search,
-            ToolbarButtonType.export
+            ToolbarButtonType.export,
           ];
 
           this.dataService.breadcrumbs = [
@@ -332,8 +335,8 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
             {
               text: `RESULT OF SEARCH: ${this.dataService.viewParams['search']}`,
               width: null,
-              link: '/organize/drafts'
-            }
+              link: '/organize/drafts',
+            },
           ];
 
           this.dataService.browserServiceState = BrowserViewState.searchResultBrowser;
@@ -348,7 +351,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
             ToolbarButtonType.upload,
             ToolbarButtonType.addAction,
             ToolbarButtonType.uploadWebPage,
-            ToolbarButtonType.export
+            ToolbarButtonType.export,
           ];
         }
         this.pageTitle.title = this.dataService.breadcrumbs.slice(-1)[0].text;
@@ -375,12 +378,12 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
 
   goToFileLocation(currentItem: BrowserDataItem) {
     let parentItem: BrowserDataItem;
-    this.nodesApi.getNode(currentItem.parentId).subscribe(x => {
+    this.nodesApi.getNode({ id: { id: currentItem.parentId } }).subscribe(x => {
       parentItem = new BrowserDataItem(x.body as BrowserDataItem);
       if (parentItem.isFolder() || parentItem.type === 'Model') {
         this.paginator.paging.current = 1;
         this.router.navigate([`organize/${parentItem.id}`], {
-          queryParams: { pageNumber: 1, pageSize: 20 }
+          queryParams: { pageNumber: 1, pageSize: 20 },
         });
       } else if (parentItem.getNodeType() === NodeType.Record) {
         this.router.navigate(['/record', parentItem.id]);
@@ -415,21 +418,21 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
   openExportDialog(fileType: string): void {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       width: '800px',
-      data: { fileType, selectedItems: this.dataService.selectedItems }
+      data: { fileType, selectedItems: this.dataService.selectedItems },
     });
   }
 
   openSharedLinksDialog(): void {
     const dialogRef = this.dialog.open(SharedLinksComponent, {
       width: '650px',
-      data: { fileInfo: this.dataService.selectedItems[0] }
+      data: { fileInfo: this.dataService.selectedItems[0] },
     });
   }
 
   openCreateFolderDialog(): void {
     const dialogRef = this.dialog.open(CreateFolderComponent, {
       width: '500px',
-      data: { parentItem: this.dataService.parentItem }
+      data: { parentItem: this.dataService.parentItem },
     });
     dialogRef.componentInstance.createFolderEvent.subscribe((name: string) => {
       this.onCreateFolder(name);
@@ -440,7 +443,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
   openDeleteItemDialog(): void {
     const dialogRef = this.dialog.open(DeleteFolderComponent, {
       width: '500px',
-      data: this.dataService.selectedItems
+      data: this.dataService.selectedItems,
     });
     dialogRef.componentInstance.deleteFolderEvent.subscribe(() => {
       this.onDeleteFolder();
@@ -456,8 +459,8 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
         movedItems: this.dataService.getSelectedItems(),
         options: this.getOptions(),
         submitButtonText: 'Move to this folder',
-        dialogType: MoveDialogType.FileManager
-      }
+        dialogType: MoveDialogType.FileManager,
+      },
     });
     dialogRef.componentInstance.moveFolderEvent.subscribe((e: { toFolder: BrowserDataItem; folder: BrowserDataItem }) => {
       this.moveFolderAction(e.folder, e.toFolder);
@@ -468,7 +471,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
   openRenameItemDialog(): void {
     const dialogRef = this.dialog.open(RenameFolderComponent, {
       width: '500px',
-      data: { fileInfo: this.dataService.selectedItems[0] }
+      data: { fileInfo: this.dataService.selectedItems[0] },
     });
     dialogRef.componentInstance.renameFolderEvent.subscribe((e: { item: BrowserDataItem; name: string }) => {
       this.renameFolderAction(e.item, e.name);
@@ -479,7 +482,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
   openWebPageImportDialog(): void {
     const dialogRef = this.dialog.open(ImportWebPageComponent, {
       width: '500px',
-      data: { fileInfo: this.dataService.selectedItems[0] }
+      data: { fileInfo: this.dataService.selectedItems[0] },
     });
     dialogRef.componentInstance.importPageEvent.subscribe((url: string) => {
       this.onImportPage(url);
@@ -530,7 +533,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       }
       const uploadTask: Observable<any> = this.blobsApi.uploadFiles(
         this.dataService.parentItem != null ? this.dataService.parentItem.id : null,
-        formData
+        formData,
       );
 
       const message = new NotificationUploadMessage();
@@ -562,13 +565,13 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
     if (item.isFolder()) {
       this.paginator.paging.current = 1;
       this.router.navigate([`organize/${item.id}`], {
-        queryParams: { pageNumber: 1 }
+        queryParams: { pageNumber: 1 },
       });
     } else if (item.getNodeType() === NodeType.Model) {
       this.paginator.paging.current = 1;
       // this.router.navigate(['/model', item.id]);
       this.router.navigate([`model/${item.id}`], {
-        queryParams: { pageNumber: 1 }
+        queryParams: { pageNumber: 1 },
       });
     } else {
       if (item.getNodeType() === NodeType.Record) {
@@ -619,7 +622,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       // Optional - if unspecified, all context menu components will open
       contextMenu: this.defaultContextMenu,
       event: <any>$event,
-      item: item
+      item: item,
     });
     this.dataService.clearSelection();
     $event.preventDefault();
@@ -643,9 +646,9 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
     if (filterParams.isFilterSet && filterParams.filterValue !== 'all') {
       this.router.navigate(['./'], {
         queryParams: {
-          $filter: this.quickFilter.getFilterByKey(filterParams.filterValue)
+          $filter: this.quickFilter.getFilterByKey(filterParams.filterValue),
         },
-        relativeTo: this.activatedRoute
+        relativeTo: this.activatedRoute,
       });
     } else {
       this.dataService.clearSelection();
@@ -656,7 +659,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
   onBrowseSearchResult(data: { [x: string]: any }) {
     this.router.navigate(['./'], {
       queryParams: { search: data['searchString'] },
-      relativeTo: this.activatedRoute
+      relativeTo: this.activatedRoute,
     });
   }
 }

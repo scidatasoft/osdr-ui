@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { Fingerprint } from 'app/shared/components/fingerprints/fingerprints.component';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FingerprintsService {
 

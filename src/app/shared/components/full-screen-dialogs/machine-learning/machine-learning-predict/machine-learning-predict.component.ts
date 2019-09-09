@@ -1,25 +1,25 @@
-import { Component, OnInit, OnDestroy, ViewChild, Injector, HostListener } from '@angular/core';
-import { MoveFolderComponent, MoveDialogType } from 'app/shared/components/folder-actions/move-folder/move-folder.component';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
-import { Subject, Observable, Subscription, merge, of } from 'rxjs';
-import { MachineLearningApiService } from 'app/core/services/api/machine-learning-api.service';
-import { AuthService } from 'app/core/services/auth/auth.service';
-import { SignalREvent } from 'app/shared/components/notifications/events.model';
-import { SignalrService } from 'app/core/services/signalr/signalr.service';
-import { ValidateFolderName } from 'app/core/services/validation/validation.service';
-import { ActionViewService } from 'app/shared/components/full-screen-dialogs/action-view.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, HostListener, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+import { MachineLearningApiService } from 'app/core/services/api/machine-learning-api.service';
 import { UsersApiService } from 'app/core/services/api/users-api.service';
-import { SelectionModel } from '@angular/cdk/collections';
+import { AuthService } from 'app/core/services/auth/auth.service';
+import { SignalrService } from 'app/core/services/signalr/signalr.service';
+import { ValidateFolderName } from 'app/core/services/validation/validation.service';
+import { MoveDialogType, MoveFolderComponent } from 'app/shared/components/folder-actions/move-folder/move-folder.component';
+import { ActionViewService } from 'app/shared/components/full-screen-dialogs/action-view.service';
+import { SignalREvent } from 'app/shared/components/notifications/events.model';
+import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
+import { Observable, Subject, Subscription, merge, of } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'dr-machine-learning-predict',
   templateUrl: './machine-learning-predict.component.html',
-  styleUrls: ['./machine-learning-predict.component.scss']
+  styleUrls: ['./machine-learning-predict.component.scss'],
 })
 export class MachineLearningPredictComponent implements OnInit, OnDestroy {
 
@@ -51,7 +51,7 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
     { key: 'K-Fold', value: null },
     { key: 'Scaler', value: null },
     { key: 'Sub Sample Size', value: null },
-    { key: 'Dataset Size', value: null }
+    { key: 'Dataset Size', value: null },
   ];
   fingerprintsList: any[] = [];
 
@@ -79,7 +79,7 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private injector: Injector,
     private actionViewService: ActionViewService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.currentItem = this.injector.get('selectedItems');
     this.parentItem = this.injector.get('parentItem');
@@ -115,7 +115,7 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
               { key: 'K-Fold', value: model['kFold'] },
               { key: 'Scaler', value: model['scaler'] },
               { key: 'Sub Sample Size', value: model['subSampleSize'] },
-              { key: 'Dataset Size', value: model['testDatasetSize'] }
+              { key: 'Dataset Size', value: model['testDatasetSize'] },
             ];
             if (model && model.hasOwnProperty('fingerprints')) {
               this.fingerprintsList = [];
@@ -124,8 +124,8 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
               });
             }
           }
-        }
-      )
+        },
+      ),
     );
   }
   ngOnDestroy(): void {
@@ -147,7 +147,7 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
           return this.mlApi.getModelListWithFilter(
             filter,
             this.paginator.pageIndex + 1,
-            this.paginator.pageSize ? this.paginator.pageSize : 5
+            this.paginator.pageSize ? this.paginator.pageSize : 5,
           );
         }),
         map(data => {
@@ -163,7 +163,7 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
           this.isLoadingResults = false;
           this.isRateLimitReached = true;
           return of([]);
-        })
+        }),
       ).subscribe(data => {
         this.data = data;
         this.dataSource = new MatTableDataSource(this.data);
@@ -183,7 +183,6 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
       // sourceFile: [{ value: this.currentItem.name, disabled: true }, Validators.required],
     });
   }
-
 
   onSubmit(): void {
     const data = {
@@ -207,8 +206,8 @@ export class MachineLearningPredictComponent implements OnInit, OnDestroy {
         options: this.options,
         submitButtonText: 'Select folder',
         dialogType: MoveDialogType.FolderPicker,
-        viewInit: this.viewInit
-      }
+        viewInit: this.viewInit,
+      },
     });
     dialogRef.componentInstance.moveFolderEvent.subscribe((e: { toFolder: BrowserDataItem, folder: BrowserDataItem }) => {
       this.selectedFolder = e.toFolder;

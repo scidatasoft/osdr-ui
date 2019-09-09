@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { NodesApiService } from '../api/nodes-api.service';
 import { Observable, of } from 'rxjs';
+import { catchError, flatMap, map } from 'rxjs/operators';
+
 import { BrowserDataItem } from '../../../shared/components/organize-browser/browser-types';
-import { flatMap, map, catchError } from 'rxjs/operators';
+import { NodesApiService } from '../api/nodes-api.service';
 
 @Injectable()
 export class SharingParentResolverService implements Resolve<boolean> {
@@ -12,7 +13,7 @@ export class SharingParentResolverService implements Resolve<boolean> {
   }
 
   resolve(route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+          state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.nodesApi.getRawNode(route.params['id']).pipe(
       flatMap(
         (item: BrowserDataItem) => {
@@ -25,21 +26,21 @@ export class SharingParentResolverService implements Resolve<boolean> {
                 },
                 error => {
                   return false;
-                }
+                },
               ), catchError(
                 (error) => {
                   return of(false);
-                }
+                },
               ));
             } else {
               return of(false);
             }
-          }
+          },
       ), catchError(
         (error) => {
           return of(false);
-        }
-      )
+        },
+      ),
     );
   }
 }

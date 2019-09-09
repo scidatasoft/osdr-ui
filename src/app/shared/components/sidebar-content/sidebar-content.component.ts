@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+
 import { SidebarContentService } from './sidebar-content.service';
 
 @Component({
   selector: 'dr-sidebar-content',
   templateUrl: './sidebar-content.component.html',
-  styleUrls: ['./sidebar-content.component.scss']
+  styleUrls: ['./sidebar-content.component.scss'],
 })
 export class SidebarContentComponent implements OnInit {
 

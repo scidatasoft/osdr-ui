@@ -1,6 +1,6 @@
-import { Observable, Subject } from 'rxjs';
-import { FoldersApiService } from 'app/core/services/api/folders-api.service';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
+import { FoldersApiService } from 'app/core/services/api/folders-api.service';
+import { Observable, Subject } from 'rxjs';
 
 export enum NodeType {
   User,
@@ -133,6 +133,12 @@ export class BrowserDataItem {
     return this.images && this.images.length > 0;
   }
 
+  constructor(parameter?: BrowserDataItem) {
+    if (parameter) {
+      Object.assign(this, parameter);
+    }
+  }
+
   getNodeType(): NodeType {
     if (this.type === NodeType[NodeType.Folder]) {
       return NodeType.Folder;
@@ -173,10 +179,6 @@ export class BrowserDataItem {
       }
     }
     return this.name;
-  }
-
-  private convertStringToDate(stringDate: string) {
-    return new Date(stringDate);
   }
 
   Created() {
@@ -255,10 +257,8 @@ export class BrowserDataItem {
     // }
   }
 
-  constructor(parameter?: BrowserDataItem) {
-    if (parameter) {
-      Object.assign(this, parameter);
-    }
+  private convertStringToDate(stringDate: string) {
+    return new Date(stringDate);
   }
 }
 

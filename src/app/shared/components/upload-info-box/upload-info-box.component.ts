@@ -1,12 +1,13 @@
-import {Component, OnInit, Input, NgZone} from '@angular/core';
-import {UploadInfoBoxElement} from './upload-info-box.model';
-import {Observable} from 'rxjs';
+import {Component, Input, NgZone, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+
+import {UploadInfoBoxElement} from './upload-info-box.model';
 
 @Component({
   selector: 'dr-upload-info-box',
   templateUrl: './upload-info-box.component.html',
-  styleUrls: ['./upload-info-box.component.scss']
+  styleUrls: ['./upload-info-box.component.scss'],
 })
 export class UploadInfoBoxComponent implements OnInit {
 

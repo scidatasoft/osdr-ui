@@ -1,11 +1,11 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { FilterField } from 'app/shared/components/filter-bar/filter-bar.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { FilterField } from 'app/shared/components/filter-bar/filter-bar.model';
 
 @Component({
   selector: 'dr-filter-bar',
   templateUrl: './filter-bar.component.html',
-  styleUrls: ['./filter-bar.component.scss']
+  styleUrls: ['./filter-bar.component.scss'],
 })
 
 export class FilterBarComponent implements OnInit {

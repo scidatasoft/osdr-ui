@@ -5,7 +5,7 @@ import { FullTextSearchService } from './full-text-search.service';
 describe('FullTextSearchService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FullTextSearchService]
+      providers: [FullTextSearchService],
     });
   });
 

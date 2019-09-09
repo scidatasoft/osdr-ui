@@ -1,10 +1,10 @@
-import { Injectable, NgZone } from '@angular/core';
-import { User, UserManager } from 'oidc-client';
-import { environment } from 'environments/environment';
-import { Subject, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { Injectable, NgZone } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'environments/environment';
+import { User, UserManager } from 'oidc-client';
+import { Subject, from } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 // Log.logger = console;
 // Log.level = Log.DEBUG;
@@ -29,7 +29,7 @@ export class AuthService {
 
     monitorSession: true,
     filterProtocolClaims: true,
-    loadUserInfo: true
+    loadUserInfo: true,
   };
 
   notificationTokenExpiring: Subject<any> = new Subject();
@@ -75,7 +75,7 @@ export class AuthService {
         error => {
           console.log('signinSilent error - ', error);
           this.startSignin();
-        }
+        },
       )
       .catch(error => {
         console.log('signinSilent error - ', error);
@@ -98,7 +98,7 @@ export class AuthService {
             } else {
               this.createUserProfile(user.profile);
             }
-          }
+          },
         );
       }
       this.user.profile = this.jwtHelper.decodeToken(user.access_token);
@@ -130,7 +130,7 @@ export class AuthService {
           .catch(function(err) {
             console.log(err);
             return null;
-          })
+          }),
       ).pipe(
         map(user => {
           if (user) {
@@ -138,7 +138,7 @@ export class AuthService {
             this.user.profile = user.profile;
             return user;
           }
-        })
+        }),
       );
     });
   }
@@ -197,13 +197,13 @@ export class AuthService {
       FirstName: userProfile.given_name || '',
       Email: userProfile.email || '',
       Avatar: '',
-      LoginName: userProfile.preferred_username
+      LoginName: userProfile.preferred_username,
     };
     this.http.put(url, profileObject).subscribe(
       (response: Response) => {},
       error => {
         console.log(error);
-      }
+      },
     );
   }
 }

@@ -1,28 +1,28 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-// own resources
-import { PredictionModelData, ModelProperty, MLModel, PredictionResult } from './prediction.model';
+import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { MLModel, ModelProperty, PredictionModelData, PredictionResult } from './prediction.model';
 
 @Injectable()
 export class SinglePredictionService {
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getModels(): Observable<PredictionModelData[]> {
     const url = `${environment.apiUrl}/entities/models/public?$filter=Targets eq 'SSP'&PageNumber=1&PageSize=200`;
     return this.http.get<PredictionModelData[]>(url);
   }
 
-  predictProperties(data: { property: ModelProperty, model: MLModel[], smiles: string }): Observable<any> {
+  predictProperties(data: { property: ModelProperty; model: MLModel[]; smiles: string }): Observable<any> {
     const predictSettings = {
-      PropertyName: data.property.propertyName, Structure: data.smiles, Format: 'SMILES', ModelIds: data.model.map(item => item.id)
+      PropertyName: data.property.propertyName,
+      Structure: data.smiles,
+      Format: 'SMILES',
+      ModelIds: data.model.map(item => item.id),
     };
-    return this.http.post(environment.apiUrl + '/MachineLearning/predictions/structure', predictSettings);
+    return this.http.post(`${environment.apiUrl}/MachineLearning/predictions/structure`, predictSettings);
   }
 
   getPredictionResult(predictionId: string): Observable<PredictionResult> {
@@ -39,10 +39,11 @@ export class SinglePredictionService {
         'smart-layout': true,
         'ignore-stereochemistry-errors': true,
         'mass-skip-error-on-pseudoatoms': false,
-        'gross-formula-add-rsites': true}
-      };
-    return this.http.post<{format: string, struct: string}>(url, structureToSend)
-      .pipe(map((item: {format: string, struct: string}) => item.struct));
+        'gross-formula-add-rsites': true,
+      },
+    };
+    return this.http
+      .post<{ format: string; struct: string }>(url, structureToSend)
+      .pipe(map((item: { format: string; struct: string }) => item.struct));
   }
-
 }

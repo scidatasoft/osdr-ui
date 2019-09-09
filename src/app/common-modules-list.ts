@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 export const CommonModulesList = [
   CommonModule,
@@ -10,5 +10,5 @@ export const CommonModulesList = [
   FormsModule,
   ReactiveFormsModule,
   HttpClientModule,
-  MatButtonModule
+  MatButtonModule,
 ];

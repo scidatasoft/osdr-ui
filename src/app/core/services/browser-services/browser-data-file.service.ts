@@ -1,18 +1,18 @@
 import {Injectable, NgZone} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {BrowserDataItem, FileType} from 'app/shared/components/organize-browser/browser-types';
 import {Observable} from 'rxjs';
 
-// Own resources
-import {BrowserDataItem, FileType} from 'app/shared/components/organize-browser/browser-types';
-import {BrowserDataService} from './browser-data.service';
-import {NodesApiService} from '../api/nodes-api.service';
+import {FilesApiService} from '../api/files-api.service';
 import {FoldersApiService} from '../api/folders-api.service';
+import {NodesApiService} from '../api/nodes-api.service';
+import {SearchResultsApiService} from '../api/search-results-api.service';
+import {UsersApiService} from '../api/users-api.service';
 import {AuthService} from '../auth/auth.service';
 import {SignalrService} from '../signalr/signalr.service';
+
+import {BrowserDataService} from './browser-data.service';
 import {PaginatorManagerService} from './paginator-manager.service';
-import {FilesApiService} from '../api/files-api.service';
-import {UsersApiService} from '../api/users-api.service';
-import {SearchResultsApiService} from '../api/search-results-api.service';
 
 @Injectable()
 export class BrowserDataFileService extends BrowserDataService {
@@ -78,7 +78,7 @@ export class BrowserDataFileService extends BrowserDataService {
       breadcrumbs.push({
         text: this.currentItem.name,
         width: null,
-        link: `/organize/${this.currentItem.id}`
+        link: `/organize/${this.currentItem.id}`,
       });
       this.breadcrumbs = breadcrumbs;
     } else {

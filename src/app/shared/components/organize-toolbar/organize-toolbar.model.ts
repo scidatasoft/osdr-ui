@@ -11,5 +11,5 @@ export enum ToolbarButtonType {
   MLModelWizard,
   addAction,
   uploadWebPage,
-  createPublicLink
+  createPublicLink,
 }

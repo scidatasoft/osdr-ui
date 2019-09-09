@@ -1,14 +1,15 @@
-import { Component, NgZone, OnInit, OnDestroy, Optional, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { environment } from '../../../../environments/environment';
+import { NodesApiService } from '../../../core/services/api/nodes-api.service';
 import { UsersApiService } from '../../../core/services/api/users-api.service';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { BrowserDataBaseService } from '../../../core/services/browser-services/browser-data-base.service';
+import { IQuickFilter, QuickFilterService } from '../../../core/services/browser-services/quick-filter.service';
 import { SignalrService } from '../../../core/services/signalr/signalr.service';
 import { NodeEvent, SignalREvent } from '../../../shared/components/notifications/events.model';
-import { Subscription } from 'rxjs';
 import { SidebarContentService } from '../../../shared/components/sidebar-content/sidebar-content.service';
-import { IQuickFilter, QuickFilterService } from '../../../core/services/browser-services/quick-filter.service';
-import { NodesApiService } from '../../../core/services/api/nodes-api.service';
-import { BrowserDataBaseService } from '../../../core/services/browser-services/browser-data-base.service';
-import { environment } from '../../../../environments/environment';
 
 interface ICounter {
   name: string;
@@ -155,7 +156,7 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
       state = true;
 
       this.ngZone.runOutsideAngular(() => {
-        setTimeout(function () {
+        setTimeout(function() {
           state = null;
         }, ms);
       });

@@ -1,18 +1,19 @@
 import { Component, Input, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BrowserDataItem, BrowserOptions, NodeType, BrowserData, FileType } from './browser-types';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActionMenuItemsManager } from 'app/views/organize-view/organize-view.model';
-import { ToolbarButtonType } from '../organize-toolbar/organize-toolbar.model';
-import { Subscription } from 'rxjs';
 import { ImagesApiService } from 'app/core/services/api/images-api.service';
+import { AuthService } from 'app/core/services/auth/auth.service';
 import { BrowserDataBaseService } from 'app/core/services/browser-services/browser-data-base.service';
 import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
-import { BasePreview } from '../file-views/preview-container.model';
 import { SignalrService } from 'app/core/services/signalr/signalr.service';
-import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { NodeEvent } from 'app/shared/components/notifications/events.model';
-import { AuthService } from 'app/core/services/auth/auth.service';
+import { ActionMenuItemsManager } from 'app/views/organize-view/organize-view.model';
+import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
+import { Subscription } from 'rxjs';
 
+import { BasePreview } from '../file-views/preview-container.model';
+import { ToolbarButtonType } from '../organize-toolbar/organize-toolbar.model';
+
+import { BrowserData, BrowserDataItem, BrowserOptions, FileType, NodeType } from './browser-types';
 
 @Component({
   selector: 'dr-organize-browser',
@@ -41,10 +42,6 @@ export class OrganizeBrowserComponent extends BasePreview implements OnInit, OnD
   private selectionChangeSubscription: Subscription;
   private signalRSubscription: Subscription = null;
 
-  getActiveButtons(): ToolbarButtonType[] {
-    return this.activeToolbarButtons;
-  }
-
   get isFileView() {
     if (
       location.pathname.toLowerCase().startsWith('/file') ||
@@ -56,14 +53,18 @@ export class OrganizeBrowserComponent extends BasePreview implements OnInit, OnD
     }
   }
   constructor(private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private contextMenuService: ContextMenuService,
-    private imagesApi: ImagesApiService,
-    public dataService: BrowserDataBaseService,
-    public paginator: PaginatorManagerService,
-    private auth: AuthService,
-    private signalr: SignalrService) {
+              private activatedRoute: ActivatedRoute,
+              private contextMenuService: ContextMenuService,
+              private imagesApi: ImagesApiService,
+              public dataService: BrowserDataBaseService,
+              public paginator: PaginatorManagerService,
+              private auth: AuthService,
+              private signalr: SignalrService) {
     super();
+  }
+
+  getActiveButtons(): ToolbarButtonType[] {
+    return this.activeToolbarButtons;
   }
 
   ngOnInit() {

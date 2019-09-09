@@ -1,6 +1,7 @@
 /* tslint:disable:no-access-missing-member */
 // TODO remove it after lint bug will fix
-import { Component, Injector, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
+
 import { BasicOrganizeInfoBoxComponent } from '../basic-organize-info-box/basic-organize-info-box.component';
 
 @Component({

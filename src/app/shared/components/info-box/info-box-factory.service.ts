@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+
 import { CommonOrganizeInfoBoxComponent } from './common-organize-info-box/common-organize-info-box.component';
 import { CvspOrganizeInfoBoxComponent } from './cvsp-organize-info-box/cvsp-organize-info-box.component';
-
 
 @Injectable()
 export class InfoBoxFactoryService {

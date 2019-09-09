@@ -1,13 +1,13 @@
 // temporary feature. will be removed
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import {
-  Directive, ElementRef, Input, OnInit,  Renderer2, EventEmitter, Output, AfterContentInit
+  AfterContentInit, Directive, ElementRef, EventEmitter,  Input, OnInit, Output, Renderer2,
 } from '@angular/core';
 import { of } from 'rxjs';
-import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: 'img'
+  selector: 'img',
 })
 export class InlineSvgDirective implements OnInit, AfterContentInit {
   static cache = {};
@@ -16,8 +16,8 @@ export class InlineSvgDirective implements OnInit, AfterContentInit {
   @Output() loadPreview = new EventEmitter<any>();
 
   constructor(private el: ElementRef,
-    private renderer: Renderer2,
-    private http: HttpClient) {
+              private renderer: Renderer2,
+              private http: HttpClient) {
 
   }
 

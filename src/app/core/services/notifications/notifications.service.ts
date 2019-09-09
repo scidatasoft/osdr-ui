@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { NotificationAction, NotificationMessage, NotificationItem } from 'app/shared/components/notifications/notifications.model';
+import { NodeEvent, SignalREvent } from 'app/shared/components/notifications/events.model';
 import {
-  NotificationCommonItemComponent
+  NotificationCommonItemComponent,
 } from 'app/shared/components/notifications/notifications-side-bar/notification-common-item/notification-common-item.component';
-import { SignalREvent, NodeEvent } from 'app/shared/components/notifications/events.model';
 import {
-  NotificationExportItemComponent
+  NotificationExportItemComponent,
 } from 'app/shared/components/notifications/notifications-side-bar/notification-export-item/notification-export-item.component';
+import { NotificationAction, NotificationItem, NotificationMessage } from 'app/shared/components/notifications/notifications.model';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class NotificationsService {
@@ -16,15 +16,15 @@ export class NotificationsService {
   notificationsList: NotificationItem[] = [];
   private _isNotificationBarActive = false;
 
-  constructor() {
-  }
-
   get isNotificationBarActive(): boolean {
     return this._isNotificationBarActive;
   }
 
   set isNotificationBarActive(value: boolean) {
     this._isNotificationBarActive = value;
+  }
+
+  constructor() {
   }
 
   organizeUpdateEvent(event: SignalREvent) {
@@ -48,10 +48,6 @@ export class NotificationsService {
     }
   }
 
-  private sendNotificationEvent(action: NotificationAction, item: NotificationItem) {
-    this.notificationEvent.next({ action, item });
-  }
-
   showToastNotification(item: NotificationItem, changeCounterBadge = true) {
     if (changeCounterBadge) {
       this.addNotification(item);
@@ -64,11 +60,6 @@ export class NotificationsService {
 
   showNotificationBar() {
     this.sendNotificationEvent(NotificationAction.ShowBar, null);
-  }
-
-  private addNotification(item: NotificationItem) {
-    this.notificationsList.unshift(item);
-    this.sendNotificationEvent(NotificationAction.AddNotification, item);
   }
 
   loadPersistentNotificationsList(): NotificationItem[] {
@@ -158,5 +149,14 @@ export class NotificationsService {
         i.componentData = item.componentData;
       }
     }
+  }
+
+  private sendNotificationEvent(action: NotificationAction, item: NotificationItem) {
+    this.notificationEvent.next({ action, item });
+  }
+
+  private addNotification(item: NotificationItem) {
+    this.notificationsList.unshift(item);
+    this.sendNotificationEvent(NotificationAction.AddNotification, item);
   }
 }

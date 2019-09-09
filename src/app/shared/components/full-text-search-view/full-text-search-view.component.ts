@@ -1,16 +1,17 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FullTextSearchService } from 'app/core/services/search/full-text-search.service';
-import { Subscription ,  Observable } from 'rxjs';
-import { ItemImagePreviewService } from 'app/core/services/item-preview-image-service/item-image-preview.service';
-import { BrowserDataItem, NodeType } from 'app/shared/components/organize-browser/browser-types';
-import { NodesApiService } from '../../../core/services/api/nodes-api.service';
 import { AuthService } from 'app/core/services/auth/auth.service';
+import { ItemImagePreviewService } from 'app/core/services/item-preview-image-service/item-image-preview.service';
+import { FullTextSearchService } from 'app/core/services/search/full-text-search.service';
+import { BrowserDataItem, NodeType } from 'app/shared/components/organize-browser/browser-types';
+import { Observable ,  Subscription } from 'rxjs';
+
+import { NodesApiService } from '../../../core/services/api/nodes-api.service';
 
 @Component({
   selector: 'dr-full-text-search-view',
   templateUrl: './full-text-search-view.component.html',
   styleUrls: ['./full-text-search-view.component.scss'],
-  providers: [ItemImagePreviewService]
+  providers: [ItemImagePreviewService],
 })
 export class FullTextSearchViewComponent implements OnInit, OnDestroy {
 
@@ -23,14 +24,14 @@ export class FullTextSearchViewComponent implements OnInit, OnDestroy {
   searchItemLocation: string;
 
   constructor(private searchService: FullTextSearchService,
-    private imageService: ItemImagePreviewService,
-    private nodeService: NodesApiService) { }
+              private imageService: ItemImagePreviewService,
+              private nodeService: NodesApiService) { }
 
   ngOnInit() {
     this.searchEventSubscription = this.searchService.searchEvent.subscribe(
       (searchDataResponse: { link: string, object: BrowserDataItem, parentItem: any }[]) => {
         this.openDropDownSearchResult(searchDataResponse);
-      }
+      },
     );
   }
 

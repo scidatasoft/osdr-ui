@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
 @Component({
   selector: 'dr-text-response',
   templateUrl: './text-response.component.html',
-  styleUrls: ['./text-response.component.scss']
+  styleUrls: ['./text-response.component.scss'],
 })
 export class TextResponseComponent implements AfterViewInit {
   @Input() screenPartMetaData: any;

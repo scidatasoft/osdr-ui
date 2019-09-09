@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { NotificationItemFactoryComponent } from './notification-item-factory.component';
 
@@ -8,7 +8,7 @@ describe('NotificationItemFactoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotificationItemFactoryComponent ]
+      declarations: [ NotificationItemFactoryComponent ],
     })
     .compileComponents();
   }));

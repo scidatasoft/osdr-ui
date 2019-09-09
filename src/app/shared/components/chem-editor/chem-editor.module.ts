@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
-import { ChemEditorComponent } from './chem-editor.component';
-import { SharedModule } from '../../shared.module';
 import { ModalModule } from 'ngx-bootstrap';
+
+import { SharedModule } from '../../shared.module';
+
+import { ChemEditorComponent } from './chem-editor.component';
 
 @NgModule({
   imports: [SharedModule, ModalModule],
   exports: [ChemEditorComponent],
   declarations: [ChemEditorComponent],
-  providers: []
+  providers: [],
 })
 export class ChemEditorModule {}

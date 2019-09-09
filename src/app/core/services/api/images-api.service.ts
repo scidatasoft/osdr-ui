@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-
-// Own resources
-import { AuthService } from '../auth/auth.service';
-import { environment } from 'environments/environment';
 import {BrowserDataItem, ImageInfo, NodeType} from 'app/shared/components/organize-browser/browser-types';
+import { environment } from 'environments/environment';
 
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class ImagesApiService {

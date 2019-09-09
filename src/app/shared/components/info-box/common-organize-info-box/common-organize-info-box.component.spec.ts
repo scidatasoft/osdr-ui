@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {CommonOrganizeInfoBoxComponent} from './common-organize-info-box.component';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
+import {CommonOrganizeInfoBoxComponent} from './common-organize-info-box.component';
 
 describe('CommonInputComponent', () => {
   let component: CommonOrganizeInfoBoxComponent;
@@ -8,7 +8,7 @@ describe('CommonInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommonOrganizeInfoBoxComponent ]
+      declarations: [ CommonOrganizeInfoBoxComponent ],
     })
     .compileComponents();
   }));

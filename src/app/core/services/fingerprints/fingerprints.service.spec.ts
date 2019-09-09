@@ -5,7 +5,7 @@ import { FingerprintsService } from './fingerprints.service';
 describe('FingerprintsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FingerprintsService]
+      providers: [FingerprintsService],
     });
   });
 

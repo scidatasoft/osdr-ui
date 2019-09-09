@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {BasicOrganizeInfoBoxComponent} from './basic-organize-info-box.component';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
+import {BasicOrganizeInfoBoxComponent} from './basic-organize-info-box.component';
 
 describe('BasicInputComponent', () => {
   let component: BasicOrganizeInfoBoxComponent;
@@ -8,7 +8,7 @@ describe('BasicInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BasicOrganizeInfoBoxComponent ]
+      declarations: [ BasicOrganizeInfoBoxComponent ],
     })
     .compileComponents();
   }));

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { SingleStructurePredictionComponent } from './single-structure-prediction.component';
 
@@ -8,7 +8,7 @@ describe('SingleStructurePredictionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SingleStructurePredictionComponent ]
+      declarations: [ SingleStructurePredictionComponent ],
     })
     .compileComponents();
   }));

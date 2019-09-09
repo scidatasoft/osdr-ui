@@ -1,12 +1,13 @@
 /* tslint:disable:no-access-missing-member */
 // TODO remove it after lint bug will fix
 import { Component, Injector, ViewChild } from '@angular/core';
+
 import { BasicOrganizeInfoBoxComponent } from '../basic-organize-info-box/basic-organize-info-box.component';
 
 @Component({
   selector: 'dr-cvsp-organize-info-box',
   templateUrl: './cvsp-organize-info-box.component.html',
-  styleUrls: ['./cvsp-organize-info-box.component.scss']
+  styleUrls: ['./cvsp-organize-info-box.component.scss'],
 })
 export class CvspOrganizeInfoBoxComponent extends BasicOrganizeInfoBoxComponent {
 

@@ -1,20 +1,21 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PropertyType } from 'app/views/organize-view/organize-view.model';
-import { FilterField } from 'app/shared/components/filter-bar/filter-bar.model';
-import { Stepper } from './dataset-stepper.model';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { BrowserOptions, BrowserData } from '../organize-browser/browser-types';
+import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { FilesApiService } from 'app/core/services/api/files-api.service';
 import { FoldersApiService } from 'app/core/services/api/folders-api.service';
-import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
+import { FilterField } from 'app/shared/components/filter-bar/filter-bar.model';
+import { PropertyType } from 'app/views/organize-view/organize-view.model';
+import { Observable } from 'rxjs';
 
+import { BrowserData, BrowserOptions } from '../organize-browser/browser-types';
+
+import { Stepper } from './dataset-stepper.model';
 
 @Component({
   selector: 'dr-dataset-stepper',
   templateUrl: 'dataset-stepper.component.html',
-  styleUrls: ['dataset-stepper.component.scss']
+  styleUrls: ['dataset-stepper.component.scss'],
 })
 export class DatasetStepperComponent extends BrowserOptions implements OnInit {
 
@@ -22,7 +23,6 @@ export class DatasetStepperComponent extends BrowserOptions implements OnInit {
 
   currentStep: Stepper = Stepper.step1;
   stepper = Stepper;
-
 
   propertyListOfFile: PropertyType[] = [];
   propertyListOfFileChanged: { property: PropertyType, newName: string, mapValue: string }[] = [];
@@ -43,9 +43,8 @@ export class DatasetStepperComponent extends BrowserOptions implements OnInit {
     { id: 4, name: 'InChIKey' },
     { id: 5, name: 'SMILES' },
     { id: 6, name: 'Property value' },
-    { id: 7, name: 'Property binary value' }
+    { id: 7, name: 'Property binary value' },
   ];
-
 
   constructor(
     private filesApi: FilesApiService,
@@ -80,7 +79,7 @@ export class DatasetStepperComponent extends BrowserOptions implements OnInit {
     this.propertyChangeNameFG_S1 = new FormGroup({});
     this.propertyMapFG_S2 = new FormGroup({});
     this.propertySaveFG_S3 = new FormGroup({
-      fileName: new FormControl(null, Validators.required, this.forbiddenFileName.bind(this))
+      fileName: new FormControl(null, Validators.required, this.forbiddenFileName.bind(this)),
     });
 
     // Get file id
@@ -139,8 +138,8 @@ export class DatasetStepperComponent extends BrowserOptions implements OnInit {
           {
             property: property,
             newName: this.propertyChangeNameFG_S1.value[property.getKey()],
-            mapValue: ''
-          }
+            mapValue: '',
+          },
         );
       } else {
         element.newName = this.propertyChangeNameFG_S1.value[property.getKey()];
@@ -188,9 +187,9 @@ export class DatasetStepperComponent extends BrowserOptions implements OnInit {
           },
           error => {
             resolve({ fileExists: true });
-          }
+          },
         );
-      }
+      },
     );
   }
 
@@ -226,7 +225,7 @@ export class DatasetStepperComponent extends BrowserOptions implements OnInit {
       error => {
         this.errorDataSend = true;
         console.log(error);
-      }
+      },
     );
   }
 

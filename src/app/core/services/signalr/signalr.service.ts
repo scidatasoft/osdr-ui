@@ -1,15 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
-import { Observable ,  Subject ,  Subscription, of, from } from 'rxjs';
-import { environment } from 'environments/environment';
-import { AuthService } from '../auth/auth.service';
 import { SignalREvent } from 'app/shared/components/notifications/events.model';
-import { NotificationsService } from '../notifications/notifications.service';
+import { environment } from 'environments/environment';
+import { Observable ,  Subject ,  Subscription, from, of } from 'rxjs';
 
+import { AuthService } from '../auth/auth.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class SignalrService {
-  static wasInit = false;
   private organizeUpdateSubject: Subject<any> = new Subject();
   organizeUpdate: Observable<any> = this.organizeUpdateSubject.asObservable();
 
@@ -33,6 +32,7 @@ export class SignalrService {
   }
 
   connection: any;
+  static wasInit = false;
 
   constructor(private auth: AuthService, public ngZone: NgZone, private notification: NotificationsService) {
     if (!this.subscription) {
@@ -66,7 +66,7 @@ export class SignalrService {
       };
 
       const organizeHubProxy = new signalR.HubConnectionBuilder()
-        .withUrl(environment.signalrUrl, { accessTokenFactory: () => user.access_token }) 
+        .withUrl(environment.signalrUrl, { accessTokenFactory: () => user.access_token })
         .configureLogging(signalR.LogLevel.Warning)
         .build();
 
@@ -128,14 +128,6 @@ export class SignalrService {
     }
   }
 
-  private checkConnection(user) {
-    console.log('change signalR token');
-    const $ = (window as any).$;
-    $.signalR.ajaxDefaults.headers = {
-      Authorization: user.token_type + ' ' + user.access_token,
-    };
-  }
-
   manualReconnect() {
     if (!SignalrService.wasInit && this.connection) {
       // this.configure(this.auth.user);
@@ -150,5 +142,13 @@ export class SignalrService {
     } else {
       return of(user);
     }
+  }
+
+  private checkConnection(user) {
+    console.log('change signalR token');
+    const $ = (window as any).$;
+    $.signalR.ajaxDefaults.headers = {
+      Authorization: user.token_type + ' ' + user.access_token,
+    };
   }
 }

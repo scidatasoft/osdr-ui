@@ -1,21 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FeaturesService } from '../features.service';
-import { ComputationStatus } from '../features.model';
-import { interval } from '../../../../../node_modules/rxjs';
-import { takeUntil, flatMap } from '../../../../../node_modules/rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import * as Papa from 'papaparse';
-import { Subject } from '../../../../../node_modules/rxjs';
+import { Subject, interval } from 'rxjs';
+import { flatMap, takeUntil } from 'rxjs/operators';
+
 import { MatStepper } from '../../../../../node_modules/@angular/material';
 import { FingerprintsComponent, Origin } from '../../../shared/components/fingerprints/fingerprints.component';
-import { FormGroup } from '@angular/forms';
+import { ComputationStatus } from '../features.model';
+import { FeaturesService } from '../features.service';
 
 @Component({
   selector: 'dr-features-computation',
   templateUrl: './features-computation.component.html',
-  styleUrls: ['./features-computation.component.scss']
+  styleUrls: ['./features-computation.component.scss'],
 })
 export class FeaturesComputationComponent implements OnInit {
-
   @ViewChild('stepper', { static: true }) stepper: MatStepper;
   @ViewChild('fileInput', { static: false }) fileInput: HTMLInputElement;
   @ViewChild(FingerprintsComponent, { static: true }) fingerprints: FingerprintsComponent;
@@ -43,30 +42,28 @@ export class FeaturesComputationComponent implements OnInit {
   fileSize: string | number = null;
   dataArrayFromFile: any = [];
 
-  constructor(
-    private featuresService: FeaturesService,
-  ) { }
+  constructor(private featuresService: FeaturesService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  onFileDrop(e): void {
+  onFileDrop(e: { dataTransfer: { files: File[] } }): void {
     if (['cif', 'sdf'].indexOf(this.getFileExtension(e.dataTransfer.files[0].name)) >= 0) {
       this.fileItem = e.dataTransfer.files[0];
       this.fileExtension = this.getFileExtension(this.fileItem.name);
       this.fileSize = this.formatBytes(this.fileItem.size, 0, true);
-      this.fileItem.size > 10485760 ? this.fileIsToBig = true : this.fileIsToBig = false;
+      this.fileItem.size > 10485760 ? (this.fileIsToBig = true) : (this.fileIsToBig = false);
       this.isWrongExtension = false;
     } else {
       this.isWrongExtension = true;
     }
   }
 
-  onFileChange(e): void {
+  onFileChange(e: { target: { files: File[] } }): void {
     if (['cif', 'sdf'].indexOf(this.getFileExtension((e.target.files[0] as File).name)) >= 0) {
       this.fileItem = e.target.files[0] as File;
       this.fileExtension = this.getFileExtension(this.fileItem.name);
       this.fileSize = this.formatBytes(this.fileItem.size, 0, true);
-      this.fileItem.size > 10485760 ? this.fileIsToBig = true : this.fileIsToBig = false;
+      this.fileItem.size > 10485760 ? (this.fileIsToBig = true) : (this.fileIsToBig = false);
       this.isWrongExtension = false;
     } else {
       this.isWrongExtension = true;
@@ -110,51 +107,62 @@ export class FeaturesComputationComponent implements OnInit {
   }
 
   getFileStatus(): void {
-    interval(2000).pipe(
-      flatMap(() => this.featuresService.getFeaturesComputationStatus(this.fileProcessingGuid)),
-      takeUntil(this.pollingFinished$)
-    ).subscribe(data => {
-      if (!data) { return; }
-      const status = data.status;
-      switch (status) {
-        case 200:
-          this.renderCSV();
-          this.status = ComputationStatus.SUCCESS;
-          this.fileData = data.body;
-          this.pollingFinished$.next(ComputationStatus.SUCCESS);
-          // file is ready to be downloaded / displayed
-          break;
-        case 202:
-          this.status = ComputationStatus.PROCESSING;
-          // file is still processing
-          break;
-        default:
-          break;
-      }
-    }, error => {
-      switch (error.status) {
-        case 400:
-          this.status = ComputationStatus.FAILED;
-          this.errorMessage = error.error;
-          this.pollingFinished$.next(ComputationStatus.FAILED);
-          break;
-        case 404:
-          this.status = ComputationStatus.ABSENT;
-          this.pollingFinished$.next(ComputationStatus.ABSENT);
-          break;
-        default:
-          break;
-      }
-    });
+    interval(2000)
+      .pipe(
+        flatMap(() => this.featuresService.getFeaturesComputationStatus(this.fileProcessingGuid)),
+        takeUntil(this.pollingFinished$),
+      )
+      .subscribe(
+        data => {
+          if (!data) {
+            return;
+          }
+          const status = data.status;
+          switch (status) {
+            case 200:
+              this.renderCSV();
+              this.status = ComputationStatus.SUCCESS;
+              this.fileData = data.body;
+              this.pollingFinished$.next(ComputationStatus.SUCCESS);
+              // file is ready to be downloaded / displayed
+              break;
+            case 202:
+              this.status = ComputationStatus.PROCESSING;
+              // file is still processing
+              break;
+            default:
+              break;
+          }
+        },
+        error => {
+          switch (error.status) {
+            case 400:
+              this.status = ComputationStatus.FAILED;
+              this.errorMessage = error.error;
+              this.pollingFinished$.next(ComputationStatus.FAILED);
+              break;
+            case 404:
+              this.status = ComputationStatus.ABSENT;
+              this.pollingFinished$.next(ComputationStatus.ABSENT);
+              break;
+            default:
+              break;
+          }
+        },
+      );
   }
 
   renderCSV(): void {
-    const blobUrl = this.featuresService
-      .getFeaturesComputationPreview(this.fileProcessingGuid, this.rowToStart, this.numRows, this.numColumns);
+    const blobUrl = this.featuresService.getFeaturesComputationPreview(
+      this.fileProcessingGuid,
+      this.rowToStart,
+      this.numRows,
+      this.numColumns,
+    );
     // const blobUrl = 'api/classic_ML.csv';
     Papa.parse(blobUrl, {
       download: true,
-      complete: (results) => {
+      complete: (results: { data: any }) => {
         this.status = ComputationStatus.RENDERING;
         this.dataArrayFromFile = results.data;
         for (const i in this.dataArrayFromFile) {
@@ -163,7 +171,7 @@ export class FeaturesComputationComponent implements OnInit {
           }
         }
         this.status = ComputationStatus.RENDERED;
-      }
+      },
     });
   }
 
@@ -194,15 +202,19 @@ export class FeaturesComputationComponent implements OnInit {
     this.stepper.reset();
   }
 
-  formatBytes(bytes, decimals, index?) {
-    if (bytes === 0) { return 0; }
+  formatBytes(bytes: number, decimals: number, index?: boolean) {
+    if (bytes === 0) {
+      return 0;
+    }
     const k = 1024;
     const dm = decimals <= 0 ? 0 : decimals || 2;
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     // with index - KB, MB, GB etc...
     // return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-    if (index) { return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]; }
+    if (index) {
+      return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+    }
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
   }
 }

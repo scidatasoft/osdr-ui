@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { SignalrService } from 'app/core/services/signalr/signalr.service';
 import { Subscription } from 'rxjs';
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'dr-properties-editor',
   templateUrl: './properties-editor.component.html',
-  styleUrls: ['./properties-editor.component.scss']
+  styleUrls: ['./properties-editor.component.scss'],
 })
 export class PropertiesEditorComponent implements OnInit, OnDestroy {
   screen: any;
@@ -20,7 +20,7 @@ export class PropertiesEditorComponent implements OnInit, OnDestroy {
     private entitiesApi: EntitiesApiService,
     private signalr: SignalrService,
     public dialogRef: MatDialogRef<PropertiesEditorComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit() {

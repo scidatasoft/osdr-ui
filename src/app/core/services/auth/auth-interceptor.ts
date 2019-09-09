@@ -1,10 +1,12 @@
+import { HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpEventType } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
 import { User } from 'oidc-client';
-import { SignalrService } from '../signalr/signalr.service';
+import { Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
+
+import { SignalrService } from '../signalr/signalr.service';
+
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -17,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
         flatMap(userOidc => {
           const signalR: SignalrService = this.injector.get(SignalrService);
           return signalR.manualReconnectAsObservable(userOidc);
-        })
+        }),
       )
       .pipe(
         flatMap<User, Observable<any>>(user => {
@@ -27,11 +29,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
           const request = req.clone({
             setHeaders: {
-              Authorization: `Bearer ${user.access_token}`
-            }
+              Authorization: `Bearer ${user.access_token}`,
+            },
           });
           return next.handle(request);
-        })
+        }),
       );
   }
 }

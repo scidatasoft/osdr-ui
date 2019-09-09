@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { NotificationsSideBarComponent } from './notifications-side-bar.component';
 
@@ -8,7 +8,7 @@ describe('NotificationsSideBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotificationsSideBarComponent ]
+      declarations: [ NotificationsSideBarComponent ],
     })
     .compileComponents();
   }));

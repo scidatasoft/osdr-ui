@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { OrganizeBrowserComponent } from './organize-browser.component';
 
@@ -8,7 +8,7 @@ describe('OrganizeBrowserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrganizeBrowserComponent ]
+      declarations: [ OrganizeBrowserComponent ],
     })
     .compileComponents();
   }));

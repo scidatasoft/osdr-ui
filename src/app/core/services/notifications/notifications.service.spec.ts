@@ -5,7 +5,7 @@ import { NotificationsService } from './notifications.service';
 describe('NotificationsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NotificationsService]
+      providers: [NotificationsService],
     });
   });
 

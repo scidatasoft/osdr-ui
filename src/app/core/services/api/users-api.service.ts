@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { UserPublicInformation } from 'app/shared/components/organize-browser/browser-types';
+import { environment } from 'environments/environment';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -16,10 +16,9 @@ export class UsersApiService {
       map(
       (x) => {
         return JSON.parse(decodeURIComponent(x.headers.get('x-pagination')));
-      }
+      },
     ));
   }
-
 
   getUserInfo(userId: string): Observable<UserPublicInformation> {
     if (this.requests[userId]) {
@@ -29,7 +28,7 @@ export class UsersApiService {
         .pipe(
           map(x => {
           return this.requests[userId] = x;
-        })
+        }),
       );
     }
   }

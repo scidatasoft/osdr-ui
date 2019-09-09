@@ -5,7 +5,7 @@ import { PaginatorManagerService } from './paginator-manager.service';
 describe('PaginatorManagerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PaginatorManagerService]
+      providers: [PaginatorManagerService],
     });
   });
 

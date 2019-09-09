@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '../../../../node_modules/@angular/common/http';
 import { environment } from 'environments/environment';
-import { map, catchError } from '../../../../node_modules/rxjs/operators';
+
+import { HttpClient, HttpErrorResponse } from '../../../../node_modules/@angular/common/http';
 import { Observable, throwError } from '../../../../node_modules/rxjs';
+import { catchError, map } from '../../../../node_modules/rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FeaturesService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -34,8 +34,7 @@ export class FeaturesService {
       }
     }
     // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError('Something bad happened; please try again later.');
   }
 
   /**
@@ -45,12 +44,12 @@ export class FeaturesService {
    *
    ** 202 Accepted - Requests successfully accepted and GUID assigned to the calculation process generated.
    ** 400 Bad Request - File size is too big or other validation errors.
- */
+   */
 
-  uploadFeaturesComputationSDF(formData): Observable<any> {
+  uploadFeaturesComputationSDF(formData: FormData): Observable<any> {
     return this.http
-      .post(environment.apiUrl + '/machinelearning/features', formData, { observe: 'response' })
-      .pipe(map((response => response)));
+      .post(`${environment.apiUrl}/machinelearning/features`, formData, { observe: 'response' })
+      .pipe(map(response => response));
   }
 
   /**
@@ -67,11 +66,8 @@ export class FeaturesService {
 
   getFeaturesComputationStatus(processingGuid: string): Observable<any> {
     return this.http
-      .get(environment.apiUrl + '/machinelearning/features/' + processingGuid + '/status', { observe: 'response' })
-      .pipe(
-        map((response => response),
-          catchError(err => this.handleError(err))
-        ));
+      .get(`${environment.apiUrl}/machinelearning/features/${processingGuid}/status`, { observe: 'response' })
+      .pipe(map(response => response, catchError(err => this.handleError(err))));
   }
 
   /**
@@ -79,9 +75,9 @@ export class FeaturesService {
    *
    * Retrieves FILE with results of Features computation.
    *
-      ** "rowToStart" - indicates from which row should we start showing CSV preview
-      ** "numRows" - indicates number of rows to retrieve for CSV preview
-      ** "numColumns" - inidcates number of columns to retrive for CSV preview
+   ** "rowToStart" - indicates from which row should we start showing CSV preview
+   ** "numRows" - indicates number of rows to retrieve for CSV preview
+   ** "numColumns" - inidcates number of columns to retrive for CSV preview
    *
    * Returns file or status:
    ** 200 - if result file is ready

@@ -1,7 +1,7 @@
-import {Directive, Input, ElementRef, Renderer2, OnInit, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
 
 @Directive({
-  selector: '[drFocus]'
+  selector: '[drFocus]',
 })
 export class FocusDirective implements OnInit, AfterViewInit {
 

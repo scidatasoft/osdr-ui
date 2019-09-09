@@ -1,19 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-// Own resources
-import { AuthService } from '../auth/auth.service';
-import { environment } from 'environments/environment';
-import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
+import { Injectable } from '@angular/core';
 import { NotificationExportMessage } from 'app/shared/components/notifications/notifications.model';
+import { BrowserDataItem } from 'app/shared/components/organize-browser/browser-types';
+import { environment } from 'environments/environment';
 
-
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class BlobsApiService {
-
-  constructor(private auth: AuthService, private http: HttpClient) {
-  }
+  constructor(private auth: AuthService, private http: HttpClient) {}
 
   getBlobUrl(fileInfo: BrowserDataItem, download?: boolean): string {
     if (fileInfo && fileInfo.blob) {
@@ -21,9 +16,11 @@ export class BlobsApiService {
       if (download && download === true) {
         contentDisposition = `content-disposition=attachment`;
       }
-      const type = fileInfo.type + 's';
+      const type = `${fileInfo.type}s`;
 
-      const url = `${environment.apiUrl}/entities/${type.toLocaleLowerCase()}/${fileInfo.id}/blobs/${fileInfo.blob.id}?${contentDisposition}`;
+      const url = `${environment.apiUrl}/entities/${type.toLocaleLowerCase()}/${fileInfo.id}/blobs/${
+        fileInfo.blob.id
+      }?${contentDisposition}`;
       if (this.auth.user && this.auth.user.access_token) {
         return `${url}${contentDisposition.length > 0 ? '&' : ''}access_token=${this.auth.user.access_token}`;
       } else {
@@ -50,10 +47,10 @@ export class BlobsApiService {
   }
 
   uploadFiles(folderId: string, formData: FormData) {
-    return this.http.post(environment.blobStorageApiUrl + '/blobs/' + this.auth.user.profile.sub, formData);
+    return this.http.post(`${environment.blobStorageApiUrl}/blobs/${this.auth.user.profile.sub}`, formData);
   }
 
-  getOfficeFileUrlOld(fileInfo: { pdf: { bucket: any; blobId: any; }; }, download?: boolean): string {
+  getOfficeFileUrlOld(fileInfo: { pdf: { bucket: any; blobId: any } }, download?: boolean): string {
     if (fileInfo && fileInfo.pdf) {
       const tokenParameter = `/?access_token=${this.auth.user.access_token}`;
 
@@ -79,6 +76,6 @@ export class BlobsApiService {
   }
 
   getInfo(bucket: any, blobId: any) {
-    return this.http.get(environment.blobStorageApiUrl + `/blobs/${bucket}/${blobId}/info`);
+    return this.http.get(`${environment.blobStorageApiUrl}/blobs/${bucket}/${blobId}/info`);
   }
 }

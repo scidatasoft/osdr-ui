@@ -1,20 +1,21 @@
-import { AuthService } from '../auth/auth.service';
-import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
-import { BrowserDataItem, NodeType } from 'app/shared/components/organize-browser/browser-types';
-import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { NodesApiService } from './nodes-api.service';
+import { Injectable } from '@angular/core';
+import { BrowserDataItem, NodeType } from 'app/shared/components/organize-browser/browser-types';
+import { environment } from 'environments/environment';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { AuthService } from '../auth/auth.service';
+
+import { NodesApiService } from './nodes-api.service';
 
 @Injectable()
 export class SearchResultsApiService {
 
   parentItem = of('DRAFTS');
   constructor(public http: HttpClient,
-    public auth: AuthService,
-    private nodesApi: NodesApiService) {
+              public auth: AuthService,
+              private nodesApi: NodesApiService) {
   }
 
   getSearchResult(query, pageSize = 10): Observable<{ link: string, object: BrowserDataItem, parentItem: Observable<any> }[]> {
@@ -35,7 +36,7 @@ export class SearchResultsApiService {
             preparedItems.push(lastItem);
           }
           return preparedItems;
-        }
+        },
       ));
   }
 
@@ -67,7 +68,7 @@ export class SearchResultsApiService {
           }));
         }
         return { link: link + newElement.id, object: newElement, parentItem: this.parentItem };
-      }
+      },
     );
   }
 
@@ -85,9 +86,9 @@ export class SearchResultsApiService {
                   }
                   return newItem;
                 }),
-              page: JSON.parse(dataOutput.headers.get('x-pagination'))
+              page: JSON.parse(dataOutput.headers.get('x-pagination')),
             }
-          )
+          ),
       ));
   }
 }

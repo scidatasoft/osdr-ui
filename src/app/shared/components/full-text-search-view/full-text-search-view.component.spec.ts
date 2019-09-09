@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { FullTextSearchViewComponent } from './full-text-search-view.component';
 
@@ -8,7 +8,7 @@ describe('FullTextSearchViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FullTextSearchViewComponent ]
+      declarations: [ FullTextSearchViewComponent ],
     })
     .compileComponents();
   }));

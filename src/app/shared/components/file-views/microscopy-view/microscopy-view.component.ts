@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
-import { BrowserDataItem } from '../../organize-browser/browser-types';
-import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
-import { InfoBoxFactoryService } from '../../info-box/info-box-factory.service';
-import { PropertiesInfoBoxComponent } from '../../properties-info-box/properties-info-box.component';
+import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
 import { throwError } from 'rxjs';
+
+import { InfoBoxFactoryService } from '../../info-box/info-box-factory.service';
+import { BrowserDataItem } from '../../organize-browser/browser-types';
+import { PropertiesInfoBoxComponent } from '../../properties-info-box/properties-info-box.component';
 class MicroscopyInfoBox {
   name: string;
   img: string;
@@ -19,7 +20,7 @@ interface MetadataProperties {
 @Component({
   selector: 'dr-microscopy-view',
   templateUrl: './microscopy-view.component.html',
-  styleUrls: ['./microscopy-view.component.scss']
+  styleUrls: ['./microscopy-view.component.scss'],
 })
 export class MicroscopyViewComponent implements OnInit {
   @Input() fileItem: BrowserDataItem = null;

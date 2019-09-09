@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from 'app/core/services/auth/auth-guard.service';
 import { AuthProfileGuard } from 'app/core/services/auth/auth-profile-guard.guard';
-import { CapabilitiesGuard } from './core/services/guards/capabilities.guard';
 import { environment } from 'environments/environment';
+
+import { CapabilitiesGuard } from './core/services/guards/capabilities.guard';
 import { LabwizComponent } from './views/labwiz/labwiz.component.';
 
 const routes: Routes = [

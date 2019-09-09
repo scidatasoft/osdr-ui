@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FilterField } from 'app/shared/components/filter-bar/filter-bar.model';
 
 @Pipe({
-  name: 'filterBarPipe'
+  name: 'filterBarPipe',
 })
 export class FilterBarPipePipe implements PipeTransform {
 

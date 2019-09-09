@@ -1,11 +1,12 @@
+import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { NotificationsService } from '../notifications/notifications.service';
+import { NotificationType } from 'app/shared/components/notifications/events.model';
 import { NotificationItem, NotificationMessage } from 'app/shared/components/notifications/notifications.model';
 import { environment } from 'environments/environment';
-import { NotificationType } from 'app/shared/components/notifications/events.model';
-import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {

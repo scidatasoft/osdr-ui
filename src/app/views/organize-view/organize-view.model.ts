@@ -1,9 +1,9 @@
+import { MatMenu } from '@angular/material/menu';
 import {
   BrowserDataItem,
   NodeType,
   SubType,
 } from 'app/shared/components/organize-browser/browser-types';
-import { MatMenu } from '@angular/material/menu';
 import { environment } from 'environments/environment';
 
 export class PropertyType {
@@ -59,6 +59,21 @@ export class ActionMenuItemData {
 
   click: (item: any) => void;
 
+  constructor(
+    html: string,
+    img: string,
+    enabled: boolean,
+    visible: boolean,
+    click: (item: any) => void,
+  ) {
+    this.name = html;
+    this.htmlTemplate = html;
+    this.imagePath = img;
+    this.enabled = enabled;
+    this.visible = visible;
+    this.click = click;
+  }
+
   html(_item: any): string {
     return this.htmlTemplate;
   }
@@ -77,21 +92,6 @@ export class ActionMenuItemData {
 
   isVisible(_item: any): boolean {
     return this.visible;
-  }
-
-  constructor(
-    html: string,
-    img: string,
-    enabled: boolean,
-    visible: boolean,
-    click: (item: any) => void,
-  ) {
-    this.name = html;
-    this.htmlTemplate = html;
-    this.imagePath = img;
-    this.enabled = enabled;
-    this.visible = visible;
-    this.click = click;
   }
 }
 
@@ -121,9 +121,6 @@ export class AddMenuItemsManager extends BaseMenuItemsManager {
 }
 
 export class ActionMenuItemsManager extends BaseMenuItemsManager {
-  public static SOURCE_TOOLBAR = 0;
-  public static SOURCE_FILE_BROWSER = 1;
-  public static SOURCE_WHITE_AREA = 2;
   private _filtered = false;
 
   get filtered(): boolean {
@@ -133,6 +130,9 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
   set filtered(value: boolean) {
     this._filtered = value;
   }
+  public static SOURCE_TOOLBAR = 0;
+  public static SOURCE_FILE_BROWSER = 1;
+  public static SOURCE_WHITE_AREA = 2;
 
   changeItemsAccessibility(actionSource: number) {
     for (const menuItem of this.contextMenuFolderActions) {
@@ -847,6 +847,25 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
     return true;
   }
 
+  supportedExtensionItem(): boolean {
+    return this.selectedItem.every(
+      item =>
+        item.getFileExtension() === 'mol' ||
+        item.getFileExtension() === 'cdx' ||
+        item.getFileExtension() === 'sdf',
+    );
+  }
+
+  selectedItemExtension() {
+    return this.selectedItem[0].getFileExtension();
+  }
+
+  isShared() {
+    return this.selectedItem.some(
+      x => x.accessPermissions && x.accessPermissions.isPublic,
+    );
+  }
+
   private isSDF(): boolean {
     let selectionSimilar = true;
     if (this.selectedItem.length === 0) {
@@ -874,23 +893,9 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
     }
     return selectionSimilar;
   }
+}
 
-  supportedExtensionItem(): boolean {
-    return this.selectedItem.every(
-      item =>
-        item.getFileExtension() === 'mol' ||
-        item.getFileExtension() === 'cdx' ||
-        item.getFileExtension() === 'sdf',
-    );
-  }
-
-  selectedItemExtension() {
-    return this.selectedItem[0].getFileExtension();
-  }
-
-  isShared() {
-    return this.selectedItem.some(
-      x => x.accessPermissions && x.accessPermissions.isPublic,
-    );
-  }
+export enum ECurrentSidebar {
+  FILTERS,
+  CATEGORIES,
 }

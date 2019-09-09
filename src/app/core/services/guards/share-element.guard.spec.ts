@@ -5,7 +5,7 @@ import { ShareElementGuard } from './share-element.guard';
 describe('ShareElementGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ShareElementGuard]
+      providers: [ShareElementGuard],
     });
   });
 
