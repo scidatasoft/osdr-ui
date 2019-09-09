@@ -220,7 +220,7 @@ export class MoveFolderComponent implements OnInit {
     this.selectedFolder = null;
     // this.modalRef = this.modalService.show(this.moveFolderModal);
 
-    this.nodesApi.getNode({ id: { id: this.startFolder.id } }).pipe(
+    this.nodesApi.getNode(this.startFolder.id).pipe(
       map(
         (x) => {
           return {

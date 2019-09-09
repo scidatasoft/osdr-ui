@@ -378,7 +378,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
 
   goToFileLocation(currentItem: BrowserDataItem) {
     let parentItem: BrowserDataItem;
-    this.nodesApi.getNode({ id: { id: currentItem.parentId } }).subscribe(x => {
+    this.nodesApi.getNode(currentItem.parentId).subscribe(x => {
       parentItem = new BrowserDataItem(x.body as BrowserDataItem);
       if (parentItem.isFolder() || parentItem.type === 'Model') {
         this.paginator.paging.current = 1;

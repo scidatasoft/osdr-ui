@@ -1,4 +1,3 @@
-
 import { Injectable, NgZone } from '@angular/core';
 import { Params, Router, convertToParamMap } from '@angular/router';
 import { NodeEvent, SignalREvent, SignalREventPermissionChanged } from 'app/shared/components/notifications/events.model';
@@ -23,34 +22,36 @@ export interface IBrowserEvent {
 
 @Injectable()
 export class BrowserDataService extends BrowserDataBaseService {
-
   private browserUpdateSubscription: Subscription = null;
 
-  constructor(protected nodesApi: NodesApiService,
-              protected foldersApi: FoldersApiService,
-              protected auth: AuthService,
-              protected router: Router,
-              protected signalr: SignalrService,
-              protected ngZone: NgZone,
-              public paginator: PaginatorManagerService,
-              protected usersApi: UsersApiService,
-              protected searchResultsApi: SearchResultsApiService) {
+  constructor(
+    protected nodesApi: NodesApiService,
+    protected foldersApi: FoldersApiService,
+    protected auth: AuthService,
+    protected router: Router,
+    protected signalr: SignalrService,
+    protected ngZone: NgZone,
+    public paginator: PaginatorManagerService,
+    protected usersApi: UsersApiService,
+    protected searchResultsApi: SearchResultsApiService,
+  ) {
     super();
   }
 
   subscribeToEvents() {
-    this.browserUpdateSubscription = this.signalr.organizeUpdate.pipe(
-      observeOn(asapScheduler),
-      catchError(
-        (error) => {
+    this.browserUpdateSubscription = this.signalr.organizeUpdate
+      .pipe(
+        observeOn(asapScheduler),
+        catchError(error => {
           console.log(error);
           throw EMPTY;
-        },
-      )).subscribe(
+        }),
+      )
+      .subscribe(
         (signalRData: SignalREvent) => {
           this.updateItem(signalRData);
         },
-        (error) => {
+        error => {
           console.log('Error ', error);
         },
         () => {
@@ -66,22 +67,23 @@ export class BrowserDataService extends BrowserDataBaseService {
   }
 
   setActiveNode(id: string = null): Observable<BrowserDataItem> {
-    const ownId = (id === null ? this.auth.user.profile.sub : id);
-    return this.nodesApi.getNode({ id: { id: ownId } }).pipe(map(
-      (item: any) => {
+    const ownId = id === null ? this.auth.user.profile.sub : id;
+    return this.nodesApi.getNode(ownId).pipe(
+      map((item: any) => {
         this.currentItem = new BrowserDataItem(item.body);
         if (this.currentItem.ownedBy) {
           this.currentItem.userInfo = this.usersApi.getUserInfo(this.currentItem.ownedBy);
         }
-        if ((this.auth.user
-          && this.auth.user.profile
-          && (this.auth.user.profile.sub === this.currentItem.ownedBy ||
-            this.auth.user.profile.sub === ownId))) {
+        if (
+          this.auth.user &&
+          this.auth.user.profile &&
+          (this.auth.user.profile.sub === this.currentItem.ownedBy || this.auth.user.profile.sub === ownId)
+        ) {
           this.nodesApi.setCurrentNodeWithoutBreadCrumbs(ownId).subscribe();
         }
         return this.currentItem;
-      },
-    ));
+      }),
+    );
   }
 
   getBreadCrumbs(): { text: string; link: string }[] {
@@ -89,11 +91,11 @@ export class BrowserDataService extends BrowserDataBaseService {
   }
 
   initBreadCrumbs(id: string = null): Observable<any> {
-    return this.nodesApi.getBreadCrumbs(id).pipe(map(
-      (data) => {
+    return this.nodesApi.getBreadCrumbs(id).pipe(
+      map(data => {
         this.generateBreadCrumbs(data);
-      },
-    ));
+      }),
+    );
   }
 
   setViewParams(viewParams: Params) {
@@ -113,29 +115,38 @@ export class BrowserDataService extends BrowserDataBaseService {
       this.browserLoading = true;
 
       if (mergedParams['search']) {
-        this.getSearchData(mergedParams).subscribe(data => {
-          this.data = data;
-          this.paginator.setPaginatorData(data.count);
-          this.browserLoading = false;
-        }, (error) => {
-          this.browserLoading = false;
-        });
+        this.getSearchData(mergedParams).subscribe(
+          data => {
+            this.data = data;
+            this.paginator.setPaginatorData(data.count);
+            this.browserLoading = false;
+          },
+          error => {
+            this.browserLoading = false;
+          },
+        );
       } else if (mergedParams['$filter']) {
-        this.getFilteredItems(mergedParams).subscribe(data => {
-          this.data = data;
-          this.paginator.setPaginatorData(data.count);
-          this.browserLoading = false;
-        }, (error) => {
-          this.browserLoading = false;
-        });
+        this.getFilteredItems(mergedParams).subscribe(
+          data => {
+            this.data = data;
+            this.paginator.setPaginatorData(data.count);
+            this.browserLoading = false;
+          },
+          error => {
+            this.browserLoading = false;
+          },
+        );
       } else {
-        this.getItems(mergedParams, this.currentItem.type).subscribe(data => {
-          this.data = data;
-          this.paginator.setPaginatorData(data.count);
-          this.browserLoading = false;
-        }, (error) => {
-          this.browserLoading = false;
-        });
+        this.getItems(mergedParams, this.currentItem.type).subscribe(
+          data => {
+            this.data = data;
+            this.paginator.setPaginatorData(data.count);
+            this.browserLoading = false;
+          },
+          error => {
+            this.browserLoading = false;
+          },
+        );
       }
     }
   }
@@ -176,54 +187,43 @@ export class BrowserDataService extends BrowserDataBaseService {
         this.paginator.paging.itemsCount--;
       }
     } else if (inputEvent.isRenameAddAction()) {
-      this.ngZone.runOutsideAngular(
-        () => {
-          this.getItem(inputEvent.Id).subscribe(
-            (itemDataInfo: BrowserDataItem) => {
-              itemDataInfo.userInfo = this.usersApi.getUserInfo(itemDataInfo.ownedBy);
-              // console.log(itemDataInfo);
+      this.ngZone.runOutsideAngular(() => {
+        this.getItem(inputEvent.Id).subscribe(
+          (itemDataInfo: BrowserDataItem) => {
+            itemDataInfo.userInfo = this.usersApi.getUserInfo(itemDataInfo.ownedBy);
+            // console.log(itemDataInfo);
 
-              if (inputEvent.getNodeEvent() === NodeEvent.FileCreated
-                || inputEvent.getNodeEvent() === NodeEvent.FolderCreated) {
-                this.ngZone.run(
-                  () => {
-                    if (this.data.count === 0) {
-                      this.data.count++;
-                    }
-                    this.paginator.paging.itemsCount++;
-                  },
-                );
-              }
-              const { inList, updatedItem } = this.getLocalItemByID(inputEvent.Id);
-
-              if (inList && (<any>itemDataInfo).parentId === this.parentItem.id) {
-                this.ngZone.run(
-                  () => {
-                    this.data.items[this.data.items.indexOf(updatedItem)] = itemDataInfo;
-                  },
-                );
-                if (this.isItemSelected(updatedItem)) {
-                  this.ngZone.run(
-                    () => {
-                      this.removeItemFromSelections(updatedItem);
-                      this.addItemToSelections(itemDataInfo);
-                    },
-                  );
+            if (inputEvent.getNodeEvent() === NodeEvent.FileCreated || inputEvent.getNodeEvent() === NodeEvent.FolderCreated) {
+              this.ngZone.run(() => {
+                if (this.data.count === 0) {
+                  this.data.count++;
                 }
-              } else if (this.parentItem && !inList && updatedItem == null && (<any>itemDataInfo).parentId === this.parentItem.id) {
-                this.ngZone.run(
-                  () => {
-                    this.data.items.push(itemDataInfo);
-                  },
-                );
-              }
+                this.paginator.paging.itemsCount++;
+              });
             }
-            , (error) => {
-              console.log(error);
-            },
-          );
-        },
-      );
+            const { inList, updatedItem } = this.getLocalItemByID(inputEvent.Id);
+
+            if (inList && (<any>itemDataInfo).parentId === this.parentItem.id) {
+              this.ngZone.run(() => {
+                this.data.items[this.data.items.indexOf(updatedItem)] = itemDataInfo;
+              });
+              if (this.isItemSelected(updatedItem)) {
+                this.ngZone.run(() => {
+                  this.removeItemFromSelections(updatedItem);
+                  this.addItemToSelections(itemDataInfo);
+                });
+              }
+            } else if (this.parentItem && !inList && updatedItem == null && (<any>itemDataInfo).parentId === this.parentItem.id) {
+              this.ngZone.run(() => {
+                this.data.items.push(itemDataInfo);
+              });
+            }
+          },
+          error => {
+            console.log(error);
+          },
+        );
+      });
     } else if (inputEvent.EventName === 'PermissionsChanged') {
       const permissionEvent = inputEvent.EventData as SignalREventPermissionChanged;
       const { updatedItem } = this.getLocalItemByID(inputEvent.Id);
@@ -240,33 +240,29 @@ export class BrowserDataService extends BrowserDataBaseService {
   }
 
   getItems(params: Params, nodeType?: string): Observable<any> {
-    return this.foldersApi.getFolderContentWithParams(this.currentItem.id, params).pipe(map(
-      (folderContent: any) => this.parseResponse(folderContent),
-    ));
+    return this.foldersApi
+      .getFolderContentWithParams(this.currentItem.id, params)
+      .pipe(map((folderContent: any) => this.parseResponse(folderContent)));
   }
 
   getFilteredItems(params: Params): Observable<any> {
     if (params['$filter'] === 'public') {
-      return this.nodesApi.getPublicFiles(params).pipe(map(
-        (folderContent: any) => this.parseResponse(folderContent),
-      ));
+      return this.nodesApi.getPublicFiles(params).pipe(map((folderContent: any) => this.parseResponse(folderContent)));
     } else {
-      return this.nodesApi.getNodeWithFilter(params).pipe(map(
-        (folderContent: any) => {
-          const itemsArray = folderContent.data.map(
-            (rawItem: BrowserDataItem) => {
-              const newItem = new BrowserDataItem(rawItem);
-              // TODO kostyl
-              if (!newItem.name) {
-                newItem.name = '-1';
-              }
-              return newItem;
-            },
-          );
+      return this.nodesApi.getNodeWithFilter(params).pipe(
+        map((folderContent: any) => {
+          const itemsArray = folderContent.data.map((rawItem: BrowserDataItem) => {
+            const newItem = new BrowserDataItem(rawItem);
+            // TODO kostyl
+            if (!newItem.name) {
+              newItem.name = '-1';
+            }
+            return newItem;
+          });
           folderContent.data = itemsArray;
           return this.parseResponse(folderContent);
-        },
-      ));
+        }),
+      );
     }
   }
 
@@ -275,9 +271,9 @@ export class BrowserDataService extends BrowserDataBaseService {
     if (!this.searchData && params['search']) {
       this.searchData = params['search'];
     }
-    return this.searchResultsApi.getFullTextSearchResult(this.searchData, params['pageSize'], pageNumber).pipe(map(
-      (folderContent: any) => this.parseResponse(folderContent),
-    ));
+    return this.searchResultsApi
+      .getFullTextSearchResult(this.searchData, params['pageSize'], pageNumber)
+      .pipe(map((folderContent: any) => this.parseResponse(folderContent)));
     // return this.searchResultsApi.getSearchResult(this.searchData, params['pageSize']).map(
     //   (folderContent: any) => this.parseResponse(folderContent),
     // );
@@ -312,15 +308,14 @@ export class BrowserDataService extends BrowserDataBaseService {
   }
 
   getItem(id: string) {
-    return this.nodesApi.getNode({ id: { id } }).pipe(map(
-      (data) => {
+    return this.nodesApi.getNode(id).pipe(
+      map(data => {
         return new BrowserDataItem(data.body as BrowserDataItem);
-      },
-    ), catchError(
-      (error) => {
+      }),
+      catchError(error => {
         return observableThrowError(null);
-      },
-    ));
+      }),
+    );
   }
 
   getItemLink(item) {
@@ -330,7 +325,6 @@ export class BrowserDataService extends BrowserDataBaseService {
       return '/model/' + item.id;
     } else {
       return '/file/' + item.id;
-
     }
   }
 
@@ -354,7 +348,6 @@ export class BrowserDataService extends BrowserDataBaseService {
   clearSelection() {
     this.selectedItems = [];
     this.selectionChangeEvents.next(this.selectedItems);
-
   }
 
   getSelectedItems(): BrowserDataItem[] {
@@ -365,28 +358,24 @@ export class BrowserDataService extends BrowserDataBaseService {
     return this.selectedItems.indexOf(item) >= 0;
   }
 
-  protected generateBreadCrumbs(breadcrumbsList: { Id: string, Name: string }[]) {
+  protected generateBreadCrumbs(breadcrumbsList: { Id: string; Name: string }[]) {
     const breadcrumbs = [{ text: 'DRAFTS', width: null, link: '/organize/drafts' }];
 
     if (breadcrumbsList.length > 0) {
       for (let i = breadcrumbsList.length - 1; i >= 0; i--) {
         if (breadcrumbsList[i].Name) {
           if (breadcrumbsList[i]['Type'] === 'Model') {
-            breadcrumbs.push(
-              {
-                text: breadcrumbsList[i].Name,
-                width: null,
-                link: `/model/${breadcrumbsList[i].Id}`,
-              },
-            );
+            breadcrumbs.push({
+              text: breadcrumbsList[i].Name,
+              width: null,
+              link: `/model/${breadcrumbsList[i].Id}`,
+            });
           } else {
-            breadcrumbs.push(
-              {
-                text: breadcrumbsList[i].Name,
-                width: null,
-                link: `/organize/${breadcrumbsList[i].Id}`,
-              },
-            );
+            breadcrumbs.push({
+              text: breadcrumbsList[i].Name,
+              width: null,
+              link: `/organize/${breadcrumbsList[i].Id}`,
+            });
           }
         }
       }
@@ -399,7 +388,7 @@ export class BrowserDataService extends BrowserDataBaseService {
     this.breadcrumbs = breadcrumbs;
   }
 
-  private getLocalItemByID(elementId: string): { inList: boolean, updatedItem: BrowserDataItem } {
+  private getLocalItemByID(elementId: string): { inList: boolean; updatedItem: BrowserDataItem } {
     let inList = false;
     let updatedItem = null;
     for (const i of this.data.items) {

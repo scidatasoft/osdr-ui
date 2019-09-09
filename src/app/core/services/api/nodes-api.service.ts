@@ -11,15 +11,13 @@ import { AuthService } from '../auth/auth.service';
 export class NodesApiService {
   constructor(public http: HttpClient, public auth: AuthService) {}
 
-  joinParams(params: { [x: string]: string | number | boolean }): string {
+  joinParams(params): string {
     let query = '';
-
     if (params) {
       query = Object.keys(params)
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
         .join('&');
     }
-
     if (query.length > 0) {
       query = `?${query}`;
     }
@@ -29,7 +27,7 @@ export class NodesApiService {
   setCurrentNode(id?: string): Observable<any> {
     let request: { Id?: string };
     request = { Id: id };
-    return this.http.post(`${environment.apiUrl}/nodes/current`, request, { observe: 'response' }).pipe(
+    return this.http.post(environment.apiUrl + '/nodes/current', request, { observe: 'response' }).pipe(
       map(x => {
         return {
           breadcrumbs: JSON.parse(decodeURIComponent(x.headers.get('x-breadcrumbs'))) as { Id: string; Name: string }[],
@@ -39,20 +37,18 @@ export class NodesApiService {
     );
   }
 
-  getNode({ id, params, ignoreCache = true }: { id: any; params?: any; ignoreCache?: boolean }): Observable<any> {
+  getNode(id, params?, ignoreCache = true): Observable<any> {
     const timeStamp = +new Date();
 
-    let newParams = params;
-
     if (ignoreCache) {
-      if (newParams) {
-        newParams['tsp'] = timeStamp;
+      if (params) {
+        params['tsp'] = timeStamp;
       } else {
-        newParams = { tsp: timeStamp };
+        params = { tsp: timeStamp };
       }
     }
 
-    const paramsUrl = newParams ? this.joinParams(newParams) : '';
+    const paramsUrl = params ? this.joinParams(params) : '';
 
     return this.http.get(`${environment.apiUrl}/nodes/${id || ''}${paramsUrl}`, { observe: 'response' });
   }
@@ -153,7 +149,7 @@ export class NodesApiService {
     );
   }
 
-  getPublicNodesHead(params: string): Observable<any> {
+  getPublicNodesHead(params): Observable<any> {
     return this.http.head(`${environment.apiUrl}/nodes/${params}`, { observe: 'response', responseType: 'text' }).pipe(
       map(x => {
         return JSON.parse(decodeURIComponent(x.headers.get('x-pagination')));

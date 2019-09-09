@@ -85,7 +85,7 @@ export class RecordViewComponent implements OnInit {
     const recordId = this.activatedRoute.snapshot.params['id'];
 
     this.nodesApi
-      .getNode({ id: { id: recordId } })
+      .getNode(recordId)
       .pipe(
         map(x => {
           const breadcrumbs = JSON.parse(x.headers.get('x-breadcrumbs')) as { Id: string; Name: string }[];

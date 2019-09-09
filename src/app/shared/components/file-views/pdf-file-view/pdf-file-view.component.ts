@@ -29,7 +29,7 @@ export class PdfFileViewComponent implements OnInit, AfterViewInit, IFilePreview
     setTimeout(() => {
       const file_id = this.activatedRoute.snapshot.params['id'];
       if (this.fileItem == null) {
-        this.nodesApi.getNode({ id: { id: file_id } }).subscribe((requestData) => {
+        this.nodesApi.getNode(file_id).subscribe((requestData) => {
           this.fileItem = new BrowserDataItem(requestData.body as BrowserDataItem);
           this.initView();
         });
