@@ -8,3 +8,14 @@
   margin-bottom: 0;
   list-style-type: none;
 }
+
+:host {
+  .c-pointer {
+    cursor: pointer;
+  }
+
+  .selected {
+    background-color: #099;
+    color: #fff;
+  }
+}

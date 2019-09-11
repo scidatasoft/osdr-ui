@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule, MatTreeModule } from '@angular/material';
+import { MatIconModule, MatRippleModule, MatTreeModule } from '@angular/material';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { CategoriesTreeComponent } from './categories-tree.component';
 
-const MatModules = [MatTreeModule, MatIconModule];
+const MatModules = [MatTreeModule, MatIconModule, MatRippleModule];
 
 @NgModule({
   declarations: [CategoriesTreeComponent],
