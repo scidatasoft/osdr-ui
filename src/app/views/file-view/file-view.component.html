@@ -141,7 +141,7 @@
         <button
           *ngFor="let item of listProperties"
           mat-button
-          class="e2e-show-{{ item.viewType }} show-records-btn"
+          class="e2e-show-{{ item.viewType }} action-btn"
           (click)="changeView(item.viewType)"
           [ngClass]="{ active: currentTab === item.viewType }"
         >
@@ -268,7 +268,7 @@
       <button
         *ngFor="let item of listProperties"
         mat-button
-        class="e2e-show-{{ item.viewType }} show-records-btn"
+        class="e2e-show-{{ item.viewType }} action-btn"
         (click)="changeView(item.viewType)"
         [ngClass]="{ active: currentTab === item.viewType }"
       >
@@ -279,7 +279,7 @@
     <button
       *ngIf="!sidebarContent.sidebarCollapsed && fileInfo?.totalRecords"
       mat-button
-      class="e2e-show-records show-records-btn"
+      class="e2e-show-records action-btn"
       (click)="changeView(tab.Records)"
       [ngClass]="{ active: currentTab === tab.Records }"
     >
