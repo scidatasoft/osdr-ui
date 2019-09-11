@@ -4,7 +4,7 @@
       class="mat-tree-node c-pointer"
       matTreeNodeToggle
       matRipple
-      [ngClass]="{ selected: selectedNode === node.id }"
+      [ngClass]="{ selected: selectedNode?.guid === node.guid }"
       (click)="selectCategory(node)"
     >
       <button mat-icon-button disabled></button>
@@ -18,7 +18,7 @@
         class="mat-tree-node c-pointer"
         matTreeNodeToggle
         matRipple
-        [ngClass]="{ selected: selectedNode === node.id }"
+        [ngClass]="{ selected: selectedNode?.guid === node.guid }"
         (click)="selectCategory(node)"
       >
         <button mat-icon-button [attr.aria-label]="'toggle ' + node.title">

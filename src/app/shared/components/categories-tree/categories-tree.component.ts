@@ -55,8 +55,6 @@ export class CategoriesTreeComponent implements OnInit {
   treeControl = new NestedTreeControl<CategoryNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<CategoryNode>();
 
-  selectedNode: CategoryNode = new CategoryNode();
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -64,13 +62,17 @@ export class CategoriesTreeComponent implements OnInit {
     private service: CategoriesService,
   ) {}
 
+  selectedNode: CategoryNode = { guid: '', title: 'None' };
+
   ngOnInit() {
+    this.service.category = this.selectedNode;
     this.getTree();
   }
 
   hasChild = (_: number, node: CategoryNode) => !!node.children && node.children.length > 0;
 
   selectCategory(node: CategoryNode): void {
+    console.log(this.selectedNode.guid === node.guid);
     this.selectedNode = node;
     this.filterByCategory();
   }
