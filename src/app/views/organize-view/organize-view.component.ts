@@ -38,6 +38,7 @@ import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { Observable, Subscription } from 'rxjs';
 
 import { ActionMenuItemData, ActionMenuItemsManager, ContextMenu, ESidebarTab, ISidebarTab } from './organize-view.model';
+import { CategoriesService } from 'app/shared/components/categories-tree/categories.service';
 
 @Component({
   selector: 'dr-organize-view',
@@ -119,6 +120,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
     private pageTitle: PageTitleService,
     private notificationsApi: NotificationsApiService,
     private contextMenuService: ContextMenuService,
+    private categoryService: CategoriesService,
   ) {
     super(foldersApi, entitiesApi);
 
@@ -332,7 +334,25 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
             ToolbarButtonType.search,
             ToolbarButtonType.export,
           ];
-        } else if ('search' in this.dataService.viewParams) {
+        } else if (`$category` in this.dataService.viewParams) {
+          this.dataService.browserServiceState = BrowserViewState.categoryBrowser;
+          this.folderContextMenuManager.filtered = true;
+          this.dataService.breadcrumbs = [
+            { text: 'DRAFTS', width: null, link: '/organize/drafts' },
+            {
+              text: `CATEGORY: ${this.categoryService.category.title}`,
+              width: null,
+              link: '/organize/drafts',
+            },
+          ];
+          this.activeToolbarButtons = [
+            ToolbarButtonType.tile,
+            ToolbarButtonType.table,
+            ToolbarButtonType.subMenu,
+            ToolbarButtonType.search,
+            ToolbarButtonType.export,
+          ];
+         } else if ('search' in this.dataService.viewParams) {
           this.folderContextMenuManager.filtered = true;
           this.activeToolbarButtons = [
             ToolbarButtonType.tile,

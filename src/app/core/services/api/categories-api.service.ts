@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 
-import { CategoryNode } from './CategoryNode';
+import { CategoryNode } from '../../../shared/components/categories-tree/CategoryNode';
 
 @Injectable({
   providedIn: 'root',
