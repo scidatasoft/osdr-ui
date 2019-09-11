@@ -1,4 +1,4 @@
-export enum CurrentTab {
+export enum FileViewMode {
   Preview,
   Records,
   Models,

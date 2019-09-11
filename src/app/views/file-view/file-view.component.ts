@@ -42,10 +42,9 @@ import { ToolbarButtonType } from 'app/shared/components/organize-toolbar/organi
 import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-info-box/properties-info-box.component';
 import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
 import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
-import { CurrentTab } from 'app/shared/models/current-tab';
+import { FileViewMode } from 'app/shared/models/file-view-mode';
 import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs';
-import { isArray } from 'util';
 
 import { SavFileViewComponent } from '../../shared/components/file-views/sav-file-view/sav-file-view.component';
 
@@ -76,8 +75,8 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   currentFileViewComponent = null;
 
   infoBoxes: Object[] = [];
-  tab = CurrentTab;
-  currentTab = CurrentTab.Records;
+  tab = FileViewMode;
+  currentTab = FileViewMode.Records;
   showFilter = false;
   filterListFields: FilterField[] = [];
   appliedFilterList: FilterField[] = [];
@@ -333,14 +332,14 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
 
     if (this.fileInfo.fileType() === this.fileType.webpage) {
       this.showImagePreview = true;
-      this.currentTab = CurrentTab.Preview;
+      this.currentTab = FileViewMode.Preview;
     }
 
     if (this.fileInfo.fileType() === this.fileType.microscopy) {
       if (this.fileInfo.images) {
-        this.currentTab = CurrentTab.Preview;
+        this.currentTab = FileViewMode.Preview;
       } else {
-        this.currentTab = CurrentTab.Generic_Metadata;
+        this.currentTab = FileViewMode.Generic_Metadata;
       }
       this.isMicroscopy = true;
     }
@@ -368,7 +367,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
       this.fileInfo.fileType() === this.fileType.image
     ) {
       this.showFullImagePreview = true;
-      this.currentTab = CurrentTab.Preview;
+      this.currentTab = FileViewMode.Preview;
     }
   }
 
@@ -381,7 +380,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
         (this.copyFilenameTooltip as any).show();
         console.log((this.copyFilenameTooltip as any).show);
       }
-    } catch (err) { }
+    } catch (err) {}
   }
 
   getImageURL(item: BrowserDataItem): string {
@@ -391,7 +390,8 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
         .pop()
         .toLowerCase();
 
-      const knownTypes = ' .pdf .xls .xlsx .doc .docx .ppt .pptx' +
+      const knownTypes =
+        ' .pdf .xls .xlsx .doc .docx .ppt .pptx' +
         ' .zip .rar .7z .arj .wav .l.p3 .ogg .aac .wma .ape .flac' +
         ' .tif .tiff .gif .jpeg .jpg .jif .jfif .jp2 .jpx .j2k .fpx .pcd .png .bmp' +
         ' .mpg .mpeg .mp4 .txt .rtf .csv .tsv .xml .html .htm' +
@@ -423,7 +423,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     }
   }
 
-  itemClick(event: MouseEvent, item: BrowserDataItem) { }
+  itemClick(event: MouseEvent, item: BrowserDataItem) {}
 
   onApplyFilter(appliedFilterList: FilterField[]) {
     this.appliedFilterList = appliedFilterList;
@@ -496,7 +496,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   }
 
   getFileViewComponent(dataItem: BrowserDataItem): Type<any> {
-    if (this.currentTab === CurrentTab.Preview) {
+    if (this.currentTab === FileViewMode.Preview) {
       if (dataItem.getNodeType() === NodeType.File) {
         if (dataItem.getSubType() === SubType.Image || dataItem.getSubType() === SubType.Records) {
           if (
@@ -528,15 +528,15 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
       } else if (dataItem.getNodeType() === NodeType.Model) {
         return ImageFileViewComponent;
       }
-    } else if (this.currentTab === CurrentTab.Records) {
+    } else if (this.currentTab === FileViewMode.Records) {
       return OrganizeBrowserComponent;
-    } else if (this.currentTab === CurrentTab.Models) {
+    } else if (this.currentTab === FileViewMode.Models) {
       return SavFileViewComponent;
-    } else if (this.currentTab === CurrentTab.Bio_Metadata) {
+    } else if (this.currentTab === FileViewMode.Bio_Metadata) {
       if (dataItem.getSubType() === SubType.Microscopy && environment.capabilities.microscopy) {
         return MicroscopyViewComponent;
       }
-    } else if (this.currentTab === CurrentTab.Generic_Metadata) {
+    } else if (this.currentTab === FileViewMode.Generic_Metadata) {
       return GenericMetadataPreviewComponent;
     } else {
       return null;
@@ -563,8 +563,8 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     this.currentFileViewComponent = component;
   }
 
-  changeView(tab: CurrentTab) {
-    if (!(!this.fileInfo.images && tab === CurrentTab.Preview)) {
+  changeView(tab: FileViewMode) {
+    if (!(!this.fileInfo.images && tab === FileViewMode.Preview)) {
       this.currentTab = tab;
       this.changeFileView(this.getFileViewComponent(this.fileInfo), this.fileInfo);
     }
