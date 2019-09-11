@@ -24,9 +24,6 @@ export class NotificationsService {
     this._isNotificationBarActive = value;
   }
 
-  constructor() {
-  }
-
   organizeUpdateEvent(event: SignalREvent) {
     const message = NotificationMessage.CreateOrganizeUpdateEventMessage(event);
     if (message) {
