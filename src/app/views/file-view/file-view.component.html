@@ -290,7 +290,7 @@
     <button
       *ngIf="isMicroscopy"
       mat-button
-      class="e2e-show-records show-records-btn"
+      class="e2e-show-records action-btn"
       (click)="changeView(tab.Bio_Metadata)"
       [ngClass]="{ active: currentTab === tab.Bio_Metadata }"
     >
@@ -298,11 +298,19 @@
     </button>
     <button
       mat-button
-      class="e2e-show-records show-records-btn"
+      class="e2e-show-file-information action-btn"
       (click)="changeView(tab.Generic_Metadata)"
       [ngClass]="{ active: currentTab === tab.Generic_Metadata }"
     >
       File Information
+    </button>
+    <button
+      mat-button
+      class="e2e-show-categories action-btn"
+      (click)="changeView(tab.Categories)"
+      [ngClass]="{ active: currentTab === tab.Categories }"
+    >
+      Categories
     </button>
   </sidebar>
   <content class="file-content">
