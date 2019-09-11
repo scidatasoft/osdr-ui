@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, NgZone, OnDestroy, OnInit, Optional, Output } from '@angular/core';
-import { ESidebarTab } from 'app/views/organize-view/organize-view.model';
+import { Component, NgZone, OnDestroy, OnInit, Optional } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
@@ -17,7 +16,7 @@ interface ICounter {
   hidden: boolean;
 }
 
-enum Capabilities {
+enum Capability {
   CHEMICAL = 'chemical',
   CRYSTAL = 'crystal',
   IMAGE = 'image',
@@ -39,8 +38,6 @@ enum Capabilities {
 })
 export class EntityCountsComponent implements OnInit, OnDestroy {
   private signalRSubscription: Subscription = null;
-  private filterSubscription: Subscription;
-  private progress = false;
 
   data: object = {};
   itemClass = 'all';
@@ -62,6 +59,56 @@ export class EntityCountsComponent implements OnInit, OnDestroy {
     { name: 'Spectra', key: EEntityFilter.SPECTRA, hidden: false },
     { name: 'Datasets', key: EEntityFilter.DATASETS, hidden: false },
     { name: 'Webpages', key: EEntityFilter.WEBPAGES, hidden: false },
+  ];
+
+  filters: {
+    capability: Capability;
+    filterKey: EEntityFilter[];
+  }[] = [
+    {
+      capability: Capability.LOGIN,
+      filterKey: [EEntityFilter.SHARED_BY_ME, EEntityFilter.SHARED_WITH_ME],
+    },
+    {
+      capability: Capability.CRYSTAL,
+      filterKey: [EEntityFilter.CRYSTALS],
+    },
+    {
+      capability: Capability.IMAGE,
+      filterKey: [EEntityFilter.IMAGES],
+    },
+    {
+      capability: Capability.MACHINELEARNING,
+      filterKey: [EEntityFilter.MODELS],
+    },
+    {
+      capability: Capability.MICROSCOPY,
+      filterKey: [EEntityFilter.MICROSCOPY],
+    },
+    {
+      capability: Capability.OFFICE,
+      filterKey: [EEntityFilter.DOCUMENTS],
+    },
+    {
+      capability: Capability.PDF,
+      filterKey: [EEntityFilter.DOCUMENTS],
+    },
+    {
+      capability: Capability.REACTION,
+      filterKey: [EEntityFilter.REACTIONS],
+    },
+    {
+      capability: Capability.SPECTRUM,
+      filterKey: [EEntityFilter.SPECTRA],
+    },
+    {
+      capability: Capability.WEBPAGE,
+      filterKey: [EEntityFilter.WEBPAGES],
+    },
+    {
+      capability: Capability.CHEMICAL,
+      filterKey: [EEntityFilter.STRUCTURES],
+    },
   ];
 
   constructor(
@@ -90,9 +137,6 @@ export class EntityCountsComponent implements OnInit, OnDestroy {
     });
 
     if (this.quickFilter) {
-      this.filterSubscription = this.quickFilter.initFilterEvents.subscribe((filterEvent: IQuickFilter) => {
-        this.filterChange(filterEvent);
-      });
     }
 
     if (this.quickFilter) {
@@ -125,7 +169,7 @@ export class EntityCountsComponent implements OnInit, OnDestroy {
       state = true;
 
       this.ngZone.runOutsideAngular(() => {
-        setTimeout(function() {
+        setTimeout(() => {
           state = null;
         }, ms);
       });
@@ -138,51 +182,19 @@ export class EntityCountsComponent implements OnInit, OnDestroy {
       filterValue: key,
       isFilterSet: true,
     } as IQuickFilter);
-    this.progress = true;
     if (key !== 'all') {
       this.dataService.browserLoading = true;
     }
     this.ngZone.runOutsideAngular(() => {
       setTimeout(() => {
         this.ngZone.run(() => {
-          this.progress = false;
         });
       }, 1000);
     });
   }
 
   getCounters(): void {
-    const forbiddenCapabilities: string[] = Object.keys(environment.capabilities).filter(k => !environment.capabilities[k]);
-
-    forbiddenCapabilities.forEach((capability: Capabilities) => {
-      if (capability === Capabilities.LOGIN) {
-        this.counters = this.counters.filter(
-          counter => counter.key !== EEntityFilter.SHARED_BY_ME && counter.key !== EEntityFilter.SHARED_WITH_ME,
-        );
-      } else if (capability === Capabilities.CRYSTAL) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.CRYSTALS);
-      } else if (capability === Capabilities.IMAGE) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.IMAGES);
-      } else if (capability === Capabilities.MACHINELEARNING) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.MODELS);
-      } else if (capability === Capabilities.MICROSCOPY) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.MICROSCOPY);
-      } else if (capability === Capabilities.OFFICE) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.DOCUMENTS);
-      } else if (capability === Capabilities.PDF) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.DOCUMENTS);
-      } else if (capability === Capabilities.REACTION) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.REACTIONS);
-      } else if (capability === Capabilities.SPECTRUM) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.SPECTRA);
-      } else if (capability === Capabilities.TABULAR) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.DATASETS);
-      } else if (capability === Capabilities.WEBPAGE) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.WEBPAGES);
-      } else if (capability === Capabilities.CHEMICAL) {
-        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.STRUCTURES);
-      }
-    });
+    this.sortFilters();
 
     this.counters.forEach(x => {
       const paramsUrl = this.quickFilter.getFilterByKey(x.key);
@@ -205,5 +217,17 @@ export class EntityCountsComponent implements OnInit, OnDestroy {
 
   dblClick() {
     console.log('!!!!!');
+  }
+
+  sortFilters() {
+    const forbiddenCapabilities: string[] = Object.keys(environment.capabilities).filter(k => !environment.capabilities[k]);
+
+    forbiddenCapabilities.forEach((capability: string) => {
+      const filter = this.filters.find(x => x.capability === capability);
+
+      if (filter) {
+        this.counters = this.counters.filter((c: ICounter) => filter.filterKey.find((d: string) => c.key !== d));
+      }
+    });
   }
 }
