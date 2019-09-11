@@ -1,43 +1,23 @@
-<ul class="list-group">
-  <li
-    class="list-group-item list-group-item-action justify-content-between"
-    mat-ripple
-    matTooltip="All files"
+<ng-container *ngFor="let item of counters">
+  <div
+    matRipple
     matTooltipPosition="right"
-    [class.selected]="!itemClass || itemClass == 'all'"
-    [matTooltipDisabled]="!sidebarContent.sidebarCollapsed"
-    (click)="getEntityName('all')"
-  >
-    <div class="d-flex">
-      <img class="svg-icon mr-2" src="/img/svg/entity-counters/all.svg" />
-      <span *ngIf="!sidebarContent.sidebarCollapsed" class="item-text m-auto text-capitalize">All&nbsp;files</span>
-    </div>
-  </li>
-  <li class="list-group-item no-link justify-content-between" [ngClass]="{ collapsed: sidebarContent.sidebarCollapsed }">
-    <div class="d-flex">
-      <span class="item-text text-uppercase">Filters</span>
-    </div>
-  </li>
-  <li
-    *ngFor="let item of counters"
-    class="list-group-item list-group-item-action justify-content-between"
-    mat-ripple
-    matTooltipPosition="right"
-    (click)="getEntityName(item.key)"
-    [class.selected]="itemClass == item.key"
-    [ngClass]="{ disabled: progress }"
+    class="filter-box justify-content-between"
+    [class.selected]="itemClass == item.key || (!itemClass && item.key == 'all')"
+    [class.disabled]="process"
     [matTooltip]="item.name"
     [matTooltipDisabled]="!sidebarContent.sidebarCollapsed"
-    [hidden]="item.hidden"
+    (click)="getEntityName(item.key)"
   >
     <div class="d-flex">
-      <img class="svg-icon mr-2" src="/img/svg/entity-counters/{{ item.key }}.svg" />
-      <span *ngIf="!sidebarContent.sidebarCollapsed" class="item-text m-auto text-capitalize">{{ item.name }}</span>
+      <img class="mr-2" src="/img/svg/entity-counters/{{ item.key }}.svg" />
+      <span *ngIf="!sidebarContent.sidebarCollapsed" class="filter-box--text text-capitalize">{{ item.name }}</span>
     </div>
-    <span
+    <div
+      class="filter-box--counter e2e-entity-{{ item.key }}-amount badge badge-default badge-pill"
       [ngClass]="{ collapsed: sidebarContent.sidebarCollapsed }"
-      class="e2e-entity-{{ item.key }}-amount badge badge-default badge-pill"
-      >{{ data[item.key] ? data[item.key] : 0 }}</span
     >
-  </li>
-</ul>
+      {{ data[item.key] ? data[item.key] : 0 }}
+    </div>
+  </div>
+</ng-container>

@@ -1,6 +1,5 @@
 import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModulesList } from 'app/common-modules-list';
-import { ExportChemFilesService } from 'app/core/services/export-files/export-chem-files.service';
+import { CategoriesTreeModule } from 'app/shared/components/categories-tree/categories-tree.module';
 import { EntityCountsModule } from 'app/shared/components/entity-counts/entity-counts.module';
 import { ExportDialogModule } from 'app/shared/components/export-dialog/export-dialog.module';
 import { FolderActionsModule } from 'app/shared/components/folder-actions/folder-actions.module';
@@ -11,7 +10,6 @@ import { OrganizeToolbarModule } from 'app/shared/components/organize-toolbar/or
 import { SidebarContentModule } from 'app/shared/components/sidebar-content/sidebar-content.module';
 import { SharedModule } from 'app/shared/shared.module';
 
-// import { MachineLearningService } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.service';
 import { ActionViewService } from '../../shared/components/full-screen-dialogs/action-view.service';
 
 import { OrganizeViewRoutingModule } from './organize-view-routing.module';
@@ -27,6 +25,7 @@ const modules = [
   OrganizeToolbarModule,
   OrganizeBrowserModule,
   ExportDialogModule,
+  CategoriesTreeModule,
   // MachineLearningModule
 ];
 

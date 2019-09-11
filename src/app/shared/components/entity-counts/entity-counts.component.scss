@@ -1,83 +1,97 @@
 @import "_vars";
-.list-group-item {
+
+:host {
+
+  .filter-box {
     border: none;
-    /*border-bottom: 1px solid darken($bg-color, 7%);*/
     cursor: pointer;
     background: transparent;
     border-radius: 0;
     padding: 0.75rem .5rem;
-    &,
-     ::ng-deep svg,
-    .item-text {
-        transition: all .2s;
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-bottom: -1px;
+
+    svg {
+      transition: all .2s;
+      fill: transparentize($text-color, .5);
+      width: 1.5rem;
+      height: 1.5rem;
     }
+
+    span {
+      color: transparentize($text-color, .2);
+    }
+
+    .badge-default {
+      background-color: darken($bg-color, 7%);
+      color: transparentize($text-color, .5);
+      flex: 0;
+
+      &.collapsed {
+        position: absolute;
+        flex: 0;
+        right: 0;
+        top: 5px;
+        color: rgb(1, 153, 153);
+        border-radius: 3rem 0 0 3rem;
+        padding: 1px 4px;
+      }
+    }
+
     &:hover {
-        background: darken($bg-color, 5%);
-        span {
-            font-weight: bold;
-        }
-         ::ng-deep svg {
-            fill: transparentize($text-color, .2);
-            transform: scale(1.2, 1.2);
-            margin-right: 1rem !important;
-        }
-        .badge-default {
-            background-color: darken($bg-color, 10%);
-            color: transparentize($text-color, .2);
-        }
+      background: darken($bg-color, 5%);
+
+      span {
+        font-weight: bold;
+      }
+
+      svg {
+        fill: transparentize($text-color, .2);
+        transform: scale(1.2, 1.2);
+        margin-right: 1rem !important;
+      }
+
+      .badge-default {
+        background-color: darken($bg-color, 10%);
+        color: transparentize($text-color, .2);
+      }
     }
-    &.no-link{
+
+    &.no-link {
       pointer-events: none;
       cursor: not-allowed;
-      &.collapsed{
+
+      &.collapsed {
         border-top: 1px solid darken($bg-color, 7%);
         margin-bottom: 5px;
         padding: 0;
-        & > .d-flex{
+
+        &>.d-flex {
           display: none !important;
         }
       }
     }
-    span {
-        color: transparentize($text-color, .2);
-    }
-     ::ng-deep svg {
-        fill: transparentize($text-color, .5);
-    }
-    .badge-default {
-        background-color: darken($bg-color, 7%);
-        color: transparentize($text-color, .5);
-        flex: 0;
-        &.collapsed {
-            position: absolute;
-            flex: 0;
-            right: 0;
-            top: 5px;
-            color: rgb(1, 153, 153);
-            border-radius: 3rem 0 0 3rem;
-            padding: 1px 4px;
-        }
-    }
-    .text-truncate {
-        width: 85%;
-    }
-    &.selected {
-        background-color:#099;
-        >div span {
-            color: white;
-        }
-        &::ng-deep svg * {
-            fill: white;
-            stroke: white;
-        }
-    }
-  &.disabled{
-    opacity: 0.65;
-    pointer-events: none;
-  }
-}
 
-::ng-deep .svg-icon{
-  width: 1.5rem;
-  height: 1.5rem;
+    &.selected {
+      background-color: #099;
+
+      >div span {
+        color: white;
+      }
+
+      svg {
+        fill: white;
+        stroke: white;
+      }
+    }
+
+    &.disabled {
+      opacity: 0.65;
+      pointer-events: none;
+    }
+  }
+
 }

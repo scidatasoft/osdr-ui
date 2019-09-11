@@ -26,3 +26,10 @@ sidebar {
   display: block;
   overflow: hidden;
 }
+
+:host {
+  .active-tab {
+    color: #099;
+    font-weight: bold;
+  }
+}

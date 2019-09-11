@@ -1,9 +1,5 @@
 import { MatMenu } from '@angular/material/menu';
-import {
-  BrowserDataItem,
-  NodeType,
-  SubType,
-} from 'app/shared/components/organize-browser/browser-types';
+import { BrowserDataItem, NodeType, SubType } from 'app/shared/components/organize-browser/browser-types';
 import { environment } from 'environments/environment';
 
 export class PropertyType {
@@ -59,13 +55,7 @@ export class ActionMenuItemData {
 
   click: (item: any) => void;
 
-  constructor(
-    html: string,
-    img: string,
-    enabled: boolean,
-    visible: boolean,
-    click: (item: any) => void,
-  ) {
+  constructor(html: string, img: string, enabled: boolean, visible: boolean, click: (item: any) => void) {
     this.name = html;
     this.htmlTemplate = html;
     this.imagePath = img;
@@ -163,10 +153,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.visible = false;
                   menuItem.enabled = false;
                 }
-              } else if (
-                this.selectedItem.length === 1 &&
-                this.selectedItem[0].authorizedOwner
-              ) {
+              } else if (this.selectedItem.length === 1 && this.selectedItem[0].authorizedOwner) {
                 if (
                   menuItem.name === ContextMenu.DELETE ||
                   menuItem.name === ContextMenu.RENAME ||
@@ -181,10 +168,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = this.supportedExtensionItem();
                   for (const subItem of menuItem.subItems) {
                     if (
-                      (subItem.name === ContextMenu.EXPORT_TO_CSV &&
-                        this.selectedItemExtension() !== 'csv') ||
-                      (subItem.name === ContextMenu.EXPORT_TO_SDF &&
-                        this.selectedItemExtension() !== 'sdf')
+                      (subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv') ||
+                      (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
                       // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
                     ) {
                       subItem.visible = true;
@@ -200,16 +185,10 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   }
                 }
               } else if (this.selectedItem.every(x => x.authorizedOwner)) {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
-                } else if (
-                  menuItem.name === ContextMenu.DOWNLOAD ||
-                  menuItem.name === ContextMenu.RENAME
-                ) {
+                } else if (menuItem.name === ContextMenu.DOWNLOAD || menuItem.name === ContextMenu.RENAME) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
                 } else {
@@ -225,10 +204,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   }
                 }
               } else {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
                 } else if (menuItem.name === ContextMenu.RENAME) {
@@ -253,21 +229,14 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
               break;
             case ActionMenuItemsManager.SOURCE_FILE_BROWSER:
               if (this.selectedItem.length === 0) {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.RENAME ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
                 } else {
                   menuItem.visible = false;
                   menuItem.enabled = false;
                 }
-              } else if (
-                this.selectedItem.length === 1 &&
-                this.selectedItem[0].authorizedOwner
-              ) {
+              } else if (this.selectedItem.length === 1 && this.selectedItem[0].authorizedOwner) {
                 if (
                   menuItem.name === ContextMenu.DELETE ||
                   menuItem.name === ContextMenu.RENAME ||
@@ -294,10 +263,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = this.supportedExtensionItem();
                   for (const subItem of menuItem.subItems) {
                     if (
-                      (subItem.name === ContextMenu.EXPORT_TO_CSV &&
-                        this.selectedItemExtension() !== 'csv') ||
-                      (subItem.name === ContextMenu.EXPORT_TO_SDF &&
-                        this.selectedItemExtension() !== 'sdf')
+                      (subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv') ||
+                      (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
                       // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
                     ) {
                       subItem.visible = this.supportedExtensionItem();
@@ -311,9 +278,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                     if (subItem.name === ContextMenu.CREATE_PUBLIC_LINK) {
                       subItem.visible = !this.isShared();
                       subItem.enabled = !this.selectedItem[0].isFolder();
-                    } else if (
-                      subItem.name === ContextMenu.CHANGE_SHARING_SETTINGS
-                    ) {
+                    } else if (subItem.name === ContextMenu.CHANGE_SHARING_SETTINGS) {
                       subItem.visible = this.isShared();
                       subItem.enabled = !this.selectedItem[0].isFolder();
                     }
@@ -323,16 +288,10 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = false;
                 }
               } else if (this.selectedItem.every(x => x.authorizedOwner)) {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
-                } else if (
-                  menuItem.name === ContextMenu.DOWNLOAD ||
-                  menuItem.name === ContextMenu.RENAME
-                ) {
+                } else if (menuItem.name === ContextMenu.DOWNLOAD || menuItem.name === ContextMenu.RENAME) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
                 } else {
@@ -348,10 +307,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   }
                 }
               } else {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
                 } else if (menuItem.name === ContextMenu.RENAME) {
@@ -427,10 +383,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = this.supportedExtensionItem();
                   for (const subItem of menuItem.subItems) {
                     if (
-                      (subItem.name === ContextMenu.EXPORT_TO_CSV &&
-                        this.selectedItemExtension() !== 'csv') ||
-                      (subItem.name === ContextMenu.EXPORT_TO_SDF &&
-                        this.selectedItemExtension() !== 'sdf')
+                      (subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv') ||
+                      (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
                       // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
                     ) {
                       subItem.visible = true;
@@ -446,16 +400,10 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   }
                 }
               } else {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
-                } else if (
-                  menuItem.name === ContextMenu.DOWNLOAD ||
-                  menuItem.name === ContextMenu.RENAME
-                ) {
+                } else if (menuItem.name === ContextMenu.DOWNLOAD || menuItem.name === ContextMenu.RENAME) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
                 } else {
@@ -474,11 +422,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
               break;
             case ActionMenuItemsManager.SOURCE_FILE_BROWSER:
               if (this.selectedItem.length === 0) {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.RENAME ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
                 } else {
@@ -512,10 +456,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = this.supportedExtensionItem();
                   for (const subItem of menuItem.subItems) {
                     if (
-                      (subItem.name === ContextMenu.EXPORT_TO_CSV &&
-                        this.selectedItemExtension() !== 'csv') ||
-                      (subItem.name === ContextMenu.EXPORT_TO_SDF &&
-                        this.selectedItemExtension() !== 'sdf')
+                      (subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv') ||
+                      (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
                       // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
                     ) {
                       subItem.visible = this.supportedExtensionItem();
@@ -529,9 +471,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                     if (subItem.name === ContextMenu.CREATE_PUBLIC_LINK) {
                       subItem.visible = !this.isShared();
                       subItem.enabled = !this.selectedItem[0].isFolder();
-                    } else if (
-                      subItem.name === ContextMenu.CHANGE_SHARING_SETTINGS
-                    ) {
+                    } else if (subItem.name === ContextMenu.CHANGE_SHARING_SETTINGS) {
                       subItem.visible = this.isShared();
                       subItem.enabled = !this.selectedItem[0].isFolder();
                     }
@@ -541,10 +481,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = false;
                 }
               } else {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
                 } else if (
@@ -619,11 +556,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = false;
                 }
               } else if (this.selectedItem.length === 1) {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.RENAME ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
                 } else if (menuItem.name === ContextMenu.DOWNLOAD) {
@@ -634,10 +567,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = this.supportedExtensionItem();
                   for (const subItem of menuItem.subItems) {
                     if (
-                      (subItem.name === ContextMenu.EXPORT_TO_CSV &&
-                        this.selectedItemExtension() !== 'csv') ||
-                      (subItem.name === ContextMenu.EXPORT_TO_SDF &&
-                        this.selectedItemExtension() !== 'sdf')
+                      (subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv') ||
+                      (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
                       // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
                     ) {
                       subItem.visible = true;
@@ -651,9 +582,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                     if (subItem.name === ContextMenu.CREATE_PUBLIC_LINK) {
                       subItem.visible = !this.isShared();
                       subItem.enabled = !this.selectedItem[0].isFolder();
-                    } else if (
-                      subItem.name === ContextMenu.CHANGE_SHARING_SETTINGS
-                    ) {
+                    } else if (subItem.name === ContextMenu.CHANGE_SHARING_SETTINGS) {
                       subItem.visible = this.isShared();
                       subItem.enabled = !this.selectedItem[0].isFolder();
                     }
@@ -673,10 +602,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = false;
                 }
               } else {
-                if (
-                  menuItem.name === ContextMenu.DELETE ||
-                  menuItem.name === ContextMenu.MOVE
-                ) {
+                if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
                 } else if (
@@ -708,11 +634,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
             break;
           case ActionMenuItemsManager.SOURCE_FILE_BROWSER:
             if (this.selectedItem.length === 0) {
-              if (
-                menuItem.name === ContextMenu.DELETE ||
-                menuItem.name === ContextMenu.RENAME ||
-                menuItem.name === ContextMenu.MOVE
-              ) {
+              if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                 menuItem.visible = true;
                 menuItem.enabled = false;
               } else if (menuItem.name === ContextMenu.UPLOAD_WEB_PAGE) {
@@ -723,11 +645,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 menuItem.enabled = false;
               }
             } else if (this.selectedItem.length === 1) {
-              if (
-                menuItem.name === ContextMenu.DELETE ||
-                menuItem.name === ContextMenu.RENAME ||
-                menuItem.name === ContextMenu.MOVE
-              ) {
+              if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                 menuItem.visible = true;
                 menuItem.enabled = true;
               } else if (menuItem.name === ContextMenu.DOWNLOAD) {
@@ -748,10 +666,8 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 menuItem.enabled = this.supportedExtensionItem();
                 for (const subItem of menuItem.subItems) {
                   if (
-                    (subItem.name === ContextMenu.EXPORT_TO_CSV &&
-                      this.selectedItemExtension() !== 'csv') ||
-                    (subItem.name === ContextMenu.EXPORT_TO_SDF &&
-                      this.selectedItemExtension() !== 'sdf')
+                    (subItem.name === ContextMenu.EXPORT_TO_CSV && this.selectedItemExtension() !== 'csv') ||
+                    (subItem.name === ContextMenu.EXPORT_TO_SDF && this.selectedItemExtension() !== 'sdf')
                     // || (subItem.name === ContextMenu.EXPORT_TO_SPL && this.selectedItemExtension() !== 'spl')
                   ) {
                     subItem.visible = true;
@@ -765,9 +681,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   if (subItem.name === ContextMenu.CREATE_PUBLIC_LINK) {
                     subItem.visible = !this.isShared();
                     subItem.enabled = !this.selectedItem[0].isFolder();
-                  } else if (
-                    subItem.name === ContextMenu.CHANGE_SHARING_SETTINGS
-                  ) {
+                  } else if (subItem.name === ContextMenu.CHANGE_SHARING_SETTINGS) {
                     subItem.visible = this.isShared();
                     subItem.enabled = !this.selectedItem[0].isFolder();
                   }
@@ -777,10 +691,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 menuItem.enabled = false;
               }
             } else {
-              if (
-                menuItem.name === ContextMenu.DELETE ||
-                menuItem.name === ContextMenu.MOVE
-              ) {
+              if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                 menuItem.visible = true;
                 menuItem.enabled = true;
               } else if (
@@ -809,11 +720,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
           case ActionMenuItemsManager.SOURCE_WHITE_AREA:
             menuItem.visible = true;
             menuItem.enabled = true;
-            if (
-              (menuItem.name === ContextMenu.UPLOAD ||
-                menuItem.name === ContextMenu.CREATE) &&
-              environment.capabilities.login
-            ) {
+            if ((menuItem.name === ContextMenu.UPLOAD || menuItem.name === ContextMenu.CREATE) && environment.capabilities.login) {
               menuItem.visible = true;
               menuItem.enabled = true;
             } else {
@@ -849,10 +756,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
 
   supportedExtensionItem(): boolean {
     return this.selectedItem.every(
-      item =>
-        item.getFileExtension() === 'mol' ||
-        item.getFileExtension() === 'cdx' ||
-        item.getFileExtension() === 'sdf',
+      item => item.getFileExtension() === 'mol' || item.getFileExtension() === 'cdx' || item.getFileExtension() === 'sdf',
     );
   }
 
@@ -861,9 +765,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
   }
 
   isShared() {
-    return this.selectedItem.some(
-      x => x.accessPermissions && x.accessPermissions.isPublic,
-    );
+    return this.selectedItem.some(x => x.accessPermissions && x.accessPermissions.isPublic);
   }
 
   private isSDF(): boolean {
@@ -895,7 +797,12 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
   }
 }
 
-export enum ECurrentSidebar {
+export enum ESidebarTab {
   FILTERS,
   CATEGORIES,
+}
+
+export interface ISidebarTab {
+  title: string;
+  type: ESidebarTab;
 }

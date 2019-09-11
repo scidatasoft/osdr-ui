@@ -37,7 +37,7 @@ import { environment } from 'environments/environment';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { Observable, Subscription } from 'rxjs';
 
-import { ActionMenuItemData, ActionMenuItemsManager, ContextMenu, ECurrentSidebar } from './organize-view.model';
+import { ActionMenuItemData, ActionMenuItemsManager, ContextMenu, ESidebarTab, ISidebarTab } from './organize-view.model';
 
 @Component({
   selector: 'dr-organize-view',
@@ -68,7 +68,19 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
 
   folderContextMenuManager: ActionMenuItemsManager = new ActionMenuItemsManager();
   disabledMenu = false;
-  currentSidebarType: any = ECurrentSidebar;
+  sidebarTab: any = ESidebarTab;
+  currentSidebarTab: ESidebarTab = ESidebarTab.FILTERS;
+
+  tabs: ISidebarTab[] = [
+    {
+      title: 'Filters',
+      type: ESidebarTab.FILTERS,
+    },
+    {
+      title: 'Categories',
+      type: ESidebarTab.CATEGORIES,
+    },
+  ];
 
   private updateSubscription: Subscription;
   private browserEventSubscription: Subscription = null;

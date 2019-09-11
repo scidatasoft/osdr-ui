@@ -1,0 +1,15 @@
+export enum EEntityFilter {
+  ALL = 'all',
+  SHARED_BY_ME = 'sharedByMe',
+  SHARED_WITH_ME = 'sharedWithMe',
+  DOCUMENTS = 'documents',
+  IMAGES = 'images',
+  MODELS = 'models',
+  STRUCTURES = 'structures',
+  CRYSTALS = 'crystals',
+  REACTIONS = 'reactions',
+  SPECTRA = 'spectra',
+  DATASETS = 'datasets',
+  WEBPAGES = 'webpages',
+  MICROSCOPY = 'microscopy',
+}

@@ -1,50 +1,20 @@
-import { AfterViewInit, Component, NgZone, OnDestroy, OnInit, Optional } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, NgZone, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { ESidebarTab } from 'app/views/organize-view/organize-view.model';
 import { Subscription } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { NodesApiService } from '../../../core/services/api/nodes-api.service';
 import { UsersApiService } from '../../../core/services/api/users-api.service';
-import { AuthService } from '../../../core/services/auth/auth.service';
 import { BrowserDataBaseService } from '../../../core/services/browser-services/browser-data-base.service';
 import { IQuickFilter, QuickFilterService } from '../../../core/services/browser-services/quick-filter.service';
 import { SignalrService } from '../../../core/services/signalr/signalr.service';
 import { NodeEvent, SignalREvent } from '../../../shared/components/notifications/events.model';
 import { SidebarContentService } from '../../../shared/components/sidebar-content/sidebar-content.service';
-
+import { EEntityFilter } from '../../../shared/models/entity-filter';
 interface ICounter {
   name: string;
   key: string;
   hidden: boolean;
-}
-
-enum Counter {
-  SHARED_BY_ME = 'sharedByMe',
-  SHARED_WITH_ME = 'sharedWithMe',
-  DOCUMENTS = 'documents',
-  IMAGES = 'images',
-  MODELS = 'models',
-  STRUCTURES = 'structures',
-  CRYSTALS = 'crystals',
-  REACTIONS = 'reactions',
-  SPECTRA = 'spectra',
-  DATASETS = 'datasets',
-  WEBPAGES = 'webpages',
-  MICROSCOPY = 'microscopy',
-}
-
-interface ICapability {
-  chemical: boolean;
-  crystal: boolean;
-  image: boolean;
-  machineLearning: boolean;
-  microscopy: boolean;
-  office: boolean;
-  pdf: boolean;
-  reaction: boolean;
-  spectrum: boolean;
-  tabular: boolean;
-  webPage: boolean;
-  login: boolean;
 }
 
 enum Capabilities {
@@ -67,31 +37,32 @@ enum Capabilities {
   templateUrl: './entity-counts.component.html',
   styleUrls: ['./entity-counts.component.scss'],
 })
-export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EntityCountsComponent implements OnInit, OnDestroy {
   private signalRSubscription: Subscription = null;
   private filterSubscription: Subscription;
-
-  counters: ICounter[] = [
-    { name: 'Shared By Me', key: Counter.SHARED_BY_ME, hidden: false },
-    { name: 'Shared With Me', key: Counter.SHARED_WITH_ME, hidden: false },
-    { name: 'Documents', key: Counter.DOCUMENTS, hidden: false },
-    { name: 'Images', key: Counter.IMAGES, hidden: false },
-    { name: 'Microscopy', key: Counter.MICROSCOPY, hidden: false },
-    { name: 'Models', key: Counter.MODELS, hidden: false },
-    { name: 'Structures', key: Counter.STRUCTURES, hidden: false },
-    { name: 'Crystals', key: Counter.CRYSTALS, hidden: false },
-    { name: 'Reactions', key: Counter.REACTIONS, hidden: false },
-    { name: 'Spectra', key: Counter.SPECTRA, hidden: false },
-    { name: 'Datasets', key: Counter.DATASETS, hidden: false },
-    { name: 'Webpages', key: Counter.WEBPAGES, hidden: false },
-  ];
+  private progress = false;
 
   data: object = {};
   itemClass = 'all';
   userId = null;
   public: string;
   shared: string;
-  private progress = false;
+  filterName: any = EEntityFilter;
+  counters: ICounter[] = [
+    { name: 'All Files', key: EEntityFilter.ALL, hidden: false },
+    { name: 'Shared By Me', key: EEntityFilter.SHARED_BY_ME, hidden: false },
+    { name: 'Shared With Me', key: EEntityFilter.SHARED_WITH_ME, hidden: false },
+    { name: 'Documents', key: EEntityFilter.DOCUMENTS, hidden: false },
+    { name: 'Images', key: EEntityFilter.IMAGES, hidden: false },
+    { name: 'Microscopy', key: EEntityFilter.MICROSCOPY, hidden: false },
+    { name: 'Models', key: EEntityFilter.MODELS, hidden: false },
+    { name: 'Structures', key: EEntityFilter.STRUCTURES, hidden: false },
+    { name: 'Crystals', key: EEntityFilter.CRYSTALS, hidden: false },
+    { name: 'Reactions', key: EEntityFilter.REACTIONS, hidden: false },
+    { name: 'Spectra', key: EEntityFilter.SPECTRA, hidden: false },
+    { name: 'Datasets', key: EEntityFilter.DATASETS, hidden: false },
+    { name: 'Webpages', key: EEntityFilter.WEBPAGES, hidden: false },
+  ];
 
   constructor(
     private dataService: BrowserDataBaseService,
@@ -101,7 +72,7 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
     private nodesApi: NodesApiService,
     public sidebarContent: SidebarContentService,
     @Optional() private quickFilter: QuickFilterService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getCounters();
@@ -135,8 +106,6 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.signalRSubscription.unsubscribe();
   }
-
-  ngAfterViewInit(): void { }
 
   filterChange(filterEvent: IQuickFilter) {
     if (filterEvent.isFilterSet === true) {
@@ -187,38 +156,43 @@ export class EntityCountsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     forbiddenCapabilities.forEach((capability: Capabilities) => {
       if (capability === Capabilities.LOGIN) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.SHARED_BY_ME && counter.key !== Counter.SHARED_WITH_ME);
+        this.counters = this.counters.filter(
+          counter => counter.key !== EEntityFilter.SHARED_BY_ME && counter.key !== EEntityFilter.SHARED_WITH_ME,
+        );
       } else if (capability === Capabilities.CRYSTAL) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.CRYSTALS);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.CRYSTALS);
       } else if (capability === Capabilities.IMAGE) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.IMAGES);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.IMAGES);
       } else if (capability === Capabilities.MACHINELEARNING) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.MODELS);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.MODELS);
       } else if (capability === Capabilities.MICROSCOPY) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.MICROSCOPY);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.MICROSCOPY);
       } else if (capability === Capabilities.OFFICE) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.DOCUMENTS);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.DOCUMENTS);
       } else if (capability === Capabilities.PDF) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.DOCUMENTS);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.DOCUMENTS);
       } else if (capability === Capabilities.REACTION) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.REACTIONS);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.REACTIONS);
       } else if (capability === Capabilities.SPECTRUM) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.SPECTRA);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.SPECTRA);
       } else if (capability === Capabilities.TABULAR) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.DATASETS);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.DATASETS);
       } else if (capability === Capabilities.WEBPAGE) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.WEBPAGES);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.WEBPAGES);
       } else if (capability === Capabilities.CHEMICAL) {
-        this.counters = this.counters.filter(counter => counter.key !== Counter.STRUCTURES);
+        this.counters = this.counters.filter(counter => counter.key !== EEntityFilter.STRUCTURES);
       }
     });
 
     this.counters.forEach(x => {
-
       const paramsUrl = this.quickFilter.getFilterByKey(x.key);
 
       if (x.key === 'sharedWithMe') {
         this.nodesApi.getPublicNodesHead(paramsUrl).subscribe((y: { totalCount: number }) => {
+          this.data[x.key] = y.totalCount || 0;
+        });
+      } else if (x.key === 'all') {
+        this.nodesApi.getNodeWithFilter(paramsUrl).subscribe((y: { totalCount: number }) => {
           this.data[x.key] = y.totalCount || 0;
         });
       } else {
