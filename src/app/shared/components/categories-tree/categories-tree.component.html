@@ -13,7 +13,7 @@
         matTreeNodeToggle
         matRipple
         [ngClass]="{ selected: selectedNode === node.id }"
-        (click)="selectedNode = node.id"
+        (click)="selectCategory(node)"
       >
         <button mat-icon-button [attr.aria-label]="'toggle ' + node.title">
           <mat-icon class="mat-icon-rtl-mirror">

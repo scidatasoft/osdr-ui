@@ -1,16 +1,9 @@
 import { NestedTreeControl } from '@angular/cdk/tree';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { ActivatedRoute, Router } from '@angular/router';
 
-/**
- * Category data with nested structure.
- * Each node has a name and an optiona list of children.
- */
-interface CategoryNode {
-  id: string;
-  title: string;
-  children?: CategoryNode[];
-}
+import { CategoryNode } from './CategoryNode';
 
 function guid(): string {
   return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
@@ -24,23 +17,23 @@ function s4(): string {
 
 const TREE_DATA: CategoryNode[] = [
   {
-    id: guid(),
+    guid: guid(),
     title: 'Category 1',
-    children: [{ id: guid(), title: 'Sub-category 1' }, { id: guid(), title: 'Sub-category 2' }, { id: guid(), title: 'Sub-category 3' }],
+    children: [{ guid: guid(), title: 'Sub-category 1' }, { guid: guid(), title: 'Sub-category 2' }, { guid: guid(), title: 'Sub-category 3' }],
   },
   {
-    id: guid(),
+    guid: guid(),
     title: 'Category 2',
     children: [
       {
-        id: guid(),
+        guid: guid(),
         title: 'Sub-category 1',
-        children: [{ id: guid(), title: 'Sub/Sub-category 1' }, { id: guid(), title: 'Sub/Sub-category 2' }],
+        children: [{ guid: guid(), title: 'Sub/Sub-category 1' }, { guid: guid(), title: 'Sub/Sub-category 2' }],
       },
       {
-        id: guid(),
+        guid: guid(),
         title: 'Sub-category 2',
-        children: [{ id: guid(), title: 'Sub/Sub-category 1' }, { id: guid(), title: 'Sub/Sub-category 2' }],
+        children: [{ guid: guid(), title: 'Sub/Sub-category 1' }, { guid: guid(), title: 'Sub/Sub-category 2' }],
       },
     ],
   },
@@ -51,16 +44,32 @@ const TREE_DATA: CategoryNode[] = [
   templateUrl: './categories-tree.component.html',
   styleUrls: ['./categories-tree.component.scss'],
 })
-export class CategoriesTreeComponent {
+export class CategoriesTreeComponent implements OnInit {
   treeControl = new NestedTreeControl<CategoryNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<CategoryNode>();
 
   selectedNode: string = '';
 
-  constructor() {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.dataSource.data = TREE_DATA;
-    console.log(TREE_DATA);
   }
 
+  ngOnInit() {}
+
   hasChild = (_: number, node: CategoryNode) => !!node.children && node.children.length > 0;
+
+  selectCategory(node: CategoryNode): void {
+    this.selectedNode = node.guid;
+    this.filterByCategory();
+  }
+
+  private filterByCategory(): Promise<boolean> {
+    return this.router.navigate(['./'], {
+      // Filter parameter has to be set once API is ready
+      queryParams: {
+        $filter: `categoryId eq ${this.selectedNode}`,
+      },
+      relativeTo: this.activatedRoute,
+    });
+  }
 }
