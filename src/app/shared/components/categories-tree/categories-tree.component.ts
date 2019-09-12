@@ -72,7 +72,6 @@ export class CategoriesTreeComponent implements OnInit {
   hasChild = (_: number, node: CategoryNode) => !!node.children && node.children.length > 0;
 
   selectCategory(node: CategoryNode): void {
-    console.log(this.selectedNode.guid === node.guid);
     this.selectedNode = node;
     this.filterByCategory();
   }
@@ -90,7 +89,7 @@ export class CategoriesTreeComponent implements OnInit {
 
   private getTree(): void {
     this.api
-      .getTree(0)
+      .getNode()
       .then(tree => (this.dataSource.data = tree))
       .catch(err => (this.dataSource.data = TREE_DATA));
   }
