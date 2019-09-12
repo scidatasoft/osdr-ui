@@ -2,8 +2,12 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EEntityFilter, ICounter } from 'app/shared/models/entity-filter';
+import { ESidebarTab } from 'app/views/organize-view/organize-view.model';
 
 import { CategoriesApiService } from '../../../core/services/api/categories-api.service';
+import { EntityCountsService } from '../entity-counts/entity-counts.service';
+import { SidebarContentService } from '../sidebar-content/sidebar-content.service';
 
 import { CategoriesService } from './categories.service';
 import { CategoryNode } from './CategoryNode';
@@ -54,17 +58,23 @@ const TREE_DATA: CategoryNode[] = [
 export class CategoriesTreeComponent implements OnInit {
   treeControl = new NestedTreeControl<CategoryNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<CategoryNode>();
+  entitiyFilter: ICounter;
 
   constructor(
+    public sidebarContent: SidebarContentService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private api: CategoriesApiService,
     private service: CategoriesService,
+    private entityCounterService: EntityCountsService,
   ) {}
 
   selectedNode: CategoryNode = { guid: '', title: 'None' };
+  currentFilter: EEntityFilter = undefined;
 
   ngOnInit() {
+    this.entitiyFilter = this.entityCounterService.getCounter(EEntityFilter.ALL);
+    this.currentFilter = this.entityCounterService.activeFilter;
     this.service.category = this.selectedNode;
     this.getTree();
   }
@@ -74,6 +84,14 @@ export class CategoriesTreeComponent implements OnInit {
   selectCategory(node: CategoryNode): void {
     this.selectedNode = node;
     this.filterByCategory();
+  }
+
+  displayAllFiles(): void {
+    this.entityCounterService.activeFilter = this.currentFilter = EEntityFilter.ALL;
+    this.selectedNode = { guid: '', title: 'None' };
+    this.router.navigate(['./'], {
+      relativeTo: this.activatedRoute,
+    });
   }
 
   private filterByCategory(): Promise<boolean> {

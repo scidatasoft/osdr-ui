@@ -15,22 +15,34 @@
 
 <dr-sidebar-content *ngIf="!display">
   <sidebar>
-    <ng-container *ngFor="let tab of tabs">
-      <button
-        mat-button
-        class="tabs text-uppercase w-50"
-        [ngClass]="{ 'active-tab': currentSidebarTab === tab.type }"
-        (click)="currentSidebarTab = tab.type"
-      >
-        {{ tab.title }}
-      </button>
-    </ng-container>
     <ng-contaner [ngSwitch]="currentSidebarTab">
       <ng-container *ngSwitchCase="sidebarTab.CATEGORIES">
-        <dr-categories-tree></dr-categories-tree>
+        <dr-categories-tree >
+          <ng-container *ngFor="let tab of tabs">
+            <button
+              mat-button
+              class="tabs text-uppercase w-50"
+              [ngClass]="{ 'active-tab': currentSidebarTab === tab.type }"
+              (click)="currentSidebarTab = tab.type"
+            >
+              {{ tab.title }}
+            </button>
+          </ng-container>
+        </dr-categories-tree>
       </ng-container>
       <ng-container *ngSwitchDefault>
-        <dr-entity-counts></dr-entity-counts>
+        <dr-entity-counts>
+          <ng-container *ngFor="let tab of tabs">
+            <button
+              mat-button
+              class="tabs text-uppercase w-50"
+              [ngClass]="{ 'active-tab': currentSidebarTab === tab.type }"
+              (click)="currentSidebarTab = tab.type"
+            >
+              {{ tab.title }}
+            </button>
+          </ng-container>
+        </dr-entity-counts>
       </ng-container>
     </ng-contaner>
   </sidebar>

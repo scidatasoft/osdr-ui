@@ -1,23 +1,33 @@
-<ng-container *ngFor="let item of counters">
+<ng-container *ngFor="let item of counters | async">
+  <ng-container *ngIf="item?.key === 'all'">
+    <ng-container *ngTemplateOutlet="filterBar; context: { $implicit: item }"></ng-container>
+    <ng-content></ng-content>
+  </ng-container>
+  <ng-container *ngIf="item?.key !== 'all'">
+    <ng-container *ngTemplateOutlet="filterBar; context: { $implicit: item }"></ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #filterBar let-item>
   <div
     matRipple
     matTooltipPosition="right"
     class="filter-box justify-content-between"
-    [class.selected]="itemClass == item.key || (!itemClass && item.key == 'all')"
+    [class.selected]="itemClass == item?.key || (!itemClass && item?.key == 'all')"
     [class.disabled]="process"
-    [matTooltip]="item.name"
+    [matTooltip]="item?.title"
     [matTooltipDisabled]="!sidebarContent.sidebarCollapsed"
-    (click)="getEntityName(item.key)"
+    (click)="getEntityName(item?.key)"
   >
     <div class="d-flex">
-      <img class="mr-2" src="/img/svg/entity-counters/{{ item.key }}.svg" />
-      <span *ngIf="!sidebarContent.sidebarCollapsed" class="filter-box--text text-capitalize">{{ item.name }}</span>
+      <img class="mr-2" src="/img/svg/entity-counters/{{ item?.key }}.svg" />
+      <span *ngIf="!sidebarContent.sidebarCollapsed" class="filter-box--text text-capitalize">{{ item?.title }}</span>
     </div>
     <div
-      class="filter-box--counter e2e-entity-{{ item.key }}-amount badge badge-default badge-pill"
+      class="filter-box--counter e2e-entity-{{ item?.key }}-amount badge badge-default badge-pill"
       [ngClass]="{ collapsed: sidebarContent.sidebarCollapsed }"
     >
-      {{ data[item.key] ? data[item.key] : 0 }}
+      {{ item?.count}}
     </div>
   </div>
-</ng-container>
+</ng-template>

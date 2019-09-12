@@ -17,6 +17,7 @@ import { IQuickFilter, QuickFilterService } from 'app/core/services/browser-serv
 import { NotificationsService } from 'app/core/services/notifications/notifications.service';
 import { PageTitleService } from 'app/core/services/page-title/page-title.service';
 import { SignalrService } from 'app/core/services/signalr/signalr.service';
+import { CategoriesService } from 'app/shared/components/categories-tree/categories.service';
 import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
 import { CreateFolderComponent } from 'app/shared/components/folder-actions/create-folder/create-folder.component';
 import { DeleteFolderComponent } from 'app/shared/components/folder-actions/delete-folder/delete-folder.component';
@@ -38,7 +39,6 @@ import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { Observable, Subscription } from 'rxjs';
 
 import { ActionMenuItemData, ActionMenuItemsManager, ContextMenu, ESidebarTab, ISidebarTab } from './organize-view.model';
-import { CategoriesService } from 'app/shared/components/categories-tree/categories.service';
 
 @Component({
   selector: 'dr-organize-view',
@@ -352,7 +352,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
             ToolbarButtonType.search,
             ToolbarButtonType.export,
           ];
-         } else if ('search' in this.dataService.viewParams) {
+        } else if ('search' in this.dataService.viewParams) {
           this.folderContextMenuManager.filtered = true;
           this.activeToolbarButtons = [
             ToolbarButtonType.tile,

@@ -1,3 +1,25 @@
+<div
+  matRipple
+  matTooltipPosition="right"
+  matTooltip="{{ entitiyFilter?.title }}"
+  class="filter-box justify-content-between"
+  [class.selected]="currentFilter === 'all' && selectedNode?.guid === ''"
+  [matTooltipDisabled]="!sidebarContent.sidebarCollapsed"
+  (click)="displayAllFiles()"
+>
+  <div class="d-flex">
+    <img class="mr-2" src="/img/svg/entity-counters/{{ entitiyFilter?.key }}.svg" />
+    <span *ngIf="!sidebarContent.sidebarCollapsed" class="filter-box--text text-capitalize">{{ entitiyFilter?.title }}</span>
+  </div>
+  <div
+    class="filter-box--counter e2e-entity-{{ entitiyFilter?.key }}-amount badge badge-default badge-pill"
+    [ngClass]="{ collapsed: sidebarContent.sidebarCollapsed }"
+  >
+    {{ entitiyFilter?.count }}
+  </div>
+</div>
+<ng-content></ng-content>
+
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="tree">
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
     <li
