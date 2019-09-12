@@ -7,7 +7,7 @@ import { CategoryNode } from './CategoryNode';
   providedIn: 'root',
 })
 export class CategoriesService {
-  private _category: BehaviorSubject<CategoryNode> = new BehaviorSubject(new CategoryNode());
+  private _category: BehaviorSubject<CategoryNode> = new BehaviorSubject({ guid: '', title: 'Not Selected' });
   public get category(): CategoryNode {
     return this._category.value;
   }

@@ -17,31 +17,25 @@
   <sidebar>
     <ng-contaner [ngSwitch]="currentSidebarTab">
       <ng-container *ngSwitchCase="sidebarTab.CATEGORIES">
-        <dr-categories-tree >
-          <ng-container *ngFor="let tab of tabs">
-            <button
-              mat-button
-              class="tabs text-uppercase w-50"
-              [ngClass]="{ 'active-tab': currentSidebarTab === tab.type }"
-              (click)="currentSidebarTab = tab.type"
-            >
-              {{ tab.title }}
-            </button>
-          </ng-container>
+        <dr-categories-tree>
+          <div class="c-pointer text-uppercase tab_padding">
+            <ng-container *ngFor="let tab of tabs; let first = first" class="d-inline-block">
+              <span class="pr-2" [ngClass]="{ 'active-tab': currentSidebarTab === tab.type, 'v-separator pl-2': !first }" (click)="currentSidebarTab = tab.type">{{
+                tab.title
+              }}</span>
+            </ng-container>
+          </div>
         </dr-categories-tree>
       </ng-container>
       <ng-container *ngSwitchDefault>
         <dr-entity-counts>
-          <ng-container *ngFor="let tab of tabs">
-            <button
-              mat-button
-              class="tabs text-uppercase w-50"
-              [ngClass]="{ 'active-tab': currentSidebarTab === tab.type }"
-              (click)="currentSidebarTab = tab.type"
-            >
-              {{ tab.title }}
-            </button>
-          </ng-container>
+          <div class="c-pointer text-uppercase tab_padding">
+            <ng-container *ngFor="let tab of tabs; let first = first" class="d-inline-block">
+              <span class="pr-2" [ngClass]="{ 'active-tab': currentSidebarTab === tab.type, 'v-separator pl-2': !first }" (click)="currentSidebarTab = tab.type">{{
+                tab.title
+              }}</span>
+            </ng-container>
+          </div>
         </dr-entity-counts>
       </ng-container>
     </ng-contaner>
