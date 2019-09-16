@@ -46,7 +46,7 @@ import { ToolbarButtonType } from '../../shared/components/organize-toolbar/orga
 import { PropertiesInfoBoxComponent } from '../../shared/components/properties-info-box/properties-info-box.component';
 import { SharedLinksComponent } from '../../shared/components/shared-links/shared-links.component';
 import { SidebarContentService } from '../../shared/components/sidebar-content/sidebar-content.service';
-import { FileViewMode } from '../../shared/models/file-view-mode';
+import { FileViewType } from '../../shared/models/file-view-type';
 
 @Component({
   selector: 'dr-file-view',
@@ -70,13 +70,12 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   @Input() isPublicParent: boolean;
   toolBarButtons = [ToolbarButtonType.tile, ToolbarButtonType.table];
 
-  fileType = FileType;
-  listProperties = [];
+  fileActions: { title: string; active: boolean; viewType: FileViewType }[] = [];
   currentFileViewComponent = null;
 
   infoBoxes: Object[] = [];
-  tab = FileViewMode;
-  currentTab = FileViewMode.Records;
+  tab = FileViewType;
+  currentTab = FileViewType.Records;
   showFilter = false;
   filterListFields: FilterField[] = [];
   appliedFilterList: FilterField[] = [];
@@ -113,6 +112,13 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   lastShownPopoverName: string;
   lastShownPopoverTimeoutId: any;
   lastSelectedInfoBoxName: string;
+
+  get fileType(): string {
+    return this.fileInfo.name
+      .split('.')
+      .pop()
+      .toLowerCase();
+  }
 
   get currentView() {
     return localStorage.getItem('currentBrowserViewFor:records-view') || 'tile';
@@ -207,8 +213,8 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     this.subscribeToSignalr();
 
     this.dataService.setActiveNode(file_id).subscribe((x: any) => {
-      this.dataService.initBreadCrumbs(file_id).subscribe(() => {
-        this.dataService.refreshData();
+      this.dataService.initBreadCrumbs(file_id).subscribe(async () => {
+        await this.dataService.refreshData();
 
         this.fileInfo = this.dataService.currentItem;
         this.isShared = this.fileInfo.accessPermissions ? this.fileInfo.accessPermissions.isPublic : false;
@@ -221,51 +227,24 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
         } else {
           this.sharedToolTip = 'Create Public Link';
         }
-        // TODO change to this
-        if (this.fileInfo.getNodeType() === NodeType.Model) {
-          this.listProperties.push(
-            {
-              name: 'Model Files',
-              img: 'intrinsic.ico',
-              viewType: 'records',
-            },
-            {
-              name: 'Model Properties',
-              img: 'intrinsic.ico',
-              viewType: 'model',
-            },
-          );
-        } else {
-          this.entitiesApi.getEntitiesProperties(this.fileInfo.id, 'files').subscribe((data: any) => {
-            this.listProperties = [];
-            this.infoBoxes = [];
-            if (data.properties) {
-              for (const i in data.properties) {
-                if (data.properties.hasOwnProperty(i)) {
-                  continue;
-                }
-                let propArray = [];
-                propArray = data.properties[i];
 
-                // TODO remove it after bug will fix
-                if (!Array.isArray(propArray)) {
-                  propArray = Object.keys(propArray).map(function(key) {
-                    return {
-                      name: key,
-                      value: propArray[key],
-                    };
-                  });
-                }
-
-                this.infoBoxes.push(this.ffService.setCommonInfoBoxComponent(i, 'intrinsic.ico', propArray));
-                this.listProperties.push({
-                  name: i,
-                  img: 'intrinsic.ico',
-                });
-              }
-            }
-          });
-        }
+        this.fileActions = [
+          {
+            title: `records ${this.fileInfo.totalRecords}`,
+            active: !!this.fileInfo.totalRecords,
+            viewType: FileViewType.Records,
+          },
+          {
+            title: 'Biological Information',
+            active: this.isMicroscopy,
+            viewType: FileViewType.Bio_Metadata,
+          },
+          {
+            title: 'File Information',
+            active: true,
+            viewType: FileViewType.Generic_Metadata,
+          },
+        ];
       });
     });
 
@@ -330,44 +309,44 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
       this.showRecords = true;
     }
 
-    if (this.fileInfo.fileType() === this.fileType.webpage) {
+    if (this.fileInfo.fileType() === FileType.webpage) {
       this.showImagePreview = true;
-      this.currentTab = FileViewMode.Preview;
+      this.currentTab = FileViewType.Preview;
     }
 
-    if (this.fileInfo.fileType() === this.fileType.microscopy) {
+    if (this.fileInfo.fileType() === FileType.microscopy) {
       if (this.fileInfo.images) {
-        this.currentTab = FileViewMode.Preview;
+        this.currentTab = FileViewType.Preview;
       } else {
-        this.currentTab = FileViewMode.Generic_Metadata;
+        this.currentTab = FileViewType.Generic_Metadata;
       }
       this.isMicroscopy = true;
     }
 
-    if (this.fileInfo.fileType() === this.fileType.other || this.fileInfo.fileType() === this.fileType.image) {
+    if (this.fileInfo.fileType() === FileType.other || this.fileInfo.fileType() === FileType.image) {
       this.showImagePreview = true;
     }
 
-    if (this.fileInfo.fileType() === this.fileType.crystal) {
+    if (this.fileInfo.fileType() === FileType.crystal) {
       this.showImagePreview = false;
       this.JSMolPreview = true;
       this.JsSpectraPreview = false;
     }
 
-    if (this.fileInfo.fileType() === this.fileType.spectra) {
+    if (this.fileInfo.fileType() === FileType.spectra) {
       this.showImagePreview = false;
       this.JSMolPreview = false;
       this.JsSpectraPreview = true;
     }
 
     if (
-      this.fileInfo.fileType() === this.fileType.pdf ||
-      this.fileInfo.fileType() === this.fileType.office ||
-      this.fileInfo.fileType() === this.fileType.csv ||
-      this.fileInfo.fileType() === this.fileType.image
+      this.fileInfo.fileType() === FileType.pdf ||
+      this.fileInfo.fileType() === FileType.office ||
+      this.fileInfo.fileType() === FileType.csv ||
+      this.fileInfo.fileType() === FileType.image
     ) {
       this.showFullImagePreview = true;
-      this.currentTab = FileViewMode.Preview;
+      this.currentTab = FileViewType.Preview;
     }
   }
 
@@ -496,7 +475,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   }
 
   getFileViewComponent(dataItem: BrowserDataItem): Type<any> {
-    if (this.currentTab === FileViewMode.Preview) {
+    if (this.currentTab === FileViewType.Preview) {
       if (dataItem.getNodeType() === NodeType.File) {
         if (dataItem.getSubType() === SubType.Image || dataItem.getSubType() === SubType.Records) {
           if (
@@ -528,15 +507,15 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
       } else if (dataItem.getNodeType() === NodeType.Model) {
         return ImageFileViewComponent;
       }
-    } else if (this.currentTab === FileViewMode.Records) {
+    } else if (this.currentTab === FileViewType.Records) {
       return OrganizeBrowserComponent;
-    } else if (this.currentTab === FileViewMode.Models) {
+    } else if (this.currentTab === FileViewType.Models) {
       return SavFileViewComponent;
-    } else if (this.currentTab === FileViewMode.Bio_Metadata) {
+    } else if (this.currentTab === FileViewType.Bio_Metadata) {
       if (dataItem.getSubType() === SubType.Microscopy && environment.capabilities.microscopy) {
         return MicroscopyViewComponent;
       }
-    } else if (this.currentTab === FileViewMode.Generic_Metadata) {
+    } else if (this.currentTab === FileViewType.Generic_Metadata) {
       return GenericMetadataPreviewComponent;
     } else {
       return null;
@@ -563,8 +542,8 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     this.currentFileViewComponent = component;
   }
 
-  changeView(tab: FileViewMode) {
-    if (!(!this.fileInfo.images && tab === FileViewMode.Preview)) {
+  changeView(tab: FileViewType) {
+    if (!(!this.fileInfo.images && tab === FileViewType.Preview)) {
       this.currentTab = tab;
       this.changeFileView(this.getFileViewComponent(this.fileInfo), this.fileInfo);
     }
