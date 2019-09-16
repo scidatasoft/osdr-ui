@@ -131,13 +131,26 @@
           <dt *ngIf="fileInfo && fileInfo.totalRecords">Records</dt>
           <dd *ngIf="fileInfo && fileInfo.totalRecords">{{ fileInfo.totalRecords }}</dd>
         </dl>
-        <!-- <ul class="list-group">
-          <li *ngFor="let item of listProperties" (click)="goToAssignInfoBox(item)" class="list-group-item list-group-item-action justify-content-between"
-            matRipple>
-            <img src="/img/file-src/intrinsic.ico" class="file-src-img" no-inline/>
-            <span class="text-truncate"> {{item.name}}</span>
-          </li>
-        </ul> -->
+        <ng-container *ngFor="let action of fileActions">
+          <div *ngIf="action.active" class="properties-ul">
+            <ul class="list-group">
+              <li
+                matRipple
+                class="list-group-item list-group-item-action justify-content-between"
+                (click)="changeView(action.viewType)"
+                [ngClass]="{ active: currentTab == action.viewType }"
+              >
+                <img src="/img/svg/file-types/{{ fileType }}.svg" class="file-src-img" no-inline />
+                <ng-container *ngIf="action.viewType === tab.Records; else elseTemplate">
+                  <span class="text-truncate"> {{ recordsType }} {{ action.title }}</span>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <span class="text-truncate"> {{ action.title }}</span>
+                </ng-template>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
         <button
           *ngFor="let item of listProperties"
           mat-button
