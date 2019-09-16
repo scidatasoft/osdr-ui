@@ -1,4 +1,5 @@
 import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
+import { MatRippleModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -21,9 +22,11 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { FileViewComponent } from './file-view.component';
 
-export let dataServiceFactory = (auth: AuthService,
-                                 sharedProvider: BrowserDataSharedFileServiceService,
-                                 dataFileService: BrowserDataFileService) => {
+export let dataServiceFactory = (
+  auth: AuthService,
+  sharedProvider: BrowserDataSharedFileServiceService,
+  dataFileService: BrowserDataFileService,
+) => {
   if (auth.user && auth.user.profile) {
     return dataFileService;
   } else {
@@ -52,13 +55,11 @@ const modules = [
   SharedLinksModule,
   ExportDialogModule,
   MatDialogModule,
+  MatRippleModule,
 ];
 
 @NgModule({
-  imports: [
-    SharedModule,
-    ...modules,
-    RouterModule.forChild(routes)],
+  imports: [SharedModule, ...modules, RouterModule.forChild(routes)],
   exports: [FileViewComponent],
   declarations: [FileViewComponent],
   providers: [
@@ -70,10 +71,10 @@ const modules = [
     },
     BrowserDataSharedFileServiceService,
     BrowserDataFileService,
-    SharingResolver, SharingParentResolverService,
+    SharingResolver,
+    SharingParentResolverService,
     ShareElementGuard,
   ],
   schemas: [NO_ERRORS_SCHEMA],
-
 })
-export class FileViewModule { }
+export class FileViewModule {}
