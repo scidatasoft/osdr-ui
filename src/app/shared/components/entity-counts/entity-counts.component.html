@@ -14,7 +14,7 @@
     matTooltipPosition="right"
     class="filter-box justify-content-between"
     [class.selected]="itemClass == item?.key || (!itemClass && item?.key == 'all')"
-    [class.disabled]="process"
+    [class.disabled]="dataService?.browserLoading"
     [matTooltip]="item?.title"
     [matTooltipDisabled]="!sidebarContent.sidebarCollapsed"
     (click)="getEntityName(item?.key)"
@@ -27,7 +27,7 @@
       class="filter-box--counter e2e-entity-{{ item?.key }}-amount badge badge-default badge-pill"
       [ngClass]="{ collapsed: sidebarContent.sidebarCollapsed }"
     >
-      {{ item?.count}}
+      {{ item?.count }}
     </div>
   </div>
 </ng-template>
