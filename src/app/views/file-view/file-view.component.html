@@ -133,7 +133,7 @@
         </dl>
         <!-- <ul class="list-group">
           <li *ngFor="let item of listProperties" (click)="goToAssignInfoBox(item)" class="list-group-item list-group-item-action justify-content-between"
-            mat-ripple>
+            matRipple>
             <img src="/img/file-src/intrinsic.ico" class="file-src-img" no-inline/>
             <span class="text-truncate"> {{item.name}}</span>
           </li>
@@ -156,7 +156,7 @@
         [ngClass]="{ show: showPreviewPopover }"
         class="preview-popover"
       >
-        <div mat-ripple>
+        <div matRipple>
           <img
             class="e2e-middle-preview preview-img"
             *ngIf="getImageURL(fileInfo)"
@@ -165,8 +165,6 @@
             [src]="getImageURL(fileInfo)"
             no-inline
           />
-          <!-- <dr-cif-preview *ngIf="JSMolPreview" [viewType]="currentTab === tab.Preview ? true : false" [fileItem]="fileInfo"></dr-cif-preview>
-          <dr-spectra-jsmol-preview *ngIf="JsSpectraPreview" [fileItem]="fileInfo"></dr-spectra-jsmol-preview> -->
         </div>
       </div>
 
@@ -230,7 +228,7 @@
     </div>
 
     <div class="file-img">
-      <div mat-ripple>
+      <div matRipple>
         <div [class.active]="currentTab === tab.Preview">
           <div
             *ngIf="getImageURL(fileInfo) && !JsSpectraPreview"
@@ -258,52 +256,40 @@
     </div>
 
     <div *ngIf="!sidebarContent.sidebarCollapsed" class="properties-ul">
-      <!-- <ul class="list-group">
-        <li *ngFor="let item of listProperties" (click)="changeView(item.viewType)" class="list-group-item list-group-item-action justify-content-between"
-          [ngClass]="{active:currentTab==item.viewType}" mat-ripple>
-          <img src="/img/file-src/intrinsic.ico" class="file-src-img" no-inline/>
-          <span class="text-truncate"> {{item.name}}</span>
+      <ul class="list-group">
+        <li
+          *ngFor="let item of listProperties"
+          (click)="changeView(item.viewType)"
+          class="list-group-item list-group-item-action justify-content-between"
+          [ngClass]="{ active: currentTab == item.viewType }"
+          matRipple
+        >
+          <img src="/img/file-src/intrinsic.ico" class="file-src-img" no-inline />
+          <span class="text-truncate"> {{ item.name }}</span>
         </li>
-      </ul> -->
-      <button
-        *ngFor="let item of listProperties"
-        mat-button
-        class="e2e-show-{{ item.viewType }} show-records-btn"
-        (click)="changeView(item.viewType)"
-        [ngClass]="{ active: currentTab === item.viewType }"
-      >
-        <span class="text-truncate"> {{ item.name }}</span>
-      </button>
+      </ul>
     </div>
 
-    <button
-      *ngIf="!sidebarContent.sidebarCollapsed && fileInfo?.totalRecords"
-      mat-button
-      class="e2e-show-records show-records-btn"
-      (click)="changeView(tab.Records)"
-      [ngClass]="{ active: currentTab === tab.Records }"
-    >
-      <span>{{ recordsType }}&nbsp;records</span>
-      <b>&nbsp;{{ fileInfo.totalRecords }}</b>
-    </button>
-
-    <button
-      *ngIf="isMicroscopy"
-      mat-button
-      class="e2e-show-records show-records-btn"
-      (click)="changeView(tab.Bio_Metadata)"
-      [ngClass]="{ active: currentTab === tab.Bio_Metadata }"
-    >
-      Biological Information
-    </button>
-    <button
-      mat-button
-      class="e2e-show-records show-records-btn"
-      (click)="changeView(tab.Generic_Metadata)"
-      [ngClass]="{ active: currentTab === tab.Generic_Metadata }"
-    >
-      File Information
-    </button>
+    <ng-container *ngFor="let action of fileActions">
+      <div *ngIf="!sidebarContent.sidebarCollapsed && action.active" class="properties-ul">
+        <ul class="list-group">
+          <li
+            matRipple
+            class="list-group-item list-group-item-action justify-content-between"
+            (click)="changeView(action.viewType)"
+            [ngClass]="{ active: currentTab == action.viewType }"
+          >
+            <img src="/img/svg/file-types/{{ fileType }}.svg" class="file-src-img" no-inline />
+            <ng-container *ngIf="action.viewType === tab.Records; else elseTemplate">
+              <span class="text-truncate"> {{ recordsType }} {{ action.title }}</span>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <span class="text-truncate"> {{ action.title }}</span>
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
   </sidebar>
   <content class="file-content">
     <dr-organize-toolbar

@@ -1,7 +1,5 @@
 import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BsModules } from 'app/modules/bs.module';
-import { MdModules } from 'app/modules/md.module';
 import { FileViewsModule } from 'app/shared/components/file-views/file-views.module';
 import { InfoBoxModule } from 'app/shared/components/info-box/info-box.module';
 import { NotificationsModule } from 'app/shared/components/notifications/notifications.module';
