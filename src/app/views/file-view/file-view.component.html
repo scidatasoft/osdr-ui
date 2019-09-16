@@ -131,22 +131,26 @@
           <dt *ngIf="fileInfo && fileInfo.totalRecords">Records</dt>
           <dd *ngIf="fileInfo && fileInfo.totalRecords">{{ fileInfo.totalRecords }}</dd>
         </dl>
-        <!-- <ul class="list-group">
-          <li *ngFor="let item of listProperties" (click)="goToAssignInfoBox(item)" class="list-group-item list-group-item-action justify-content-between"
-            matRipple>
-            <img src="/img/file-src/intrinsic.ico" class="file-src-img" no-inline/>
-            <span class="text-truncate"> {{item.name}}</span>
-          </li>
-        </ul> -->
-        <button
-          *ngFor="let item of listProperties"
-          mat-button
-          class="e2e-show-{{ item.viewType }} show-records-btn"
-          (click)="changeView(item.viewType)"
-          [ngClass]="{ active: currentTab === item.viewType }"
-        >
-          <span class="text-truncate"> {{ item.name }}</span>
-        </button>
+        <ng-container *ngFor="let action of fileActions">
+          <div *ngIf="action.active" class="properties-ul">
+            <ul class="list-group">
+              <li
+                matRipple
+                class="list-group-item list-group-item-action justify-content-between"
+                (click)="changeView(action.viewType)"
+                [ngClass]="{ active: currentTab == action.viewType }"
+              >
+                <img src="/img/svg/file-types/{{ fileType }}.svg" class="file-src-img" no-inline />
+                <ng-container *ngIf="action.viewType === tab.Records; else elseTemplate">
+                  <span class="text-truncate"> {{ recordsType }} {{ action.title }}</span>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <span class="text-truncate"> {{ action.title }}</span>
+                </ng-template>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
       </div>
 
       <div
@@ -170,13 +174,13 @@
 
       <div
         *ngIf="sidebarContent.sidebarCollapsed && fileInfo?.totalRecords"
+        class="records-popover"
         (mouseenter)="showPopover('showRecordsPopover')"
         (mouseleave)="hidePopover('showRecordsPopover')"
         [ngClass]="{ show: showRecordsPopover }"
-        class="records-popover"
       >
         <button mat-button (click)="changeView(tab.Records)">
-          <span>{{ recordsType }}&nbsp;records</span>
+          <span>{{ recordsType }}&nbsp;records&nbsp;</span>
           <b>{{ fileInfo.totalRecords }}</b>
         </button>
       </div>
@@ -224,6 +228,16 @@
             <img src="/img/svg/record.svg" />
           </button>
         </div>
+
+        <div
+          *ngIf="categories.length !== 0"
+          (mouseenter)="showPopover('showCategoriesPovover')"
+          (mouseleave)="hidePopover('showCategoriesPovover')"
+        >
+          <button mat-icon-button>
+            <img src="/img/svg/category.svg" />
+          </button>
+        </div>
       </div>
     </div>
 
@@ -252,6 +266,12 @@
         <dd *ngIf="fileInfo.userInfo | async as userInfo">{{ userInfo?.displayName }}</dd>
         <dt *ngIf="fileInfo.totalRecords">Records</dt>
         <dd *ngIf="fileInfo.totalRecords">{{ fileInfo.totalRecords }}</dd>
+        <dt *ngIf="categories?.length !== 0">Categories</dt>
+        <dd>
+          <mat-chip-list aria-label="Categories">
+            <mat-chip *ngFor="let category of categories">{{ category?.title }}</mat-chip>
+          </mat-chip-list>
+        </dd>
       </dl>
     </div>
 
@@ -269,6 +289,17 @@
         </li>
       </ul>
     </div>
+
+    <mat-chip-list
+      *ngIf="sidebarContent.sidebarCollapsed && categories.length !== 0"
+      class="chips-popover"
+      aria-label="Categories"
+      (mouseenter)="showPopover('showCategoriesPovover')"
+      (mouseleave)="hidePopover('showCategoriesPovover')"
+      [ngClass]="{ show: showCategoriesPovover }"
+    >
+      <mat-chip *ngFor="let category of categories">{{ category?.title }}</mat-chip>
+    </mat-chip-list>
 
     <ng-container *ngFor="let action of fileActions">
       <div *ngIf="!sidebarContent.sidebarCollapsed && action.active" class="properties-ul">

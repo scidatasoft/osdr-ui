@@ -1,11 +1,11 @@
 @import 'vars';
 content {
-  border: .2rem solid transparent;
+  border: 0.2rem solid transparent;
   display: block;
   height: 100%;
   &.browser-drag-hover {
-    background: transparentize(darken($color-accent, 20%), .8);
-    border: .2rem dashed darken($color-accent, 20%);
+    background: transparentize(darken($color-accent, 20%), 0.8);
+    border: 0.2rem dashed darken($color-accent, 20%);
   }
 }
 
@@ -16,13 +16,30 @@ sidebar {
 .folder-drag-hover {
   &.table-item,
   .tile-img {
-    transition: .1s all;
-    background-color: transparentize(darken($color-accent, 20%), .8) !important;
-    border: .2rem dashed darken($color-accent, 20%);
+    transition: 0.1s all;
+    background-color: transparentize(darken($color-accent, 20%), 0.8) !important;
+    border: 0.2rem dashed darken($color-accent, 20%);
   }
 }
 
 :host {
   display: block;
   overflow: hidden;
+}
+
+:host {
+  .active-tab {
+    color: #099;
+    font-weight: bold;
+  }
+  .c-pointer {
+    cursor: pointer;
+  }
+  .tab_padding {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .v-separator {
+    border-left: 1px solid #000;
+  }
 }

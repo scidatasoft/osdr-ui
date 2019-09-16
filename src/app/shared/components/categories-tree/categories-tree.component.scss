@@ -1,13 +1,50 @@
-@import "_vars";
+@import '_vars';
+
+.tree-invisible {
+  display: none;
+}
+
+.tree ul {
+  padding-inline-start: 1rem;
+  li > button {
+    width: 2rem;
+  }
+}
+
+.tree ul,
+.tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
 
 :host {
+  .mat-tree,
+  .mat-tree-node,
+  .mat-nested-tree-node {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+  }
+
+  .mat-tree-node {
+    min-height: 40px;
+  }
+
+  .c-pointer {
+    cursor: pointer;
+  }
+
+  .selected {
+    background-color: #099;
+    color: #fff;
+  }
 
   .filter-box {
     border: none;
     cursor: pointer;
     background: transparent;
     border-radius: 0;
-    padding: 0.75rem .5rem;
+    padding: 0.75rem 0.5rem;
     position: relative;
     display: flex;
     flex-flow: row wrap;
@@ -15,19 +52,19 @@
     margin-bottom: -1px;
 
     svg {
-      transition: all .2s;
-      fill: transparentize($text-color, .5);
+      transition: all 0.2s;
+      fill: transparentize($text-color, 0.5);
       width: 1.5rem;
       height: 1.5rem;
     }
 
     span {
-      color: transparentize($text-color, .2);
+      color: transparentize($text-color, 0.2);
     }
 
     .badge-default {
       background-color: darken($bg-color, 7%);
-      color: transparentize($text-color, .5);
+      color: transparentize($text-color, 0.5);
       flex: 0;
 
       &.collapsed {
@@ -49,14 +86,14 @@
       }
 
       svg {
-        fill: transparentize($text-color, .2);
+        fill: transparentize($text-color, 0.2);
         transform: scale(1.2, 1.2);
         margin-right: 1rem !important;
       }
 
       .badge-default {
         background-color: darken($bg-color, 10%);
-        color: transparentize($text-color, .2);
+        color: transparentize($text-color, 0.2);
       }
     }
 
@@ -69,7 +106,7 @@
         margin-bottom: 5px;
         padding: 0;
 
-        &>.d-flex {
+        & > .d-flex {
           display: none !important;
         }
       }
@@ -78,7 +115,7 @@
     &.selected {
       background-color: #099;
 
-      >div span {
+      > div span {
         color: white;
       }
 
@@ -94,4 +131,19 @@
     }
   }
 
+  .chips-popover {
+    display: none;
+    position: absolute;
+    width: max-content;
+    max-width: 30rem;
+    top: 50px;
+    left: 40px;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: 8px 3px 15px -4px rgba(0, 0, 0, 0.75);
+    &.show {
+      display: block;
+    }
+  }
+  
 }

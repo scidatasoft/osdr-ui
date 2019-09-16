@@ -15,12 +15,16 @@
 
 <dr-sidebar-content *ngIf="!display">
   <sidebar>
-    <ng-contaner [ngSwitch]="currentSidebar">
-      <ng-container *ngSwitchCase="currentSidebarType.CATEGORIES">
-        <!-- <dr-categories-tree></dr-categories-tree> -->
+    <ng-contaner [ngSwitch]="currentSidebarTab">
+      <ng-container *ngSwitchCase="sidebarTab.CATEGORIES">
+        <dr-categories-tree>
+          <ng-container *ngTemplateOutlet="tabsTemp"></ng-container>
+        </dr-categories-tree>
       </ng-container>
       <ng-container *ngSwitchDefault>
-        <dr-entity-counts></dr-entity-counts>
+        <dr-entity-counts>
+          <ng-container *ngTemplateOutlet="tabsTemp"></ng-container>
+        </dr-entity-counts>
       </ng-container>
     </ng-contaner>
   </sidebar>
@@ -40,11 +44,25 @@
       [options]="getOptions()"
       usingFor="nodes-view"
     ></dr-organize-browser>
-    <!-- </div> -->
   </content>
   <br />
 </dr-sidebar-content>
 <dr-machine-learning-factory [componentData]="componentData" *ngIf="display"></dr-machine-learning-factory>
 <dr-notifications-side-bar></dr-notifications-side-bar>
 <dr-splash-notification></dr-splash-notification>
+
 <input class="e2e-upload-file" #fileUpload type="file" multiple style="display: none;" (change)="onFileChange($event)" />
+
+<ng-template #tabsTemp>
+  <div class="c-pointer text-uppercase tab_padding">
+    <ng-container *ngFor="let tab of tabs; let first = first">
+      <span
+        class="pr-2"
+        [ngClass]="{ 'active-tab': currentSidebarTab === tab.type, 'v-separator pl-2': !first }"
+        (click)="currentSidebarTab = tab.type"
+      >
+        {{ tab.title }}
+      </span>
+    </ng-container>
+  </div>
+</ng-template>

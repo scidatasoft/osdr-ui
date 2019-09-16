@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, Output } from '@angular/core';
 
 import { SidebarContentService } from './sidebar-content.service';
 

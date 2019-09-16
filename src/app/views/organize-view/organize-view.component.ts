@@ -3,41 +3,43 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
-import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
-import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
-import { FoldersApiService } from 'app/core/services/api/folders-api.service';
-import { NodesApiService } from 'app/core/services/api/nodes-api.service';
-import { NotificationsApiService } from 'app/core/services/api/notifications-api.service';
-import { WebPagesApiService } from 'app/core/services/api/web-pages-api.service';
-import { AuthService } from 'app/core/services/auth/auth.service';
-import { BrowserDataBaseService, BrowserViewState } from 'app/core/services/browser-services/browser-data-base.service';
-import { BrowserDataService, IBrowserEvent } from 'app/core/services/browser-services/browser-data.service';
-import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
-import { IQuickFilter, QuickFilterService } from 'app/core/services/browser-services/quick-filter.service';
-import { NotificationsService } from 'app/core/services/notifications/notifications.service';
-import { PageTitleService } from 'app/core/services/page-title/page-title.service';
-import { SignalrService } from 'app/core/services/signalr/signalr.service';
-import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
-import { CreateFolderComponent } from 'app/shared/components/folder-actions/create-folder/create-folder.component';
-import { DeleteFolderComponent } from 'app/shared/components/folder-actions/delete-folder/delete-folder.component';
-import { MoveDialogType, MoveFolderComponent } from 'app/shared/components/folder-actions/move-folder/move-folder.component';
-import { RenameFolderComponent } from 'app/shared/components/folder-actions/rename-folder/rename-folder.component';
-// import { MachineLearningService } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.service';
-import { ActionViewService } from 'app/shared/components/full-screen-dialogs/action-view.service';
-import { ImportWebPageComponent } from 'app/shared/components/import-web-page/import-web-page.component';
-import { NotificationType, SignalREvent } from 'app/shared/components/notifications/events.model';
-import { NotificationCommonItemComponent } from 'app/shared/components/notifications/notifications-side-bar/notification-common-item/notification-common-item.component';
-import { NotificationUploadItemComponent } from 'app/shared/components/notifications/notifications-side-bar/notification-upload-item/notification-upload-item.component';
-import { NotificationItem, NotificationMessage, NotificationUploadMessage } from 'app/shared/components/notifications/notifications.model';
-import { BrowserDataItem, BrowserOptions, NodeType } from 'app/shared/components/organize-browser/browser-types';
-import { OrganizeBrowserComponent } from 'app/shared/components/organize-browser/organize-browser.component';
-import { ToolbarButtonType } from 'app/shared/components/organize-toolbar/organize-toolbar.model';
-import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
 import { environment } from 'environments/environment';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { Observable, Subscription } from 'rxjs';
 
-import { ActionMenuItemData, ActionMenuItemsManager, ContextMenu, ECurrentSidebar } from './organize-view.model';
+import { BlobsApiService } from '../../core/services/api/blobs-api.service';
+import { EntitiesApiService } from '../../core/services/api/entities-api.service';
+import { FoldersApiService } from '../../core/services/api/folders-api.service';
+import { NodesApiService } from '../../core/services/api/nodes-api.service';
+import { NotificationsApiService } from '../../core/services/api/notifications-api.service';
+import { WebPagesApiService } from '../../core/services/api/web-pages-api.service';
+import { AuthService } from '../../core/services/auth/auth.service';
+import { BrowserDataBaseService, BrowserViewState } from '../../core/services/browser-services/browser-data-base.service';
+import { BrowserDataService, IBrowserEvent } from '../../core/services/browser-services/browser-data.service';
+import { PaginatorManagerService } from '../../core/services/browser-services/paginator-manager.service';
+import { IQuickFilter, QuickFilterService } from '../../core/services/browser-services/quick-filter.service';
+import { NotificationsService } from '../../core/services/notifications/notifications.service';
+import { PageTitleService } from '../../core/services/page-title/page-title.service';
+import { SignalrService } from '../../core/services/signalr/signalr.service';
+import { CategoriesService } from '../../shared/components/categories-tree/categories.service';
+import { ExportDialogComponent } from '../../shared/components/export-dialog/export-dialog.component';
+import { CreateFolderComponent } from '../../shared/components/folder-actions/create-folder/create-folder.component';
+import { DeleteFolderComponent } from '../../shared/components/folder-actions/delete-folder/delete-folder.component';
+import { MoveDialogType, MoveFolderComponent } from '../../shared/components/folder-actions/move-folder/move-folder.component';
+import { RenameFolderComponent } from '../../shared/components/folder-actions/rename-folder/rename-folder.component';
+// import { MachineLearningService } from '../../shared/components/full-screen-dialogs/machine-learning/machine-learning.service';
+import { ActionViewService } from '../../shared/components/full-screen-dialogs/action-view.service';
+import { ImportWebPageComponent } from '../../shared/components/import-web-page/import-web-page.component';
+import { NotificationType, SignalREvent } from '../../shared/components/notifications/events.model';
+import { NotificationCommonItemComponent } from '../../shared/components/notifications/notifications-side-bar/notification-common-item/notification-common-item.component';
+import { NotificationUploadItemComponent } from '../../shared/components/notifications/notifications-side-bar/notification-upload-item/notification-upload-item.component';
+import { NotificationItem, NotificationMessage, NotificationUploadMessage } from '../../shared/components/notifications/notifications.model';
+import { BrowserDataItem, BrowserOptions, NodeType } from '../../shared/components/organize-browser/browser-types';
+import { OrganizeBrowserComponent } from '../../shared/components/organize-browser/organize-browser.component';
+import { ToolbarButtonType } from '../../shared/components/organize-toolbar/organize-toolbar.model';
+import { SharedLinksComponent } from '../../shared/components/shared-links/shared-links.component';
+
+import { ActionMenuItemData, ActionMenuItemsManager, ContextMenu, ESidebarTab, ISidebarTab } from './organize-view.model';
 
 @Component({
   selector: 'dr-organize-view',
@@ -68,7 +70,19 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
 
   folderContextMenuManager: ActionMenuItemsManager = new ActionMenuItemsManager();
   disabledMenu = false;
-  currentSidebarType: any = ECurrentSidebar;
+  sidebarTab: any = ESidebarTab;
+  currentSidebarTab: ESidebarTab = ESidebarTab.FILTERS;
+
+  tabs: ISidebarTab[] = [
+    {
+      title: 'Filters',
+      type: ESidebarTab.FILTERS,
+    },
+    {
+      title: 'Categories',
+      type: ESidebarTab.CATEGORIES,
+    },
+  ];
 
   private updateSubscription: Subscription;
   private browserEventSubscription: Subscription = null;
@@ -107,6 +121,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
     private pageTitle: PageTitleService,
     private notificationsApi: NotificationsApiService,
     private contextMenuService: ContextMenuService,
+    private categoryService: CategoriesService,
   ) {
     super(foldersApi, entitiesApi);
 
@@ -309,6 +324,24 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
             { text: 'DRAFTS', width: null, link: '/organize/drafts' },
             {
               text: `FILTER: ${this.quickFilter.getFilterTitle(this.dataService.viewParams['$filter'])}`,
+              width: null,
+              link: '/organize/drafts',
+            },
+          ];
+          this.activeToolbarButtons = [
+            ToolbarButtonType.tile,
+            ToolbarButtonType.table,
+            ToolbarButtonType.subMenu,
+            ToolbarButtonType.search,
+            ToolbarButtonType.export,
+          ];
+        } else if (`$category` in this.dataService.viewParams) {
+          this.dataService.browserServiceState = BrowserViewState.categoryBrowser;
+          this.folderContextMenuManager.filtered = true;
+          this.dataService.breadcrumbs = [
+            { text: 'DRAFTS', width: null, link: '/organize/drafts' },
+            {
+              text: `CATEGORY: ${this.categoryService.category.title}`,
               width: null,
               link: '/organize/drafts',
             },

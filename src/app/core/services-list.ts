@@ -7,6 +7,7 @@ import { SidebarContentService } from 'app/shared/components/sidebar-content/sid
 import { ActionViewService } from '../shared/components/full-screen-dialogs/action-view.service';
 
 import { BlobsApiService } from './services/api/blobs-api.service';
+import { CategoriesApiService } from './services/api/categories-api.service';
 import { EntitiesApiService } from './services/api/entities-api.service';
 import { FilesApiService } from './services/api/files-api.service';
 import { FoldersApiService } from './services/api/folders-api.service';
@@ -51,4 +52,5 @@ export const ServicesList = [
   ExportChemFilesService,
   ActionViewService,
   FingerprintsService,
+  CategoriesApiService,
 ];

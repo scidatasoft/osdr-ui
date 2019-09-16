@@ -15,6 +15,7 @@ export class QuickFilterService implements IQuickFilter {
   private map: Map<string, string> = null;
 
   counters = [
+    { name: 'All Files', key: 'all' },
     { name: 'Shared By Me', key: 'sharedByMe' },
     { name: 'Shared With Me', key: 'sharedWithMe' },
     { name: 'Documents', key: 'documents' },
@@ -31,6 +32,7 @@ export class QuickFilterService implements IQuickFilter {
 
   constructor() {
     this.map = new Map();
+    this.map.set('all', `nodes?pageNumber=1&pageSize=20`);
     this.map.set('documents', `type eq 'File' and SubType in ('Office', 'Pdf')`);
     this.map.set('structures', `type eq 'Record' and SubType eq 'Structure'`);
     this.map.set('images', `type eq 'File' and SubType eq 'Image'`);

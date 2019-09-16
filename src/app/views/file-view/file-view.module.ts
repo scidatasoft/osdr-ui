@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
-import { MatRippleModule } from '@angular/material';
+import { MatRippleModule, MatChipsModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -56,6 +56,7 @@ const modules = [
   ExportDialogModule,
   MatDialogModule,
   MatRippleModule,
+  MatChipsModule,
 ];
 
 @NgModule({

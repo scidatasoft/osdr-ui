@@ -15,39 +15,41 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
-import { BlobsApiService } from 'app/core/services/api/blobs-api.service';
-import { EntitiesApiService } from 'app/core/services/api/entities-api.service';
-import { FoldersApiService } from 'app/core/services/api/folders-api.service';
-import { ImagesApiService } from 'app/core/services/api/images-api.service';
-import { BrowserDataBaseService } from 'app/core/services/browser-services/browser-data-base.service';
-import { IBrowserEvent } from 'app/core/services/browser-services/browser-data.service';
-import { PaginatorManagerService } from 'app/core/services/browser-services/paginator-manager.service';
-import { PageTitleService } from 'app/core/services/page-title/page-title.service';
-import { SignalrService } from 'app/core/services/signalr/signalr.service';
-import { ExportDialogComponent } from 'app/shared/components/export-dialog/export-dialog.component';
-import { CifPreviewComponent } from 'app/shared/components/file-views/cif-preview/cif-preview.component';
-import { CSVPreviewComponent } from 'app/shared/components/file-views/csv-preview/csv-preview.component';
-import { IFilePreviewComponent } from 'app/shared/components/file-views/file-view.model';
-import { ImageFileViewComponent } from 'app/shared/components/file-views/image-file-view/image-file-view.component';
-import { MicroscopyViewComponent } from 'app/shared/components/file-views/microscopy-view/microscopy-view.component';
-import { OfficePreviewComponent } from 'app/shared/components/file-views/office-preview/office-preview.component';
-import { PdfFileViewComponent } from 'app/shared/components/file-views/pdf-file-view/pdf-file-view.component';
-import { SpectraJsmolPreviewComponent } from 'app/shared/components/file-views/spectra-jsmol-preview/spectra-jsmol-preview.component';
-import { FilterField } from 'app/shared/components/filter-bar/filter-bar.model';
-import { GenericMetadataPreviewComponent } from 'app/shared/components/generic-metadata-preview/generic-metadata-preview.component';
-import { InfoBoxFactoryService } from 'app/shared/components/info-box/info-box-factory.service';
-import { BrowserDataItem, BrowserOptions, FileType, NodeType, SubType } from 'app/shared/components/organize-browser/browser-types';
-import { OrganizeBrowserComponent } from 'app/shared/components/organize-browser/organize-browser.component';
-import { ToolbarButtonType } from 'app/shared/components/organize-toolbar/organize-toolbar.model';
-import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-info-box/properties-info-box.component';
-import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
-import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
-import { FileViewType } from 'app/shared/models/file-view-type';
+import { CategoriesApiService } from 'app/core/services/api/categories-api.service';
+import { CategoriesService } from 'app/shared/components/categories-tree/categories.service';
+import { CategoryNode } from 'app/shared/components/categories-tree/CategoryNode';
 import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs';
-import { isArray } from 'util';
 
+import { BlobsApiService } from '../../core/services/api/blobs-api.service';
+import { EntitiesApiService } from '../../core/services/api/entities-api.service';
+import { FoldersApiService } from '../../core/services/api/folders-api.service';
+import { ImagesApiService } from '../../core/services/api/images-api.service';
+import { BrowserDataBaseService } from '../../core/services/browser-services/browser-data-base.service';
+import { IBrowserEvent } from '../../core/services/browser-services/browser-data.service';
+import { PaginatorManagerService } from '../../core/services/browser-services/paginator-manager.service';
+import { PageTitleService } from '../../core/services/page-title/page-title.service';
+import { SignalrService } from '../../core/services/signalr/signalr.service';
+import { ExportDialogComponent } from '../../shared/components/export-dialog/export-dialog.component';
+import { CifPreviewComponent } from '../../shared/components/file-views/cif-preview/cif-preview.component';
+import { CSVPreviewComponent } from '../../shared/components/file-views/csv-preview/csv-preview.component';
+import { IFilePreviewComponent } from '../../shared/components/file-views/file-view.model';
+import { ImageFileViewComponent } from '../../shared/components/file-views/image-file-view/image-file-view.component';
+import { MicroscopyViewComponent } from '../../shared/components/file-views/microscopy-view/microscopy-view.component';
+import { OfficePreviewComponent } from '../../shared/components/file-views/office-preview/office-preview.component';
+import { PdfFileViewComponent } from '../../shared/components/file-views/pdf-file-view/pdf-file-view.component';
 import { SavFileViewComponent } from '../../shared/components/file-views/sav-file-view/sav-file-view.component';
+import { SpectraJsmolPreviewComponent } from '../../shared/components/file-views/spectra-jsmol-preview/spectra-jsmol-preview.component';
+import { FilterField } from '../../shared/components/filter-bar/filter-bar.model';
+import { GenericMetadataPreviewComponent } from '../../shared/components/generic-metadata-preview/generic-metadata-preview.component';
+import { InfoBoxFactoryService } from '../../shared/components/info-box/info-box-factory.service';
+import { BrowserDataItem, BrowserOptions, FileType, NodeType, SubType } from '../../shared/components/organize-browser/browser-types';
+import { OrganizeBrowserComponent } from '../../shared/components/organize-browser/organize-browser.component';
+import { ToolbarButtonType } from '../../shared/components/organize-toolbar/organize-toolbar.model';
+import { PropertiesInfoBoxComponent } from '../../shared/components/properties-info-box/properties-info-box.component';
+import { SharedLinksComponent } from '../../shared/components/shared-links/shared-links.component';
+import { SidebarContentService } from '../../shared/components/sidebar-content/sidebar-content.service';
+import { FileViewType } from '../../shared/models/file-view-type';
 
 @Component({
   selector: 'dr-file-view',
@@ -72,6 +74,12 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   toolBarButtons = [ToolbarButtonType.tile, ToolbarButtonType.table];
 
   fileActions: { title: string; active: boolean; viewType: FileViewType }[] = [];
+  categories: CategoryNode[] = [
+    { guid: null, title: `Lorem ` },
+    { guid: null, title: `Consequuntur` },
+    { guid: null, title: `praesentium!` },
+    { guid: null, title: `Consequuntur praesentium!` },
+  ];
   currentFileViewComponent = null;
 
   infoBoxes: Object[] = [];
@@ -116,9 +124,9 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
 
   get fileType(): string {
     return this.fileInfo.name
-    .split('.')
-    .pop()
-    .toLowerCase();
+      .split('.')
+      .pop()
+      .toLowerCase();
   }
 
   get currentView() {
@@ -159,6 +167,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     public dialog: MatDialog,
     private componentResolver: ComponentFactoryResolver,
     private pageTitle: PageTitleService,
+    private categoriesApi: CategoriesApiService,
   ) {
     super(foldersApi, entitiesApi);
     this.breadcrumbs = [{ text: 'DRAFTS' }];
@@ -258,6 +267,8 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
         }
       });
     }
+
+    this.categoriesApi.getNode(file_id).then(res => (this.categories = res)).catch(error => console.error(error));
   }
 
   subscribeToSignalr() {

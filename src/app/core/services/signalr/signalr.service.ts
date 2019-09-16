@@ -62,7 +62,7 @@ export class SignalrService {
         return;
       }
       $.signalR.ajaxDefaults.headers = {
-        Authorization: user.token_type + ' ' + user.access_token,
+        Authorization: `${user.token_type} ${user.access_token}`,
       };
 
       const organizeHubProxy = new signalR.HubConnectionBuilder()
@@ -148,7 +148,7 @@ export class SignalrService {
     console.log('change signalR token');
     const $ = (window as any).$;
     $.signalR.ajaxDefaults.headers = {
-      Authorization: user.token_type + ' ' + user.access_token,
+      Authorization: `${user.token_type} ${user.access_token}`,
     };
   }
 }
