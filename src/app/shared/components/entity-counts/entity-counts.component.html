@@ -1,7 +1,7 @@
 <ng-container *ngFor="let item of counters | async">
   <ng-container *ngIf="item?.key === 'all'">
     <ng-container *ngTemplateOutlet="filterBar; context: { $implicit: item }"></ng-container>
-    <ng-content></ng-content>
+    <ng-content *ngIf="!sidebarContent.sidebarCollapsed"></ng-content>
   </ng-container>
   <ng-container *ngIf="item?.key !== 'all'">
     <ng-container *ngTemplateOutlet="filterBar; context: { $implicit: item }"></ng-container>

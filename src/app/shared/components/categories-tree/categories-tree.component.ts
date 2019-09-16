@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EEntityFilter, ICounter } from 'app/shared/models/entity-filter';
-import { ESidebarTab } from 'app/views/organize-view/organize-view.model';
 
 import { CategoriesApiService } from '../../../core/services/api/categories-api.service';
 import { EntityCountsService } from '../entity-counts/entity-counts.service';
@@ -59,6 +58,8 @@ export class CategoriesTreeComponent implements OnInit {
   treeControl = new NestedTreeControl<CategoryNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<CategoryNode>();
   entitiyFilter: ICounter;
+  lastShownPopoverName: string;
+  lastShownPopoverTimeoutId: any;
 
   constructor(
     public sidebarContent: SidebarContentService,
@@ -94,6 +95,28 @@ export class CategoriesTreeComponent implements OnInit {
     this.router.navigate(['./'], {
       relativeTo: this.activatedRoute,
     });
+  }
+
+  showPopover(popoverName: string) {
+    if (this.lastShownPopoverName === popoverName && this.lastShownPopoverTimeoutId) {
+      clearTimeout(this.lastShownPopoverTimeoutId);
+      this.lastShownPopoverTimeoutId = null;
+    }
+
+    this[this.lastShownPopoverName] = false;
+    this.lastShownPopoverName = popoverName;
+    this[popoverName] = true;
+  }
+
+  hidePopover(popoverName: string | number) {
+    if (this.lastShownPopoverTimeoutId) {
+      clearTimeout(this.lastShownPopoverTimeoutId);
+      this.lastShownPopoverTimeoutId = null;
+    }
+
+    this.lastShownPopoverTimeoutId = setTimeout(() => {
+      this[popoverName] = false;
+    }, 500);
   }
 
   private filterByCategory(): Promise<boolean> {

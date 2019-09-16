@@ -1,6 +1,6 @@
-@import "_vars";
-@import "_mixins";
-@import "_info-box";
+@import '_vars';
+@import '_mixins';
+@import '_info-box';
 hr {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), $bg-color-invert, rgba(0, 0, 0, 0));
 }
@@ -252,19 +252,35 @@ sidebar {
 }
 
 .preview-popover {
-  position: absolute;
-  left: 48px;
-  z-index: 1;
-  background: #e2e2e2;
-  top: 120px;
-  box-shadow: 8px 3px 15px -4px rgba(0, 0, 0, 0.75);
   display: none;
+  position: absolute;
+  top: 120px;
+  left: 48px;
+  padding: 1rem;
+  background: #e2e2e2;
+  box-shadow: 8px 3px 15px -4px rgba(0, 0, 0, 0.75);
+  z-index: 1;
   &.show {
     display: block;
   }
   img {
     width: 300px;
     height: 300px;
+  }
+}
+
+.chips-popover {
+  display: none;
+  position: absolute;
+  width: max-content;
+  max-width: 30rem;
+  top: 200px;
+  left: 40px;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 8px 3px 15px -4px rgba(0, 0, 0, 0.75);
+  &.show {
+    display: block;
   }
 }
 

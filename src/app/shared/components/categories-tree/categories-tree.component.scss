@@ -130,4 +130,20 @@
       pointer-events: none;
     }
   }
+
+  .chips-popover {
+    display: none;
+    position: absolute;
+    width: max-content;
+    max-width: 30rem;
+    top: 50px;
+    left: 40px;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: 8px 3px 15px -4px rgba(0, 0, 0, 0.75);
+    &.show {
+      display: block;
+    }
+  }
+  
 }

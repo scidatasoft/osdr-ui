@@ -151,15 +151,6 @@
             </ul>
           </div>
         </ng-container>
-        <button
-          *ngFor="let item of listProperties"
-          mat-button
-          class="e2e-show-{{ item.viewType }} action-btn"
-          (click)="changeView(item.viewType)"
-          [ngClass]="{ active: currentTab === item.viewType }"
-        >
-          <span class="text-truncate"> {{ item.name }}</span>
-        </button>
       </div>
 
       <div
@@ -183,13 +174,13 @@
 
       <div
         *ngIf="sidebarContent.sidebarCollapsed && fileInfo?.totalRecords"
+        class="records-popover"
         (mouseenter)="showPopover('showRecordsPopover')"
         (mouseleave)="hidePopover('showRecordsPopover')"
         [ngClass]="{ show: showRecordsPopover }"
-        class="records-popover"
       >
         <button mat-button (click)="changeView(tab.Records)">
-          <span>{{ recordsType }}&nbsp;records</span>
+          <span>{{ recordsType }}&nbsp;records&nbsp;</span>
           <b>{{ fileInfo.totalRecords }}</b>
         </button>
       </div>
@@ -237,6 +228,16 @@
             <img src="/img/svg/record.svg" />
           </button>
         </div>
+
+        <div
+          *ngIf="categories.length !== 0"
+          (mouseenter)="showPopover('showCategoriesPovover')"
+          (mouseleave)="hidePopover('showCategoriesPovover')"
+        >
+          <button mat-icon-button>
+            <img src="/img/svg/category.svg" />
+          </button>
+        </div>
       </div>
     </div>
 
@@ -265,6 +266,12 @@
         <dd *ngIf="fileInfo.userInfo | async as userInfo">{{ userInfo?.displayName }}</dd>
         <dt *ngIf="fileInfo.totalRecords">Records</dt>
         <dd *ngIf="fileInfo.totalRecords">{{ fileInfo.totalRecords }}</dd>
+        <dt *ngIf="categories?.length !== 0">Categories</dt>
+        <dd>
+          <mat-chip-list aria-label="Categories">
+            <mat-chip *ngFor="let category of categories">{{ category?.title }}</mat-chip>
+          </mat-chip-list>
+        </dd>
       </dl>
     </div>
 
@@ -282,6 +289,17 @@
         </li>
       </ul>
     </div>
+
+    <mat-chip-list
+      *ngIf="sidebarContent.sidebarCollapsed && categories.length !== 0"
+      class="chips-popover"
+      aria-label="Categories"
+      (mouseenter)="showPopover('showCategoriesPovover')"
+      (mouseleave)="hidePopover('showCategoriesPovover')"
+      [ngClass]="{ show: showCategoriesPovover }"
+    >
+      <mat-chip *ngFor="let category of categories">{{ category?.title }}</mat-chip>
+    </mat-chip-list>
 
     <ng-container *ngFor="let action of fileActions">
       <div *ngIf="!sidebarContent.sidebarCollapsed && action.active" class="properties-ul">

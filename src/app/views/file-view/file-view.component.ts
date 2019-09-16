@@ -15,6 +15,9 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { CategoriesApiService } from 'app/core/services/api/categories-api.service';
+import { CategoriesService } from 'app/shared/components/categories-tree/categories.service';
+import { CategoryNode } from 'app/shared/components/categories-tree/CategoryNode';
 import { environment } from 'environments/environment';
 import { Subscription } from 'rxjs';
 
@@ -71,6 +74,12 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
   toolBarButtons = [ToolbarButtonType.tile, ToolbarButtonType.table];
 
   fileActions: { title: string; active: boolean; viewType: FileViewType }[] = [];
+  categories: CategoryNode[] = [
+    { guid: null, title: `Lorem ` },
+    { guid: null, title: `Consequuntur` },
+    { guid: null, title: `praesentium!` },
+    { guid: null, title: `Consequuntur praesentium!` },
+  ];
   currentFileViewComponent = null;
 
   infoBoxes: Object[] = [];
@@ -158,6 +167,7 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
     public dialog: MatDialog,
     private componentResolver: ComponentFactoryResolver,
     private pageTitle: PageTitleService,
+    private categoriesApi: CategoriesApiService,
   ) {
     super(foldersApi, entitiesApi);
     this.breadcrumbs = [{ text: 'DRAFTS' }];
@@ -257,6 +267,8 @@ export class FileViewComponent extends BrowserOptions implements OnInit, AfterCo
         }
       });
     }
+
+    this.categoriesApi.getNode(file_id).then(res => (this.categories = res)).catch(error => console.error(error));
   }
 
   subscribeToSignalr() {
