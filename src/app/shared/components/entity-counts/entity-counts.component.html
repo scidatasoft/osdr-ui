@@ -1,7 +1,7 @@
 <ul class="list-group">
   <li
     class="list-group-item list-group-item-action justify-content-between"
-    mat-ripple
+    matRipple
     matTooltip="All files"
     matTooltipPosition="right"
     [class.selected]="!itemClass || itemClass == 'all'"
@@ -21,7 +21,7 @@
   <li
     *ngFor="let item of counters"
     class="list-group-item list-group-item-action justify-content-between"
-    mat-ripple
+    matRipple
     matTooltipPosition="right"
     (click)="getEntityName(item.key)"
     [class.selected]="itemClass == item.key"

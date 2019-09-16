@@ -14,7 +14,6 @@ import { PropertiesInfoBoxComponent } from 'app/shared/components/properties-inf
 import { SharedLinksComponent } from 'app/shared/components/shared-links/shared-links.component';
 import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
 import { map } from 'rxjs/operators';
-import { isArray } from 'util';
 
 import { SignalrService } from '../../core/services/signalr/signalr.service';
 
@@ -32,6 +31,7 @@ export class RecordViewComponent implements OnInit {
   @ViewChild('infoBoxContainer', { static: false }) infoBoxContainer;
   @ViewChild('fileViewContainer', { read: ViewContainerRef, static: false }) fileViewContainer: ViewContainerRef;
   record: BrowserDataItem;
+  fileType: string;
   toolBarButtons = [];
   infoBoxes: Object[] = [];
 
@@ -67,7 +67,6 @@ export class RecordViewComponent implements OnInit {
     private pageTitle: PageTitleService,
     private signalr: SignalrService,
     private usersApi: UsersApiService,
-
   ) {
     this.breadcrumbs = [{ text: 'DRAFTS' }];
   }
@@ -110,7 +109,7 @@ export class RecordViewComponent implements OnInit {
 
         this.setBreadCrumbs(breadCrumbsResponse);
         const shortFileInfo = breadCrumbsResponse.breadcrumbs[0];
-        const fileType = shortFileInfo.Name.slice(-3).toLowerCase();
+        this.fileType = shortFileInfo.Name.slice(-3).toLowerCase();
 
         this.getSharedStatus();
         this.updateProperties(recordId);
@@ -249,7 +248,7 @@ export class RecordViewComponent implements OnInit {
         this.copyFilenameText = 'Copied!';
         (this.copyFilenameTooltip as any).show();
       }
-    } catch (err) { }
+    } catch (err) {}
   }
 
   openPropertiesEditorDialog(data) {

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatRippleModule } from '@angular/material';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from 'app/shared/shared.module';
 
@@ -16,7 +17,7 @@ const components = [
 ];
 
 @NgModule({
-  imports: [SharedModule, MatTooltipModule],
+  imports: [SharedModule, MatTooltipModule, MatRippleModule],
   exports: [...components],
   declarations: [...components],
   providers: [InfoBoxFactoryService],
