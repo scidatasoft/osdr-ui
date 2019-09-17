@@ -1,34 +1,36 @@
-@import "_vars";
+@import '_vars';
 @import '_mixins';
-.about-view {
-  position: fixed;
-  top: 3.3rem;
-  bottom: 0;
-  overflow-y: visible;
-  overflow-x: hidden;
-  background: radial-gradient(ellipse at center, transparentize($bg-color, .1) 0%, transparentize($bg-color, .3) 100%);
-  width: 100%;
-}
+:host {
+  mat-card {
+    margin-top: 6.3rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
 
-.about-container {
-  margin: 6rem 1rem;
-}
+  h1 {
+    margin-top: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
 
-mat-card {
-  margin-top: 6.3rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
+  h5 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 22px;
+  }
 
-h1 {
-  margin-top: 1.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
-}
+  .about-view {
+    position: fixed;
+    top: 3.3rem;
+    bottom: 0;
+    overflow-y: visible;
+    overflow-x: hidden;
+    background: radial-gradient(ellipse at center, transparentize($bg-color, 0.1) 0%, transparentize($bg-color, 0.3) 100%);
+    width: 100%;
+  }
 
-h5 {
-  margin-top: 2.5rem;
-  margin-bottom: .5rem;
-  font-weight: 600;
-  font-size: 22px;
+  .about-container {
+    margin: 6rem 1rem;
+  }
 }
