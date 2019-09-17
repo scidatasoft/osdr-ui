@@ -33,4 +33,8 @@ export const environment = {
     ssp: false,
     labwiz: false,
   },
+  distribution: {
+    code: 'I___DISTRIBUTION_CODE___I',
+    title: 'I___DISTRIBUTION_TITLE___I',
+  },
 };

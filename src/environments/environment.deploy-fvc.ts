@@ -33,4 +33,10 @@ export const environment = {
     ssp: false,
     labwiz: false,
   },
+  distribution: [
+    {
+      code: 'fvc',
+      title: 'Feature Vector Calculation',
+    },
+  ],
 };

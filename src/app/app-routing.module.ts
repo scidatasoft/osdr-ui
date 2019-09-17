@@ -5,7 +5,6 @@ import { AuthProfileGuard } from 'app/core/services/auth/auth-profile-guard.guar
 import { environment } from 'environments/environment';
 
 import { CapabilitiesGuard } from './core/services/guards/capabilities.guard';
-import { LabwizComponent } from './views/labwiz/labwiz.component.';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,12 +27,6 @@ const routes: Routes = [
   {
     path: 'record',
     loadChildren: () => import('./views/record-view/record-view.module').then(m => m.RecordViewModule),
-  },
-  {
-    path: 'labwiz',
-    loadChildren: () => import('./views/labwiz/labwiz.module').then(m => m.LabWizModule),
-    canActivate: [CapabilitiesGuard],
-    data: { active: environment.capabilities.labwiz },
   },
   {
     path: 'predict',

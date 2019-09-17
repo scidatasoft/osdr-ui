@@ -33,4 +33,8 @@ export const environment = {
     ssp: false,
     labwiz: false,
   },
+  distribution: {
+    code: 'leanda',
+    title: 'Leanda',
+  },
 };

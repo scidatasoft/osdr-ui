@@ -33,4 +33,10 @@ export const environment = {
     ssp: false,
     labwiz: true,
   },
+  distribution: [
+    {
+      code: 'labwiz',
+      title: 'LabWiz',
+    },
+  ],
 };
