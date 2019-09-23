@@ -36,7 +36,7 @@ export const environment = {
     labwiz: false,
   },
   distribution: {
-    code: 'labwiz',
-    title: 'LabWiz',
+    code: 'leanda',
+    title: 'Leanda',
   },
 };
