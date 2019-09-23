@@ -3,10 +3,7 @@ import { environment } from 'environments/environment';
 
 @Injectable()
 export class PageTitleService {
-
-  set title(value) {
-    document.title = value + ' - Leanda';
+  set title(value: string) {
+    document.title = `${value} - Leanda`;
   }
-
-  constructor() { }
 }

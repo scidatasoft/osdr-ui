@@ -14,7 +14,7 @@ import { LeandaAboutComponent } from './distributions/leanda.component';
   styleUrls: ['./about-page.component.scss'],
 })
 export class AboutPageComponent implements OnInit {
-  selectedPortal: ComponentPortal<any>;
+  selectedPortal: ComponentPortal<Component>;
 
   constructor(private pageTitle: PageTitleService, private service: AboutPageService) {
     pageTitle.title = 'About';

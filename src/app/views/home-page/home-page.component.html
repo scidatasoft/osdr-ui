@@ -1,5 +1,9 @@
 <div class="container-fluid">
+  <ng-template [cdkPortalOutlet]="selectedPortal"></ng-template>
+  <dr-splash-notification></dr-splash-notification>
+</div>
 
+<!-- <div class="container-fluid">
   <div class="view-home">
     <div class="row">
       <div class="col-sm-12 text-center">
@@ -31,8 +35,10 @@
             </a>
             <h4>UPLOAD AND ORGANIZE</h4>
             <hr class="spear" />
-            <span>You can upload your files, transfer them from Google Drive, Box.com, DropBox.com etc. And - manage your data
-              your own way!</span>
+            <span
+              >You can upload your files, transfer them from Google Drive, Box.com, DropBox.com etc. And - manage your data your own
+              way!</span
+            >
           </div>
           <div class="capability">
             <a routerLink="#" class="hexagon">
@@ -50,9 +56,7 @@
             <h4>SHARE & ANNOTATE</h4>
             <hr class="spear" />
             <span>We support widely used vocabularies. Plus, you can add your own. Share your work with others.</span>
-
           </div>
-
         </div>
       </div>
     </div>
@@ -73,11 +77,11 @@
   </footer>
 
   <!--<div *ngIf="(!profileExists || error) && userLogin" class="events-box-home">-->
-  <!--<div class="events-box-header-home">-->
-  <!--<span>{{title}}</span>-->
-  <!--<img src="img/svg/browser-loader.svg" no-inline height="50" width="50"/>-->
-  <!--</div>-->
-  <!--</div>-->
+<!--<div class="events-box-header-home">-->
+<!--<span>{{title}}</span>-->
+<!--<img src="img/svg/browser-loader.svg" no-inline height="50" width="50"/>-->
+<!--</div>-->
+<!--</div>-->
 
-  <dr-splash-notification></dr-splash-notification>
-</div>
+<!-- <dr-splash-notification></dr-splash-notification>
+</div> -->
