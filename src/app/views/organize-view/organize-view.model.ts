@@ -132,6 +132,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
             case ActionMenuItemsManager.SOURCE_TOOLBAR:
               if (this.selectedItem.length === 0) {
                 if (
+                  // tslint:disable-next-line:prefer-switch
                   menuItem.name === ContextMenu.DELETE ||
                   menuItem.name === ContextMenu.RENAME ||
                   menuItem.name === ContextMenu.MOVE ||
@@ -155,6 +156,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 }
               } else if (this.selectedItem.length === 1 && this.selectedItem[0].authorizedOwner) {
                 if (
+                  // tslint:disable-next-line:prefer-switch
                   menuItem.name === ContextMenu.DELETE ||
                   menuItem.name === ContextMenu.RENAME ||
                   menuItem.name === ContextMenu.MOVE ||
@@ -185,6 +187,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   }
                 }
               } else if (this.selectedItem.every(x => x.authorizedOwner)) {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
@@ -204,6 +207,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   }
                 }
               } else {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
@@ -229,6 +233,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
               break;
             case ActionMenuItemsManager.SOURCE_FILE_BROWSER:
               if (this.selectedItem.length === 0) {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
@@ -238,6 +243,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 }
               } else if (this.selectedItem.length === 1 && this.selectedItem[0].authorizedOwner) {
                 if (
+                  // tslint:disable-next-line:prefer-switch
                   menuItem.name === ContextMenu.DELETE ||
                   menuItem.name === ContextMenu.RENAME ||
                   menuItem.name === ContextMenu.MOVE ||
@@ -288,6 +294,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = false;
                 }
               } else if (this.selectedItem.every(x => x.authorizedOwner)) {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
@@ -307,6 +314,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   }
                 }
               } else {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
@@ -347,6 +355,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
             case ActionMenuItemsManager.SOURCE_TOOLBAR:
               if (this.selectedItem.length === 0) {
                 if (
+                  // tslint:disable-next-line:prefer-switch
                   menuItem.name === ContextMenu.DELETE ||
                   menuItem.name === ContextMenu.RENAME ||
                   menuItem.name === ContextMenu.MOVE ||
@@ -370,6 +379,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 }
               } else if (this.selectedItem.length === 1) {
                 if (
+                  // tslint:disable-next-line:prefer-switch
                   menuItem.name === ContextMenu.DELETE ||
                   menuItem.name === ContextMenu.RENAME ||
                   menuItem.name === ContextMenu.MOVE ||
@@ -400,6 +410,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   }
                 }
               } else {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
@@ -422,6 +433,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
               break;
             case ActionMenuItemsManager.SOURCE_FILE_BROWSER:
               if (this.selectedItem.length === 0) {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = false;
@@ -431,6 +443,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 }
               } else if (this.selectedItem.length === 1) {
                 if (
+                  // tslint:disable-next-line:prefer-switch
                   menuItem.name === ContextMenu.DELETE ||
                   menuItem.name === ContextMenu.RENAME ||
                   menuItem.name === ContextMenu.MOVE ||
@@ -481,6 +494,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = false;
                 }
               } else {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
@@ -556,6 +570,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = false;
                 }
               } else if (this.selectedItem.length === 1) {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
@@ -602,6 +617,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                   menuItem.enabled = false;
                 }
               } else {
+                // tslint:disable-next-line:prefer-switch
                 if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                   menuItem.visible = true;
                   menuItem.enabled = true;
@@ -634,6 +650,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
             break;
           case ActionMenuItemsManager.SOURCE_FILE_BROWSER:
             if (this.selectedItem.length === 0) {
+              // tslint:disable-next-line:prefer-switch
               if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                 menuItem.visible = true;
                 menuItem.enabled = false;
@@ -645,6 +662,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 menuItem.enabled = false;
               }
             } else if (this.selectedItem.length === 1) {
+              // tslint:disable-next-line:prefer-switch
               if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.RENAME || menuItem.name === ContextMenu.MOVE) {
                 menuItem.visible = true;
                 menuItem.enabled = true;
@@ -691,6 +709,7 @@ export class ActionMenuItemsManager extends BaseMenuItemsManager {
                 menuItem.enabled = false;
               }
             } else {
+              // tslint:disable-next-line:prefer-switch
               if (menuItem.name === ContextMenu.DELETE || menuItem.name === ContextMenu.MOVE) {
                 menuItem.visible = true;
                 menuItem.enabled = true;

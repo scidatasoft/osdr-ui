@@ -109,7 +109,9 @@ export class SignalREventDataBasic {
 
   static Create(nodeType: NodeType, eventType: NodeEvent, data: any): SignalREventDataBasic {
     let signalRObject: SignalREventDataBasic = new SignalREventDataBasic(data);
+    // tslint:disable-next-line:prefer-switch
     if (nodeType === NodeType.Folder) {
+      // tslint:disable-next-line:switch-default
       switch (eventType) {
         case NodeEvent.FolderCreated: {
           signalRObject = new SignalREventDataFolderCreated(data);
@@ -125,6 +127,7 @@ export class SignalREventDataBasic {
         }
       }
     } else if (nodeType === NodeType.Model) {
+      // tslint:disable-next-line:switch-default
       switch (eventType) {
         case NodeEvent.ProcessingFinished: {
           signalRObject = new SignalREventProcessingFinished(data);
@@ -156,6 +159,7 @@ export class SignalREventDataBasic {
         }
       }
     } else if (nodeType === NodeType.File) {
+      // tslint:disable-next-line:switch-default
       switch (eventType) {
         case NodeEvent.FileCreated: {
           signalRObject = new SignalREventDataFileCreated(data);
@@ -183,6 +187,7 @@ export class SignalREventDataBasic {
         }
       }
     } else if (nodeType === NodeType.Record) {
+      // tslint:disable-next-line:switch-default
       switch (eventType) {
         case NodeEvent.PermissionsChanged: {
           signalRObject = new SignalREventPermissionChanged(data);

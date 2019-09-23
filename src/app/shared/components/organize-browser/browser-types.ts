@@ -172,7 +172,7 @@ export class BrowserDataItem {
     if (!this.isFolder()) {
       if (this.name.indexOf('.') >= 0) {
         const ext = this.name.split('.')[this.name.split('.').length - 1].toLowerCase();
-        const indexExt = this.name.indexOf('.' + ext);
+        const indexExt = this.name.indexOf(`.${ext}`);
         return this.name.slice(0, indexExt);
       } else {
         return this.name;
