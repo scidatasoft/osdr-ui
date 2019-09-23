@@ -10,16 +10,28 @@ import { CategoryNode } from '../../../shared/components/categories-tree/Categor
 export class CategoriesApiService {
   constructor(private http: HttpClient) {}
 
+  createNode(node: CategoryNode[]): Promise<boolean> {
+    return this.http.post<boolean>(`${environment.apiUrl}/categories`, node).toPromise();
+  }
+
+  getCategoryNode(id?: string): Promise<CategoryNode[]> {
+    return this.http.get<CategoryNode[]>(`${environment.apiUrl}/categories${id ? `/${id}/tree` : ''}`).toPromise();
+  }
+
+  updateCategoryNode(id: string, node: CategoryNode[]): Promise<boolean> {
+    return this.http.put<boolean>(`${environment.apiUrl}/categories/${id}/tree`, node).toPromise();
+  }
+
   getNode(id?: string): Promise<CategoryNode[]> {
     return this.http.get<CategoryNode[]>(`${environment.apiUrl}/tree${id ? `/${id}` : ''}`).toPromise();
   }
 
-  addNode(id: string, tree: CategoryNode[]): Promise<boolean> {
-    return this.http.post<boolean>(`${environment.apiUrl}/tree/${id}`, tree).toPromise();
+  addNode(id: string, nodeList: CategoryNode[]): Promise<boolean> {
+    return this.http.post<boolean>(`${environment.apiUrl}/tree/${id}`, nodeList).toPromise();
   }
 
-  updateNode(id: string, tree: CategoryNode[]): Promise<boolean> {
-    return this.http.put<boolean>(`${environment.apiUrl}/tree/${id}`, tree).toPromise();
+  updateNode(id: string, nodeList: CategoryNode[]): Promise<boolean> {
+    return this.http.put<boolean>(`${environment.apiUrl}/tree/${id}`, nodeList).toPromise();
   }
 
   deleteNode(id: string): Promise<boolean> {
