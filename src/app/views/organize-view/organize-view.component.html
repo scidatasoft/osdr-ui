@@ -59,7 +59,7 @@
       <span
         class="pr-2"
         [ngClass]="{ 'active-tab': currentSidebarTab === tab.type, 'v-separator pl-2': !first }"
-        (click)="currentSidebarTab = tab.type"
+        (click)="changeTab(tab.type)"
       >
         {{ tab.title }}
       </span>

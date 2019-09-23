@@ -3,6 +3,7 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { SidebarContentService } from 'app/shared/components/sidebar-content/sidebar-content.service';
 import { environment } from 'environments/environment';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { Observable, Subscription } from 'rxjs';
@@ -71,7 +72,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
   folderContextMenuManager: ActionMenuItemsManager = new ActionMenuItemsManager();
   disabledMenu = false;
   sidebarTab: any = ESidebarTab;
-  currentSidebarTab: ESidebarTab = ESidebarTab.FILTERS;
+  currentSidebarTab: ESidebarTab;
 
   tabs: ISidebarTab[] = [
     {
@@ -122,6 +123,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
     private notificationsApi: NotificationsApiService,
     private contextMenuService: ContextMenuService,
     private categoryService: CategoriesService,
+    private sidebarService: SidebarContentService,
   ) {
     super(foldersApi, entitiesApi);
 
@@ -236,6 +238,7 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
   }
 
   ngOnInit() {
+    this.currentSidebarTab = this.sidebarService.sidebarTab;
     this.dataService.subscribeToEvents();
     this.activatedRoute.queryParams.subscribe((queryParam: Params) => {
       if ('pageNumber' in queryParam) {
@@ -694,5 +697,10 @@ export class OrganizeViewComponent extends BrowserOptions implements OnInit, OnD
       queryParams: { search: data['searchString'] },
       relativeTo: this.activatedRoute,
     });
+  }
+
+  changeTab(value: ESidebarTab) {
+    this.currentSidebarTab = value;
+    this.sidebarService.sidebarTab = value;
   }
 }

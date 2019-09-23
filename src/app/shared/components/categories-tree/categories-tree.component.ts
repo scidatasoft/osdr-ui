@@ -74,8 +74,9 @@ export class CategoriesTreeComponent implements OnInit {
   currentFilter: EEntityFilter = undefined;
 
   ngOnInit() {
-    // Show Tree Mock before tree is loded
+    // Show Tree Mock before tree is loaded
     this.dataSource.data = TREE_DATA;
+    this.entityCounterService.updateCounters();
     this.entitiyFilter = this.entityCounterService.getCounter(EEntityFilter.ALL);
     this.currentFilter = this.entityCounterService.activeFilter;
     this.service.category = this.selectedNode;
